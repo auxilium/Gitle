@@ -5,9 +5,13 @@
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Linq;
     using System.Reflection;
+    using AntiCSRF;
     using Castle.MonoRail.Framework;
     using Castle.MonoRail.Framework.Filters;
+    using Helpers;
+    using Model;
     using NHibernate;
 
     #endregion
@@ -63,6 +67,20 @@
             {
                 CancelLayout();
             }
+
+            var username = (Context.CurrentUser as User)?.Name ?? "nouser";
+
+            var csrfAttributes = (CsrfAttribute[])method.GetCustomAttributes(typeof(CsrfAttribute), false);
+            var csrfToken = ConfigurationManager.AppSettings["csrfToken"];
+            if (csrfAttributes.Length > 0)
+            {
+                if (!request.Params.AllKeys.Contains("_csrfToken") || !AntiCSRFToken.ValidateToken(request.Params["_csrfToken"], csrfToken, username))
+                {
+                    throw new Exception("CSRF token not valid");
+                }
+            }
+
+            PropertyBag["csrfToken"] = AntiCSRFToken.GenerateToken(username, csrfToken);
 
             return base.InvokeMethod(method, request, extraArgs);
         }

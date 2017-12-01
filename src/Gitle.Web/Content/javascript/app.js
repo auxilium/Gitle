@@ -62,4 +62,13 @@
   
   // Focus on .focus elements
   $('form .focus[value=""]').focus();
+
+  // CSRF
+  $('form').each(function () {
+    var csrf = $('body').data('csrf');
+    $('body').on('submit', 'form', function(e) {
+      $('<input>').attr('type', 'hidden').attr('name', '_csrfToken').attr('value', csrf).appendTo($(this));
+      return true;
+    });
+  });
 });

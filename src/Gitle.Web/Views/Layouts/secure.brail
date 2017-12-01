@@ -49,8 +49,8 @@
   <script src="${Fingerprint.Tag('/Content/vendor/component/caret-position.js')}"> </script>
 
 </head>
-<body class="<% if CurrentUser.IsAdmin: %>admin<% end %> scroll">
-  <nav class="top-bar" data-topbar>
+<body class="<% if CurrentUser.IsAdmin: %>admin<% end %> scroll" data-csrf="${?csrfToken}">
+  <nav class="top-bar" data-topbar> 
     <ul class="title-area">
       <li class="name">
         <h1><a href="/"><img src="/Content/images/logo.png" /> ${t.AppName}</a></h1>
