@@ -64,11 +64,18 @@
   $('form .focus[value=""]').focus();
 
   // CSRF
+  var csrf = $('body').data('csrf');
   $('form').each(function () {
-    var csrf = $('body').data('csrf');
     $('body').on('submit', 'form', function(e) {
       $('<input>').attr('type', 'hidden').attr('name', '_csrfToken').attr('value', csrf).appendTo($(this));
       return true;
     });
   });
+  $.ajaxPrefilter(function (options, originalOptions) {
+    if (originalOptions.data == undefined) {
+      originalOptions.data = {};
+    }
+    options.data = $.param($.extend(originalOptions.data, { '_csrfToken': csrf }));
+  });
+
 });
