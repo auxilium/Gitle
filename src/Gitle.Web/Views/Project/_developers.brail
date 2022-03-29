@@ -1,0 +1,47 @@
+﻿<div class="row">
+  <div class="large-3 columns">Developers</div>
+  <div class="large-9 columns">
+    <table class="datatable tablesorter">
+      <thead>
+        <tr>
+          <th>Naam</th>
+          <th>E-mailadres</th>
+          <th>Zichtbaarheid</th>
+          <th>Notificaties</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% count = 0 %>
+        <% for developer in developers: %>
+        <% userProject = item.GetUserProject(developer) %>
+        <tr>
+          <td>
+            <input type="hidden" name="userProject[developer_${count}].Id" value="${userProject.Id}" />
+            <input type="hidden" name="userProject[developer_${count}].Project.Id" value="${item.Id}" />
+            <input type="hidden" name="userProject[developer_${count}].User.Id" value="${developer.Id}" />
+            ${?developer.Name}
+          </td>
+          <td>
+            ${?developer.EmailAddress}
+          </td>
+          <td>
+            <div class="inline-checkbox">
+              <input type="checkbox" name="userProject[developer_${count}].Subscribed" value="true"
+              <% if selectedUsers.Contains(developer): %>checked<% end %>/> Project is zichtbaar
+              <input type="hidden" name="userProject[developer_${count}].Subscribed" value="false" />
+            </div>
+          </td>
+          <td>
+            <div class="inline-checkbox">
+              <input type="checkbox" name="userProject[developer_${count}].Notifications" value="true"
+              <% if userProject.Notifications: %>checked<% end %>/> Notificaties ontvangen
+              <input type="hidden" name="userProject[developer_${count}].Notifications" value="false" />
+            </div>
+          </td>
+        </tr>
+        <% count++ %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -556,6 +556,7 @@
     <None Include="Views\Customer\index.brail" />
     <None Include="Views\Customer\view.brail" />
     <None Include="Views\Planning\index.brail" />
+    <Content Include="Views\Project\_customercontacts.brail" />
     <None Include="Views\Project\view.brail" />
     <Content Include="Views\Server\index.brail" />
     <Content Include="Views\Server\view.brail" />
@@ -563,6 +564,7 @@
     <Content Include="Views\Hosting\edit.brail" />
     <Content Include="Views\Hosting\index.brail" />
     <Content Include="Views\Hosting\view.brail" />
+    <Content Include="Views\Project\_developers.brail" />
     <None Include="Views\Template\invoice.brail" />
     <None Include="Views\Report\index.brail" />
     <Content Include="Views\User\issues.brail" />

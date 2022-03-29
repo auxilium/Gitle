@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
     using System.Text;
     using Castle.MonoRail.Framework;
     using Model;
@@ -169,6 +168,8 @@
             PropertyBag.Add("newNumbers", _projectNumberService.GetNextProjectNumbers());
             PropertyBag.Add("types", EnumHelper.ToList(typeof(ProjectType)));
             PropertyBag.Add("item", new Project());
+            PropertyBag.Add("selectedUsers", new List<User>());
+            PropertyBag.Add("developers", session.Query<User>().Where(x => x.IsActive && x.IsAdmin).OrderBy(x => x.Name).ToList());
             RenderView("edit");
         }
 
@@ -406,6 +407,26 @@
                 message = "Deze naam is al in gebruik, kies een andere";
             }
             return new {success = validName, message = message};
+        }
+
+        [Admin]
+        public void CustomerContacts(long projectId, long applicationId)
+        {
+            var project = session.Get<Project>(projectId) ?? new Project();
+            var application = session.Get<Application>(applicationId);
+            if (application?.Customer != null)
+            {
+                PropertyBag.Add("customerContacts", session.Query<User>().Where(x => x.IsActive && !x.IsAdmin && !x.IsDanielle && (x.Customer.Id == application.Customer.Id || x.Projects.Any(y => y.Project.Id == projectId))).OrderBy(x => x.Name).ToList());
+            }
+            else
+            {
+                PropertyBag.Add("customerContacts", session.Query<User>().Where(x => x.IsActive && !x.IsAdmin && !x.IsDanielle && x.Projects.Any(y => y.Project.Id == projectId)).OrderBy(x => x.Name).ToList());
+            }
+            PropertyBag.Add("selectedUsers", project.Users.Select(x => x.User).ToList());
+            PropertyBag.Add("item", project);
+            
+            CancelLayout();
+            RenderView("_customercontacts");
         }
 
         [Admin]
