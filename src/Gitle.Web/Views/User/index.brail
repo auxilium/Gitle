@@ -2,7 +2,8 @@
   <div class="large-12 columns">
     <h1>Gebruikers</h1>
     <a class="button" href="/user/new">Nieuw</a>
-    <table class="tablesorter small-blocks">
+    <input type="text" id="userSearch" onkeyup="filterTable()" placeholder="Zoeken..." />
+    <table id="userTable" class="tablesorter small-blocks">
       <thead>
         <tr>
           <th>Naam</th>
@@ -11,7 +12,7 @@
           <th>Emailadres</th>
           <th>Klant</th>
           <th>Admin</th>
-          <th style="width: 260px;"></th>
+          <th style="width: 200px;"></th>
         </tr>
       </thead>
       <tbody>
@@ -25,10 +26,10 @@
           <td class="admin"><span class="hide">${item.IsAdmin}</span><% if item.IsAdmin: %><i class="fa fa-check green"></i><% else: %><i class="fa fa-times red"></i><% end %></td>
           <td>
             <ul class="button-group">
-              <li><a class="button tiny no-margin" href="/user/${item.Id}/view">Details</a></li>
-              <li><a class="button tiny success no-margin" href="/user/${item.Id}/edit">Bewerk</a></li>
-              <li><a class="button tiny alert no-margin" href="/user/${item.Id}/delete" data-confirm="Weet je het zeker?">Verwijder</a></li>
-              <% if item.IsAdmin: %><li><a class="button tiny no-margin" href="/user/${item.Id}/issues">Taken</a></li><% end %>
+              <li><a class="button tiny no-margin" href="/user/${item.Id}/view" title="Details"><i class="fa fa-2x fa-fw fa-info"></i></a></li>
+              <li><a class="button tiny success no-margin" href="/user/${item.Id}/edit" title="Bewerk"><i class="fa fa-2x fa-fw fa-edit"></i></a></li>
+              <li><a class="button tiny alert no-margin" href="/user/${item.Id}/delete" data-confirm="Weet je het zeker?" title="Verwijder"><i class="fa fa-2x fa-fw fa-trash"></i></a></li>
+              <% if item.IsAdmin: %><li><a class="button tiny no-margin" href="/user/${item.Id}/issues" title="Taken"><i class="fa fa-2x fa-fw fa-list"></i></a></li><% end %>
             </ul>
           </td>
         </tr>
@@ -37,3 +38,20 @@
     </table>
   </div>
 </div>
+
+<script>
+  function filterTable() {
+    var input = $('#userSearch');
+    var term = input.val().toLowerCase();
+    var table = $('#userTable');
+    var rows = table.find('tbody tr');
+
+    rows.hide();
+    rows.find('td').each(function (i, e) {
+      var cell = $(e);
+      if (cell.html().toLowerCase().indexOf(term) > -1) {
+        cell.parent().show();
+      }
+    });
+  }
+</script>
