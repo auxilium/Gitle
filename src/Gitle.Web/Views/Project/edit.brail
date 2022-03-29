@@ -145,6 +145,110 @@
           </table>
         </div>
       </div>
+        
+      <% if item.Id > 0: %>
+
+      <% if item.Application is not null and item.Application.Customer is not null: %>
+
+      <div class="row">
+        <div class="large-3 columns">Klantcontacten</div>
+        <div class="large-9 columns">
+          <table class="datatable tablesorter">
+            <thead>
+              <tr>
+                <th>Naam</th>
+                <th>E-mailadres</th>
+                <th>Zichtbaarheid</th>
+                <th>Notificaties</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% count = 0 %>
+              <% for customerContact in customerContacts: %>
+              <% userProject = item.GetUserProject(customerContact) %>
+              <tr>
+                <td>
+                  <input type="hidden" name="userProject[${count}].Id" value="${userProject.Id}" />
+                  <input type="hidden" name="userProject[${count}].Project.Id" value="${item.Id}" />
+                  <input type="hidden" name="userProject[${count}].User.Id" value="${customerContact.Id}" />
+                  ${?customerContact.Name}
+                </td>
+                <td>
+                  ${?customerContact.EmailAddress}
+                </td>
+                <td>
+                  <div class="inline-checkbox">
+                    <input type="checkbox" name="userProject[${count}].Subscribed" value="true"
+                    <% if selectedUsers.Contains(customerContact): %>checked<% end %>/> Project is zichtbaar
+                    <input type="hidden" name="userProject[${count}].Subscribed" value="false" />
+                  </div>
+                </td>
+                <td>
+                  <div class="inline-checkbox">
+                    <input type="checkbox" name="userProject[${count}].Notifications" value="true"
+                    <% if userProject.Notifications: %>checked<% end %>/> Notificaties ontvangen
+                    <input type="hidden" name="userProject[${count}].Notifications" value="false" />
+                  </div>
+                </td>
+              </tr>
+              <% count++ %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <% end %>
+
+      <div class="row">
+        <div class="large-3 columns">Developers</div>
+        <div class="large-9 columns">
+          <table class="datatable tablesorter">
+            <thead>
+              <tr>
+                <th>Naam</th>
+                <th>E-mailadres</th>
+                <th>Zichtbaarheid</th>
+                <th>Notificaties</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for developer in developers: %>
+              <% userProject = item.GetUserProject(developer) %>
+              <tr>
+                <td>
+                  <input type="hidden" name="userProject[${count}].Id" value="${userProject.Id}" />
+                  <input type="hidden" name="userProject[${count}].Project.Id" value="${item.Id}" />
+                  <input type="hidden" name="userProject[${count}].User.Id" value="${developer.Id}" />
+                  ${?developer.Name}
+                </td>
+                <td>
+                  ${?developer.EmailAddress}
+                </td>
+                <td>
+                  <div class="inline-checkbox">
+                    <input type="checkbox" name="userProject[${count}].Subscribed" value="true"
+                    <% if selectedUsers.Contains(developer): %>checked<% end %>/> Project is zichtbaar
+                    <input type="hidden" name="userProject[${count}].Subscribed" value="false" />
+                  </div>
+                </td>
+                <td>
+                  <div class="inline-checkbox">
+                    <input type="checkbox" name="userProject[${count}].Notifications" value="true"
+                    <% if userProject.Notifications: %>checked<% end %>/> Notificaties ontvangen
+                    <input type="hidden" name="userProject[${count}].Notifications" value="false" />
+                  </div>
+                </td>
+              </tr>
+              <% count++ %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <% end %>
+
       <div class="row">
         <div class="large-12 columns"><input type="submit" class="button" value="Opslaan" /></div>
       </div>

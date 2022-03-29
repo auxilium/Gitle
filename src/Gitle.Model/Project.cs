@@ -148,5 +148,10 @@
         }
 
         private static double PercentageOf(int numerator, int denominator) => denominator == 0 ? 0 : numerator / (denominator * 1.0) * 100;
+
+        public virtual UserProject GetUserProject(User user)
+        {
+            return Users.FirstOrDefault(x => x.User == user) ?? new UserProject();
+        }
     }
 }

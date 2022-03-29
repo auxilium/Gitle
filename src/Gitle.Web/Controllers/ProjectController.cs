@@ -183,6 +183,13 @@
             PropertyBag.Add("item", project);
             PropertyBag.Add("customerId", project.Application?.Customer?.Id);
             PropertyBag.Add("newNumbers", _projectNumberService.GetNextProjectNumbers());
+            PropertyBag.Add("selectedUsers", project.Users.Select(x => x.User).ToList());
+            if (project.Application?.Customer != null)
+            {
+                PropertyBag.Add("customerContacts", session.Query<User>().Where(x => x.IsActive && !x.IsAdmin && !x.IsDanielle && (x.Customer.Id == project.Application.Customer.Id || x.Projects.Any(y => y.Project.Id == project.Id))).OrderBy(x => x.Name).ToList());
+
+            }
+            PropertyBag.Add("developers", session.Query<User>().Where(x => x.IsActive && x.IsAdmin).OrderBy(x => x.Name).ToList());
         }
 
         [Admin]
@@ -223,6 +230,26 @@
 
             var labelsToDelete = item.Labels.Where(l => !labels.Select(x => x.Id).Contains(l.Id)).ToList();
 
+            var userProjects = BindObject<UserProject[]>("userProject");
+
+            var subscriptions = userProjects.Where(x => x.Subscribed).ToList();
+
+            var userProjectsToDelete = item.Users.Where(user => subscriptions.All(subscription => subscription.Id != user.Id)).ToList();
+
+            foreach (var subscription in subscriptions)
+            {
+                var userProject = item.Users.FirstOrDefault(x => x.Id > 0 && x.Id == subscription.Id);
+                if (userProject != null)
+                {
+                    userProject.Notifications = subscription.Notifications;
+                }
+                else
+                {
+                    subscription.Project = item;
+                    item.Users.Add(subscription);
+                }
+            }
+
             using (var tx = session.BeginTransaction())
             {
                 session.SaveOrUpdate(item);
@@ -235,6 +262,11 @@
                 {
                     item.Labels.Remove(label);
                     session.Delete(label);
+                }
+                foreach (var userProject in userProjectsToDelete)
+                {
+                    userProject.User = null;
+                    item.Users.Remove(userProject);
                 }
                 tx.Commit();
             }
