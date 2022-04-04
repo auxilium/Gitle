@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.IO;
     using System.Linq;
     using System.Net.Mail;
@@ -23,6 +24,8 @@
         private readonly string _sourceAddress;
         private readonly DefaultSmtpSender _defaultSmtpSender;
 
+        private readonly string _issue_action_notification_mail_address;
+
         private static readonly FileAssemblyViewSourceLoader ViewSourceLoader =
             new FileAssemblyViewSourceLoader(Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views"), "Mail"));
 
@@ -38,6 +41,8 @@
             this._testMode = testMode;
             this._logger = logger;
             this._session = sessionFactory.GetCurrentSession();
+
+            _issue_action_notification_mail_address = ConfigurationManager.AppSettings["issue_action_notification_mail_address"];
         }
         #region IEmailService Members
 
@@ -55,7 +60,7 @@
                 var servicedesk = new User()
                 {
                     IsAdmin = true,
-                    EmailAddress = "servicedesk@auxilium.nl"
+                    EmailAddress = _issue_action_notification_mail_address
                 };
                 users.Add(servicedesk);
             }
