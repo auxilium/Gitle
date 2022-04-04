@@ -8,6 +8,7 @@
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.MonoRail.Framework;
     using Castle.MonoRail.WindsorExtension;
+    using Castle.Services.Logging.Log4netIntegration;
     using Castle.Windsor;
     using Castle.Windsor.Configuration.Interpreters;
     using Castle.Windsor.Installer;
@@ -44,7 +45,7 @@
         {
             public void Install(IWindsorContainer container, IConfigurationStore store)
             {
-                container.AddFacility<LoggingFacility>(f => f.UseLog4Net());
+                container.AddFacility<LoggingFacility>(f => f.LogUsing<Log4netFactory>());
             }
         }
 

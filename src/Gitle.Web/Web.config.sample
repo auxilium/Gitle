@@ -30,8 +30,11 @@
   </monorail>
   <brail debug="false" saveToDisk="false" saveDirectory="BrailGen" batch="false" commonScriptsDirectory="CommonScripts">
     <import namespace="Gitle.Model" />
+    <import namespace="Gitle.Model.Helpers" />
+    <import namespace="Gitle.Web.Helpers" />
     <import namespace="System" />
     <import namespace="Boo.Lang.Builtins" />
+    <import namespace="System.Net" />
   </brail>
   <castle configSource="castle.config" />
   <system.net>
@@ -43,17 +46,18 @@
   </system.net>
   <system.web>
     <machineKey validationKey="A4BDB723FB89A2633B732FA2EE8AA7D231DDF44E819DBE42A2881106A1A66837" decryptionKey="4387CD05A0357E2F13BB0867CC7206A0ADC366C4733A12C142BD67D60CC2BB4C" validation="SHA1" decryption="AES" />
+    <httpRuntime requestValidationMode="2.0" maxRequestLength="40960" executionTimeout="1200" />
     <authentication mode="Forms">
       <forms loginUrl="/signin" timeout="43200" slidingExpiration="true" />
     </authentication>
     <httpModules>
       <add name="routing" type="Castle.MonoRail.Framework.Routing.RoutingModuleEx, Castle.MonoRail.Framework" />
-      <add name="PerRequestLifestyle" type="Castle.MicroKernel.Lifestyle.PerWebRequestLifestyleModule, Castle.Windsor" />
+      <add name="PerRequestLifestyle" type="Castle.Facilities.AspNet.SystemWeb.PerWebRequestLifestyleModule, Castle.Facilities.AspNet.SystemWeb" />
     </httpModules>
     <httpHandlers>
       <add verb="*" path="*.rails" type="Castle.MonoRail.Framework.MonoRailHttpHandlerFactory, Castle.MonoRail.Framework" />
     </httpHandlers>
-    <compilation debug="true" targetFramework="4.7.1" />
+    <compilation debug="true" targetFramework="4.8" />
   </system.web>
   <system.webServer>
     <handlers>
@@ -61,32 +65,40 @@
     </handlers>
     <modules runAllManagedModulesForAllRequests="true">
       <add name="routing" type="Castle.MonoRail.Framework.Routing.RoutingModuleEx, Castle.MonoRail.Framework" />
-      <add name="PerRequestLifestyle" type="Castle.MicroKernel.Lifestyle.PerWebRequestLifestyleModule, Castle.Windsor" />
+      <add name="PerRequestLifestyle" type="Castle.Facilities.AspNet.SystemWeb.PerWebRequestLifestyleModule, Castle.Facilities.AspNet.SystemWeb" />
     </modules>
     <validation validateIntegratedModeConfiguration="false" />
   </system.webServer>
   <runtime>
-    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
-      <dependentAssembly>
-        <assemblyIdentity name="Castle.Core" publicKeyToken="407dd0808d44fbdc" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-3.3.0.0" newVersion="3.3.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="NHibernate" publicKeyToken="aa95f207798dfdb4" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-4.0.0.4000" newVersion="4.0.0.4000" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="Castle.Components.Validator" publicKeyToken="407dd0808d44fbdc" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-3.2.0.0" newVersion="3.2.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-10.0.0.0" newVersion="10.0.0.0" />
-      </dependentAssembly>
-      <dependentAssembly>
-        <assemblyIdentity name="Castle.Windsor" publicKeyToken="407dd0808d44fbdc" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-3.3.0.0" newVersion="3.3.0.0" />
-      </dependentAssembly>
-    </assemblyBinding>
+	  <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+		  <dependentAssembly>
+			  <assemblyIdentity name="Castle.Core" publicKeyToken="407dd0808d44fbdc" culture="neutral" />
+			  <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
+		  </dependentAssembly>
+		  <dependentAssembly>
+			  <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+			  <bindingRedirect oldVersion="0.0.0.0-13.0.0.0" newVersion="13.0.0.0" />
+		  </dependentAssembly>
+		  <dependentAssembly>
+			  <assemblyIdentity name="Castle.Windsor" publicKeyToken="407dd0808d44fbdc" culture="neutral" />
+			  <bindingRedirect oldVersion="0.0.0.0-5.0.0.0" newVersion="5.0.0.0" />
+		  </dependentAssembly>
+		  <dependentAssembly>
+			  <assemblyIdentity name="NHibernate" publicKeyToken="aa95f207798dfdb4" culture="neutral" />
+			  <bindingRedirect oldVersion="0.0.0.0-5.3.0.0" newVersion="5.3.0.0" />
+		  </dependentAssembly>
+		  <dependentAssembly>
+			  <assemblyIdentity name="Iesi.Collections" publicKeyToken="aa95f207798dfdb4" culture="neutral" />
+			  <bindingRedirect oldVersion="0.0.0.0-4.0.0.4000" newVersion="4.0.0.4000" />
+		  </dependentAssembly>
+		  <dependentAssembly>
+			  <assemblyIdentity name="Castle.Components.Validator" publicKeyToken="407dd0808d44fbdc" culture="neutral" />
+			  <bindingRedirect oldVersion="0.0.0.0-3.2.0.0" newVersion="3.2.0.0" />
+		  </dependentAssembly>
+		  <dependentAssembly>
+			  <assemblyIdentity name="log4net" publicKeyToken="669e0ddf0bb1aa2a" culture="neutral" />
+			  <bindingRedirect oldVersion="0.0.0.0-2.0.14.0" newVersion="2.0.14.0" />
+		  </dependentAssembly>
+	  </assemblyBinding>
   </runtime>
 </configuration>
