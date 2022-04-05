@@ -24,7 +24,7 @@
 
             PropertyBag.Add("initialProjects", initialProjects);
             PropertyBag.Add("serviceProjects", serviceProjects);
-            PropertyBag.Add("serviceProjectsMaxOpenIssues", serviceProjects.Max(project => project.OpenIssues.Count));
+            PropertyBag.Add("serviceProjectsMaxOpenIssues", serviceProjects.Any() ? serviceProjects.Max(project => project.OpenIssues.Count) : 0);
         }
 
         public void ExportOpenTicketsByProject()

@@ -11,35 +11,41 @@
         </tr>
       </thead>
       <tbody>
-        <% count = 0 %>
-        <% for customerContact in customerContacts: %>
-        <% userProject = item.GetUserProject(customerContact) %>
-        <tr>
-          <td>
-            <input type="hidden" name="userProject[customer_${count}].Id" value="${userProject.Id}" />
-            <input type="hidden" name="userProject[customer_${count}].Project.Id" value="${item.Id}" />
-            <input type="hidden" name="userProject[customer_${count}].User.Id" value="${customerContact.Id}" />
-            ${?customerContact.Name}
-          </td>
-          <td>
-            ${?customerContact.EmailAddress}
-          </td>
-          <td>
-            <div class="inline-checkbox">
-              <input type="checkbox" name="userProject[customer_${count}].Subscribed" value="true"
-              <% if selectedUsers.Contains(customerContact): %>checked<% end %>/> Project is zichtbaar
-              <input type="hidden" name="userProject[customer_${count}].Subscribed" value="false" />
-            </div>
-          </td>
-          <td>
-            <div class="inline-checkbox">
-              <input type="checkbox" name="userProject[customer_${count}].Notifications" value="true"
-              <% if userProject.Notifications: %>checked<% end %>/> Notificaties ontvangen
-              <input type="hidden" name="userProject[customer_${count}].Notifications" value="false" />
-            </div>
-          </td>
-        </tr>
-        <% count++ %>
+        <% if customerContacts.Count == 0: %>
+				<tr class="hidden">
+					<td></td>
+				</tr>
+	      <% else: %>
+		      <% count = 0 %>
+	        <% for customerContact in customerContacts: %>
+	        <% userProject = item.GetUserProject(customerContact) %>
+	        <tr>
+	          <td>
+	            <input type="hidden" name="userProject[customer_${count}].Id" value="${userProject.Id}" />
+	            <input type="hidden" name="userProject[customer_${count}].Project.Id" value="${item.Id}" />
+	            <input type="hidden" name="userProject[customer_${count}].User.Id" value="${customerContact.Id}" />
+	            ${?customerContact.Name}
+	          </td>
+	          <td>
+	            ${?customerContact.EmailAddress}
+	          </td>
+	          <td>
+	            <div class="inline-checkbox">
+	              <input type="checkbox" name="userProject[customer_${count}].Subscribed" value="true"
+	              <% if selectedUsers.Contains(customerContact): %>checked<% end %>/> Project is zichtbaar
+	              <input type="hidden" name="userProject[customer_${count}].Subscribed" value="false" />
+	            </div>
+	          </td>
+	          <td>
+	            <div class="inline-checkbox">
+	              <input type="checkbox" name="userProject[customer_${count}].Notifications" value="true"
+	              <% if userProject.Notifications: %>checked<% end %>/> Notificaties ontvangen
+	              <input type="hidden" name="userProject[customer_${count}].Notifications" value="false" />
+	            </div>
+	          </td>
+	        </tr>
+	        <% count++ %>
+	        <% end %>
         <% end %>
       </tbody>
     </table>

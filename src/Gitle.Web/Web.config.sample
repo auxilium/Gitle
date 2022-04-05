@@ -21,6 +21,8 @@
     <add key="uploadController_ImageExtensions" value=".jpg, .png, .gif" />
     <add key="uploadController_DocumentExtensions" value=".doc,.docx,.xls,.xlsx,.xlsm,.pdf,.json,.txt,.xml,.xsd,.msg,.apk,.zip,.pptx,.ppt" />
     <add key="issue_action_notification_mail_address" value="servicedesk@example.nl" />
+    <add key="provider" value="Auxilium" />
+    <add key="provider_phone" value="0900 - 289 454 86" />
   </appSettings>
   <connectionStrings>
     <add name="Gitle" connectionString="Server=STATLER2016;Initial Catalog=Gitle;Integrated Security=SSPI;" />

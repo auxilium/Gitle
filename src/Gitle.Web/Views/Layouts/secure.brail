@@ -140,8 +140,8 @@
         <p>This is a project by Auxilium B.V.</p>
       </div>
       <div class="large-4 small-4 columns text-right">
-        <h1>Auxilium</h1>
-        <p>0900 - 289 454 86</p>
+        <h1>${provider}</h1>
+        <p>${provider_phone}</p>
       </div>
     </div>
   </div>

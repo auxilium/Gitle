@@ -4,6 +4,7 @@
 
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Reflection;
     using Castle.MonoRail.Framework;
     using Castle.MonoRail.Framework.Filters;
@@ -54,6 +55,10 @@
 #endif
             PropertyBag.Add("RELEASE", release);
 
+            PropertyBag.Add("provider", ConfigurationManager.AppSettings["provider"]);
+            PropertyBag.Add("provider_phone", ConfigurationManager.AppSettings["provider_phone"]);
+
+ 
             if (Convert.ToBoolean(request.Params["cancelLayout"]))
             {
                 CancelLayout();
