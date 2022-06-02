@@ -1,32 +1,32 @@
 ﻿<div class="row">
   <div class="large-12 columns">
-    <h1>Gegevens bewerken</h1>
+    <h1>${t.Profile_Edit}</h1>
     <form action="/user/saveprofile" method="POST" autocomplete="off">
       ${Form.HiddenField("item.Id")}
       <div class="row">
-        <div class="large-3 columns">Volledige naam</div>
+        <div class="large-3 columns">${t.Full_Name}</div>
         <div class="large-9 columns" id="fullname">${Form.TextField("item.FullName")}</div>
       </div>
       <div class="row">
-        <div class="large-3 columns">Inlog</div>
+        <div class="large-3 columns">${t.User_Name}</div>
         <div class="large-9 columns" id="name">${Form.TextField("item.Name")}</div>
       </div>
       <div class="row">
-        <div class="large-3 columns">Nieuw wachtwoord</div>
+        <div class="large-3 columns">${t.New_Password}</div>
         <div class="large-9 columns" id="password">${Form.PasswordField("password")}</div>
       </div>
       <div class="row">
-        <div class="large-3 columns">Telefoonnummer</div>
+        <div class="large-3 columns">${t.Phone}</div>
         <div class="large-9 columns" id="phone">${Form.TextField("item.Phone")}</div>
       </div>
       <div class="row">
-        <div class="large-3 columns">Emailadres</div>
+        <div class="large-3 columns">${t.Email}</div>
         <div class="large-9 columns" id="email">${Form.TextField("item.Emailaddress")}</div>
       </div>
       <div class="row">
         <div class="large-3 columns">Default filtering</div>
         <div class="large-9 columns">
-          ${Form.Select("item.DefaultState", {"0": "Alle taken", "1": "Open taken", "2": "Voltooide taken"}, {"value": "Key", "text": "Value"})}
+          ${Form.Select("item.DefaultState", {"0": t.Tasks_All, "1": t.Tasks_Open, "2": t.Tasks_Completed}, {"value": "Key", "text": "Value"})}
         </div>
       </div>
       <div class="row">
@@ -35,8 +35,8 @@
           <table id="filterpresets">
             <thead>
               <tr>
-                <th>Verwijder</th>
-                <th>Naam</th>
+                <th>${t.Delete}</th>
+                <th>${t.Name}</th>
                 <th>FilterString</th>
               </tr>
             </thead>
@@ -58,14 +58,14 @@
         </div>
       </div>
       <div class="row projects">
-        <div class="large-3 columns">Notificaties</div>
+        <div class="large-3 columns">${t.Notifications}</div>
         <div class="large-9 columns">
           <table id="notifications">
             <thead>
               <tr>
-                <th title="Notificaties ontvangen"><i class="fa fa-bell"></i></th>
-                <th title="Alleen van zelf aangemaakt tickets"><i class="fa fa-street-view"></i></th>
-                <th>Project</th>
+                <th title="${t.Notifications_Receive}"><i class="fa fa-bell"></i></th>
+                <th title="${t.Notifications_OnlyOwnTickets}"><i class="fa fa-street-view"></i></th>
+                <th>${t.Project}</th>
               </tr>
             </thead>
             <tbody>

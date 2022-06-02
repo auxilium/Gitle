@@ -70,6 +70,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alle toegevoegd.
+        /// </summary>
+        public static string AddedAll {
+            get {
+                return ResourceManager.GetString("AddedAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stad.
         /// </summary>
         public static string Address_City {
@@ -205,6 +214,24 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opgepakt.
+        /// </summary>
+        public static string Assigned {
+            get {
+                return ResourceManager.GetString("Assigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Behandelaar.
+        /// </summary>
+        public static string Assignee {
+            get {
+                return ResourceManager.GetString("Assignee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to om.
         /// </summary>
         public static string At {
@@ -219,6 +246,33 @@ namespace Gitle.Localization {
         public static string Authenticate_Failed {
             get {
                 return ResourceManager.GetString("Authenticate_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Terug naar overzicht.
+        /// </summary>
+        public static string BackToIndex {
+            get {
+                return ResourceManager.GetString("BackToIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geboekt.
+        /// </summary>
+        public static string Booked {
+            get {
+                return ResourceManager.GetString("Booked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to door.
+        /// </summary>
+        public static string By {
+            get {
+                return ResourceManager.GetString("By", resourceCulture);
             }
         }
         
@@ -241,6 +295,24 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geopend.
+        /// </summary>
+        public static string ChangeState_Opened {
+            get {
+                return ResourceManager.GetString("ChangeState_Opened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heropend.
+        /// </summary>
+        public static string ChangeState_Reopened {
+            get {
+                return ResourceManager.GetString("ChangeState_Reopened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kies.
         /// </summary>
         public static string Choose {
@@ -259,6 +331,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sluiten.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gesloten.
         /// </summary>
         public static string Closed {
@@ -268,11 +349,83 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gesloten op.
+        /// </summary>
+        public static string ClosedOn {
+            get {
+                return ResourceManager.GetString("ClosedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuwe reactie.
+        /// </summary>
+        public static string Comment_New {
+            get {
+                return ResourceManager.GetString("Comment_New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comments.
+        /// </summary>
+        public static string Comments {
+            get {
+                return ResourceManager.GetString("Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compleet.
         /// </summary>
         public static string Complete {
             get {
                 return ResourceManager.GetString("Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uitgevoerd.
+        /// </summary>
+        public static string Completed {
+            get {
+                return ResourceManager.GetString("Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bevat een label.
+        /// </summary>
+        public static string ContainsLabel {
+            get {
+                return ResourceManager.GetString("ContainsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bevat labels.
+        /// </summary>
+        public static string ContainsLabels {
+            get {
+                return ResourceManager.GetString("ContainsLabels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bevat niet labels.
+        /// </summary>
+        public static string ContainsNotLabels {
+            get {
+                return ResourceManager.GetString("ContainsNotLabels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aangemaakt op.
+        /// </summary>
+        public static string CreatedOn {
+            get {
+                return ResourceManager.GetString("CreatedOn", resourceCulture);
             }
         }
         
@@ -574,6 +727,24 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Klantcontacten.
+        /// </summary>
+        public static string CustomerContacts {
+            get {
+                return ResourceManager.GetString("CustomerContacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen klantcontacten bekend.
+        /// </summary>
+        public static string CustomerContacts_None {
+            get {
+                return ResourceManager.GetString("CustomerContacts_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Klanten.
         /// </summary>
         public static string Customers {
@@ -592,11 +763,56 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Omschrijving.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bestemmingen.
         /// </summary>
         public static string Destinations {
             get {
                 return ResourceManager.GetString("Destinations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Developers.
+        /// </summary>
+        public static string Developers {
+            get {
+                return ResourceManager.GetString("Developers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen developers gevonden.
+        /// </summary>
+        public static string Developers_None {
+            get {
+                return ResourceManager.GetString("Developers_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Documenten.
+        /// </summary>
+        public static string Documents {
+            get {
+                return ResourceManager.GetString("Documents", resourceCulture);
             }
         }
         
@@ -610,11 +826,38 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bewerk.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emailadres.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exporteer.
         /// </summary>
         public static string Export {
             get {
                 return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuw filter.
+        /// </summary>
+        public static string Filter_New {
+            get {
+                return ResourceManager.GetString("Filter_New", resourceCulture);
             }
         }
         
@@ -633,6 +876,15 @@ namespace Gitle.Localization {
         public static string Friday {
             get {
                 return ResourceManager.GetString("Friday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volledige naam.
+        /// </summary>
+        public static string Full_Name {
+            get {
+                return ResourceManager.GetString("Full_Name", resourceCulture);
             }
         }
         
@@ -709,6 +961,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Doorgegeven.
+        /// </summary>
+        public static string HandedOver {
+            get {
+                return ResourceManager.GetString("HandedOver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to On hold.
         /// </summary>
         public static string Hold {
@@ -723,6 +984,204 @@ namespace Gitle.Localization {
         public static string Independently {
             get {
                 return ResourceManager.GetString("Independently", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taak.
+        /// </summary>
+        public static string Issue {
+            get {
+                return ResourceManager.GetString("Issue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archiveer taak.
+        /// </summary>
+        public static string Issue_Archive {
+            get {
+                return ResourceManager.GetString("Issue_Archive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sluit taak.
+        /// </summary>
+        public static string Issue_Close {
+            get {
+                return ResourceManager.GetString("Issue_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taak uitgevoerd.
+        /// </summary>
+        public static string Issue_Completed {
+            get {
+                return ResourceManager.GetString("Issue_Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taak bewerken.
+        /// </summary>
+        public static string Issue_Edit {
+            get {
+                return ResourceManager.GetString("Issue_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taak doorgeven.
+        /// </summary>
+        public static string Issue_Forward {
+            get {
+                return ResourceManager.GetString("Issue_Forward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuwe taak.
+        /// </summary>
+        public static string Issue_New {
+            get {
+                return ResourceManager.GetString("Issue_New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taak on hold.
+        /// </summary>
+        public static string Issue_OnHold {
+            get {
+                return ResourceManager.GetString("Issue_OnHold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taak oppakken.
+        /// </summary>
+        public static string Issue_PickUp {
+            get {
+                return ResourceManager.GetString("Issue_PickUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heropen taak.
+        /// </summary>
+        public static string Issue_Reopen {
+            get {
+                return ResourceManager.GetString("Issue_Reopen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taak {1} is aangepast door {0}.
+        /// </summary>
+        public static string IssueAction_Change_EmailSubject {
+            get {
+                return ResourceManager.GetString("IssueAction_Change_EmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De taak is aangepast.
+        /// </summary>
+        public static string IssueAction_Change_Text {
+            get {
+                return ResourceManager.GetString("IssueAction_Change_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is gereageerd op taak {1} door {0}.
+        /// </summary>
+        public static string IssueAction_Comment_EmailSubject {
+            get {
+                return ResourceManager.GetString("IssueAction_Comment_EmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De taak is doorgegeven.
+        /// </summary>
+        public static string IssueAction_HandOver_Text {
+            get {
+                return ResourceManager.GetString("IssueAction_HandOver_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De taak is opgepakt.
+        /// </summary>
+        public static string IssueAction_PickUp_Text {
+            get {
+                return ResourceManager.GetString("IssueAction_PickUp_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taken.
+        /// </summary>
+        public static string Issues {
+            get {
+                return ResourceManager.GetString("Issues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verplaats taken.
+        /// </summary>
+        public static string Issues_Move {
+            get {
+                return ResourceManager.GetString("Issues_Move", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opnieuw nummeren.
+        /// </summary>
+        public static string Issues_Renumber {
+            get {
+                return ResourceManager.GetString("Issues_Renumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geselecteerde taken.
+        /// </summary>
+        public static string Issues_Selected {
+            get {
+                return ResourceManager.GetString("Issues_Selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Label toevoegen.
+        /// </summary>
+        public static string Label_Add {
+            get {
+                return ResourceManager.GetString("Label_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Labels.
+        /// </summary>
+        public static string Labels {
+            get {
+                return ResourceManager.GetString("Labels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Laatst gewijzigd.
+        /// </summary>
+        public static string LastChanged {
+            get {
+                return ResourceManager.GetString("LastChanged", resourceCulture);
             }
         }
         
@@ -786,6 +1245,15 @@ namespace Gitle.Localization {
         public static string Ms {
             get {
                 return ResourceManager.GetString("Ms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -880,11 +1348,38 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geef een naam op.
+        /// </summary>
+        public static string Name_Required {
+            get {
+                return ResourceManager.GetString("Name_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ondersteuning nodig.
         /// </summary>
         public static string NeedsSupport {
             get {
                 return ResourceManager.GetString("NeedsSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuw.
+        /// </summary>
+        public static string New {
+            get {
+                return ResourceManager.GetString("New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuw wachtwoord.
+        /// </summary>
+        public static string New_Password {
+            get {
+                return ResourceManager.GetString("New_Password", resourceCulture);
             }
         }
         
@@ -898,6 +1393,24 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geen labels om te filteren.
+        /// </summary>
+        public static string NoLabelsToFilter {
+            get {
+                return ResourceManager.GetString("NoLabelsToFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niet opgepakt.
+        /// </summary>
+        public static string NotAssigned {
+            get {
+                return ResourceManager.GetString("NotAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opmerking.
         /// </summary>
         public static string Note {
@@ -907,11 +1420,119 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notificaties.
+        /// </summary>
+        public static string Notifications {
+            get {
+                return ResourceManager.GetString("Notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U ontvangt geen notificaties..
+        /// </summary>
+        public static string Notifications_NotSubscribed {
+            get {
+                return ResourceManager.GetString("Notifications_NotSubscribed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alleen van zelf aangemaakte tickets.
+        /// </summary>
+        public static string Notifications_OnlyOwnTickets {
+            get {
+                return ResourceManager.GetString("Notifications_OnlyOwnTickets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notificaties ontvangen.
+        /// </summary>
+        public static string Notifications_Receive {
+            get {
+                return ResourceManager.GetString("Notifications_Receive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to U ontvangt notificaties..
+        /// </summary>
+        public static string Notifications_Subscribed {
+            get {
+                return ResourceManager.GetString("Notifications_Subscribed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to op.
+        /// </summary>
+        public static string On {
+            get {
+                return ResourceManager.GetString("On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On hold.
+        /// </summary>
+        public static string OnHold {
+            get {
+                return ResourceManager.GetString("OnHold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alleen huidige project.
+        /// </summary>
+        public static string OnlyCurrentProject {
+            get {
+                return ResourceManager.GetString("OnlyCurrentProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
         public static string Open {
             get {
                 return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deze link is verlopen..
+        /// </summary>
+        public static string Password_Change_Error_Expired {
+            get {
+                return ResourceManager.GetString("Password_Change_Error_Expired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De wachtwoorden komen niet overeen. Probeer opnieuw..
+        /// </summary>
+        public static string Password_Change_Error_Mismatch {
+            get {
+                return ResourceManager.GetString("Password_Change_Error_Mismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een mail verstuurd indien het adres bij ons bekend is..
+        /// </summary>
+        public static string Password_Change_Sent {
+            get {
+                return ResourceManager.GetString("Password_Change_Sent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uw wachtwoord is met succes gewijzigd. U kunt hieronder inloggen met uw nieuwe wachtwoord..
+        /// </summary>
+        public static string Password_Change_Success {
+            get {
+                return ResourceManager.GetString("Password_Change_Success", resourceCulture);
             }
         }
         
@@ -1051,6 +1672,114 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Telefoonnummer.
+        /// </summary>
+        public static string Phone {
+            get {
+                return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to opgepakt.
+        /// </summary>
+        public static string PickedUp {
+            get {
+                return ResourceManager.GetString("PickedUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plaats reactie.
+        /// </summary>
+        public static string PlaceComment {
+            get {
+                return ResourceManager.GetString("PlaceComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gegevens wijzigen.
+        /// </summary>
+        public static string Profile_Edit {
+            get {
+                return ResourceManager.GetString("Profile_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        public static string Project {
+            get {
+                return ResourceManager.GetString("Project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dit project is gesloten, er kunnen geen taken meer aangemaakt worden..
+        /// </summary>
+        public static string Project_Closed {
+            get {
+                return ResourceManager.GetString("Project_Closed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projectdetails.
+        /// </summary>
+        public static string Project_Details {
+            get {
+                return ResourceManager.GetString("Project_Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projectinformatie.
+        /// </summary>
+        public static string Project_Information {
+            get {
+                return ResourceManager.GetString("Project_Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deze naam is al in gebruik, kies een andere.
+        /// </summary>
+        public static string Project_Name_AlreadyExists {
+            get {
+                return ResourceManager.GetString("Project_Name_AlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voer een naam in.
+        /// </summary>
+        public static string Project_Name_Required {
+            get {
+                return ResourceManager.GetString("Project_Name_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projecten.
+        /// </summary>
+        public static string Projects {
+            get {
+                return ResourceManager.GetString("Projects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Laat gesloten projecten zien.
+        /// </summary>
+        public static string Projects_ShowClosed {
+            get {
+                return ResourceManager.GetString("Projects_ShowClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieuw wachtwoord aanvragen.
         /// </summary>
         public static string ResetPassword {
@@ -1074,6 +1803,15 @@ namespace Gitle.Localization {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opslaan en nieuw.
+        /// </summary>
+        public static string SaveAndNew {
+            get {
+                return ResourceManager.GetString("SaveAndNew", resourceCulture);
             }
         }
         
@@ -1105,6 +1843,51 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ingelogd als.
+        /// </summary>
+        public static string SignedInAs {
+            get {
+                return ResourceManager.GetString("SignedInAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inloggen.
+        /// </summary>
+        public static string SignIn {
+            get {
+                return ResourceManager.GetString("SignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login met GitHub.
+        /// </summary>
+        public static string SignIn_GitHub {
+            get {
+                return ResourceManager.GetString("SignIn_GitHub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorteren.
+        /// </summary>
+        public static string Sort {
+            get {
+                return ResourceManager.GetString("Sort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string State {
+            get {
+                return ResourceManager.GetString("State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zondag.
         /// </summary>
         public static string Sunday {
@@ -1123,6 +1906,60 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Takenlijst.
+        /// </summary>
+        public static string TaskList {
+            get {
+                return ResourceManager.GetString("TaskList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle taken.
+        /// </summary>
+        public static string Tasks_All {
+            get {
+                return ResourceManager.GetString("Tasks_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voltooide taken.
+        /// </summary>
+        public static string Tasks_Completed {
+            get {
+                return ResourceManager.GetString("Tasks_Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open taken.
+        /// </summary>
+        public static string Tasks_Open {
+            get {
+                return ResourceManager.GetString("Tasks_Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voortgang taken.
+        /// </summary>
+        public static string Tasks_Progress {
+            get {
+                return ResourceManager.GetString("Tasks_Progress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De taak.
+        /// </summary>
+        public static string TheIssue {
+            get {
+                return ResourceManager.GetString("TheIssue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to donderdag.
         /// </summary>
         public static string Thursday {
@@ -1132,11 +1969,56 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tijdlijn.
+        /// </summary>
+        public static string Timeline {
+            get {
+                return ResourceManager.GetString("Timeline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to aan.
+        /// </summary>
+        public static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dinsdag.
         /// </summary>
         public static string Tuesday {
             get {
                 return ResourceManager.GetString("Tuesday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ongeboekt.
+        /// </summary>
+        public static string Unbooked {
+            get {
+                return ResourceManager.GetString("Unbooked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datum geupload.
+        /// </summary>
+        public static string UploadDate {
+            get {
+                return ResourceManager.GetString("UploadDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploader.
+        /// </summary>
+        public static string Uploader {
+            get {
+                return ResourceManager.GetString("Uploader", resourceCulture);
             }
         }
         

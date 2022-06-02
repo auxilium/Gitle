@@ -1,18 +1,19 @@
-﻿namespace Gitle.Web.Controllers
+﻿using Gitle.Localization;
+
+namespace Gitle.Web.Controllers
 {
     #region Usings
 
-    using System.Collections;
-    using System.Configuration;
-    using System.Linq;
-    using System.Web.Security;
+    using Castle.MonoRail.Framework;
     using Model;
     using Model.Helpers;
     using Model.Interfaces.Service;
     using Model.Nested;
     using NHibernate;
-    using Castle.MonoRail.Framework;
-    using NHibernate.Linq;
+    using System.Collections;
+    using System.Configuration;
+    using System.Linq;
+    using System.Web.Security;
 
     #endregion
 
@@ -47,7 +48,7 @@
 
             if (user is User.NullUser || string.IsNullOrEmpty(password) || !user.Password.Match(password))
             {
-                Error("Inloggen mislukt", true);
+                Error(Language.Authenticate_Failed, true);
                 return;
             }
 
@@ -61,13 +62,13 @@
 
         public void ForgotPassword()
         {
-            
+
         }
 
         public void RequestReset(string email)
         {
             var users = session.Query<User>().Where(x => !string.IsNullOrWhiteSpace(email) && x.IsActive && x.EmailAddress == email).ToList();
-            
+
             if (users.Any())
             {
                 users.ForEach(
@@ -77,27 +78,27 @@
                         user.Password.GenerateHash();
 
                         emailService.SendPasswordLink(user);
-                using (var tx = session.BeginTransaction())
-                {
+                        using (var tx = session.BeginTransaction())
+                        {
                             session.SaveOrUpdate(user);
-                    tx.Commit();
-                }
+                            tx.Commit();
+                        }
                     });
             }
-            Information("Er is een mail verstuurd indien het adres bij ons bekend is.", true);
+            Information(Language.Password_Change_Sent, true);
         }
 
         public void ChangePassword(string hash)
         {
             var users = session.QueryOver<User>().Where(x => x.IsActive).And(x => x.Password.Hash == hash).List();
-            
+
             if (users.Count > 0 && !string.IsNullOrEmpty(hash))
             {
                 PropertyBag.Add("hash", hash);
             }
             else
             {
-                PropertyBag.Add("error", "Deze link is verlopen");
+                PropertyBag.Add("error", Language.Password_Change_Error_Expired);
             }
         }
 
@@ -107,7 +108,7 @@
             if (password != passwordCheck)
             {
 
-                PropertyBag.Add("error", "De wachtwoorden komen niet overeen. Probeer opnieuw.");
+                PropertyBag.Add("error", Language.Password_Change_Error_Mismatch);
                 PropertyBag.Add("hash", hash);
                 RenderView("changepassword");
             }
@@ -125,7 +126,7 @@
                     tx.Commit();
                 }
 
-                Flash.Add("message", "Uw wachtwoord is met succes gewijzigd. U kunt hieronder inloggen met uw nieuwe wachtwoord.");
+                Flash.Add("message", Language.Password_Change_Success);
                 RenderView("index");
                 Index("", "", false, "");
             }

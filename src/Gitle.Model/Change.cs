@@ -1,8 +1,10 @@
-﻿namespace Gitle.Model
+﻿using Gitle.Localization;
+
+namespace Gitle.Model
 {
-    using System;
     using Helpers;
     using Interfaces.Model;
+    using System;
 
     public class Change : Touchable, IIssueAction
     {
@@ -16,7 +18,7 @@
             {
                 return
                     string.Format(
-                        "De taak is aangepast{0}",
+                        "{0}{1}", Language.IssueAction_Change_Text,
                         User != null ? string.Format(" door <strong>{0}</strong>", User.FullName) : "");
             }
         }
@@ -27,12 +29,12 @@
             {
                 return
                     string.Format(
-                        "De taak is aangepast{0} op <strong>{1}</strong>",
-                        User != null ? string.Format(" door <strong>{0}</strong>", User.FullName) : "",
+                        "{0}{2} {1} <strong>{3}</strong>", Language.IssueAction_Change_Text, Language.On,
+                        User != null ? string.Format(" {0} <strong>{1}</strong>", Language.By, User.FullName) : "",
                         DateTimeHelper.Readable(CreatedAt));
             }
         }
 
-        public virtual string EmailSubject { get { return string.Format("Taak {1} is aangepast door {0}", User != null ? User.FullName : "", Issue.Number); } }
+        public virtual string EmailSubject { get { return string.Format(Language.IssueAction_Change_EmailSubject, User != null ? User.FullName : "", Issue.Number); } }
     }
 }

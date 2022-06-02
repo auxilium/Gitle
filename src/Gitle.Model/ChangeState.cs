@@ -1,11 +1,11 @@
 ﻿namespace Gitle.Model
 {
-    using System;
-    using System.Linq;
     using Enum;
     using Helpers;
     using Interfaces.Model;
     using Localization;
+    using System;
+    using System.Linq;
 
     public class ChangeState : Touchable, IIssueAction
     {
@@ -19,15 +19,15 @@
             get
             {
                 var state = Language.ResourceManager.GetString(IssueState.ToString()).ToLower();
-                state = (state == "open") ? "geopend" : state;
+                state = (IssueState == IssueState.Open) ? Language.ChangeState_Opened.ToLower() : state;
                 var openings = Issue.ChangeStates.Where(x => x.IssueState == IssueState.Open).ToList();
                 if (openings.Count() > 1 && openings.OrderByDescending(x => x.CreatedAt).Last() != this &&
                     IssueState == IssueState.Open)
                 {
-                    state = "heropend";
+                    state = Language.ChangeState_Reopened.ToLower();
                 }
-                return string.Format("De taak is {0}{1}", state,
-                                     User != null ? string.Format(" door {0}", User.FullName) : "");
+                return string.Format("{2} is {0}{1}", state,
+                                     User != null ? string.Format(" {1} {0}", User.FullName, Language.By) : "", Language.TheIssue);
             }
         }
 
@@ -36,32 +36,33 @@
             get
             {
                 var state = Language.ResourceManager.GetString(IssueState.ToString()).ToLower();
-                state = (state == "open") ? "geopend" : state;
+                state = (IssueState == IssueState.Open) ? Language.ChangeState_Opened.ToLower() : state;
 
                 var openings = Issue.ChangeStates.Where(x => x.IssueState == IssueState.Open).ToList();
                 if (openings.Count() > 1 && openings.OrderByDescending(x => x.CreatedAt).Last() != this &&
                     IssueState == IssueState.Open)
                 {
-                    state = "heropend";
+                    state = Language.ChangeState_Reopened.ToLower();
                 }
-                return string.Format("De taak is {0}{1} op <strong>{2}</strong>", state,
-                                     User != null ? string.Format(" door <strong>{0}</strong>", User.FullName) : "", DateTimeHelper.Readable(CreatedAt));
+                return string.Format("{4} is {0}{1} {3} <strong>{2}</strong>", state,
+                                     User != null ? string.Format(" {1} <strong>{0}</strong>", User.FullName, Language.By) : "", DateTimeHelper.Readable(CreatedAt), Language.On, Language.TheIssue);
             }
         }
 
         public virtual string EmailSubject
         {
-            get {
+            get
+            {
                 var state = Language.ResourceManager.GetString(IssueState.ToString()).ToLower();
-                state = (state == "open") ? "geopend" : state;
+                state = (IssueState == IssueState.Open) ? Language.ChangeState_Opened.ToLower() : state;
                 var openings = Issue.ChangeStates.Where(x => x.IssueState == IssueState.Open).ToList();
                 if (openings.Count() > 1 && openings.OrderByDescending(x => x.CreatedAt).Last() != this &&
                     IssueState == IssueState.Open)
                 {
-                    state = "heropend";
+                    state = Language.ChangeState_Reopened.ToLower();
                 }
-                return string.Format("Taak {2} is {0}{1}", state,
-                                     User != null ? string.Format(" door {0}", User.FullName) : "", Issue.Number);
+                return string.Format("{3} {2} is {0}{1}", state,
+                                     User != null ? string.Format(" {1} {0}", User.FullName, Language.By) : "", Issue.Number, Language.Issue);
             }
         }
     }

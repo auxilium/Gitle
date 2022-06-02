@@ -1,8 +1,10 @@
-﻿namespace Gitle.Model
+﻿using Gitle.Localization;
+
+namespace Gitle.Model
 {
-    using System;
     using Helpers;
     using Interfaces.Model;
+    using System;
 
     public class HandOver : Touchable, IIssueAction
     {
@@ -17,9 +19,9 @@
             {
                 return
                     string.Format(
-                        "De taak is doorgegeven{0}{1}",
-                        User != null ? string.Format(" aan <strong>{0}</strong>", User.FullName) : "",
-                        ByUser != null ? string.Format(" door <strong>{0}</strong>", ByUser.FullName) : "");
+                        "{2}{0}{1}",
+                        User != null ? string.Format(" {1} <strong>{0}</strong>", User.FullName, Language.To) : "",
+                        ByUser != null ? string.Format(" {1} <strong>{0}</strong>", ByUser.FullName, Language.By) : "", Language.IssueAction_HandOver_Text);
             }
         }
 
@@ -29,17 +31,23 @@
             {
                 return
                     string.Format(
-                        "De taak is doorgegeven{0}{1} op <strong>{2}</strong>",
-                        User != null ? string.Format(" aan <strong>{0}</strong>", User.FullName) : "",
-                        ByUser != null ? string.Format(" door <strong>{0}</strong>", ByUser.FullName) : "",
-                        DateTimeHelper.Readable(CreatedAt));
+                        "{3}{0}{1} {4} <strong>{2}</strong>",
+                        User != null ? string.Format(" {1} <strong>{0}</strong>", User.FullName, Language.To) : "",
+                        ByUser != null ? string.Format(" {1} <strong>{0}</strong>", ByUser.FullName, Language.By) : "",
+                        DateTimeHelper.Readable(CreatedAt), Language.IssueAction_HandOver_Text, Language.On);
             }
         }
 
-        public virtual string EmailSubject { get { return string.Format("Taak {2} is doorgegeven{0}{1}",
-                                                                        User != null ? string.Format(" aan {0}", User.FullName) : "",
-                                                                        ByUser != null ? string.Format(" door {0}", ByUser.FullName) : "",
-                                                                        Issue.Number); } }
+        public virtual string EmailSubject
+        {
+            get
+            {
+                return string.Format("{3} {2} is {4}{0}{1}",
+                                     User != null ? string.Format(" {1} {0}", User.FullName, Language.To) : "",
+                                     ByUser != null ? string.Format(" {1} {0}", ByUser.FullName, Language.By) : "",
+                                     Issue.Number, Language.Issue, Language.HandedOver.ToLower());
+            }
+        }
 
 
     }

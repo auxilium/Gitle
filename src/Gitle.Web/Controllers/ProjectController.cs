@@ -1,18 +1,19 @@
-﻿namespace Gitle.Web.Controllers
+﻿using Gitle.Localization;
+
+namespace Gitle.Web.Controllers
 {
+    using Castle.MonoRail.Framework;
+    using Helpers;
+    using Model;
+    using Model.Enum;
+    using Model.Helpers;
+    using Model.Interfaces.Service;
+    using NHibernate;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Text;
-    using Castle.MonoRail.Framework;
-    using Model;
-    using Helpers;
-    using Model.Enum;
-    using Model.Helpers;
-    using Model.Interfaces.Service;
-    using NHibernate;
-    using NHibernate.Linq;
     using ViewModel;
 
     public class ProjectController : SecureController
@@ -28,7 +29,7 @@
         public void Index(string customerSlug, string applicationSlug)
         {
             if (CurrentUser.Projects.Count == 1 && !CurrentUser.IsAdmin)
-                RedirectUsingNamedRoute("issues", new {projectSlug = CurrentUser.Projects.First().Project.Slug});
+                RedirectUsingNamedRoute("issues", new { projectSlug = CurrentUser.Projects.First().Project.Slug });
 
             if (!string.IsNullOrEmpty(applicationSlug))
             {
@@ -109,7 +110,7 @@
 
             var data = projects.Select(x => new ProjectListViewModel(x));
 
-            return new {draw, start, length, recordsTotal, recordsFiltered, data};
+            return new { draw, start, length, recordsTotal, recordsFiltered, data };
         }
 
         [MustHaveProject]
@@ -393,7 +394,7 @@
             suggestions.AddRange(projects.ToList().Select(x => new Suggestion(x.CompleteName, x.Id.ToString(),
                 x.TicketRequiredForBooking ? "ticketRequired" : string.Empty,
                 x.Unbillable ? "unbillable" : string.Empty, x.Slug)));
-            return new {query, suggestions};
+            return new { query, suggestions };
         }
 
         [return: JSONReturnBinder]
@@ -401,12 +402,12 @@
         {
             var validName = !session.Query<Project>()
                 .Any(x => x.IsActive && x.Slug == name.Slugify() && x.Id != projectId);
-            var message = "Voer een naam in";
+            var message = Language.Project_Name_Required;
             if (!validName)
             {
-                message = "Deze naam is al in gebruik, kies een andere";
+                message = Language.Project_Name_AlreadyExists;
             }
-            return new {success = validName, message = message};
+            return new { success = validName, message = message };
         }
 
         [Admin]
@@ -424,7 +425,7 @@
             }
             PropertyBag.Add("selectedUsers", project.Users.Select(x => x.User).ToList());
             PropertyBag.Add("item", project);
-            
+
             CancelLayout();
             RenderView("_customercontacts");
         }
@@ -438,7 +439,7 @@
             {
                 var customers = project.Users.Where(up => !up.User.IsAdmin && !up.User.CanBookHours).ToList();
                 if (customers.Count == 0 && !project.Closed)
-                exportProjects.Add(project);
+                    exportProjects.Add(project);
             }
 
             var csv = CsvHelper.ProjectCsv(exportProjects);

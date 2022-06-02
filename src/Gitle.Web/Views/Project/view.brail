@@ -5,14 +5,16 @@
         <h1>${project.Name} #${project.Number}</h1>
       </div>
       <div class="small-2 columns text-right" style="padding-top: 15px;">
-        <a class="button" href="/project/${project.Slug}/edit">Bewerk</a>
+        <% if CurrentUser.IsAdmin: %>
+        <a class="button" href="/project/${project.Slug}/edit">${t.Edit}</a>
+        <% end %>
       </div>
     </div>
     
     <% if project.Closed: %>
-    <p class="red">Dit project is gesloten, er kunnen geen taken meer aangemaakt worden.</p>
+    <p class="red">${t.Project_Closed}</p>
     <% end %>
-    <span>Comments</span>
+    <span>${t.Comments}</span>
     <textarea data-live-comments="/project/${project.Slug}/comments">${?project.Comments}</textarea>
 
     <% if CurrentUser.IsAdmin: %>
@@ -34,7 +36,7 @@
     </div>
     <% end %>
     <div class="row">
-      <div class="large-2 columns">Voortgang taken</div>
+      <div class="large-2 columns">${t.Tasks_Progress}</div>
       <div class="large-8 columns">
         <div class="progress success round" id="issue-progress">
           <% if CurrentUser.IsAdmin: %>
@@ -74,24 +76,24 @@
     <% if project.Information: %>
     <div class="row">
       <div class="large-12 columns">
-        <h2>Projectinformatie</h2>
+        <h2>${t.Project_Information}</h2>
         <div class="marked">${project.Information}</div>
       </div>
     </div>
     <% end %>
     <div class="row">
       <div class="large-12 columns">
-        <h2>Klantcontacten</h2>
+        <h2>${t.CustomerContacts}</h2>
         <% if customers.Count == 0: %>
-        <p>Geen klantencontacten bekend</p>
+        <p>${t.CustomerContacts_None}</p>
         <% else: %>
         <table class="small-blocks" id="customers">
           <thead>
             <tr>
-              <th>Naam</th>
-              <th>Telefoonnummer</th>
-              <th>Emailadres</th>
-              <th title="Notificaties"><i class="fa fa-bell"></i></th>
+              <th>${t.Name}</th>
+              <th>${t.Phone}</th>
+              <th>${t.Email}</th>
+              <th title="${t.Notifications}"><i class="fa fa-bell"></i></th>
             </tr>
           </thead>
           <tbody>
@@ -110,17 +112,17 @@
     </div>
     <div class="row">
       <div class="large-12 columns">
-        <h2>Developers</h2>
+        <h2>${t.Developers}</h2>
         <% if developers.Count == 0: %>
-        <p>Geen developers gevonden</p>
+        <p>${t.Developers_None}</p>
         <% else: %>
         <table class="small-blocks" id="developers">
           <thead>
             <tr>
-              <th>Naam</th>
-              <th>Telefoonnummer</th>
-              <th>Emailadres</th>
-              <th title="Notificaties"><i class="fa fa-bell"></i></th>
+              <th>${t.Name}</th>
+              <th>${t.Phone}</th>
+              <th>${t.Email}</th>
+              <th title="${t.Notifications}"><i class="fa fa-bell"></i></th>
             </tr>
           </thead>
           <tbody>
@@ -139,13 +141,13 @@
     </div>
     <div class="row">
       <div class="large-12 columns">
-        <h2>Documenten</h2>
+        <h2>${t.Documents}</h2>
         <table class="small-blocks uploadlist" id="documents" data-url="/upload/projectdocument?id=${project.Id}" data-template="#document-template" data-template-container="#documents-container">
           <thead>
             <tr>
-              <th>Naam</th>
-              <th>Datum geupload</th>
-              <th>Uploader</th>
+              <th>${t.Name}</th>
+              <th>${t.UploadDate}</th>
+              <th>${t.Uploader}</th>
               <th></th>
             </tr>
           </thead>
@@ -155,7 +157,7 @@
               <td class="name"><a href="${document.Path}">${document.Name}</a></td>
               <td class="date">${document.DateString}</td>
               <td class="date">${document.UserFullName}</td>
-              <td><a class="button alert tiny no-margin" href="/project/${project.Slug}/deletedocument/${document.Id}">delete</a></td>
+              <td><a class="button alert tiny no-margin" href="/project/${project.Slug}/deletedocument/${document.Id}">${t.Delete}</a></td>
             </tr>
             <% end %>
           </tbody>
@@ -189,6 +191,6 @@
     <td class="name"><a href="{{path}}">{{name}}</a></td>
     <td class="date">{{date}}</td>
     <td class="date">{{uploader}}</td>
-    <td><a class="button alert tiny no-margin" href="/project/${project.Slug}/deletedocument/{{id}}">delete</a></td>
+    <td><a class="button alert tiny no-margin" href="/project/${project.Slug}/deletedocument/{{id}}">${t.Delete}</a></td>
   </tr>
 </script>

@@ -121,376 +121,226 @@
     <value>Gitle</value>
   </data>
   <data name="Authenticate_Failed" xml:space="preserve">
-    <value>Inloggen niet gelukt</value>
+    <value>Login failed</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
-    <value>Wachtwoord vergeten</value>
+    <value>Forgot password</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
   <data name="Login_Persistent" xml:space="preserve">
-    <value>Ingelogd blijven</value>
+    <value>Remember me</value>
   </data>
   <data name="ResetPassword" xml:space="preserve">
-    <value>Nieuw wachtwoord aanvragen</value>
+    <value>Reset password</value>
   </data>
   <data name="User_Name" xml:space="preserve">
-    <value>Gebruikersnaam</value>
+    <value>Username</value>
   </data>
   <data name="User_Password" xml:space="preserve">
-    <value>Wachtwoord</value>
-  </data>
-  <data name="Person_Address" xml:space="preserve">
-    <value>Adres</value>
-  </data>
-  <data name="Person_Name" xml:space="preserve">
-    <value>Naam</value>
+    <value>Password</value>
   </data>
   <data name="Address_City" xml:space="preserve">
-    <value>Stad</value>
+    <value>City</value>
   </data>
   <data name="Address_Housenumber" xml:space="preserve">
-    <value>Huisnummer</value>
+    <value>House number</value>
   </data>
   <data name="Address_HousenumberExtension" xml:space="preserve">
-    <value>Toevoeging</value>
+    <value>Extension</value>
   </data>
   <data name="Address_Street" xml:space="preserve">
-    <value>Straat</value>
+    <value>Street</value>
   </data>
   <data name="Address_Zipcode" xml:space="preserve">
-    <value>Postcode</value>
+    <value>Postal code</value>
   </data>
   <data name="Customers" xml:space="preserve">
-    <value>Klanten</value>
+    <value>Customers</value>
   </data>
   <data name="Customer_Add" xml:space="preserve">
-    <value>Klant toevoegen</value>
+    <value>Add customer</value>
   </data>
   <data name="Customer_InActive" xml:space="preserve">
-    <value>Gearchiveerde klanten</value>
+    <value>Archived customers</value>
   </data>
   <data name="Name_Firstname" xml:space="preserve">
-    <value>Voornaam</value>
+    <value>First name</value>
   </data>
   <data name="Name_Lastname" xml:space="preserve">
-    <value>Achternaam</value>
+    <value>Last name</value>
   </data>
   <data name="Name_Middlename" xml:space="preserve">
-    <value>Tussenvoegsel</value>
-  </data>
-  <data name="Person_ContactInformation" xml:space="preserve">
-    <value>Contact informatie</value>
-  </data>
-  <data name="Person_Note" xml:space="preserve">
-    <value>Opmerkingen</value>
+    <value>Prefix</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Annuleren</value>
+    <value>Cancel</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Opslaan</value>
+    <value>Save</value>
   </data>
   <data name="Address_City_Help" xml:space="preserve">
-    <value>Stad</value>
+    <value>City</value>
   </data>
   <data name="Address_HousenumberExtension_Help" xml:space="preserve">
-    <value>Eventueele toevoeging</value>
+    <value>Any extension to the house number</value>
   </data>
   <data name="Address_Housenumber_Help" xml:space="preserve">
-    <value>Alleen het nummer</value>
+    <value>Only the number without extension</value>
   </data>
   <data name="Address_Street_Help" xml:space="preserve">
-    <value>Straatnaam</value>
+    <value>Name of the street</value>
   </data>
   <data name="Address_Zipcode_Help" xml:space="preserve">
-    <value>Postcode formaat: '1111 XX'</value>
+    <value>Postal code format: '1111 XX'</value>
   </data>
   <data name="Name_Firstname_Help" xml:space="preserve">
-    <value>Voornaam</value>
+    <value>First name</value>
   </data>
   <data name="Name_Lastname_Help" xml:space="preserve">
-    <value>Achternaam zonder tussenvoegsel</value>
+    <value>Last name without any prefixes</value>
   </data>
   <data name="Name_Middlename_Help" xml:space="preserve">
-    <value>Tussenvoegsel o.a. : 'van' enz.</value>
-  </data>
-  <data name="Person_Note_Help" xml:space="preserve">
-    <value>Vul hier alle niet geclassificeerde informatie in.</value>
-  </data>
-  <data name="Person_Availability" xml:space="preserve">
-    <value>Beschikbaarheid</value>
-  </data>
-  <data name="Person_AvailabilityNote" xml:space="preserve">
-    <value>Beschikbaarheid opmerkingen</value>
-  </data>
-  <data name="Person_AvailabilityNote_Help" xml:space="preserve">
-    <value>Vul hier alle extra informatie in m.b.t. beschikbaarheid.</value>
-  </data>
-  <data name="Person_DateOfBirth" xml:space="preserve">
-    <value>Geboortedatum</value>
-  </data>
-  <data name="Person_DateOfBirth_Error" xml:space="preserve">
-    <value>Geen geldige datum</value>
-  </data>
-  <data name="Person_DateOfBirth_Help" xml:space="preserve">
-    <value>Geboortedatum van de persoon</value>
+    <value>Prefix e.g.: 'of' etc.</value>
   </data>
   <data name="Archive" xml:space="preserve">
-    <value>Archiveer</value>
+    <value>Archive</value>
   </data>
   <data name="Customer_Active" xml:space="preserve">
-    <value>Actieve Klanten</value>
-  </data>
-  <data name="Customer_Mobility" xml:space="preserve">
-    <value>Mobiliteit</value>
-  </data>
-  <data name="Customer_Mobility_Help" xml:space="preserve">
-    <value>Vul hier eventuele mobiliteitsproblemen van de klant in. Bijv. rollator, inklapbare rolstoel, rolstoelgebonden e.d.</value>
+    <value>Active customers</value>
   </data>
   <data name="Customer_RegisterDate" xml:space="preserve">
-    <value>Inschrijvingsdatum</value>
+    <value>Registration date</value>
   </data>
   <data name="Customer_RegisterDate_Help" xml:space="preserve">
-    <value>Wanneer is deze persoon ingeschreven is in het systeem.</value>
+    <value>When is this person registered in the system</value>
   </data>
   <data name="Customer_RegisteredBy" xml:space="preserve">
-    <value>Ingeschreven door</value>
+    <value>Registered by</value>
   </data>
   <data name="Customer_Registration" xml:space="preserve">
-    <value>Inschrijving</value>
+    <value>Registration</value>
   </data>
   <data name="Customer_RegisteredBy_Help" xml:space="preserve">
-    <value>De persoon die deze klant heeft ingeschreven</value>
+    <value>The person that registered this customer</value>
   </data>
   <data name="Customer" xml:space="preserve">
-    <value>Klant</value>
-  </data>
-  <data name="Volunteer" xml:space="preserve">
-    <value>Vrijwilliger</value>
+    <value>Customer</value>
   </data>
   <data name="Active" xml:space="preserve">
-    <value>Activeer</value>
+    <value>Activate</value>
   </data>
   <data name="At" xml:space="preserve">
-    <value>om</value>
+    <value>at</value>
   </data>
   <data name="Choose" xml:space="preserve">
-    <value>Kies</value>
-  </data>
-  <data name="Customer_Create_Match" xml:space="preserve">
-    <value>Afspraak maken</value>
+    <value>Choose</value>
   </data>
   <data name="Customer_Edit" xml:space="preserve">
-    <value>Bewerk klant</value>
-  </data>
-  <data name="Customer_HouseVisit" xml:space="preserve">
-    <value>Huisbezoek</value>
-  </data>
-  <data name="Customer_HouseVisitDate" xml:space="preserve">
-    <value>Datum van huisbezoek</value>
-  </data>
-  <data name="Customer_HouseVisitDate_Help" xml:space="preserve">
-    <value>Geef aan op welke datum deze klant een huisbezoek wenst</value>
-  </data>
-  <data name="Customer_HouseVisit_Help" xml:space="preserve">
-    <value>Geef aan of deze klant een huisbezoek wenst</value>
-  </data>
-  <data name="Customer_HouseVisit_Label" xml:space="preserve">
-    <value>ja, deze klant wenst een huisbezoek</value>
+    <value>Edit customer</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>nee</value>
+    <value>no</value>
   </data>
   <data name="Note" xml:space="preserve">
-    <value>Opmerking</value>
+    <value>Note</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>ja</value>
+    <value>yes</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Zoeken</value>
+    <value>Search</value>
   </data>
   <data name="Search_Customer" xml:space="preserve">
-    <value>Zoek een klant</value>
+    <value>Search for a customer</value>
   </data>
   <data name="Address_Note" xml:space="preserve">
-    <value>Opmerking</value>
+    <value>Note</value>
   </data>
   <data name="Address_Note_Help" xml:space="preserve">
-    <value>evt. Bijzonderheden bij het ophalen</value>
+    <value>Any additional required information for pick-up</value>
   </data>
   <data name="Name_Initials" xml:space="preserve">
-    <value>Voorletters</value>
+    <value>Initials</value>
   </data>
   <data name="Name_Initials_Help" xml:space="preserve">
-    <value>Voorletters</value>
+    <value>Initials</value>
   </data>
   <data name="Name_Gender" xml:space="preserve">
-    <value>Geslacht</value>
+    <value>Gender</value>
   </data>
   <data name="Name_Gender_Help" xml:space="preserve">
-    <value>Geslacht</value>
+    <value>Gender</value>
   </data>
   <data name="Change" xml:space="preserve">
-    <value>wijzig</value>
+    <value>change</value>
   </data>
   <data name="Clear_Search" xml:space="preserve">
-    <value>Wis zoekresultaten</value>
+    <value>Clear search results</value>
   </data>
   <data name="Mr" xml:space="preserve">
-    <value>Dhr.</value>
+    <value>Mr.</value>
   </data>
   <data name="Ms" xml:space="preserve">
-    <value>Mw.</value>
+    <value>Ms.</value>
   </data>
   <data name="Sign_Out" xml:space="preserve">
-    <value>Afmelden</value>
+    <value>Sign out</value>
   </data>
   <data name="Export" xml:space="preserve">
-    <value>Exporteer</value>
+    <value>Export</value>
   </data>
   <data name="Month" xml:space="preserve">
-    <value>Maand</value>
+    <value>Month</value>
   </data>
   <data name="Month_Help" xml:space="preserve">
-    <value>Kies een maand</value>
+    <value>Choose a month</value>
   </data>
   <data name="Year" xml:space="preserve">
-    <value>Jaar</value>
+    <value>Year</value>
   </data>
   <data name="Year_Help" xml:space="preserve">
-    <value>Kies een jaar</value>
-  </data>
-  <data name="Destinations" xml:space="preserve">
-    <value>Bestemmingen</value>
-  </data>
-  <data name="Person_Phone" xml:space="preserve">
-    <value>Telefoonnummer</value>
-  </data>
-  <data name="Person_Phone_Help" xml:space="preserve">
-    <value>Telefoonnummer, bijv. 0612345678</value>
-  </data>
-  <data name="Customer_CanCookAlone" xml:space="preserve">
-    <value>Bereiding diner</value>
-  </data>
-  <data name="Customer_CanCookAlone_Help" xml:space="preserve">
-    <value>Geef aan of de klant zelfstandig diner kan bereiden of hierbij ondersteuning nodig heeft</value>
-  </data>
-  <data name="Customer_CanShopAlone" xml:space="preserve">
-    <value>Boodschappen doen</value>
-  </data>
-  <data name="Customer_CanShopAlone_Help" xml:space="preserve">
-    <value>Geef aan of de klant zelfstandig boodschappen kan doen of hierbij ondersteuning nodig heeft</value>
-  </data>
-  <data name="Customer_DayPreference" xml:space="preserve">
-    <value>Voorkeur dagen</value>
-  </data>
-  <data name="Customer_DayPreference_Help" xml:space="preserve">
-    <value>Kies de voorkeur dag(en) van de klant</value>
-  </data>
-  <data name="Customer_DietaryRequirements" xml:space="preserve">
-    <value>Dieetwensen</value>
-  </data>
-  <data name="Customer_DietaryRequirements_Help" xml:space="preserve">
-    <value>Vul hier de dieetwensen in. Bijv. vegetarisch, halal, zoutarm, e.d.</value>
-  </data>
-  <data name="Customer_GroupCompositionPreference" xml:space="preserve">
-    <value>Voorkeur samenstelling groep</value>
-  </data>
-  <data name="Customer_GroupCompositionPreference_Help" xml:space="preserve">
-    <value>Kies de voorkeur voor de samenstelling van de groep: 60+ of alle leeftijden</value>
-  </data>
-  <data name="Customer_HomeAccessibility" xml:space="preserve">
-    <value>Toegankelijkheid woning</value>
-  </data>
-  <data name="Customer_HomeAccessibility_Help" xml:space="preserve">
-    <value>Geef aan voor welke mobiliteiten de woning geschikt is</value>
-  </data>
-  <data name="GroupCompositionPreference_AllAges" xml:space="preserve">
-    <value>alle leeftijden</value>
-  </data>
-  <data name="GroupCompositionPreference_SixtyPlus" xml:space="preserve">
-    <value>60+</value>
-  </data>
-  <data name="Independently" xml:space="preserve">
-    <value>Zelfstandig</value>
+    <value>Choose a year</value>
   </data>
   <data name="Monday" xml:space="preserve">
-    <value>maandag</value>
+    <value>Monday</value>
   </data>
   <data name="NeedsSupport" xml:space="preserve">
-    <value>Ondersteuning nodig</value>
+    <value>Requires support</value>
   </data>
   <data name="Thursday" xml:space="preserve">
-    <value>donderdag</value>
+    <value>Thursday</value>
   </data>
   <data name="Tuesday" xml:space="preserve">
-    <value>dinsdag</value>
+    <value>Tuesday</value>
   </data>
   <data name="Wednesday" xml:space="preserve">
-    <value>woensdag</value>
+    <value>Wednesday</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Verwijder</value>
-  </data>
-  <data name="Group" xml:space="preserve">
-    <value>Groep</value>
-  </data>
-  <data name="Groups" xml:space="preserve">
-    <value>Groepen</value>
-  </data>
-  <data name="Group_CompleteCount" xml:space="preserve">
-    <value>Gewenst aantal leden</value>
-  </data>
-  <data name="Group_Customers" xml:space="preserve">
-    <value>Groepsleden</value>
-  </data>
-  <data name="Group_Number" xml:space="preserve">
-    <value>Nummer</value>
+    <value>Delete</value>
   </data>
   <data name="Complete" xml:space="preserve">
-    <value>Compleet</value>
-  </data>
-  <data name="Group_Make_Complete" xml:space="preserve">
-    <value>Deze groep is compleet</value>
+    <value>Complete</value>
   </data>
   <data name="Friday" xml:space="preserve">
-    <value>Vrijdag</value>
+    <value>Friday</value>
   </data>
   <data name="Saturday" xml:space="preserve">
-    <value>Zaterdag</value>
+    <value>Saturday</value>
   </data>
   <data name="Sunday" xml:space="preserve">
-    <value>Zondag</value>
-  </data>
-  <data name="Customer_CanDriveAlone" xml:space="preserve">
-    <value>Vervoer</value>
-  </data>
-  <data name="Customer_CanDriveAlone_Help" xml:space="preserve">
-    <value>Geef aan of de klant zelfstandig kan rijden of hierbij ondersteuning nodig heeft</value>
-  </data>
-  <data name="Person_Email" xml:space="preserve">
-    <value>Emailadres</value>
-  </data>
-  <data name="Person_Email_Help" xml:space="preserve">
-    <value>Voer hier het emailadres in</value>
-  </data>
-  <data name="SupportIsArranged" xml:space="preserve">
-    <value>ondersteuning geregeld</value>
-  </data>
-  <data name="Customer_HomeAccessibility_Label" xml:space="preserve">
-    <value>De woning is toegankelijk voor</value>
+    <value>Sunday</value>
   </data>
   <data name="Archived" xml:space="preserve">
-    <value>Gearchiveerd</value>
+    <value>Archived</value>
   </data>
   <data name="Closed" xml:space="preserve">
-    <value>Gesloten</value>
+    <value>Closed</value>
   </data>
   <data name="Done" xml:space="preserve">
-    <value>Uitgevoerd</value>
+    <value>Done</value>
   </data>
   <data name="Hold" xml:space="preserve">
     <value>On hold</value>
@@ -499,70 +349,70 @@
     <value>Open</value>
   </data>
   <data name="SignIn" xml:space="preserve">
-    <value>Inloggen</value>
+    <value>Sign in</value>
   </data>
   <data name="SignIn_GitHub" xml:space="preserve">
-    <value>Login met GitHub</value>
+    <value>Sign in with GitHub</value>
   </data>
   <data name="AddedAll" xml:space="preserve">
-    <value>Alle toegevoegd</value>
+    <value>Added all</value>
   </data>
   <data name="Assigned" xml:space="preserve">
-    <value>Opgepakt</value>
+    <value>Assigned</value>
   </data>
   <data name="Assignee" xml:space="preserve">
-    <value>Behandelaar</value>
+    <value>Assignee</value>
   </data>
   <data name="BackToIndex" xml:space="preserve">
-    <value>Terug naar overzicht</value>
+    <value>Back to overview</value>
   </data>
   <data name="Booked" xml:space="preserve">
-    <value>Geboekt</value>
+    <value>Booked</value>
   </data>
   <data name="By" xml:space="preserve">
-    <value>door</value>
+    <value>by</value>
   </data>
   <data name="ChangeState_Opened" xml:space="preserve">
-    <value>Geopend</value>
+    <value>Opened</value>
   </data>
   <data name="ChangeState_Reopened" xml:space="preserve">
-    <value>Heropend</value>
+    <value>Reopened</value>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>Sluiten</value>
+    <value>Close</value>
   </data>
   <data name="ClosedOn" xml:space="preserve">
-    <value>Gesloten op</value>
+    <value>Closed on</value>
   </data>
   <data name="Comments" xml:space="preserve">
     <value>Comments</value>
   </data>
   <data name="Comment_New" xml:space="preserve">
-    <value>Nieuwe reactie</value>
+    <value>New comment</value>
   </data>
   <data name="Completed" xml:space="preserve">
-    <value>Uitgevoerd</value>
+    <value>Completed</value>
   </data>
   <data name="ContainsLabel" xml:space="preserve">
-    <value>Bevat een label</value>
+    <value>Contains a label</value>
   </data>
   <data name="ContainsLabels" xml:space="preserve">
-    <value>Bevat labels</value>
+    <value>Contains labels</value>
   </data>
   <data name="ContainsNotLabels" xml:space="preserve">
-    <value>Bevat niet labels</value>
+    <value>Does not contain labels</value>
   </data>
   <data name="CreatedOn" xml:space="preserve">
-    <value>Aangemaakt op</value>
+    <value>Created on</value>
   </data>
   <data name="CustomerContacts" xml:space="preserve">
-    <value>Klantcontacten</value>
+    <value>Customer contacts</value>
   </data>
   <data name="CustomerContacts_None" xml:space="preserve">
-    <value>Geen klantcontacten bekend</value>
+    <value>No customer contacts known</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Omschrijving</value>
+    <value>Description</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Details</value>
@@ -571,223 +421,223 @@
     <value>Developers</value>
   </data>
   <data name="Developers_None" xml:space="preserve">
-    <value>Geen developers gevonden</value>
+    <value>No developers found</value>
   </data>
   <data name="Documents" xml:space="preserve">
-    <value>Documenten</value>
+    <value>Documents</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Bewerk</value>
+    <value>Edit</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Emailadres</value>
+    <value>Email address</value>
   </data>
   <data name="Filter_New" xml:space="preserve">
-    <value>Nieuw filter</value>
+    <value>New filter</value>
   </data>
   <data name="Full_Name" xml:space="preserve">
-    <value>Volledige naam</value>
+    <value>Full name</value>
   </data>
   <data name="HandedOver" xml:space="preserve">
-    <value>Doorgegeven</value>
+    <value>Handed over</value>
   </data>
   <data name="Issue" xml:space="preserve">
-    <value>Taak</value>
+    <value>Task</value>
   </data>
   <data name="IssueAction_Change_EmailSubject" xml:space="preserve">
-    <value>Taak {1} is aangepast door {0}</value>
+    <value>Task {1} was changed by {0}</value>
   </data>
   <data name="IssueAction_Change_Text" xml:space="preserve">
-    <value>De taak is aangepast</value>
+    <value>The task was changed</value>
   </data>
   <data name="IssueAction_Comment_EmailSubject" xml:space="preserve">
-    <value>Er is gereageerd op taak {1} door {0}</value>
+    <value>A comment was placed on task {1} by {0}</value>
   </data>
   <data name="IssueAction_HandOver_Text" xml:space="preserve">
-    <value>De taak is doorgegeven</value>
+    <value>The task is handed over</value>
   </data>
   <data name="IssueAction_PickUp_Text" xml:space="preserve">
-    <value>De taak is opgepakt</value>
+    <value>The task is picked up</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>Taken</value>
+    <value>Tasks</value>
   </data>
   <data name="Issues_Move" xml:space="preserve">
-    <value>Verplaats taken</value>
+    <value>Move tasks</value>
   </data>
   <data name="Issues_Renumber" xml:space="preserve">
-    <value>Opnieuw nummeren</value>
+    <value>Renumber tasks</value>
   </data>
   <data name="Issues_Selected" xml:space="preserve">
-    <value>Geselecteerde taken</value>
+    <value>Selected tasks</value>
   </data>
   <data name="Issue_Archive" xml:space="preserve">
-    <value>Archiveer taak</value>
+    <value>Archive task</value>
   </data>
   <data name="Issue_Close" xml:space="preserve">
-    <value>Sluit taak</value>
+    <value>Close task</value>
   </data>
   <data name="Issue_Completed" xml:space="preserve">
-    <value>Taak uitgevoerd</value>
+    <value>Task completed</value>
   </data>
   <data name="Issue_Edit" xml:space="preserve">
-    <value>Taak bewerken</value>
+    <value>Edit task</value>
   </data>
   <data name="Issue_Forward" xml:space="preserve">
-    <value>Taak doorgeven</value>
+    <value>Forward task</value>
   </data>
   <data name="Issue_New" xml:space="preserve">
-    <value>Nieuwe taak</value>
+    <value>New task</value>
   </data>
   <data name="Issue_OnHold" xml:space="preserve">
-    <value>Taak on hold</value>
+    <value>Task on hold</value>
   </data>
   <data name="Issue_PickUp" xml:space="preserve">
-    <value>Taak oppakken</value>
+    <value>Pickup task</value>
   </data>
   <data name="Issue_Reopen" xml:space="preserve">
-    <value>Heropen taak</value>
+    <value>Reopen task</value>
   </data>
   <data name="Labels" xml:space="preserve">
     <value>Labels</value>
   </data>
   <data name="Label_Add" xml:space="preserve">
-    <value>Label toevoegen</value>
+    <value>Add label</value>
   </data>
   <data name="LastChanged" xml:space="preserve">
-    <value>Laatst gewijzigd</value>
+    <value>Last changed</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Naam</value>
+    <value>Name</value>
   </data>
   <data name="Name_Required" xml:space="preserve">
-    <value>Geef een naam op</value>
+    <value>Enter a name</value>
   </data>
   <data name="New" xml:space="preserve">
-    <value>Nieuw</value>
+    <value>New</value>
   </data>
   <data name="New_Password" xml:space="preserve">
-    <value>Nieuw wachtwoord</value>
+    <value>New password</value>
   </data>
   <data name="NoLabelsToFilter" xml:space="preserve">
-    <value>Geen labels om te filteren</value>
+    <value>No labels to filter</value>
   </data>
   <data name="NotAssigned" xml:space="preserve">
-    <value>Niet opgepakt</value>
+    <value>Not assigned</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>Notificaties</value>
+    <value>Notifications</value>
   </data>
   <data name="Notifications_NotSubscribed" xml:space="preserve">
-    <value>U ontvangt geen notificaties.</value>
+    <value>You are not receiving notifications.</value>
   </data>
   <data name="Notifications_OnlyOwnTickets" xml:space="preserve">
-    <value>Alleen van zelf aangemaakte tickets</value>
+    <value>Only of tickets created by yourself</value>
   </data>
   <data name="Notifications_Receive" xml:space="preserve">
-    <value>Notificaties ontvangen</value>
+    <value>Receive notifications</value>
   </data>
   <data name="Notifications_Subscribed" xml:space="preserve">
-    <value>U ontvangt notificaties.</value>
+    <value>You are receiving notifications.</value>
   </data>
   <data name="On" xml:space="preserve">
-    <value>op</value>
+    <value>on</value>
   </data>
   <data name="OnHold" xml:space="preserve">
     <value>On hold</value>
   </data>
   <data name="OnlyCurrentProject" xml:space="preserve">
-    <value>Alleen huidige project</value>
+    <value>Only current project</value>
   </data>
   <data name="Password_Change_Error_Expired" xml:space="preserve">
-    <value>Deze link is verlopen.</value>
+    <value>This link has expired.</value>
   </data>
   <data name="Password_Change_Error_Mismatch" xml:space="preserve">
-    <value>De wachtwoorden komen niet overeen. Probeer opnieuw.</value>
+    <value>The passwords are not the same. Please try again.</value>
   </data>
   <data name="Password_Change_Sent" xml:space="preserve">
-    <value>Er is een mail verstuurd indien het adres bij ons bekend is.</value>
+    <value>An email has been sent to the address if it was found in the system.</value>
   </data>
   <data name="Password_Change_Success" xml:space="preserve">
-    <value>Uw wachtwoord is met succes gewijzigd. U kunt hieronder inloggen met uw nieuwe wachtwoord.</value>
+    <value>Your password was changed successfully. You can now log in with your new password.</value>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>Telefoonnummer</value>
+    <value>Phone number</value>
   </data>
   <data name="PickedUp" xml:space="preserve">
-    <value>opgepakt</value>
+    <value>Picked up</value>
   </data>
   <data name="PlaceComment" xml:space="preserve">
-    <value>Plaats reactie</value>
+    <value>Place comment</value>
   </data>
   <data name="Profile_Edit" xml:space="preserve">
-    <value>Gegevens wijzigen</value>
+    <value>Edit profile</value>
   </data>
   <data name="Project" xml:space="preserve">
     <value>Project</value>
   </data>
   <data name="Projects" xml:space="preserve">
-    <value>Projecten</value>
+    <value>Projects</value>
   </data>
   <data name="Projects_ShowClosed" xml:space="preserve">
-    <value>Laat gesloten projecten zien</value>
+    <value>Show closed projects</value>
   </data>
   <data name="Project_Closed" xml:space="preserve">
-    <value>Dit project is gesloten, er kunnen geen taken meer aangemaakt worden.</value>
+    <value>This project is closed, no new tickets can be created.</value>
   </data>
   <data name="Project_Details" xml:space="preserve">
-    <value>Projectdetails</value>
+    <value>Project details</value>
   </data>
   <data name="Project_Information" xml:space="preserve">
-    <value>Projectinformatie</value>
+    <value>Project information</value>
   </data>
   <data name="Project_Name_AlreadyExists" xml:space="preserve">
-    <value>Deze naam is al in gebruik, kies een andere</value>
+    <value>This name is already in use, please choose a different one</value>
   </data>
   <data name="Project_Name_Required" xml:space="preserve">
-    <value>Voer een naam in</value>
+    <value>Enter a name</value>
   </data>
   <data name="SaveAndNew" xml:space="preserve">
-    <value>Opslaan en nieuw</value>
+    <value>Save and new</value>
   </data>
   <data name="SignedInAs" xml:space="preserve">
-    <value>Ingelogd als</value>
+    <value>Signed in as</value>
   </data>
   <data name="Sort" xml:space="preserve">
-    <value>Sorteren</value>
+    <value>Sort</value>
   </data>
   <data name="State" xml:space="preserve">
-    <value>Status</value>
+    <value>State</value>
   </data>
   <data name="TaskList" xml:space="preserve">
-    <value>Takenlijst</value>
+    <value>Task list</value>
   </data>
   <data name="Tasks_All" xml:space="preserve">
-    <value>Alle taken</value>
+    <value>All tasks</value>
   </data>
   <data name="Tasks_Completed" xml:space="preserve">
-    <value>Voltooide taken</value>
+    <value>Completed tasks</value>
   </data>
   <data name="Tasks_Open" xml:space="preserve">
-    <value>Open taken</value>
+    <value>Open tasks</value>
   </data>
   <data name="Tasks_Progress" xml:space="preserve">
-    <value>Voortgang taken</value>
+    <value>Progress of tasks</value>
   </data>
   <data name="TheIssue" xml:space="preserve">
-    <value>De taak</value>
+    <value>The task</value>
   </data>
   <data name="Timeline" xml:space="preserve">
-    <value>Tijdlijn</value>
+    <value>Timeline</value>
   </data>
   <data name="To" xml:space="preserve">
-    <value>aan</value>
+    <value>to</value>
   </data>
   <data name="Unbooked" xml:space="preserve">
-    <value>Ongeboekt</value>
+    <value>Unbooked</value>
   </data>
   <data name="UploadDate" xml:space="preserve">
-    <value>Datum geupload</value>
+    <value>Upload date</value>
   </data>
   <data name="Uploader" xml:space="preserve">
     <value>Uploader</value>

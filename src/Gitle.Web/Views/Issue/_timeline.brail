@@ -1,5 +1,5 @@
 ﻿<div id="timeline">
-  <h2>Tijdlijn</h2>
+  <h2>${t.Timeline}</h2>
   <% for action in item.GetActions(desc): %>
   <% OutputSubView("_action", {"action": action}) %>
   <% end %>

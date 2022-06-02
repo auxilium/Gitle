@@ -1,20 +1,20 @@
 ﻿<div class="row">
   <div class="large-12 columns">
-    <a href="/project/${project.Slug}/issues" id="back-button"><i class="fa fa-arrow-left"></i> terug naar overzicht</a>
+    <a href="/project/${project.Slug}/issues" id="back-button"><i class="fa fa-arrow-left"></i> ${t.BackToIndex}</a>
     <% if item.Number > 0: %>
-    <h1>#<strong>${item.Number}</strong> - Taak bewerken</h1>
+    <h1>#<strong>${item.Number}</strong> - ${t.Issue_Edit}</h1>
     <% else: %>
-    <h1>Nieuwe taak</h1>
+    <h1>${t.Issue_New}</h1>
     <% end %>
     <form action="/project/${project.Slug}/issue/${item.Number}/save" method="POST" autocomplete="off" data-abide>
       ${Form.HiddenField("item.Number")}
       ${Form.HiddenField("item.State")}
       <input type="hidden" name="item.Milestone.Number" value="${project.MilestoneId}" />
       <div class="row">
-        <div class="large-3 columns">Naam</div>
+        <div class="large-3 columns">${t.Name}</div>
         <div class="large-9 columns">
           <input type="text" name="item.Name" value="${?item.Name}" class="focus" required />
-          <small class="error">Geef een naam op</small>
+          <small class="error">${t.Name_Required}</small>
         </div>
       </div>
       <% if CurrentUser.IsAdmin: %>
@@ -70,7 +70,7 @@
       </div>
       <% end %>
       <div class="row">
-        <div class="large-3 columns">Labels</div>
+        <div class="large-3 columns">${t.Labels}</div>
         <div class="large-9 columns">
           <% for label in labels: %>
           <div>
@@ -80,16 +80,16 @@
         </div>
       </div>
       <div class="row">
-        <div class="large-3 columns">Omschrijving</div>
+        <div class="large-3 columns">${t.Description}</div>
         <div class="large-9 columns">
           ${Form.TextArea("item.Body", {"class": "uploadarea", "data-suggestions-project": item.Project.Id})}
         </div>
       </div>
       <div class="row">
         <div class="large-12 columns">
-          <input type="submit" class="button" value="Opslaan" />
+          <input type="submit" class="button" value="${t.Save}" />
           <% if CurrentUser.IsAdmin: %>
-          <input type="submit" name="andNew" class="button" value="Opslaan en nieuw" />
+          <input type="submit" name="andNew" class="button" value="${t.SaveAndNew}" />
           <% end %>
         </div>
       </div>

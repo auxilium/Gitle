@@ -1,6 +1,6 @@
 ﻿<div class="row">
   <div class="small-12 columns">
-    <h1 class="no-bottom-margin"><a href="/project/${project.Slug}/view">${project.Name}</a>: ${result.TotalResultCount} Taken</h1>
+    <h1 class="no-bottom-margin"><a href="/project/${project.Slug}/view">${project.Name}</a>: ${result.TotalResultCount} ${t.Issues}</h1>
   </div>
 </div>
 
@@ -9,11 +9,11 @@
 <div class="row">
   <div class="small-12 columns">
     <% if not project.Closed: %>
-    <a class="button" href="/project/${project.Slug}/issue/new">Nieuwe taak</a>
+    <a class="button" href="/project/${project.Slug}/issue/new">${t.Issue_New}</a>
     <% else: %>
-    <p class="red">Dit project is gesloten, er kunnen geen taken meer aangemaakt worden.</p>
+    <p class="red">${t.Project_Closed}</p>
     <% end %>
-    <a class="button secondary" href="/project/${project.Slug}/view">Projectdetails</a>
+    <a class="button secondary" href="/project/${project.Slug}/view">${t.Project_Details}</a>
     <% if CurrentUser.IsAdmin: %>
     <a class="button split success" href="/project/${project.Slug}/issue/exportimport">Exporteren / Importeren<span data-dropdown="exportimport"></span></a>
     <ul id="exportimport" data-dropdown-content class="f-dropdown">
@@ -21,9 +21,9 @@
       <li id="exportselection"><a href="/project/${project.Slug}/issue/exportcsv" data-group-action>Exporteer selectie (.csv)</a></li>
     </ul>
     <% if isSubscribed: %>
-    <a class="button icon success" href="/project/${project.Slug}/issue/unsubscribe" title="U ontvangt notificaties."><i class="fa fa-bell-o fa-fw"></i></a>
+    <a class="button icon success" href="/project/${project.Slug}/issue/unsubscribe" title="${t.Notifications_Subscribed}"><i class="fa fa-bell-o fa-fw"></i></a>
     <% else: %>
-    <a class="button icon alert" href="/project/${project.Slug}/issue/subscribe" title="U ontvangt geen notificaties."><i class="fa fa-bell-slash-o fa-fw"></i></a>
+    <a class="button icon alert" href="/project/${project.Slug}/issue/subscribe" title=${t.Notifications_NotSubscribed}"><i class="fa fa-bell-slash-o fa-fw"></i></a>
     <% end %>
     <% if project.IsMuted: %>
     <a class="button icon alert" href="/project/${project.Slug}/issue/unmuteproject" title="Notificaties naar geabonneerden worden tegengehouden."><i class="fa fa-ban fa-fw"></i></a>
@@ -62,7 +62,7 @@
             <li><a class="filter-preset" data-filter="${filterPreset.FilterString}" data-filter-clear href="#">${filterPreset.Name}</a></li>
             <% end %>
             <li class="divider"></li>
-            <li><strong><a href="#" data-reveal-id="newFilterPreset">Nieuwe filter</a></strong></li>
+            <li><strong><a href="#" data-reveal-id="newFilterPreset">${t.Filter_New}</a></strong></li>
           </ul>
         </div>
       </div>
@@ -79,20 +79,20 @@
       </div>
       <div class="large-4 columns">
         <ul class="button-group">
-          <li><a href="#" data-filter="state:Open" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Open): %> active<% end %>">Open</a></li>
-          <li><a href="#" data-filter="state:Closed" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Closed): %> active<% end %>">Gesloten</a></li>
-          <li><a href="#" data-filter="state:Done" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Done): %> active<% end %>">Uitgevoerd</a></li>
-          <li><a href="#" data-filter="state:Hold" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Hold): %> active<% end %>">On hold</a></li>
+          <li><a href="#" data-filter="state:Open" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Open): %> active<% end %>">${t.Open}</a></li>
+          <li><a href="#" data-filter="state:Closed" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Closed): %> active<% end %>">${t.Closed}</a></li>
+          <li><a href="#" data-filter="state:Done" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Done): %> active<% end %>">${t.Completed}</a></li>
+          <li><a href="#" data-filter="state:Hold" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Hold): %> active<% end %>">${t.OnHold}</a></li>
         </ul>
       </div>
       <div class="large-3 columns">
         <ul class="button-group">
-          <li><a href="#" data-filter="bookingstate:Any" class="button tiny no-margin secondary<% if result.BookingStates.Contains(Gitle.Model.Enum.IssueBookingState.Any): %> active<% end %>">Geboekt</a></li>
-          <li><a href="#" data-filter="bookingstate:None" class="button tiny no-margin secondary<% if result.BookingStates.Contains(Gitle.Model.Enum.IssueBookingState.None): %> active<% end %>">Ongeboekt</a></li>
+          <li><a href="#" data-filter="bookingstate:Any" class="button tiny no-margin secondary<% if result.BookingStates.Contains(Gitle.Model.Enum.IssueBookingState.Any): %> active<% end %>">${t.Booked}</a></li>
+          <li><a href="#" data-filter="bookingstate:None" class="button tiny no-margin secondary<% if result.BookingStates.Contains(Gitle.Model.Enum.IssueBookingState.None): %> active<% end %>">${t.Unbooked}</a></li>
         </ul>
       </div>
       <div class="large-2 small-12 columns">
-        <button href="#" data-dropdown="sorts" aria-controls="sorts" aria-expanded="false" class="button tiny dropdown no-margin">Sorteren:</button>
+        <button href="#" data-dropdown="sorts" aria-controls="sorts" aria-expanded="false" class="button tiny dropdown no-margin">${t.Sort}:</button>
         <ul id="sorts" data-dropdown-content="" class="f-dropdown" aria-hidden="true" tabindex="-1">
           <% for sort in result.AllSorts: %>
           <% isSorted = result.SelectedSorts.ContainsKey(sort.Key) %>
@@ -115,7 +115,7 @@
       </div>
       <div class="large-5 small-12 columns">
         <% if labels.Count > 0: %>
-        <button href="#" data-dropdown="selectedLabels" aria-controls="selectedLabels" aria-expanded="false" class="button tiny dropdown no-margin">Bevat labels:</button>
+        <button href="#" data-dropdown="selectedLabels" aria-controls="selectedLabels" aria-expanded="false" class="button tiny dropdown no-margin">${t.ContainsLabels}:</button>
         <ul id="selectedLabels" data-dropdown-content="" class="f-dropdown labels" aria-hidden="true" tabindex="-1">
           <% for label in labels: %>
           <li>
@@ -130,7 +130,7 @@
           <% end %>
         </ul>
 
-        <button href="#" data-dropdown="anySelectedLabels" aria-controls="anySelectedLabels" aria-expanded="false" class="button tiny dropdown no-margin">Bevat een label:</button>
+        <button href="#" data-dropdown="anySelectedLabels" aria-controls="anySelectedLabels" aria-expanded="false" class="button tiny dropdown no-margin">${t.ContainsLabel}:</button>
         <ul id="anySelectedLabels" data-dropdown-content="" class="f-dropdown labels" aria-hidden="true" tabindex="-1">
           <% for label in labels: %>
           <li>
@@ -145,7 +145,7 @@
           <% end %>
         </ul>
 
-        <button href="#" data-dropdown="notSelectedLabels" aria-controls="notSelectedLabels" aria-expanded="false" class="button tiny dropdown no-margin">Bevat niet labels:</button>
+        <button href="#" data-dropdown="notSelectedLabels" aria-controls="notSelectedLabels" aria-expanded="false" class="button tiny dropdown no-margin">${t.ContainsNotLabels}:</button>
         <ul id="notSelectedLabels" data-dropdown-content="" class="f-dropdown labels" aria-hidden="true" tabindex="-1">
           <% for label in labels: %>
           <li>
@@ -161,24 +161,24 @@
         </ul>
 
         <% else: %>
-        <a href="#" class="button tiny secondary disabled">Geen labels om te filteren</a>
+        <a href="#" class="button tiny secondary disabled">${t.NoLabelsToFilter}</a>
         <% end %>
       </div>
 
       <% if CurrentUser.IsAdmin: %>
       <div class="large-7 small-12 columns">
-        <button href="#" data-dropdown="pickupbys" aria-controls="pickupbys" aria-expanded="false" class="button tiny dropdown no-margin">Behandelaar:</button>
+        <button href="#" data-dropdown="pickupbys" aria-controls="pickupbys" aria-expanded="false" class="button tiny dropdown no-margin">${t.Assignee}:</button>
         <ul id="pickupbys" data-dropdown-content="" class="f-dropdown" aria-hidden="true" tabindex="-1">
           <li>
             <a href="#" data-filter="pickup:any" data-filter-opposite="pickup:none">
               <% if pickupany: %><i class="fa fa-check"></i><% end %>
-              <strong>Opgepakt</strong>
+              <strong>${t.Assigned}</strong>
             </a>
           </li>
           <li>
             <a href="#" data-filter="pickup:none" data-filter-opposite="pickup:any">
               <% if pickupnone: %><i class="fa fa-check"></i><% end %>
-              <strong>Niet opgepakt</strong>
+              <strong>${t.NotAssigned}</strong>
             </a>
           </li>
           <li class="divider"></li>
@@ -207,10 +207,10 @@
   <input type="hidden" name="issues" />
   <hr />
   <div class="row">
-    <div class="small-2 columns">Geselecteerde taken:</div>
+    <div class="small-2 columns">${t.Issues_Selected}:</div>
     <div class="small-10 columns">
       <% if not project.Closed: %>
-      <button href="#" data-dropdown="addLabels" aria-controls="addLabels" aria-expanded="false" class="button tiny dropdown">Label toevoegen</button>
+      <button href="#" data-dropdown="addLabels" aria-controls="addLabels" aria-expanded="false" class="button tiny dropdown">${t.Label_Add}</button>
       <ul id="addLabels" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
         <% for label in customerLabels: %>
         <li>
@@ -221,12 +221,12 @@
         <% end %>
       </ul>
       <% end %>
-      <a href="/project/${project.Slug}/changestate?state=4" data-group-action class="button tiny no-margin alert"><i class="fa fa-ban"></i> Sluiten</a>
-      <a href="/project/${project.Slug}/changestate?state=1" data-group-action class="button tiny no-margin"><i class="fa fa-info-circle"></i> Openen</a>
-      <a href="/project/${project.Slug}/changestate?state=3" data-group-action class="button tiny no-margin on-hold"><i class="fa fa-hand-paper-o"></i> On hold</a>
+      <a href="/project/${project.Slug}/changestate?state=4" data-group-action class="button tiny no-margin alert"><i class="fa fa-ban"></i> ${t.Close}</a>
+      <a href="/project/${project.Slug}/changestate?state=1" data-group-action class="button tiny no-margin"><i class="fa fa-info-circle"></i> ${t.Open}</a>
+      <a href="/project/${project.Slug}/changestate?state=3" data-group-action class="button tiny no-margin on-hold"><i class="fa fa-hand-paper-o"></i> ${t.OnHold}</a>
       <% if CurrentUser.IsAdmin: %>
-      <a href="/project/${project.Slug}/changestate?state=2" data-group-action class="button tiny no-margin success"><i class="fa fa-thumbs-o-up"></i> Uitgevoerd</a>
-      <a href="/project/${project.Slug}/changestate?state=5" data-group-action class="button tiny no-margin alert"><i class="fa fa-trash"></i> Archiveren</a>
+      <a href="/project/${project.Slug}/changestate?state=2" data-group-action class="button tiny no-margin success"><i class="fa fa-thumbs-o-up"></i> ${t.Completed}</a>
+      <a href="/project/${project.Slug}/changestate?state=5" data-group-action class="button tiny no-margin alert"><i class="fa fa-trash"></i> ${t.Archive}</a>
       <% end %>
     </div>
   </div>
@@ -239,10 +239,10 @@
       <input type="hidden" value="${project.Slug}" class="issue_Project_Slug" />
     </div>
     <div class="small-2 columns">
-      <input type="checkbox" id="move-issues-renumber" name="renumber" /><label for="move-issues-renumber">Opnieuw nummeren</label>
+      <input type="checkbox" id="move-issues-renumber" name="renumber" /><label for="move-issues-renumber">${t.Issues_Renumber}</label>
     </div>
     <div class="small-2 columns">
-      <button id="move-issues-button" data-group-action="" class="tiny">Verplaats taken</button>
+      <button id="move-issues-button" data-group-action="" class="tiny">${t.Issues_Move}</button>
     </div>
   </div>
   <% end %>
@@ -283,7 +283,7 @@
     </div>
     <div class="row">
       <div class="small-3 columns">
-        <label for="item_Name">Naam: </label>
+        <label for="item_Name">${t.Name}: </label>
       </div>
       <div class="small-9 columns">
         <input type="text" id="item_Name" name="item.Name" />
@@ -294,12 +294,12 @@
         <label for="">Project</label>
       </div>
       <div class="small-9 columns">
-        <input type="checkbox" name="projectId" value="${project.Id}"> Alleen huidige project
+        <input type="checkbox" name="projectId" value="${project.Id}"> ${t.OnlyCurrentProject}
       </div>
     </div>
     <div class="row">
       <div class="small-12 columns text-right">
-        <input type="submit" class="button small" value="Nieuw" />
+        <input type="submit" class="button small" value="${t.New}" />
       </div>
     </div>
   </form>

@@ -1,22 +1,22 @@
 ﻿<div class="row">
   <div class="large-12 columns">
-    <a href="<% if IsDefined("referer"): %>${referer}<% else: %>/project/${project.Slug}/issues<% end %>">terug naar overzicht</a>
+    <a href="<% if IsDefined("referer"): %>${referer}<% else: %>/project/${project.Slug}/issues<% end %>">${t.BackToIndex}</a>
     <h1>#<strong>${item.Number}</strong> - ${item.Name}</h1>
-    <% if CurrentUser.IsAdmin and not project.Closed: %><h3><a href="edit">bewerk</a></h3><% end %>
+    <% if CurrentUser.IsAdmin and not project.Closed: %><h3><a href="edit">${t.Edit}</a></h3><% end %>
     <div class="row">
       <div class="large-3 columns small-text">
-        <p class="project no-margin"><strong>Project:</strong> ${project.Name}</p>
+        <p class="project no-margin"><strong>${t.Project}:</strong> ${project.Name}</p>
         <% if item.PickedUpBy != null: %>
-        <p class="created no-margin"><strong>Behandelaar:</strong> <span>${item.PickedUpBy.FullName}</span></p>
+        <p class="created no-margin"><strong>${t.Assignee}:</strong> <span>${item.PickedUpBy.FullName}</span></p>
         <% end %>
         <% if item.CreatedAt != null: %>
-        <p class="created no-margin"><strong>Aangemaakt op:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.CreatedAt)}">${Helpers.DateTimeHelper.Readable(item.CreatedAt)}</span></p>
+        <p class="created no-margin"><strong>${t.CreatedOn}:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.CreatedAt)}">${Helpers.DateTimeHelper.Readable(item.CreatedAt)}</span></p>
         <% end %>
         <% if item.UpdatedAt != null: %>
-        <p class="created no-margin"><strong>Laatst gewijzigd:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.UpdatedAt)}">${Helpers.DateTimeHelper.Readable(item.UpdatedAt)}</span></p>
+        <p class="created no-margin"><strong>${t.LastChanged}:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.UpdatedAt)}">${Helpers.DateTimeHelper.Readable(item.UpdatedAt)}</span></p>
         <% end %>
         <% if item.ClosedAt != null: %>
-        <p class="created no-margin"><strong>Gesloten op:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.ClosedAt)}">${Helpers.DateTimeHelper.Readable(item.ClosedAt)}</span></p>
+        <p class="created no-margin"><strong>${t.ClosedOn}:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.ClosedAt)}">${Helpers.DateTimeHelper.Readable(item.ClosedAt)}</span></p>
         <% end %>
         <% if item.EstimatePublic or CurrentUser.IsAdmin: %>
         <p class="hours no-margin"><strong>Geschatte tijd:</strong> ${item.EstimateString}  <% if not item.EstimatePublic: %><i class="fa fa-exclamation-triangle" title="schatting nog niet publiek"></i><% end %></p>
@@ -25,10 +25,10 @@
         <% if item.Bookings.Count > 0: %><p class="hours no-margin"><strong>Geboekte tijd:</strong> ${item.BillableBookingHoursString()} (${item.UnbillableBookingHoursString()} unbillable)</p><% end %>
         <% if item.Invoices.Count > 0: %><p class="hours no-margin"><strong>Gefactureerde tijd:</strong>  ${item.TotalBillableHoursInvoicedString} (${item.TotalUnbillableHoursInvoicedString} unbillable)</p><% end %>
         <% end %>
-        <p class="state no-margin"><strong>Status:</strong> ${item.StateString}</p>
+        <p class="state no-margin"><strong>${t.State}:</strong> ${item.StateString}</p>
         <% end %>
         <p class="labels no-margin">
-          <strong>Labels:</strong>
+          <strong>${t.Labels}:</strong>
         </p>
         <ul class="no-style">
           <% for label in project.Labels: %>
@@ -42,7 +42,7 @@
         <% if not item.IsArchived: %>
         <% if not project.Closed: %>
         <p class="labels no-margin">
-          <a href="#" data-dropdown="addlabels" class="small button dropdown secondary radius"><strong>Labels toevoegen</strong></a>
+          <a href="#" data-dropdown="addlabels" class="small button dropdown secondary radius"><strong>${t.Label_Add}</strong></a>
         </p>
         <ul id="addlabels" data-dropdown-content class="f-dropdown">
           <% openLabels = false %>
@@ -55,7 +55,7 @@
           <%   end %>
           <% end %>
           <% if not openLabels: %>
-          <li><a href="#">Allen toegevoegd</a></li>
+          <li><a href="#">${t.AddedAll}</a></li>
           <% end %>
         </ul>
         <hr />
@@ -63,10 +63,10 @@
         <% if not project.Closed and not item.IsArchived and not item.IsAdministrative :%>
         <% if CurrentUser.IsAdmin :%>
         <% if item.PickedUpBy != CurrentUser :%>
-        <a href="pickup" class="button large-12">Taak oppakken</a>
+        <a href="pickup" class="button large-12">${t.Issue_PickUp}</a>
         <% end %>
         <p class="forwardtask no-margin">
-          <a href="#" data-dropdown="forwardTask" class="button dropdown">Taak doorgeven</a>
+          <a href="#" data-dropdown="forwardTask" class="button dropdown">${t.Issue_Forward}</a>
         </p>
         <ul id="forwardTask" data-dropdown-content class="f-dropdown">
           <% for user in users: %>
@@ -78,13 +78,13 @@
         <hr />
         <% end %>
         <% if item.State.ToString() != "Open" and item.State.ToString() != "Closed": %>
-        <a href="reopen" class="button secondary large-12">Heropen taak</a>
+        <a href="reopen" class="button secondary large-12">${t.Issue_Reopen}</a>
         <% end %>
         <% if item.State.ToString() != "Done" and CurrentUser.IsAdmin :%>
-        <a href="done" class="button success large-12">Taak uitgevoerd</a>
+        <a href="done" class="button success large-12">${t.Issue_Completed}</a>
         <% end %>
         <% if item.State.ToString() != "Hold" :%>
-        <a href="onhold" class="button on-hold large-12">Taak on hold</a>
+        <a href="onhold" class="button on-hold large-12">${t.Issue_OnHold}</a>
         <% end %>
         <hr />
         <% end %>
@@ -135,13 +135,13 @@
         <% end %>
         <% end %>
         <% if item.State.ToString() == "Closed": %>
-        <a href="reopen" class="button success large-12">Heropen taak</a>
+        <a href="reopen" class="button success large-12">${t.Issue_Reopen}</a>
         <% end %>
         <% if item.State.ToString() != "Closed" and item.State.ToString() != "Archived" : %>
-        <a href="close" class="button alert large-12">Sluit taak</a>
+        <a href="close" class="button alert large-12">${t.Issue_Close}</a>
         <% end %>
         <% if CurrentUser.IsAdmin and item.State.ToString() != "Archived": %>
-        <a href="archive" class="button alert large-12">Archiveer taak</a>
+        <a href="archive" class="button alert large-12">${t.Issue_Archive}</a>
         <% end %>
       </div>
       <div class="large-9 columns">
@@ -155,11 +155,11 @@
         <% if not item.IsArchived and not project.Closed: %>
         <div class="panel">
           <small class="right capitalize">${Helpers.DateTimeHelper.Readable(DateTime.Now)}</small>
-          <h3>Nieuwe reactie</h3>
+          <h3>${t.Comment_New}</h3>
           <form action="addcomment" method="POST" autocomplete="off">
             <% if CurrentUser.CanBookHours or CurrentUser.IsAdmin : %><div class="right"><input type="checkbox" name="isInternal" checked /> Alleen zichtbaar voor intern</div><% end %>
             <textarea name="body" class="uploadarea" data-suggestions-project="${item.Project.Id}"></textarea>
-            <input type="submit" value="Plaats reactie" class="button no-margin" />
+            <input type="submit" value="${t.PlaceComment}" class="button no-margin" />
           </form>
         </div>
         <% end %>

@@ -86,14 +86,14 @@
         <% end %>
         <% if CurrentUser.IsAdmin or CurrentUser.Projects.Count > 1: %>
         <li class="divider"></li>
-        <li><a href="/projects">Projecten</a></li>
+        <li><a href="/projects">${t.Projects}</a></li>
         <% end %>
         <% if CurrentUser.IsAdmin: %>
         <li class="divider"></li>
         <li><a href="/users">Gebruikers</a></li>
         <% else: %>
         <li class="divider"></li>
-        <li><a href="/user/profile">Gegevens wijzigen</a></li>
+        <li><a href="/user/profile">${t.Profile_Edit}</a></li>
         <% end %>
         <% if CurrentUser.IsDanielle: %>
         <li class="divider"></li>
@@ -108,14 +108,18 @@
         <!--<li class="divider"></li>
   <li class="has-form"><a id="initiate-joyride" class="button success" href="#"><i class="fa fa-question"></i></a></li>-->
         <li class="divider"></li>
+        <% if CurrentUser.IsAdmin: %>
         <li class="has-dropdown">
-          <a href="#"><a href="#">Ingelogd als: ${?CurrentUser.Name}</a></a>
+          <a href="#"><a href="#">${t.SignedInAs}: ${?CurrentUser.Name}</a></a>
           <ul class="dropdown">
             <li><a href="/user/${?CurrentUser.Id}/issues">Mijn tickets</a></li>
           </ul>
         </li>
+        <% else: %>
+        <li><a href="/user/profile">${t.SignedInAs}: ${?CurrentUser.Name}</a></li>
+        <% end %>
         <li class="divider"></li>
-        <li class="has-form"><a class="button" href="/signout">Uitloggen</a></li>
+        <li class="has-form"><a class="button" href="/signout">${t.Sign_Out}</a></li>
       </ul>
     </section>
   </nav>

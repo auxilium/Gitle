@@ -1,8 +1,10 @@
-﻿namespace Gitle.Model
+﻿using Gitle.Localization;
+
+namespace Gitle.Model
 {
-    using System;
     using Helpers;
     using Interfaces.Model;
+    using System;
 
     public class Pickup : Touchable, IIssueAction
     {
@@ -16,8 +18,8 @@
             {
                 return
                     string.Format(
-                        "De taak is opgepakt{0}",
-                        User != null ? string.Format(" door <strong>{0}</strong>", User.FullName) : "");
+                        "{1}{0}",
+                        User != null ? string.Format(" {1} <strong>{0}</strong>", User.FullName, Language.By) : "", Language.IssueAction_PickUp_Text);
             }
         }
 
@@ -27,13 +29,13 @@
             {
                 return
                     string.Format(
-                        "De taak is opgepakt{0} op <strong>{1}</strong>",
-                        User != null ? string.Format(" door <strong>{0}</strong>", User.FullName) : "",
-                        DateTimeHelper.Readable(CreatedAt));
+                        "{3}{0} {2} <strong>{1}</strong>",
+                        User != null ? string.Format(" {1} <strong>{0}</strong>", User.FullName, Language.By) : "",
+                        DateTimeHelper.Readable(CreatedAt), Language.On, Language.IssueAction_PickUp_Text);
             }
         }
 
-        public virtual string EmailSubject { get { return string.Format("Taak {1} is opgepakt door {0}", User != null ? User.FullName : "", Issue.Number); } }
+        public virtual string EmailSubject { get { return string.Format("{3} {1} is {2} {4} {0}", User != null ? User.FullName : "", Issue.Number, Language.PickedUp.ToLower(), Language.Issue, Language.By); } }
 
     }
 }

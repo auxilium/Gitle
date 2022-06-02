@@ -1,10 +1,12 @@
-﻿namespace Gitle.Web.Filters
+﻿using System.Configuration;
+
+namespace Gitle.Web.Filters
 {
     #region Usings
 
+    using Castle.MonoRail.Framework;
     using System.Globalization;
     using System.Threading;
-    using Castle.MonoRail.Framework;
 
     #endregion
 
@@ -16,7 +18,8 @@
             //IUser user = context.CurrentUser as IUser;
             //if (user != null)
             //{
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("nl-NL");
+            var configCulture = ConfigurationManager.AppSettings["culture"] ?? "nl-NL";
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(configCulture);
             //NOTE: Door een bug in castle zijn we genoodzaakt de culture te zetten om de juiste resourcemanager te krijgen
             //http://issues.castleproject.org/issue/MR-573
             //Castle.MonoRail.Framework.Resources.DefaultResourceFactory.ResolveCulture(string), Castle.MonoRail.Framework

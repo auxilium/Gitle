@@ -1,6 +1,6 @@
 ﻿<div class="row">
   <div class="large-12 columns">
-    <h1>Inloggen</h1>
+    <h1>${t.SignIn}</h1>
     <% if ?message: %>
     <div class="alert-box">
         ${message}
@@ -31,7 +31,7 @@
       </div>
       <div class="row">
         <div class="large-3 medium-3 small-5 columns">
-          <label for="persistent">Ingelogd blijven</label>
+          <label for="persistent">${t.Login_Persistent}</label>
         </div>
         <div class="large-9 medium-9 small-7 columns">
           <input type="checkbox" name="persistent">
@@ -48,7 +48,7 @@
     </form>
     <div class="row">
       <div class="large-12 columns">
-        <a class="button secondary" href="https://github.com/login/oauth/authorize?scope=${githubScope}&client_id=${githubClientId}&redirect_uri=${githubOAuthCallback}&state=${state}"><i class="fa fa-github-alt"></i> Login met GitHub</a>
+        <a class="button secondary" href="https://github.com/login/oauth/authorize?scope=${githubScope}&client_id=${githubClientId}&redirect_uri=${githubOAuthCallback}&state=${state}"><i class="fa fa-github-alt"></i> ${t.SignIn_GitHub}</a>
       </div>
     </div>
   </div>

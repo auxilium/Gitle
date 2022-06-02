@@ -1,6 +1,6 @@
 ﻿<div class="row">
   <div class="large-12 columns">
-    <h1>Projecten  <% if IsDefined("customer"): %>van klant "${customer.Name}"<% end %> <% if IsDefined("application"): %>van applicatie "${application.Name}"<% end %></h1>
+    <h1>${t.Projects}  <% if IsDefined("customer"): %>van klant "${customer.Name}"<% end %> <% if IsDefined("application"): %>van applicatie "${application.Name}"<% end %></h1>
 
     <% if CurrentUser.IsAdmin: %>
     <div class="row">
@@ -43,13 +43,13 @@
           ${Form.Select("type", allTypes, {"text": "Value", "value": "Key", "class": "no-margin", "firstoption": "Kies een projecttype..."})}
         </div>
         <div class="large-0 small-12 columns">
-          <input type="checkbox" id="closedProjects" /> Laat gesloten projecten zien
+          <input type="checkbox" id="closedProjects" /> ${t.Projects_ShowClosed}
         </div>
       </div>
     </div>
     <% else: %>
     <div class="large-0 small-12 columns">
-      <input type="checkbox" id="closedProjects" /> Laat gesloten projecten zien
+      <input type="checkbox" id="closedProjects" /> ${t.Projects_ShowClosed}
     </div>
     <% end %>
     <table id="project-table" class="small-blocks"></table>
@@ -124,18 +124,18 @@
           render: function (data, type, full, meta) {
 
             var html =
-              '<ul class="button-group"><li><a class="button tiny secondary no-margin" href="/project/' + data + '/view">Details</a></li>';
+              '<ul class="button-group"><li><a class="button tiny secondary no-margin" href="/project/' + data + '/view">${t.Details}</a></li>';
 
             if (isDanielle) {
               html +=
-                '<li><a href="/project/' + data + '/issues" class="button tiny split no-margin">Takenlijst <span data-dropdown="issuedrop-' + full.Id + '"></span></a><ul id="issuedrop-' + full.Id + '" class="f-dropdown" data-dropdown-content><li><a href="/project/' + data + '/issue/exportcsv">CSV Export</a></li></ul></li>';
+                '<li><a href="/project/' + data + '/issues" class="button tiny split no-margin">${t.TaskList} <span data-dropdown="issuedrop-' + full.Id + '"></span></a><ul id="issuedrop-' + full.Id + '" class="f-dropdown" data-dropdown-content><li><a href="/project/' + data + '/issue/exportcsv">CSV Export</a></li></ul></li>';
             } else {
-              html += '<li><a class="button tiny no-margin" href="/project/' + data + '/issues">Takenlijst</a></li>';
+              html += '<li><a class="button tiny no-margin" href="/project/' + data + '/issues">${t.TaskList}</a></li>';
             }
 
             if (isAdmin) {
-              html += '<li><a class="button tiny success no-margin" href="/project/' + data + '/edit">Bewerk</a></li>';
-              html += '<li><a class="button tiny alert no-margin" href="/project/' + data + '/delete" data-confirm="Weet je het zeker?">Verwijder</a></li>';
+              html += '<li><a class="button tiny success no-margin" href="/project/' + data + '/edit">${t.Edit}</a></li>';
+              html += '<li><a class="button tiny alert no-margin" href="/project/' + data + '/delete" data-confirm="Weet je het zeker?">${t.Delete}</a></li>';
             }
 
             html += '</ul>';
