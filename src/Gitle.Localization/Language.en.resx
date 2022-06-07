@@ -642,4 +642,43 @@
   <data name="Uploader" xml:space="preserve">
     <value>Uploader</value>
   </data>
+  <data name="Openend_On" xml:space="preserve">
+    <value>opened on</value>
+  </data>
+  <data name="Since" xml:space="preserve">
+    <value>since</value>
+  </data>
+  <data name="Application" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="Assigned_To" xml:space="preserve">
+    <value>Assigned to</value>
+  </data>
+  <data name="Billed" xml:space="preserve">
+    <value>Billed</value>
+  </data>
+  <data name="Estimate" xml:space="preserve">
+    <value>Estimate</value>
+  </data>
+  <data name="Estimated_Price" xml:space="preserve">
+    <value>Estimated budget</value>
+  </data>
+  <data name="Estimated_Time" xml:space="preserve">
+    <value>Estimated time</value>
+  </data>
+  <data name="Estimate_Public" xml:space="preserve">
+    <value>Estimate Public</value>
+  </data>
+  <data name="Invoice_Numbers" xml:space="preserve">
+    <value>Invoice number(s)</value>
+  </data>
+  <data name="Pickup" xml:space="preserve">
+    <value>Pickup</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="Upload_picture_file" xml:space="preserve">
+    <value>Upload picture/file</value>
+  </data>
 </root>

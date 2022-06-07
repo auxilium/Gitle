@@ -187,6 +187,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Applicatie.
+        /// </summary>
+        public static string Application {
+            get {
+                return ResourceManager.GetString("Application", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gitle.
         /// </summary>
         public static string AppName {
@@ -225,6 +234,15 @@ namespace Gitle.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Behandelaar.
         /// </summary>
+        public static string Assigned_To {
+            get {
+                return ResourceManager.GetString("Assigned_To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Behandelaar.
+        /// </summary>
         public static string Assignee {
             get {
                 return ResourceManager.GetString("Assignee", resourceCulture);
@@ -255,6 +273,15 @@ namespace Gitle.Localization {
         public static string BackToIndex {
             get {
                 return ResourceManager.GetString("BackToIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gefactureerd.
+        /// </summary>
+        public static string Billed {
+            get {
+                return ResourceManager.GetString("Billed", resourceCulture);
             }
         }
         
@@ -844,6 +871,42 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schatting.
+        /// </summary>
+        public static string Estimate {
+            get {
+                return ResourceManager.GetString("Estimate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schatting Publiek.
+        /// </summary>
+        public static string Estimate_Public {
+            get {
+                return ResourceManager.GetString("Estimate_Public", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geschatte prijs.
+        /// </summary>
+        public static string Estimated_Price {
+            get {
+                return ResourceManager.GetString("Estimated_Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geschatte tijd.
+        /// </summary>
+        public static string Estimated_Time {
+            get {
+                return ResourceManager.GetString("Estimated_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exporteer.
         /// </summary>
         public static string Export {
@@ -984,6 +1047,15 @@ namespace Gitle.Localization {
         public static string Independently {
             get {
                 return ResourceManager.GetString("Independently", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Factuurnummer(s).
+        /// </summary>
+        public static string Invoice_Numbers {
+            get {
+                return ResourceManager.GetString("Invoice_Numbers", resourceCulture);
             }
         }
         
@@ -1501,6 +1573,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to geopend op.
+        /// </summary>
+        public static string Openend_On {
+            get {
+                return ResourceManager.GetString("Openend_On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deze link is verlopen..
         /// </summary>
         public static string Password_Change_Error_Expired {
@@ -1690,6 +1771,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oppakken.
+        /// </summary>
+        public static string Pickup {
+            get {
+                return ResourceManager.GetString("Pickup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Plaats reactie.
         /// </summary>
         public static string PlaceComment {
@@ -1870,6 +1960,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to sinds.
+        /// </summary>
+        public static string Since {
+            get {
+                return ResourceManager.GetString("Since", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorteren.
         /// </summary>
         public static string Sort {
@@ -1911,6 +2010,15 @@ namespace Gitle.Localization {
         public static string TaskList {
             get {
                 return ResourceManager.GetString("TaskList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taken.
+        /// </summary>
+        public static string Tasks {
+            get {
+                return ResourceManager.GetString("Tasks", resourceCulture);
             }
         }
         
@@ -2001,6 +2109,15 @@ namespace Gitle.Localization {
         public static string Unbooked {
             get {
                 return ResourceManager.GetString("Unbooked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload afbeelding/bestand.
+        /// </summary>
+        public static string Upload_picture_file {
+            get {
+                return ResourceManager.GetString("Upload_picture_file", resourceCulture);
             }
         }
         

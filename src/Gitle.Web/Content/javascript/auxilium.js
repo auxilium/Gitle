@@ -266,9 +266,22 @@ $.fn.uploadList = function() {
     var template = $($(this).data('template'));
     var url = $(this).data('url');
     var progressbar = $('<div class="progress">').append($('<span class="meter">')).insertAfter(this).hide();
-    if (!$.browser.msie)
-      list.after($('<small class="info">Je kunt ook afbeeldingen (jpg, png, gif) en bestanden (doc, docx, xls, xlsx, pdf, txt) uploaden door ze op de tabel te slepen.</small>'));
-    var uploadButton = $('<a href="#" class="button no-margin tiny">Upload document</a>').insertBefore(this);
+    var uploadButton;
+    if (!$.browser.msie && $.cookie("culture") !== "en-GB") {
+      textarea.after($(
+        '<small class="info">Je kunt ook afbeeldingen (jpg, png, gif) en bestanden (doc, docx, xls, xlsx, pdf, txt) uploaden door ze op het textveld te slepen.</small>'));
+    }
+    if (!$.browser.msie && $.cookie("culture") === "en-GB") {
+      textarea.after($(
+        '<small class="info">You can also upload pictures (jpg, png, gif) and files (doc, docx, xls, xlsx, pdf, txt) by dragging them to the text field.</small>'));
+    }
+    if ($.cookie("culture") === "en-GB") {
+      uploadButton = $('<a href="#" class="button no-margin tiny">Upload picture/file</a>')
+        .insertBefore(this);
+    } else {
+      uploadButton = $('<a href="#" class="button no-margin tiny">Upload afbeelding/bestand</a>')
+        .insertBefore(this);
+    }
     var uploadOptions = {
       url: url,
       beforeSend: function (e, a) {

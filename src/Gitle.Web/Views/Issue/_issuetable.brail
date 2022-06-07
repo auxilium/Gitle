@@ -66,20 +66,20 @@
             </div>
             <div class="row detailsrow">
               <div class="large-12 columns">
-                geopend op <strong>${Helpers.DateTimeHelper.Readable(issue.CreatedAt)}</strong><% if issue.CreatedBy: %> door <strong>${issue.CreatedBy.FullName}</strong><% end %>,
-                <% if issue.ClosedAt != null and issue.State.ToString() == "Closed" : %>gesloten op <strong>${Helpers.DateTimeHelper.Readable(issue.ClosedAt)}</strong><% if issue.ClosedBy != null: %> door <strong>${issue.ClosedBy.FullName}</strong><% end %><% end %>
+                ${t.Openend_On} <strong>${Helpers.DateTimeHelper.Readable(issue.CreatedAt)}</strong><% if issue.CreatedBy: %> ${t.By} <strong>${issue.CreatedBy.FullName}</strong><% end %>,
+                <% if issue.ClosedAt != null and issue.State.ToString() == "Closed" : %> ${t.ClosedOn} <strong>${Helpers.DateTimeHelper.Readable(issue.ClosedAt)}</strong><% if issue.ClosedBy != null: %> ${t.By} <strong>${issue.ClosedBy.FullName}</strong><% end %><% end %>
               </div>
             </div>
             <div class="row detailsrow">
               <div class="large-7 columns">
                 <% if issue.PickedUpBy != null and issue.IsOpen: %>
-                Behandelaar: <strong>${?issue.PickedUpBy.FullName}</strong> <% if issue.PickedUpAt != null: %>(sinds ${Helpers.DateTimeHelper.Readable(issue.PickedUpAt)})<% end %>
+                ${t.Assigned}: <strong>${?issue.PickedUpBy.FullName}</strong> <% if issue.PickedUpAt != null: %>(${t.Since} ${Helpers.DateTimeHelper.Readable(issue.PickedUpAt)})<% end %>
                 <% end %>
                 &nbsp;
               </div>
               <% if issue.Devvers > 0 and issue.Hours > 0 and (issue.EstimatePublic or CurrentUser.IsAdmin): %>
               <div class="large-1 columns">
-                <strong>Schatting:</strong>
+                <strong>${t.Estimate}:</strong>
               </div>
               <div class="large-2 columns text-right">
                 <% if not issue.EstimatePublic: %><i class="fa fa-exclamation-triangle" title="schatting nog niet publiek"></i><% end %> ${issue.TotalHoursString}
@@ -93,7 +93,7 @@
             <% if issue.Bookings.Count > 0: %>
             <div class="row detailsrow">
               <div class="large-1 large-offset-7 columns">
-                <strong>Geboekt: </strong>
+                <strong>${t.Booked}: </strong>
               </div>
               <div class="large-2 columns text-right">
                 <a href="/report/index?query=project:${project.Slug} issue:${issue.Number} period:always" data-bookingschart="/project/${project.Slug}/issue/${issue.Number}/bookingschart">
@@ -117,13 +117,13 @@
             <% if issue.Invoices.Count > 0: %>
             <div class="row detailsrow">
               <div class="large-7 columns">
-                Factuurnummer(s):
-                <% for invoice in issue.Invoices: %>
+								${Invoice_Numbers}:
+								<% for invoice in issue.Invoices: %>
                 <span class="label round <% if not invoice.IsDefinitive: %>secondary<% end %>" title="${invoice.Title}">${invoice.Number}</span>
                 <% end %>
               </div>
               <div class="large-1 columns">
-                <strong>Gefactureerd: </strong>
+                <strong>${t.Billed}: </strong>
               </div>
               <div class="large-2 columns text-right">
                 ${issue.TotalBillableHoursInvoicedString}
@@ -137,7 +137,7 @@
             <% if CurrentUser.IsCustomer and issue.DefinitiveInvoices.Count > 0: %>
             <div class="row detailsrow">
               <div class="large-12 columns">
-                Factuurnummer(s):
+                ${Invoice_Numbers}:
                 <% for invoice in issue.DefinitiveInvoices: %>
                 <span class="label round" title="${invoice.Title}">${invoice.Number}</span>
                 <% end %>
@@ -151,8 +151,8 @@
                 <ul class="button-group actions">
                   <li><a class="button tiny no-margin" href="/project/${project.Slug}/issue/${issue.Number}/view">Open</a></li>
                   <% if CurrentUser.IsAdmin and not issue.IsArchived and not project.Closed: %>
-                  <li><a class="button tiny success no-margin" href="/project/${project.Slug}/issue/${issue.Number}/pickup">Oppakken</a></li>
-                  <li><a class="button tiny success no-margin" href="/project/${project.Slug}/issue/${issue.Number}/edit">Bewerk</a></li>
+                  <li><a class="button tiny success no-margin" href="/project/${project.Slug}/issue/${issue.Number}/pickup">${t.Pickup}</a></li>
+                  <li><a class="button tiny success no-margin" href="/project/${project.Slug}/issue/${issue.Number}/edit">${t.Edit}</a></li>
                   <% end %>
                 </ul>
               </div>

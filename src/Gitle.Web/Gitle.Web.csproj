@@ -484,18 +484,17 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Gitle.Clients.Freckle\Gitle.Clients.Freckle.csproj">
       <Project>{79178042-4ca8-4f5c-abab-8f0928854322}</Project>
       <Name>Gitle.Clients.Freckle</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gitle.Clients.GitHub\Gitle.Clients.GitHub.csproj">
-      <Project>{E9C28D89-80BD-4384-BAB4-88911DD8236D}</Project>
+      <Project>{e9c28d89-80bd-4384-bab4-88911dd8236d}</Project>
       <Name>Gitle.Clients.GitHub</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gitle.Localization\Gitle.Localization.csproj">
-      <Project>{369FBFE1-7ACC-4A9E-A632-A1FFD1EF7607}</Project>
+      <Project>{369fbfe1-7acc-4a9e-a632-a1ffd1ef7607}</Project>
       <Name>Gitle.Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gitle.Model\Gitle.Model.csproj">
@@ -503,7 +502,7 @@
       <Name>Gitle.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gitle.Service\Gitle.Service.csproj">
-      <Project>{83DEC67C-B367-4EB5-873F-AC4BDA8E3281}</Project>
+      <Project>{83dec67c-b367-4eb5-873f-ac4bda8e3281}</Project>
       <Name>Gitle.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gitle.ViewModel\Gitle.ViewModel.csproj">
