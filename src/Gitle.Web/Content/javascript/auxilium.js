@@ -224,13 +224,14 @@ $.fn.upload = function () {
     var textarea = $(this);
     var progressbar = $('<div class="progress">').append($('<span class="meter">')).insertAfter(this).hide();
     var uploadButton;
-    if (!$.browser.msie && $.cookie("culture") !== "en-GB") {
-      textarea.after($(
-        '<small class="info">Je kunt ook afbeeldingen (jpg, png, gif) en bestanden (doc, docx, xls, xlsx, pdf, txt) uploaden door ze op het textveld te slepen.</small>'));
-    }
-    if (!$.browser.msie && $.cookie("culture") === "en-GB") {
-      textarea.after($(
-        '<small class="info">You can also upload pictures (jpg, png, gif) and files (doc, docx, xls, xlsx, pdf, txt) by dragging them to the text field.</small>'));
+    if (!$.browser.msie) {
+      if ($.cookie("culture") === "en-GB") {
+        textarea.after($(
+          '<small class="info">You can also upload pictures (jpg, png, gif) and files (doc, docx, xls, xlsx, pdf, txt) by dragging them to the text field.</small>'));
+      } else {
+        textarea.after($(
+          '<small class="info">Je kunt ook afbeeldingen (jpg, png, gif) en bestanden (doc, docx, xls, xlsx, pdf, txt) uploaden door ze op het textveld te slepen.</small>'));
+      }
     }
     if ($.cookie("culture") === "en-GB") {
       uploadButton = $('<a href="#" class="button no-margin tiny">Upload picture/file</a>')
@@ -280,13 +281,14 @@ $.fn.uploadList = function() {
     var url = $(this).data('url');
     var progressbar = $('<div class="progress">').append($('<span class="meter">')).insertAfter(this).hide();
     var uploadButton;
-    if (!$.browser.msie && $.cookie("culture") !== "en-GB") {
-      textarea.after($(
-        '<small class="info">Je kunt ook afbeeldingen (jpg, png, gif) en bestanden (doc, docx, xls, xlsx, pdf, txt) uploaden door ze op het textveld te slepen.</small>'));
-    }
-    if (!$.browser.msie && $.cookie("culture") === "en-GB") {
-      textarea.after($(
-        '<small class="info">You can also upload pictures (jpg, png, gif) and files (doc, docx, xls, xlsx, pdf, txt) by dragging them to the text field.</small>'));
+    if (!$.browser.msie) {
+      if ($.cookie("culture") === "en-GB") {
+        list.after($(
+          '<small class="info">You can also upload pictures (jpg, png, gif) and files (doc, docx, xls, xlsx, pdf, txt) by dragging them to the text field.</small>'));
+      } else {
+        list.after($(
+          '<small class="info">Je kunt ook afbeeldingen (jpg, png, gif) en bestanden (doc, docx, xls, xlsx, pdf, txt) uploaden door ze op het textveld te slepen.</small>'));
+      }
     }
     if ($.cookie("culture") === "en-GB") {
       uploadButton = $('<a href="#" class="button no-margin tiny">Upload picture/file</a>')
