@@ -3,13 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
     using System.Text.RegularExpressions;
     using Model;
     using Model.Enum;
     using Model.Helpers;
     using NHibernate;
-    using NHibernate.Linq;
 
     public class IssueQueryParser
     {
@@ -45,7 +43,8 @@
                                 {"Name", "Naam"},
                                 {"TotalHours", "Inspanning"},
                                 {"Comments.Count", "Aantal reacties"},
-                                {"IsAdministrative", "Administratief"}
+                                {"IsAdministrative", "Administratief"},
+                                {"MakeUrgent", "Spoed"}
                             };
 
 
@@ -140,12 +139,11 @@
 
 
             var itemsQuery =
-                session.Query<Issue>().Where(
-                    x =>
-                    x.Project == project &&
-                    x.Labels.Count(l => l.IsActive && l.Project == project && SelectedLabels.Contains(l.Name)) == SelectedLabels.Count &&
-                    (AnySelectedLabels.Count == 0 || x.Labels.Any(l => l.IsActive && l.Project == project && AnySelectedLabels.Contains(l.Name))) &&
-                    !x.Labels.Any(l => l.IsActive && l.Project == project && NotSelectedLabels.Contains(l.Name)));
+                session.Query<Issue>().Where(x => x.Project == project && x.Labels.Count(l => l.IsActive && l.Project == project && SelectedLabels
+                        .Contains(l.Name)) == SelectedLabels.Count && (AnySelectedLabels.Count == 0 || x.Labels
+                        .Any(l => l.IsActive && l.Project == project && AnySelectedLabels.Contains(l.Name))) && !x.Labels.Any(l => l.IsActive && l.Project == project && NotSelectedLabels
+                        .Contains(l.Name)));
+
 
             if (!string.IsNullOrWhiteSpace(searchQuery))
             {
@@ -232,7 +230,7 @@
 
             if (States.Any())
             {
-                items = items.Where(x => States.Contains(x.State)).ToList();
+                items = items.Where(x => States.Contains(x.State) || x.Urgent).ToList();
             }
 
 

@@ -792,4 +792,7 @@
   <data name="Uploader" xml:space="preserve">
     <value>Uploader</value>
   </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Spoed</value>
+  </data>
 </root>

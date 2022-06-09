@@ -96,7 +96,7 @@
 
             var issueStates = EnumHelper.ToDictionary(typeof(IssueState));
             var statusList = issueStates.Where(s =>
-                new[] {IssueState.Open, IssueState.Done, IssueState.Hold, IssueState.Closed}.Contains((IssueState)s.Key))
+                new[] {IssueState.Open, IssueState.Done, IssueState.Hold, IssueState.Closed, IssueState.Urgent}.Contains((IssueState)s.Key))
                 .ToList();
 
             PropertyBag.Add("item", item);
@@ -421,6 +421,23 @@
             if (issue.State != IssueState.Archived && issue.State != IssueState.Hold)
             {
                 issue.OnHold(CurrentUser);
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(issue);
+                    tx.Commit();
+                }
+            }
+        }
+
+        [MustHaveProject]
+        public void Urgent(string projectSlug, int issueId)
+        {
+            RedirectToReferrer();
+            var project = session.Slug<Project>(projectSlug);
+            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            if (issue.State != IssueState.Archived && issue.State != IssueState.Urgent)
+            {
+                issue.MakeUrgent(CurrentUser);
                 using (var tx = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(issue);

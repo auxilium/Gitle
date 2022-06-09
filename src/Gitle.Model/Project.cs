@@ -72,6 +72,7 @@
         public virtual string CompleteName => $"{Name} ({Application?.Name}, {Application?.Customer?.Name})";
 
         public virtual IReadOnlyList<Issue> OpenIssues => Issues?.Where(x => !x.IsArchived && !x.IsAdministrative && x.IsOpen).ToList() ?? new List<Issue>();
+        public virtual IReadOnlyList<Issue> UrgentIssues => Issues?.Where(x => !x.IsArchived && !x.IsAdministrative && x.IsOpen && x.IsUrgent && x.SetUrgent).ToList() ?? new List<Issue>();
         public virtual IReadOnlyList<Issue> DoneIssues => Issues?.Where(x => !x.IsArchived && !x.IsAdministrative && x.IsDone).ToList() ?? new List<Issue>();
         public virtual IReadOnlyList<Issue> HoldIssues => Issues?.Where(x => !x.IsArchived && !x.IsAdministrative && x.IsOnHold).ToList() ?? new List<Issue>();
         public virtual IReadOnlyList<Issue> ClosedIssues => Issues?.Where(x => !x.IsArchived && !x.IsAdministrative && x.IsClosed && !x.IsFullyInvoiced).ToList() ?? new List<Issue>();
@@ -81,10 +82,12 @@
         public virtual double DoneIssuesPercentageOf(int totalIssues) => PercentageOf(DoneIssues.Count, totalIssues);
         public virtual double HoldIssuesPercentageOf(int totalIssues) => PercentageOf(HoldIssues.Count, totalIssues);
         public virtual double ClosedIssuesPercentageOf(int totalIssues) => PercentageOf(ClosedIssues.Count, totalIssues);
+        public virtual double UrgentIssuesPercentageOf(int totalIssues) => PercentageOf(UrgentIssues.Count, totalIssues);
 
         public virtual double OpenIssuesPercentage => OpenIssuesPercentageOf(TotalIssues.Count);
         public virtual double DoneIssuesPercentage => DoneIssuesPercentageOf(TotalIssues.Count);
         public virtual double HoldIssuesPercentage => HoldIssuesPercentageOf(TotalIssues.Count);
+        public virtual double UrgentIssuesPercentage => UrgentIssuesPercentageOf(TotalIssues.Count);
         public virtual double ClosedIssuesPercentage => ClosedIssuesPercentageOf(TotalIssues.Count);
 
         public virtual double TotalEstimateAllTickets()
