@@ -19,7 +19,7 @@
       </div>
       <% if CurrentUser.IsAdmin: %>
       <div class="row">
-        <div class="large-3 columns">Schatting</div>
+        <div class="large-3 columns">${t.Estimate}</div>
         <div class="large-3 columns">
           <div class="row collapse">
             <div class="small-3 large-2 columns">
@@ -48,7 +48,7 @@
               </span>
             </div>
             <div class="small-9 large-10 columns">
-              <label for="item_EstimatePublic" class="postfix text-left">Schatting publiek</label>
+              <label for="item_EstimatePublic" class="postfix text-left">${t.Estimate_Public}</label>
             </div>
           </div>
         </div>
@@ -67,8 +67,36 @@
             </div>
           </div>
         </div>
+	      <div class="large-3 columns end">
+		      <div class="row collapse">
+			      <div class="small-3 large-2 columns">
+				      <span class="prefix">
+								${Form.CheckboxField("item.Urgent")}
+							</span>
+			      </div>
+			      <div class="small-9 large-10 columns">
+				      <label for="item_Urgent" class="postfix text-left">${t.Urgent}</label>
+			      </div>
+		      </div>
+	      </div>
       </div>
-      <% end %>
+        <% else: %>
+	        <div class="row">
+		        <div class="small-6 medium-3 columns">Filter Label</div>
+		        <div class="large-3 columns end">
+			        <div class="row collapse">
+				        <div class="small-3 large-2 columns">
+					        <span class="prefix">
+						        ${Form.CheckboxField("item.Urgent")}
+					        </span>
+				        </div>
+				        <div class="small-9 large-10 columns">
+					        <label for="item_Urgent" class="postfix text-left">${t.Urgent}</label>
+				        </div>
+			        </div>
+		        </div>
+	        </div>
+	      <% end %>
       <div class="row">
         <div class="large-3 columns">${t.Labels}</div>
         <div class="large-9 columns">

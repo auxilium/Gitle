@@ -45,12 +45,18 @@
         <div class="large-0 small-12 columns">
           <input type="checkbox" id="closedProjects" /> ${t.Projects_ShowClosed}
         </div>
+	      <div class="large-0 small-12 columns">
+		      <input type="checkbox" id="urgentIssues" /> ${t.Urgent_Issues}
+				</div>
       </div>
     </div>
     <% else: %>
     <div class="large-0 small-12 columns">
       <input type="checkbox" id="closedProjects" /> ${t.Projects_ShowClosed}
     </div>
+	    <div class="large-0 small-12 columns">
+		    <input type="checkbox" id="urgentIssues" /> ${t.Urgent_Issues}
+			</div>
     <% end %>
     <table id="project-table" class="small-blocks"></table>
   </div>
@@ -65,66 +71,102 @@
 </ol>
 
 <script>
-  $(function () {
-    var isDanielle = '${CurrentUser.IsDanielle}' === 'True';
-    var isAdmin = '${CurrentUser.IsAdmin}' === 'True';
+	$(function () {
+	var isDanielle = '${CurrentUser.IsDanielle}' === 'True';
+	var isAdmin = '${CurrentUser.IsAdmin}' === 'True';
 
-    var table = $('#project-table').DataTable({
-      pageLength: 50,
-      serverSide: true,
-      autoWidth: false,
-      ajax: {
-        url: '/project/list',
-        type: 'POSt',
-        data: function (d) {
-          d.search = d.search.value;
-          for (var column in d.columns) {
-            if (d.columns.hasOwnProperty(column)) {
-              delete d.columns[column].search;
-            }
-          }
-          d.customer = $('#customer').val();
-          d.application = $('#application').val();
-          d.type = $('#type').val();
-          d.closed = $('#closedProjects').is(':checked');
-          d.orderColumn = d.columns[d.order[0].column].name;
-          d.orderDir = d.order[0].dir;
-        }
-      },
-      initComplete: function (settins, json) {
-        $(document).foundation('reflow');
-      },
-      columns: [
-        {
-          data: 'Name', title: 'Project', name: 'Name', render: function (data, type, full, meta) {
-            if (full.Closed) {
-              return '<span class="red">' + data + '</span>';
-            } else {
-              return data;
-            }
-          }
-        },
-        {
-          data: 'Number', title: '#', name: 'Number', render: function (data, type, full, meta) {
-            if (full.Closed) {
-              return '<span class="red">' + data + '</span>';
-            } else {
-              return data;
-            }
-          }
-        },
-        { data: 'Application', title: 'Application', name: 'Application.Name', visible: isAdmin },
-        { data: 'Customer', title: 'Customer', name: 'Application.Customer.Name', visible: isAdmin },
-        { data: 'Type', title: 'Type', name: 'Type', visible: isAdmin },
-        {
-          data: 'Slug',
-          name: 'Actions',
-          orderable: false,
-          width: '388px',
-          render: function (data, type, full, meta) {
+	var table = $('#project-table').DataTable({
+	pageLength: 50,
+	serverSide: true,
+	autoWidth: false,
+	ajax: {
+	url: '/project/list',
+	type: 'POSt',
+	data: function (d) {
+	d.search = d.search.value;
+	for (var column in d.columns) {
 
-            var html =
-              '<ul class="button-group"><li><a class="button tiny secondary no-margin" href="/project/' + data + '/view">${t.Details}</a></li>';
+	if (d.columns.hasOwnProperty(column)) {
+	delete d.columns[column].search;
+	}
+	}
+	d.customer = $('#customer').val();
+	d.application = $('#application').val();
+	d.type = $('#type').val();
+	d.closed = $('#closedProjects').is(':checked');
+	d.urgent = $('#urgentIssues').is(':checked');
+	d.orderColumn = d.columns[d.order[0].column].name;
+	d.orderDir = d.order[0].dir;
+	}
+	},
+	createdRow: function (row, data, index) {
+	if (data.Closed) {
+	$(row).addClass('closed');
+	}
+	},
+	initComplete: function (settins, json) {
+	$(document).foundation('reflow');
+	},
+	columns: [
+	{
+	data: 'Name', title: 'Project', name: 'Name', render: function (data, type, full, meta) {
+	if (full.Closed) {
+
+	return '<span class="grey">' + data + '</span>';
+						} else if (full.Urgent) {
+				  return '<span class="red">' + data + '</span>';
+	} else {
+	return data;
+	}
+	}
+	},
+	{
+	data: 'Number', title: '#', name: 'Number', render: function (data, type, full, meta) {
+	if (full.Closed) {
+	return '<span class="grey">' + data + '</span>';
+						 } else if (full.Urgent) {
+				  return '<span class="red">' + data + '</span>';
+	} else {
+	return data;
+	}
+	}
+	},
+	{ data: 'Application', title: 'Application', name: 'Application.Name', visible: isAdmin, render: function (data, type, full, meta) {
+	if (full.Closed) {
+	return '<span class="grey">' + data + '</span>';
+	} else if (full.Urgent) {
+	return '<span class="red">' + data + '</span>';
+	} else {
+	return data;
+	}
+	} },
+	{ data: 'Customer', title: 'Customer', name: 'Application.Customer.Name', visible: isAdmin, render: function (data, type, full, meta) {
+	if (full.Closed) {
+	return '<span class="grey">' + data + '</span>';
+	} else if (full.Urgent) {
+	return '<span class="red">' + data + '</span>';
+	} else {
+	return data;
+	}
+	} },
+	{ data: 'Type', title: 'Type', name: 'Type', visible: isAdmin, render: function (data, type, full, meta) {
+	if (full.Closed) {
+	return '<span class="grey">' + data + '</span>';
+	} else if (full.Urgent) {
+	return '<span class="red">' + data + '</span>';
+	} else {
+	return data;
+	}
+	} },
+	{
+	data: 'Slug',
+	name: 'Actions',
+	orderable: false,
+	width: '388px',
+	render: function (data, type, full, meta) {
+
+	var html =
+	'<ul class="button-group"><li><a class="button tiny secondary no-margin" href="/project/' + data + '/view">${t.Details}</a></li>';
 
             if (isDanielle) {
               html +=
@@ -140,30 +182,30 @@
 
             html += '</ul>';
 
-            return html;
-          }
-        }
-      ],
+	return html;
+	}
+	}
+	],
 
-    });
+	});
 
-    $('#closedProjects, #customer, #application, #type').change(function () {
-      table.ajax.reload();
-    });
+	$('#closedProjects, #urgentIssues, #customer, #application, #type').change(function () {
+	table.ajax.reload();
+	});
 
-    $('#customer').change(function () {
-      $('#application').val('0');
-      if ($(this).val() != '0') {
-        $('#application [data-customer][data-customer!="' + $(this).val() + '"]').attr('disabled', true);
-        $('#application [data-customer][data-customer="' + $(this).val() + '"]').removeAttr('disabled');
-        var visibleOptions = $('#application option[data-customer]:not([disabled])');
-        if (visibleOptions.length == 1) {
-          $('#application').val(visibleOptions.attr('value'));
-        }
-      } else {
-        $('#application option').removeAttr('disabled');
-      }
-    });
+	$('#customer').change(function () {
+	$('#application').val('0');
+	if ($(this).val() != '0') {
+	$('#application [data-customer][data-customer!="' + $(this).val() + '"]').attr('disabled', true);
+	$('#application [data-customer][data-customer="' + $(this).val() + '"]').removeAttr('disabled');
+	var visibleOptions = $('#application option[data-customer]:not([disabled])');
+	if (visibleOptions.length == 1) {
+	$('#application').val(visibleOptions.attr('value'));
+	}
+	} else {
+	$('#application option').removeAttr('disabled');
+	}
+	});
 
-  });
+	});
 </script>

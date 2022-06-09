@@ -21,12 +21,12 @@ namespace Gitle.Clients.GitHub
             _client.LocalHttpWebRequestFilter = request => request.UserAgent = useragent;
         }
 
-        public List<Issue> List(string repo, string state = "open,closed")
+        public List<Issue> List(string repo, string state = "open,closed,urgent")
         {
             return List(repo, 0, state);
         }
 
-        public List<Issue> List(string repo, int milestoneId, string state = "open,closed")
+        public List<Issue> List(string repo, int milestoneId, string state = "open,closed,urgent")
         {
             var issues = new List<Issue>();
             foreach (var s in state.Split(','))

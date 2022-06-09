@@ -83,14 +83,17 @@
           <li><a href="#" data-filter="state:Closed" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Closed): %> active<% end %>">${t.Closed}</a></li>
           <li><a href="#" data-filter="state:Done" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Done): %> active<% end %>">${t.Completed}</a></li>
           <li><a href="#" data-filter="state:Hold" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Hold): %> active<% end %>">${t.OnHold}</a></li>
+	        <li><a href="#" data-filter="state:Urgent" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Urgent): %> active<% end %>">${t.Urgent}</a></li>
         </ul>
       </div>
+      <% if CurrentUser.IsAdmin: %>
       <div class="large-3 columns">
         <ul class="button-group">
           <li><a href="#" data-filter="bookingstate:Any" class="button tiny no-margin secondary<% if result.BookingStates.Contains(Gitle.Model.Enum.IssueBookingState.Any): %> active<% end %>">${t.Booked}</a></li>
           <li><a href="#" data-filter="bookingstate:None" class="button tiny no-margin secondary<% if result.BookingStates.Contains(Gitle.Model.Enum.IssueBookingState.None): %> active<% end %>">${t.Unbooked}</a></li>
         </ul>
       </div>
+        <% end %>
       <div class="large-2 small-12 columns">
         <button href="#" data-dropdown="sorts" aria-controls="sorts" aria-expanded="false" class="button tiny dropdown no-margin">${t.Sort}:</button>
         <ul id="sorts" data-dropdown-content="" class="f-dropdown" aria-hidden="true" tabindex="-1">
@@ -114,7 +117,8 @@
         </ul>
       </div>
       <div class="large-5 small-12 columns">
-        <% if labels.Count > 0: %>
+			
+	      <% if labels.Count > 0: %>
         <button href="#" data-dropdown="selectedLabels" aria-controls="selectedLabels" aria-expanded="false" class="button tiny dropdown no-margin">${t.ContainsLabels}:</button>
         <ul id="selectedLabels" data-dropdown-content="" class="f-dropdown labels" aria-hidden="true" tabindex="-1">
           <% for label in labels: %>
@@ -123,8 +127,14 @@
               <% if result.SelectedLabels.Contains(label.Name): %>
               <i class="fa fa-check"></i>
               <% end %>
+	              <% if redLabel: %>
               <span class="label no-margin"
-                    <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color} ;">${label.Name}</span>
+                    <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color};color: #000000;">${label.Name}</span>
+                      <% else: %>
+	                      <span class="label no-margin"
+	                      <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color} ;">${label.Name}</span>
+                          <% end %>
+	                        
             </a>
           </li>
           <% end %>
@@ -138,8 +148,13 @@
               <% if result.AnySelectedLabels.Contains(label.Name): %>
               <i class="fa fa-check"></i>
               <% end %>
-              <span class="label no-margin"
-                    <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color} ;">${label.Name}</span>
+	              <% if redLabel: %>
+		              <span class="label no-margin"
+		              <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color};color: #000000;">${label.Name}</span>
+			              <% else: %>
+				              <span class="label no-margin"
+				              <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color} ;">${label.Name}</span>
+					              <% end %>
             </a>
           </li>
           <% end %>
@@ -153,8 +168,13 @@
               <% if result.NotSelectedLabels.Contains(label.Name): %>
               <i class="fa fa-check"></i>
               <% end %>
-              <span class="label no-margin"
-                    <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color};">${label.Name}</span>
+	              <% if redLabel: %>
+		              <span class="label no-margin"
+		              <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color};color: #000000;">${label.Name}</span>
+			              <% else: %>
+				              <span class="label no-margin"
+				              <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color} ;">${label.Name}</span>
+					              <% end %>
             </a>
           </li>
           <% end %>
@@ -163,6 +183,7 @@
         <% else: %>
         <a href="#" class="button tiny secondary disabled">${t.NoLabelsToFilter}</a>
         <% end %>
+         
       </div>
 
       <% if CurrentUser.IsAdmin: %>
@@ -224,6 +245,7 @@
       <a href="/project/${project.Slug}/changestate?state=4" data-group-action class="button tiny no-margin alert"><i class="fa fa-ban"></i> ${t.Close}</a>
       <a href="/project/${project.Slug}/changestate?state=1" data-group-action class="button tiny no-margin"><i class="fa fa-info-circle"></i> ${t.Open}</a>
       <a href="/project/${project.Slug}/changestate?state=3" data-group-action class="button tiny no-margin on-hold"><i class="fa fa-hand-paper-o"></i> ${t.OnHold}</a>
+	      <a href="/project/${project.Slug}/changestate?state=6" data-group-action class="button tiny no-margin"><i class="fa fa-exclamation-circle red"></i> ${t.Urgent}</a>
       <% if CurrentUser.IsAdmin: %>
       <a href="/project/${project.Slug}/changestate?state=2" data-group-action class="button tiny no-margin success"><i class="fa fa-thumbs-o-up"></i> ${t.Completed}</a>
       <a href="/project/${project.Slug}/changestate?state=5" data-group-action class="button tiny no-margin alert"><i class="fa fa-trash"></i> ${t.Archive}</a>

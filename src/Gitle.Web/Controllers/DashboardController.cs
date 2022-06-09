@@ -1,6 +1,7 @@
 ﻿namespace Gitle.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Text;
@@ -20,8 +21,21 @@
         {
             var initialProjects = session.Query<Project>().Where(x => x.IsActive && !x.Closed && x.Type == ProjectType.Initial && x.Issues.Count > 0).OrderBy(x => x.Name).ToList();
 
-            var serviceProjects = session.Query<Project>().Where(x => x.IsActive && !x.Closed && x.Type == ProjectType.Service && x.Issues.Count > 0).OrderBy(x => x.Name).ToList();
+            List<Project> serviceProjects;
 
+            if (CurrentUser.IsAdmin)
+            { 
+                 serviceProjects = session.Query<Project>().Where(x => x.IsActive && !x.Closed && x.Type == ProjectType.Service && x.Issues.Count > 0).OrderBy(x => x.Name).ToList();
+            }
+            else
+            {
+                 serviceProjects = session.Query<Project>()
+                     .Where(x => x.IsActive && !x.Closed && x.Type == ProjectType.Service && x.Issues.Count > 0)
+                     .Where(x => x.Users.Any(u => u.User == CurrentUser))
+                     .OrderBy(x => x.Name)
+                     .ToList();
+            }
+            
             PropertyBag.Add("initialProjects", initialProjects);
             PropertyBag.Add("serviceProjects", serviceProjects);
             PropertyBag.Add("serviceProjectsMaxOpenIssues", serviceProjects.Any() ? serviceProjects.Max(project => project.OpenIssues.Count) : 0);

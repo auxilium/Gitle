@@ -442,61 +442,61 @@
     <value>Handed over</value>
   </data>
   <data name="Issue" xml:space="preserve">
-    <value>Task</value>
+    <value>Issue</value>
   </data>
   <data name="IssueAction_Change_EmailSubject" xml:space="preserve">
-    <value>Task {1} was changed by {0}</value>
+    <value>Issue {1} was changed by {0}</value>
   </data>
   <data name="IssueAction_Change_Text" xml:space="preserve">
-    <value>The task was changed</value>
+    <value>The issue was changed</value>
   </data>
   <data name="IssueAction_Comment_EmailSubject" xml:space="preserve">
-    <value>A comment was placed on task {1} by {0}</value>
+    <value>A comment was placed on issue {1} by {0}</value>
   </data>
   <data name="IssueAction_HandOver_Text" xml:space="preserve">
-    <value>The task is handed over</value>
+    <value>The issue is handed over</value>
   </data>
   <data name="IssueAction_PickUp_Text" xml:space="preserve">
-    <value>The task is picked up</value>
+    <value>The issue is picked up</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>Tasks</value>
+    <value>Issues</value>
   </data>
   <data name="Issues_Move" xml:space="preserve">
-    <value>Move tasks</value>
+    <value>Move issues</value>
   </data>
   <data name="Issues_Renumber" xml:space="preserve">
-    <value>Renumber tasks</value>
+    <value>Renumber issues</value>
   </data>
   <data name="Issues_Selected" xml:space="preserve">
-    <value>Selected tasks</value>
+    <value>Selected issues</value>
   </data>
   <data name="Issue_Archive" xml:space="preserve">
-    <value>Archive task</value>
+    <value>Archive issue</value>
   </data>
   <data name="Issue_Close" xml:space="preserve">
-    <value>Close task</value>
+    <value>Close issue</value>
   </data>
   <data name="Issue_Completed" xml:space="preserve">
-    <value>Task completed</value>
+    <value>Issue completed</value>
   </data>
   <data name="Issue_Edit" xml:space="preserve">
-    <value>Edit task</value>
+    <value>Edit issue</value>
   </data>
   <data name="Issue_Forward" xml:space="preserve">
-    <value>Forward task</value>
+    <value>Forward issue</value>
   </data>
   <data name="Issue_New" xml:space="preserve">
-    <value>New task</value>
+    <value>New issue</value>
   </data>
   <data name="Issue_OnHold" xml:space="preserve">
-    <value>Task on hold</value>
+    <value>Issue on hold</value>
   </data>
   <data name="Issue_PickUp" xml:space="preserve">
-    <value>Pickup task</value>
+    <value>Pickup issue</value>
   </data>
   <data name="Issue_Reopen" xml:space="preserve">
-    <value>Reopen task</value>
+    <value>Reopen issue</value>
   </data>
   <data name="Labels" xml:space="preserve">
     <value>Labels</value>
@@ -610,22 +610,22 @@
     <value>State</value>
   </data>
   <data name="TaskList" xml:space="preserve">
-    <value>Task list</value>
+    <value>Issue list</value>
   </data>
   <data name="Tasks_All" xml:space="preserve">
-    <value>All tasks</value>
+    <value>All issues</value>
   </data>
   <data name="Tasks_Completed" xml:space="preserve">
-    <value>Completed tasks</value>
+    <value>Completed issues</value>
   </data>
   <data name="Tasks_Open" xml:space="preserve">
-    <value>Open tasks</value>
+    <value>Open issues</value>
   </data>
   <data name="Tasks_Progress" xml:space="preserve">
-    <value>Progress of tasks</value>
+    <value>Progress of issues</value>
   </data>
   <data name="TheIssue" xml:space="preserve">
-    <value>The task</value>
+    <value>The issue</value>
   </data>
   <data name="Timeline" xml:space="preserve">
     <value>Timeline</value>
@@ -641,5 +641,56 @@
   </data>
   <data name="Uploader" xml:space="preserve">
     <value>Uploader</value>
+  </data>
+  <data name="Openend_On" xml:space="preserve">
+    <value>opened on</value>
+  </data>
+  <data name="Since" xml:space="preserve">
+    <value>since</value>
+  </data>
+  <data name="Application" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="Assigned_To" xml:space="preserve">
+    <value>Assigned to</value>
+  </data>
+  <data name="Billed" xml:space="preserve">
+    <value>Billed</value>
+  </data>
+  <data name="Estimate" xml:space="preserve">
+    <value>Estimate</value>
+  </data>
+  <data name="Estimated_Price" xml:space="preserve">
+    <value>Estimated budget</value>
+  </data>
+  <data name="Estimated_Time" xml:space="preserve">
+    <value>Estimated time</value>
+  </data>
+  <data name="Estimate_Public" xml:space="preserve">
+    <value>Estimate Public</value>
+  </data>
+  <data name="Invoice_Numbers" xml:space="preserve">
+    <value>Invoice number(s)</value>
+  </data>
+  <data name="Pickup" xml:space="preserve">
+    <value>Pickup</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Issues</value>
+  </data>
+  <data name="Upload_picture_file" xml:space="preserve">
+    <value>Upload picture/file</value>
+  </data>
+  <data name="Urgent" xml:space="preserve">
+    <value>Urgent</value>
+  </data>
+  <data name="Urgent_Issues" xml:space="preserve">
+    <value>Urgent Issues</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>hour(s)</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Required</value>
   </data>
 </root>

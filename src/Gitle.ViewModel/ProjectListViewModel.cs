@@ -1,5 +1,7 @@
 ﻿namespace Gitle.ViewModel
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Model;
 
     public class ProjectListViewModel
@@ -14,6 +16,7 @@
             Customer = project.Application?.Customer?.Name;
             Type = project.TypeString;
             Closed = project.Closed;
+            Urgent = project.Issues.Any(i => i.Urgent);
         }
 
         public long Id { get; set; }
@@ -24,5 +27,6 @@
         public string Customer { get; set; }
         public string Type { get; set; }
         public bool Closed { get; set; }
+        public bool Urgent { get; set; }
     }
 }

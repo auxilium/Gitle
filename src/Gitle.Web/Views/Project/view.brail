@@ -21,17 +21,17 @@
     <% if application != null: %>
     <% if application.Customer != null: %>
     <div class="row">
-      <div class="large-2 columns">Klant</div>
+      <div class="large-2 columns">${t.Customer}</div>
       <div class="large-10 columns"><a href="/customer/${?application.Customer.Slug}/view">${?application.Customer.Name}</a></div>
     </div>
     <% end %>
     <div class="row">
-      <div class="large-2 columns">Applicatie</div>
+      <div class="large-2 columns">${t.Application}</div>
       <div class="large-10 columns"><a href="/application/${application.Slug}/view">${?application.Name}</a></div>
     </div>
     <% end %>
     <div class="row">
-      <div class="large-2 columns">Taken</div>
+      <div class="large-2 columns">${t.Tasks}</div>
       <div class="large-10 columns"><a href="/project/${project.Slug}/issues">${?project.Name}</a></div>
     </div>
     <% end %>
@@ -40,7 +40,7 @@
       <div class="large-8 columns">
         <div class="progress success round" id="issue-progress">
           <% if CurrentUser.IsAdmin: %>
-          <span class="meter" style="width: ${donePercentage.ToString().Replace(',', '.')}%">${doneTime} uur</span>
+          <span class="meter" style="width: ${donePercentage.ToString().Replace(',', '.')}%">${doneTime} ${t.Hour}</span>
           <% else: %>
           <span class="meter" style="width: ${donePercentage.ToString().Replace(',', '.')}%">${donePercentage.ToString("00.##")}%</span>
           <% end %>
@@ -48,7 +48,7 @@
       </div>
       <div class="large-2 columns">
         <% if CurrentUser.IsAdmin: %>
-        ${totalIssueTime} uur
+        ${totalIssueTime} ${t.Hour}
         <% end %>
       </div>
     </div>
@@ -57,12 +57,12 @@
       <div class="large-2 columns">Voortgang uren</div>
       <div class="large-8 columns">
         <div class="progress <% if overbooked: %>alert<% end %> round" id="time-progress">
-          <span class="meter" style="width: ${bookedPercentage.ToString().Replace(',', '.')}%">${bookedTime} uur</span>
+          <span class="meter" style="width: ${bookedPercentage.ToString().Replace(',', '.')}%">${bookedTime} ${t.Hour}</span>
         </div>
       </div>
       <div class="large-2 columns">
-        ${totalTime} uur
-      </div>
+				${totalTime} ${t.Hour}
+			</div>
     </div>
     <% else: %>
     <% if CurrentUser.IsAdmin: %>
@@ -112,9 +112,9 @@
     </div>
     <div class="row">
       <div class="large-12 columns">
-        <h2>${t.Developers}</h2>
+				<h2>${t.Developers}</h2>
         <% if developers.Count == 0: %>
-        <p>${t.Developers_None}</p>
+	        <p>${t.Developers_None}</p>
         <% else: %>
         <table class="small-blocks" id="developers">
           <thead>

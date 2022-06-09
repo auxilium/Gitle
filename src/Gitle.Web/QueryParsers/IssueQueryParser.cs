@@ -3,13 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
     using System.Text.RegularExpressions;
     using Model;
     using Model.Enum;
     using Model.Helpers;
     using NHibernate;
-    using NHibernate.Linq;
 
     public class IssueQueryParser
     {
@@ -37,6 +35,7 @@
 
         public Dictionary<string, string> AllSorts = new Dictionary<string, string>()
                             {
+                                {"IsUrgent", "Spoed"},
                                 {"CreatedBy", "Aanmelder"},
                                 {"CreatedAt", "Aanmaakdatum"},
                                 {"PickedUpBy", "Behandelaar"},
@@ -140,12 +139,11 @@
 
 
             var itemsQuery =
-                session.Query<Issue>().Where(
-                    x =>
-                    x.Project == project &&
-                    x.Labels.Count(l => l.IsActive && l.Project == project && SelectedLabels.Contains(l.Name)) == SelectedLabels.Count &&
-                    (AnySelectedLabels.Count == 0 || x.Labels.Any(l => l.IsActive && l.Project == project && AnySelectedLabels.Contains(l.Name))) &&
-                    !x.Labels.Any(l => l.IsActive && l.Project == project && NotSelectedLabels.Contains(l.Name)));
+                session.Query<Issue>().Where(x => x.Project == project && x.Labels.Count(l => l.IsActive && l.Project == project && SelectedLabels
+                        .Contains(l.Name)) == SelectedLabels.Count && (AnySelectedLabels.Count == 0 || x.Labels
+                        .Any(l => l.IsActive && l.Project == project && AnySelectedLabels.Contains(l.Name))) && !x.Labels.Any(l => l.IsActive && l.Project == project && NotSelectedLabels
+                        .Contains(l.Name)));
+
 
             if (!string.IsNullOrWhiteSpace(searchQuery))
             {
@@ -227,12 +225,18 @@
             }
             if (querySorts.Count == 0 && linqSorts.Count == 0)
             {
-                items = items.OrderBy(x => x.State).ThenBy(x => x.Pickups.Count == 0).ThenBy(x => x.PrioOrder == 0).ThenBy(x => x.PrioOrder).ThenByDescending(x => x.ChangeStates.Max(cs => cs.CreatedAt)).ToList();
+                items = items.OrderBy(x => x.State != IssueState.Urgent)
+                    .ThenBy(x => x.State)
+                    .ThenBy(x => x.Pickups.Count == 0)
+                    .ThenBy(x => x.PrioOrder == 0)
+                    .ThenBy(x => x.PrioOrder)
+                    .ThenByDescending(x => x.ChangeStates.Max(cs => cs.CreatedAt))
+                    .ToList();
             }
 
             if (States.Any())
             {
-                items = items.Where(x => States.Contains(x.State)).ToList();
+                items = items.Where(x => States.Contains(x.State) || x.Urgent).ToList();
             }
 
 

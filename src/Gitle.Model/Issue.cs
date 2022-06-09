@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using Enum;
     using Helpers;
@@ -22,6 +23,7 @@
             InvoiceLines = new List<InvoiceLine>();
             EstimatePublic = true;
             Administrative = false;
+            Urgent = false;
         }
 
         public virtual int Number { get; set; }
@@ -31,7 +33,7 @@
         public virtual int Devvers { get; set; }
         public virtual bool EstimatePublic { get; set; }
         public virtual bool Administrative { get; set; }
-
+        public virtual bool Urgent { get; set; }
         public virtual bool Prioritized { get; set; }
         public virtual int PrioOrder { get; set; }
 
@@ -84,6 +86,24 @@
 
                 return false;
             }
+        }
+
+        public virtual bool IsUrgent
+        {
+            get
+            {
+                if (this.Urgent)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public virtual bool SetUrgent
+        {
+            get { return State == IssueState.Urgent; }
         }
 
         public virtual bool IsArchived
@@ -305,7 +325,8 @@
 
         public virtual string CostString(decimal hourPrice)
         {
-            return TotalHours > 0 ? ((decimal)TotalHours * hourPrice).ToString("C") : "n.n.b.";
+            var culture = new CultureInfo("nl-NL");
+            return TotalHours > 0 ? ((decimal)TotalHours * hourPrice).ToString("C", culture) : "n.n.b.";
         }
 
         public virtual IList<IIssueAction> GetActions(bool descending)
@@ -342,6 +363,12 @@
             if (State != IssueState.Archived)
                 ChangeState(user, IssueState.Hold);
             PrioOrder = 0;
+        }
+
+        public virtual void MakeUrgent(User user)
+        {
+            if (State != IssueState.Archived)
+                ChangeState(user, IssueState.Urgent);
         }
 
         public virtual void Done(User user)

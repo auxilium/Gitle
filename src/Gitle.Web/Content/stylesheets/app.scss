@@ -155,6 +155,10 @@ body.scroll .footer {
   color: #f04124;
 }
 
+.grey {
+  color: #666;
+}
+
 .green {
   color: #3c9a5f;
 }
@@ -262,6 +266,13 @@ table.tickets-table {
       background-color: #d0d0d0;
       text-align: right;
       padding-right: 0.5em;
+    }
+
+    .urgent {
+      color: #000;
+      background-color: red;
+      text-align: left;
+      padding-left: 0.5em;
     }
   }
 
@@ -608,6 +619,10 @@ table {
 
   tr.red > td {
     color: red;
+  }
+
+  tr.grey > td {
+    color: grey;
   }
 }
 
@@ -1672,3 +1687,27 @@ table#userTable {
     }
   }
 }
+
+.label {
+  display: inline-block;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  font-weight: bold;
+  line-height: 1;
+  margin-bottom: auto;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 0.25rem 0.5rem 0.25rem;
+  font-size: 1rem;
+  background-color: #008CBA;
+  color: black;
+}
+
+table#project-table {
+  .closed {
+    background: repeating-linear-gradient(143deg, #ffffff 14px, #d2d4d6 19px);
+  }
+}
+
+

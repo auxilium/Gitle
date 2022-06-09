@@ -19,18 +19,29 @@
         <p class="created no-margin"><strong>${t.ClosedOn}:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.ClosedAt)}">${Helpers.DateTimeHelper.Readable(item.ClosedAt)}</span></p>
         <% end %>
         <% if item.EstimatePublic or CurrentUser.IsAdmin: %>
-        <p class="hours no-margin"><strong>Geschatte tijd:</strong> ${item.EstimateString}  <% if not item.EstimatePublic: %><i class="fa fa-exclamation-triangle" title="schatting nog niet publiek"></i><% end %></p>
-        <p class="price no-margin"><strong>Geschatte prijs:</strong> ${item.CostString(project.HourPrice)}  <% if not item.EstimatePublic: %><i class="fa fa-exclamation-triangle" title="schatting nog niet publiek"></i><% end %></p>
+        <p class="hours no-margin"><strong>${t.Estimated_Time}:</strong> ${item.EstimateString}  <% if not item.EstimatePublic: %><i class="fa fa-exclamation-triangle" title="schatting nog niet publiek"></i><% end %></p>
+        <p class="price no-margin"><strong>${t.Estimated_Price}:</strong> ${item.CostString(project.HourPrice)}  <% if not item.EstimatePublic: %><i class="fa fa-exclamation-triangle" title="schatting nog niet publiek"></i><% end %></p>
         <% if CurrentUser.IsAdmin: %>
         <% if item.Bookings.Count > 0: %><p class="hours no-margin"><strong>Geboekte tijd:</strong> ${item.BillableBookingHoursString()} (${item.UnbillableBookingHoursString()} unbillable)</p><% end %>
         <% if item.Invoices.Count > 0: %><p class="hours no-margin"><strong>Gefactureerde tijd:</strong>  ${item.TotalBillableHoursInvoicedString} (${item.TotalUnbillableHoursInvoicedString} unbillable)</p><% end %>
         <% end %>
         <p class="state no-margin"><strong>${t.State}:</strong> ${item.StateString}</p>
         <% end %>
+	        <form action="/project/${project.Slug}/issue/${item.Number}/save" method="POST" autocomplete="off" data-abide>
+	        <p class="no-margin"><strong>${t.Urgent}:</strong>
+		        ${Form.CheckboxField("item.Urgent")}
+	        </p>
+		        <div class="row">
+			        <div class="large-12 columns">
+				        <input type="hidden" name="item.Name" value="${?item.Name}" class="focus" required="" />
+				        <input type="submit" class="button" value="${t.Save}" />
+			        </div>
+		        </div>
+	        </form>
         <p class="labels no-margin">
           <strong>${t.Labels}:</strong>
         </p>
-        <ul class="no-style">
+	        <ul class="no-style">
           <% for label in project.Labels: %>
           <%   if (CurrentUser.IsAdmin or label.VisibleForCustomer): %>
           <%     if item.CheckLabel(label.Name): %>
@@ -77,7 +88,7 @@
         </ul>
         <hr />
         <% end %>
-        <% if item.State.ToString() != "Open" and item.State.ToString() != "Closed": %>
+        <% if item.State.ToString() != "Open" and item.State.ToString() != "Closed" and item.State.ToString() != "Urgent": %>
         <a href="reopen" class="button secondary large-12">${t.Issue_Reopen}</a>
         <% end %>
         <% if item.State.ToString() != "Done" and CurrentUser.IsAdmin :%>
@@ -167,3 +178,40 @@
     </div>
   </div>
 </div>
+<script>
+	$(document).ready(function() {
+	$("#item_Urgent").change(function() {
+	if(this.checked) {
+	if ($.cookie("culture") === "en-GB"){
+	alert("Save issue to set urgent");
+	} else {
+	alert("Taak opslaan om taak te wijzigen");
+	}
+	$.ajax({
+	type: "POST",
+	url: "/project/${project.Slug}/issue/${item.Number}/urgent",
+	data: { data: true,
+	item_name: "${?item.Name}"
+	},
+	success: "succes",
+	dataType: "JSON"
+	});
+	} else {
+	if ($.cookie("culture") === "en-GB"){
+	alert("Save issue to set urgent");
+	} else {
+	alert("Taak opslaan om taak te wijzigen");
+	}
+	$.ajax({
+	type: "POST",
+	url: "/project/${project.Slug}/issue/${item.Number}/urgent",
+	data: { data: false,
+	item_name: "${?item.Name}"
+	},
+	success: "succes",
+	dataType: "JSON"
+	});
+	}
+	});
+	});
+</script>

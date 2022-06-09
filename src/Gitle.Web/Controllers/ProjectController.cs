@@ -14,6 +14,7 @@ namespace Gitle.Web.Controllers
     using System.IO;
     using System.Linq;
     using System.Text;
+    using Castle.Core.Internal;
     using ViewModel;
 
     public class ProjectController : SecureController
@@ -53,7 +54,7 @@ namespace Gitle.Web.Controllers
 
         [return: JSONReturnBinder]
         public object List(int start, int length, int draw, string orderColumn, string orderDir, string search,
-            long customer, long application, ProjectType type, bool closed)
+            long customer, long application, ProjectType type, bool closed, bool urgent)
         {
             var projects = session.Query<Project>().Where(x => x.IsActive);
 
@@ -77,6 +78,12 @@ namespace Gitle.Web.Controllers
             if (!closed)
             {
                 projects = projects.Where(x => !x.Closed);
+            }
+
+            if (urgent)
+            {
+                projects = projects
+                    .Where(x => x.Issues.Any(i => i.Urgent));
             }
 
             if (customer > 0)
@@ -228,7 +235,13 @@ namespace Gitle.Web.Controllers
                 session.SaveOrUpdate(application);
             }
 
-            var labels = BindObject<Label[]>("label");
+            var labels = BindObject<Label[]>("label").ToList();
+
+            if (labels.Count < 1)
+            {
+                Error("Minimaal 1 label is verplicht", true);
+                return;
+            }
 
             var labelsToDelete = item.Labels.Where(l => !labels.Select(x => x.Id).Contains(l.Id)).ToList();
 

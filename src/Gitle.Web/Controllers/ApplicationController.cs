@@ -43,7 +43,6 @@
             }
             RenderView("edit");
         }
-
         [Admin]
         public void Edit(string applicationSlug)
         {
