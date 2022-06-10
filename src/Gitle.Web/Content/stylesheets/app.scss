@@ -155,6 +155,10 @@ body.scroll .footer {
   color: #f04124;
 }
 
+.grey {
+  color: #666;
+}
+
 .green {
   color: #3c9a5f;
 }
@@ -608,6 +612,10 @@ table {
 
   tr.red > td {
     color: red;
+  }
+
+  tr.grey > td {
+    color: grey;
   }
 }
 

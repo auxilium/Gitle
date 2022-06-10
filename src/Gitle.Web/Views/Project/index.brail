@@ -98,7 +98,7 @@
         {
           data: 'Name', title: 'Project', name: 'Name', render: function (data, type, full, meta) {
             if (full.Closed) {
-              return '<span class="red">' + data + '</span>';
+              return '<span class="grey">' + data + '</span>';
             } else {
               return data;
             }
@@ -107,7 +107,7 @@
         {
           data: 'Number', title: '#', name: 'Number', render: function (data, type, full, meta) {
             if (full.Closed) {
-              return '<span class="red">' + data + '</span>';
+              return '<span class="grey">' + data + '</span>';
             } else {
               return data;
             }
