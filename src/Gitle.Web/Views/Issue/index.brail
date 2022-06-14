@@ -114,7 +114,8 @@
         </ul>
       </div>
       <div class="large-5 small-12 columns">
-        <% if labels.Count > 0: %>
+			
+	      <% if labels.Count > 0: %>
         <button href="#" data-dropdown="selectedLabels" aria-controls="selectedLabels" aria-expanded="false" class="button tiny dropdown no-margin">${t.ContainsLabels}:</button>
         <ul id="selectedLabels" data-dropdown-content="" class="f-dropdown labels" aria-hidden="true" tabindex="-1">
           <% for label in labels: %>
@@ -123,8 +124,14 @@
               <% if result.SelectedLabels.Contains(label.Name): %>
               <i class="fa fa-check"></i>
               <% end %>
+	              <% if redLabel: %>
               <span class="label no-margin"
-                    <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color} ;">${label.Name}</span>
+                    <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color};color: #000000;">${label.Name}</span>
+                      <% else: %>
+	                      <span class="label no-margin"
+	                      <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color} ;">${label.Name}</span>
+                          <% end %>
+	                        
             </a>
           </li>
           <% end %>
@@ -138,8 +145,13 @@
               <% if result.AnySelectedLabels.Contains(label.Name): %>
               <i class="fa fa-check"></i>
               <% end %>
-              <span class="label no-margin"
-                    <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color} ;">${label.Name}</span>
+	              <% if redLabel: %>
+		              <span class="label no-margin"
+		              <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color};color: #000000;">${label.Name}</span>
+			              <% else: %>
+				              <span class="label no-margin"
+				              <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color} ;">${label.Name}</span>
+					              <% end %>
             </a>
           </li>
           <% end %>
@@ -153,8 +165,13 @@
               <% if result.NotSelectedLabels.Contains(label.Name): %>
               <i class="fa fa-check"></i>
               <% end %>
-              <span class="label no-margin"
-                    <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color};">${label.Name}</span>
+	              <% if redLabel: %>
+		              <span class="label no-margin"
+		              <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color};color: #000000;">${label.Name}</span>
+			              <% else: %>
+				              <span class="label no-margin"
+				              <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color} ;">${label.Name}</span>
+					              <% end %>
             </a>
           </li>
           <% end %>
@@ -163,6 +180,7 @@
         <% else: %>
         <a href="#" class="button tiny secondary disabled">${t.NoLabelsToFilter}</a>
         <% end %>
+         
       </div>
 
       <% if CurrentUser.IsAdmin: %>
