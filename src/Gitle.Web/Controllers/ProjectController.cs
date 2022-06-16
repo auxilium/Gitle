@@ -53,7 +53,7 @@ namespace Gitle.Web.Controllers
 
         [return: JSONReturnBinder]
         public object List(int start, int length, int draw, string orderColumn, string orderDir, string search,
-            long customer, long application, ProjectType type, bool closed)
+            long customer, long application, ProjectType type, bool closed, bool urgent)
         {
             var projects = session.Query<Project>().Where(x => x.IsActive);
 
@@ -77,6 +77,12 @@ namespace Gitle.Web.Controllers
             if (!closed)
             {
                 projects = projects.Where(x => !x.Closed);
+            }
+
+            if (urgent)
+            {
+                projects = projects
+                    .Where(x => x.Issues.Any(i => i.Urgent));
             }
 
             if (customer > 0)
