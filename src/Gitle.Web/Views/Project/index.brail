@@ -46,7 +46,7 @@
           <input type="checkbox" id="closedProjects" /> ${t.Projects_ShowClosed}
         </div>
 	      <div class="large-0 small-12 columns">
-		      <input type="checkbox" id="urgentIssues" /> Urgent Issues
+		      <input type="checkbox" id="urgentIssues" /> ${t.Urgent_Issues}
 				</div>
       </div>
     </div>
@@ -55,8 +55,8 @@
       <input type="checkbox" id="closedProjects" /> ${t.Projects_ShowClosed}
     </div>
 	    <div class="large-0 small-12 columns">
-		    <input type="checkbox" id="urgentIssues" /> Urgent Issues
-	    </div>
+		    <input type="checkbox" id="urgentIssues" /> ${t.Urgent_Issues}
+			</div>
     <% end %>
     <table id="project-table" class="small-blocks"></table>
   </div>
@@ -85,6 +85,7 @@
 	data: function (d) {
 	d.search = d.search.value;
 	for (var column in d.columns) {
+
 	if (d.columns.hasOwnProperty(column)) {
 	delete d.columns[column].search;
 	}
@@ -98,14 +99,20 @@
 	d.orderDir = d.order[0].dir;
 	}
 	},
+	createdRow: function (row, data, index) {
+	if (data.Closed) {
+	$(row).addClass('closed');
+	}
+	},
 	initComplete: function (settins, json) {
 	$(document).foundation('reflow');
 	},
 	columns: [
 	{
 	data: 'Name', title: 'Project', name: 'Name', render: function (data, type, full, meta) {
-	 if (full.Closed) {
-              return '<span class="grey">' + data + '</span>';
+	if (full.Closed) {
+
+	return '<span class="grey">' + data + '</span>';
 						} else if (full.Urgent) {
 				  return '<span class="red">' + data + '</span>';
 	} else {
@@ -119,23 +126,47 @@
 	return '<span class="grey">' + data + '</span>';
 						 } else if (full.Urgent) {
 				  return '<span class="red">' + data + '</span>';
-						} else {
-              return data;
-            }
-          }
-        },
-        { data: 'Application', title: 'Application', name: 'Application.Name', visible: isAdmin },
-        { data: 'Customer', title: 'Customer', name: 'Application.Customer.Name', visible: isAdmin },
-        { data: 'Type', title: 'Type', name: 'Type', visible: isAdmin },
-        {
-          data: 'Slug',
-          name: 'Actions',
-          orderable: false,
-          width: '388px',
-          render: function (data, type, full, meta) {
+	} else {
+	return data;
+	}
+	}
+	},
+	{ data: 'Application', title: 'Application', name: 'Application.Name', visible: isAdmin, render: function (data, type, full, meta) {
+	if (full.Closed) {
+	return '<span class="grey">' + data + '</span>';
+	} else if (full.Urgent) {
+	return '<span class="red">' + data + '</span>';
+	} else {
+	return data;
+	}
+	} },
+	{ data: 'Customer', title: 'Customer', name: 'Application.Customer.Name', visible: isAdmin, render: function (data, type, full, meta) {
+	if (full.Closed) {
+	return '<span class="grey">' + data + '</span>';
+	} else if (full.Urgent) {
+	return '<span class="red">' + data + '</span>';
+	} else {
+	return data;
+	}
+	} },
+	{ data: 'Type', title: 'Type', name: 'Type', visible: isAdmin, render: function (data, type, full, meta) {
+	if (full.Closed) {
+	return '<span class="grey">' + data + '</span>';
+	} else if (full.Urgent) {
+	return '<span class="red">' + data + '</span>';
+	} else {
+	return data;
+	}
+	} },
+	{
+	data: 'Slug',
+	name: 'Actions',
+	orderable: false,
+	width: '388px',
+	render: function (data, type, full, meta) {
 
-            var html =
-              '<ul class="button-group"><li><a class="button tiny secondary no-margin" href="/project/' + data + '/view">${t.Details}</a></li>';
+	var html =
+	'<ul class="button-group"><li><a class="button tiny secondary no-margin" href="/project/' + data + '/view">${t.Details}</a></li>';
 
             if (isDanielle) {
               html +=

@@ -87,7 +87,7 @@
             }
         }
 
-        public virtual bool SetUrgent
+        public virtual bool IsUrgent
         {
             get
             {
@@ -100,7 +100,7 @@
             }
         }
 
-        public virtual bool IsUrgent
+        public virtual bool SetUrgent
         {
             get { return State == IssueState.Urgent; }
         }

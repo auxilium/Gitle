@@ -2032,6 +2032,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Spoed tickets.
+        /// </summary>
+        public static string Urgent_Issues {
+            get {
+                return ResourceManager.GetString("Urgent_Issues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gebruikersnaam.
         /// </summary>
         public static string User_Name {

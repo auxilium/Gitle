@@ -1,7 +1,9 @@
 ﻿<h1>Dashboard</h1>
 
 <ul class="tabs" data-tab data-options="deep_linking:true">
-  <li class="tab-title active"><a href="#initial">Initiele projecten</a></li>
+	<% if CurrentUser.IsAdmin: %>
+	<li class="tab-title active"><a href="#initial">Initiele projecten</a></li>
+    <% end %>
   <li class="tab-title"><a href="#service">Service projecten</a></li>
 </ul>
 <div class="tabs-content">
@@ -67,7 +69,7 @@
       <tbody>
         <% for project in serviceProjects: %>
         <tr class="<% if project.OpenIssues.Count == 0 : %>empty-project<% end %>">
-          <td><a href="/project/${project.Slug}/issues">${project.Name}</a></td>
+          <td><a href="/project/${project.Slug}/issues" <% if project.UrgentIssues.Count > 0 : %> style="color:#FF0000;" <% end %>>${project.Name}</a></td>
           <td>
             <div class="progress progress-tickets">
               <% if project.OpenIssues.Count > 0: %><span class="meter open" style="width: ${project.OpenIssuesPercentageOf(serviceProjectsMaxOpenIssues).ToString().Replace(",", "." )}%">${project.OpenIssues.Count} open</span><% end %>
@@ -94,6 +96,7 @@
               <% if project.DoneIssues.Count > 0: %><span class="meter done" style="width: ${project.DoneIssuesPercentage.ToString().Replace(",", "." )}%">${project.DoneIssues.Count} done</span><% end %>
               <% if project.HoldIssues.Count > 0: %><span class="meter hold" style="width: ${project.HoldIssuesPercentage.ToString().Replace(",", "." )}%">${project.HoldIssues.Count} hold</span><% end %>
               <% if project.ClosedIssues.Count > 0: %><span class="meter closed" style="width: ${project.ClosedIssuesPercentage.ToString().Replace(",", "." )}%">${project.ClosedIssues.Count} closed</span><% end %>
+	              <% if project.UrgentIssues.Count > 0: %><span class="meter urgent" style="width: ${project.UrgentIssuesPercentage.ToString().Replace(",", "." )}%">${project.UrgentIssues.Count} urgent</span><% end %>
             </div>
           </td>
 

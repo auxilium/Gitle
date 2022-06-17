@@ -795,4 +795,7 @@
   <data name="Urgent" xml:space="preserve">
     <value>Spoed</value>
   </data>
+  <data name="Urgent_Issues" xml:space="preserve">
+    <value>Spoed tickets</value>
+  </data>
 </root>
