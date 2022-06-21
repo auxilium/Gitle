@@ -44,7 +44,7 @@
                                 {"TotalHours", "Inspanning"},
                                 {"Comments.Count", "Aantal reacties"},
                                 {"IsAdministrative", "Administratief"},
-                                {"MakeUrgent", "Spoed"}
+                                {"IsUrgent", "Spoed"}
                             };
 
 
