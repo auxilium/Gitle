@@ -435,6 +435,9 @@
             RedirectToReferrer();
             var project = session.Slug<Project>(projectSlug);
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var query = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
+
+            var savedIssue = SaveIssue(project, issue, query);
             if (issue.State != IssueState.Archived && issue.State != IssueState.Urgent)
             {
                 issue.MakeUrgent(CurrentUser);

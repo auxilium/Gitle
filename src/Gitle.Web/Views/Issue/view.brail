@@ -27,7 +27,7 @@
         <% end %>
         <p class="state no-margin"><strong>${t.State}:</strong> ${item.StateString}</p>
         <% end %>
-	        <form action="/project/${project.Slug}/issue/${item.Number}/save" method="POST" autocomplete="off" data-abide>
+	        <form action="/project/${project.Slug}/issue/${item.Number}/urgent" method="POST" autocomplete="off" data-abide>
 	        <p class="no-margin"><strong>${t.Urgent}:</strong>
 		        ${Form.CheckboxField("item.Urgent")}
 	        </p>
