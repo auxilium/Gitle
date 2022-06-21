@@ -83,7 +83,7 @@
           <li><a href="#" data-filter="state:Closed" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Closed): %> active<% end %>">${t.Closed}</a></li>
           <li><a href="#" data-filter="state:Done" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Done): %> active<% end %>">${t.Completed}</a></li>
           <li><a href="#" data-filter="state:Hold" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Hold): %> active<% end %>">${t.OnHold}</a></li>
-	        <li><a href="#" data-filter="state:Urgent" class="button tiny no-margin secondary"<% if result.States.Contains(Gitle.Model.Enum.IssueState.Urgent): %> active<% end %>">${t.Urgent}</a></li>
+	        <li><a href="#" data-filter="state:Urgent" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Urgent): %> active<% end %>">${t.Urgent}</a></li>
         </ul>
       </div>
       <div class="large-3 columns">
@@ -225,6 +225,7 @@
       <a href="/project/${project.Slug}/changestate?state=4" data-group-action class="button tiny no-margin alert"><i class="fa fa-ban"></i> ${t.Close}</a>
       <a href="/project/${project.Slug}/changestate?state=1" data-group-action class="button tiny no-margin"><i class="fa fa-info-circle"></i> ${t.Open}</a>
       <a href="/project/${project.Slug}/changestate?state=3" data-group-action class="button tiny no-margin on-hold"><i class="fa fa-hand-paper-o"></i> ${t.OnHold}</a>
+	      <a href="/project/${project.Slug}/changestate?state=6" data-group-action class="button tiny no-margin"><i class="fa fa-exclamation-circle red"></i> ${t.Urgent}</a>
       <% if CurrentUser.IsAdmin: %>
       <a href="/project/${project.Slug}/changestate?state=2" data-group-action class="button tiny no-margin success"><i class="fa fa-thumbs-o-up"></i> ${t.Completed}</a>
       <a href="/project/${project.Slug}/changestate?state=5" data-group-action class="button tiny no-margin alert"><i class="fa fa-trash"></i> ${t.Archive}</a>
