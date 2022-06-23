@@ -51,9 +51,13 @@ namespace Gitle.Web.Controllers
                 Error(Language.Authenticate_Failed, true);
                 return;
             }
-
+            var configCulture = ConfigurationManager.AppSettings["culture"];
+            if (configCulture == "en-GB")
+            {
+               Context.Response.CreateCookie("culture", configCulture);
+            }
             FormsAuthentication.SetAuthCookie(name, persistent);
-
+            
             if (string.IsNullOrEmpty(returnUrl))
                 RedirectToSiteRoot();
             else

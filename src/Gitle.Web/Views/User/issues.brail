@@ -84,13 +84,13 @@
                     <div class="row detailsrow">
                       <div class="large-7 columns">
                         <% if issue.PickedUpBy != null and issue.IsOpen: %>
-                        Behandelaar: <strong>${?issue.PickedUpBy.FullName}</strong> <% if issue.PickedUpAt != null: %>(sinds ${Helpers.DateTimeHelper.Readable(issue.PickedUpAt)})<% end %>
+                        ${t.Assigned_To}: <strong>${?issue.PickedUpBy.FullName}</strong> <% if issue.PickedUpAt != null: %>(${t.Since} ${Helpers.DateTimeHelper.Readable(issue.PickedUpAt)})<% end %>
                         <% end %>
                         &nbsp;
                       </div>
                       <% if issue.Devvers > 0 and issue.Hours > 0 and (issue.EstimatePublic or CurrentUser.IsAdmin): %>
                       <div class="large-1 columns">
-                        <strong>Schatting:</strong>
+                        <strong>${t.Estimate}:</strong>
                       </div>
                       <div class="large-2 columns text-right">
                         <% if not issue.EstimatePublic: %><i class="fa fa-exclamation-triangle" title="schatting nog niet publiek"></i><% end %> ${issue.TotalHoursString}

@@ -19,8 +19,8 @@
         <p class="created no-margin"><strong>${t.ClosedOn}:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.ClosedAt)}">${Helpers.DateTimeHelper.Readable(item.ClosedAt)}</span></p>
         <% end %>
         <% if item.EstimatePublic or CurrentUser.IsAdmin: %>
-        <p class="hours no-margin"><strong>Geschatte tijd:</strong> ${item.EstimateString}  <% if not item.EstimatePublic: %><i class="fa fa-exclamation-triangle" title="schatting nog niet publiek"></i><% end %></p>
-        <p class="price no-margin"><strong>Geschatte prijs:</strong> ${item.CostString(project.HourPrice)}  <% if not item.EstimatePublic: %><i class="fa fa-exclamation-triangle" title="schatting nog niet publiek"></i><% end %></p>
+        <p class="hours no-margin"><strong>${t.Estimated_Time}:</strong> ${item.EstimateString}  <% if not item.EstimatePublic: %><i class="fa fa-exclamation-triangle" title="schatting nog niet publiek"></i><% end %></p>
+        <p class="price no-margin"><strong>${t.Estimated_Price}:</strong> ${item.CostString(project.HourPrice)}  <% if not item.EstimatePublic: %><i class="fa fa-exclamation-triangle" title="schatting nog niet publiek"></i><% end %></p>
         <% if CurrentUser.IsAdmin: %>
         <% if item.Bookings.Count > 0: %><p class="hours no-margin"><strong>Geboekte tijd:</strong> ${item.BillableBookingHoursString()} (${item.UnbillableBookingHoursString()} unbillable)</p><% end %>
         <% if item.Invoices.Count > 0: %><p class="hours no-margin"><strong>Gefactureerde tijd:</strong>  ${item.TotalBillableHoursInvoicedString} (${item.TotalUnbillableHoursInvoicedString} unbillable)</p><% end %>
