@@ -35,6 +35,7 @@
 
         public Dictionary<string, string> AllSorts = new Dictionary<string, string>()
                             {
+                                {"IsUrgent", "Spoed"},
                                 {"CreatedBy", "Aanmelder"},
                                 {"CreatedAt", "Aanmaakdatum"},
                                 {"PickedUpBy", "Behandelaar"},
@@ -43,8 +44,7 @@
                                 {"Name", "Naam"},
                                 {"TotalHours", "Inspanning"},
                                 {"Comments.Count", "Aantal reacties"},
-                                {"IsAdministrative", "Administratief"},
-                                {"IsUrgent", "Spoed"}
+                                {"IsAdministrative", "Administratief"}
                             };
 
 

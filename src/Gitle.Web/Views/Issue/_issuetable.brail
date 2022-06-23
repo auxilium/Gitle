@@ -12,7 +12,7 @@
               </div>
               <div class="small-6 columns large-text-center medium-text-right">
 
-                <% if issue.IsOpen: %>
+                <% if issue.IsOpen or issue.IsUrgent: %>
                 <% if issue.IsAdministrative : %>
                 <i class="fa fa-bookmark yellow" title="administratief"></i>
                 <% else :%>

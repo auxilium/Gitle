@@ -55,9 +55,11 @@
     <input type="checkbox" id="toggle-overview" /> Toon alle tickets
     <br/>
     <input type="checkbox" id="toggle-empties" checked /> Verberg projecten zonder tickets
+    <% if CurrentUser.IsAdmin: %>
     <div class="large-0 small-6 columns right">
       <a href="/dashboard/exportopenticketsbyproject" class="button tiny">Export openstaande issues</a>
     </div>
+      <% end %>
 
     <table class="tickets-table striped hide-empties">
       <thead>

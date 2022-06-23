@@ -367,7 +367,6 @@
         {
             if (State != IssueState.Archived)
                 ChangeState(user, IssueState.Urgent);
-            PrioOrder = 0;
         }
 
         public virtual void Done(User user)

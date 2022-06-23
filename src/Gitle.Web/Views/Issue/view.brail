@@ -27,7 +27,7 @@
         <% end %>
         <p class="state no-margin"><strong>${t.State}:</strong> ${item.StateString}</p>
         <% end %>
-	        <form action="/project/${project.Slug}/issue/${item.Number}/urgent" method="POST" autocomplete="off" data-abide>
+	        <form action="/project/${project.Slug}/issue/${item.Number}/save" method="POST" autocomplete="off" data-abide>
 	        <p class="no-margin"><strong>${t.Urgent}:</strong>
 		        ${Form.CheckboxField("item.Urgent")}
 	        </p>
@@ -88,7 +88,7 @@
         </ul>
         <hr />
         <% end %>
-        <% if item.State.ToString() != "Open" and item.State.ToString() != "Closed": %>
+        <% if item.State.ToString() != "Open" and item.State.ToString() != "Closed" and item.State.ToString() != "Urgent": %>
         <a href="reopen" class="button secondary large-12">${t.Issue_Reopen}</a>
         <% end %>
         <% if item.State.ToString() != "Done" and CurrentUser.IsAdmin :%>
@@ -178,3 +178,32 @@
     </div>
   </div>
 </div>
+<script>
+	$(document).ready(function() {
+	$("#item_Urgent").change(function() {
+	if(this.checked) {
+	alert("Taak opslaan om taak te wijzigen");
+	$.ajax({
+	type: "POST",
+	url: "/project/${project.Slug}/issue/${item.Number}/urgent",
+	data: { data: true,
+	item_name: "${?item.Name}"
+	},
+	success: "succes",
+	dataType: "JSON"
+	});
+	} else {
+	alert("Taak opslaan om taak te wijzigen");
+	$.ajax({
+	type: "POST",
+	url: "/project/${project.Slug}/issue/${item.Number}/urgent",
+	data: { data: false,
+	item_name: "${?item.Name}"
+	},
+	success: "succes",
+	dataType: "JSON"
+	});
+	}
+	});
+	});
+</script>
