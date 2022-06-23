@@ -186,6 +186,7 @@
             if (issue == null && savedIssue.IsUrgent)
             {
                 savedIssue.MakeUrgent(CurrentUser);
+                savedIssue.Prioritized = true;
                 using (var tx = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(savedIssue);
@@ -237,6 +238,7 @@
             if (data)
             {
                 issue.MakeUrgent(CurrentUser);
+                issue.Prioritized = true;
                 using (var tx = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(issue);
@@ -246,6 +248,7 @@
             else
             {
                 issue.Open(CurrentUser);
+                issue.Prioritized = false;
                 using (var tx = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(issue);
@@ -528,7 +531,7 @@
         [MustHaveProject]
         public void ReOrderIssue(string projectSlug, int issueNumber, int newIndex)
         {
-            var issues = session.Query<Issue>().Where(x => x.Project.Slug == projectSlug && x.Pickups.Count == 0).ToList().Where(x => x.ChangeStates.Last().IssueState == IssueState.Urgent).OrderBy(x => x.PrioOrder).ToList();
+            var issues = session.Query<Issue>().Where(x => x.Project.Slug == projectSlug && x.Pickups.Count == 0).ToList().Where(x => x.ChangeStates.Last().IssueState == IssueState.Open).OrderBy(x => x.PrioOrder).ToList();
 
             var issue = session.Query<Issue>().Single(x => x.Project.Slug == projectSlug && x.Number == issueNumber);
             issues.Remove(issue);
@@ -556,7 +559,8 @@
             var issues = session.Query<Issue>()
                 .Where(x => x.Project.Slug == projectSlug && x.Pickups.Count == 0)
                 .ToList()
-                //.Where(x => x.ChangeStates.Last().IssueState == IssueState.Open)
+                .Where(x => x.ChangeStates.Last().IssueState == IssueState.Open)
+                .OrderByDescending(x => x.Prioritized)
                 .Where(x => x.ChangeStates.Last().IssueState == IssueState.Urgent)
                 .OrderByDescending(x => x.Prioritized)
                 .ThenBy(x => x.PrioOrder)

@@ -120,7 +120,7 @@
         <ul id="selectedLabels" data-dropdown-content="" class="f-dropdown labels" aria-hidden="true" tabindex="-1">
           <% for label in labels: %>
           <li>
-            <a href="#" data-filter="label:'${label.Name}'">
+            <a href="#" data-filter="label:'${t.label.Name}'">
               <% if result.SelectedLabels.Contains(label.Name): %>
               <i class="fa fa-check"></i>
               <% end %>
