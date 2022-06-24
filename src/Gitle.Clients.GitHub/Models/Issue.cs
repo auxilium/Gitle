@@ -76,7 +76,7 @@
 
         public virtual string CostString(double hourPrice)
         {
-            return TotalHours > 0 ? (TotalHours*hourPrice).ToString("C") : "n.n.b.";
+            return TotalHours > 0 ? (TotalHours*hourPrice).ToString("\u20AC") : "n.n.b.";
         }
 
         [DataMember(Name = "body")]
