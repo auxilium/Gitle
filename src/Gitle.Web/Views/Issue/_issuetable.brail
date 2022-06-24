@@ -117,7 +117,7 @@
             <% if issue.Invoices.Count > 0: %>
             <div class="row detailsrow">
               <div class="large-7 columns">
-								${Invoice_Numbers}:
+	              ${t.Invoice_Numbers}:
 								<% for invoice in issue.Invoices: %>
                 <span class="label round <% if not invoice.IsDefinitive: %>secondary<% end %>" title="${invoice.Title}">${invoice.Number}</span>
                 <% end %>
@@ -137,8 +137,8 @@
             <% if CurrentUser.IsCustomer and issue.DefinitiveInvoices.Count > 0: %>
             <div class="row detailsrow">
               <div class="large-12 columns">
-                ${Invoice_Numbers}:
-                <% for invoice in issue.DefinitiveInvoices: %>
+								${t.Invoice_Numbers}:
+								<% for invoice in issue.DefinitiveInvoices: %>
                 <span class="label round" title="${invoice.Title}">${invoice.Number}</span>
                 <% end %>
               </div>
