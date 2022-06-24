@@ -35,14 +35,14 @@
               <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% end %>
               <% if project.TotalEstimateAllTickets() > 0 : %>
-              <span class="left-value">${project.TotalEstimateAllTickets()} uur geschat</span>
+              <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
               <% else : %>
-              <span class="left-value">${project.BudgetHours} uur budget</span>
+              <span class="left-value">${project.BudgetHours} ${t.Hour} budget</span>
               <% end %>
               <% if project.TotalEstimateAllOpenTickets() > 0 : %>
-              <span class="right-value">${project.TotalEstimateAllOpenTickets()} uur te doen</span>
+              <span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
               <% else : %>
-              <span class="right-value">${project.RemainingHours} uur over</span>
+              <span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
               <% end %>
             </div>
           </td>
