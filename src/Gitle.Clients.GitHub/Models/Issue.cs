@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Runtime.Serialization;
     using System.Text.RegularExpressions;
@@ -76,7 +77,8 @@
 
         public virtual string CostString(double hourPrice)
         {
-            return TotalHours > 0 ? (TotalHours*hourPrice).ToString("\u20AC") : "n.n.b.";
+            var culture = new CultureInfo("nl-NL");
+            return TotalHours > 0 ? (TotalHours*hourPrice).ToString("C", culture) : "n.n.b.";
         }
 
         [DataMember(Name = "body")]
