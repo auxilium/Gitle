@@ -12,13 +12,13 @@
               </div>
               <div class="small-6 columns large-text-center medium-text-right">
 
-                <% if issue.IsOpen: %>
+                <% if issue.IsOpen or issue.IsUrgent: %>
                 <% if issue.IsAdministrative : %>
                 <i class="fa fa-bookmark yellow" title="administratief"></i>
                 <% else :%>
                 <i class="fa fa-info-circle blue" aria-hidden="true" title="open"></i>
                 <% end %>
-                <!--<i class="fa fa-exclamation-circle green" title="open"></i>-->
+	                <!--<i class="fa fa-exclamation-circle green" title="open"></i>-->
                 <% elif issue.IsArchived: %>
                 <i class="fa fa-trash red" title="gearchiveerd: ${Helpers.DateTimeHelper.Readable(issue.ArchivedAt)}"></i>
                 <% elif issue.IsDone: %>
@@ -32,10 +32,18 @@
                 <% if issue.PickedUpBy != null and issue.IsOpen: %>
                 <i class="fa fa-user orange pickedup" title="In behandeling"></i>
                 <% end %>
-
+	                <!--<% if issue.Urgent : %>
+		                <i class="fa fa-exclamation red" title="spoed"></i>
+		                <% end %>-->
               </div>
+	            <div class="small-6 columns large-text-center medium-text-right">
+		            <% if issue.Urgent : %>
+			            <i class="fa fa-exclamation-circle red" title="spoed"></i>
+			            <% end %>
+	            </div>
             </div>
           </div>
+	       
           <div class="large-8 columns">
             <div class="row namerow">
               <div class="large-11 columns">
@@ -123,7 +131,7 @@
             <% if issue.Invoices.Count > 0: %>
             <div class="row detailsrow">
               <div class="large-7 columns">
-	              ${t.Invoice_Numbers}:
+								${t.Invoice_Numbers}:
 								<% for invoice in issue.Invoices: %>
                 <span class="label round <% if not invoice.IsDefinitive: %>secondary<% end %>" title="${invoice.Title}">${invoice.Number}</span>
                 <% end %>
@@ -143,8 +151,8 @@
             <% if CurrentUser.IsCustomer and issue.DefinitiveInvoices.Count > 0: %>
             <div class="row detailsrow">
               <div class="large-12 columns">
-								${t.Invoice_Numbers}:
-								<% for invoice in issue.DefinitiveInvoices: %>
+                ${Invoice_Numbers}:
+                <% for invoice in issue.DefinitiveInvoices: %>
                 <span class="label round" title="${invoice.Title}">${invoice.Number}</span>
                 <% end %>
               </div>

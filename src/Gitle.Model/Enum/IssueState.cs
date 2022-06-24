@@ -7,6 +7,7 @@
         Done,
         Hold,
         Closed,
-        Archived
+        Archived,
+        Urgent
     }
 }

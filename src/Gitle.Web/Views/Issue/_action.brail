@@ -12,9 +12,11 @@
       <i class="fa fa-ban red"></i>
       <% elif action.IssueState.ToString() == "Archived": %>
       <i class="fa fa-trash red"></i>
-      <% end %>
+	      <% elif action.IssueState.ToString() == "Urgent": %>
+		      <i class="fa fa-exclamation-circle red"></i>
+		      <% end %>
     </div>
-    <div class="small-11 columns">
+	  <div class="small-11 columns">
       ${action.HtmlText}
     </div>
   </div>

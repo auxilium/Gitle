@@ -3,16 +3,13 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.IO;
     using System.Linq;
     using System.Text;
-    using System.Text.RegularExpressions;
     using Castle.MonoRail.Framework;
     using Castle.MonoRail.Framework.Routing;
     using Clients.Freckle.Interfaces;
-    using Clients.Freckle.Models;
-    using FluentNHibernate.Conventions.Inspections;
+    using FluentNHibernate.Conventions;
     using Helpers;
     using Localization;
     using Model;
@@ -20,9 +17,7 @@
     using Model.Helpers;
     using Model.Interfaces.Service;
     using NHibernate;
-    using NHibernate.Linq;
     using Newtonsoft.Json;
-    using NHibernate.Linq.Expressions;
     using QueryParsers;
     using Issue = Model.Issue;
     using Project = Model.Project;
@@ -110,9 +105,10 @@
 
             var issueStates = EnumHelper.ToDictionary(typeof(IssueState));
             var statusList = issueStates.Where(s =>
-                new[] { IssueState.Open, IssueState.Done, IssueState.Hold, IssueState.Closed }.Contains((IssueState)s.Key))
+                new[] { IssueState.Open, IssueState.Done, IssueState.Hold, IssueState.Closed, IssueState.Urgent }.Contains((IssueState)s.Key))
                 .ToList();
 
+            PropertyBag.Add("labels", CurrentUser.IsAdmin ? project.Labels : project.Labels.Where(l => l.VisibleForCustomer).ToList());
             PropertyBag.Add("item", item);
             PropertyBag.Add("users", session.Query<User>().Where(x => x.IsAdmin && x.IsActive).OrderBy(x => x.FullName));
             PropertyBag.Add("comments", item.Comments);
@@ -199,13 +195,52 @@
 
             var issue = session.Query<Issue>().SingleOrDefault(i => i.Number == issueId && i.Project == project);
             var query = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
-
             var savedIssue = SaveIssue(project, issue, query);
+
+            if (issue == null && savedIssue.IsUrgent)
+            {
+                savedIssue.MakeUrgent(CurrentUser);
+                savedIssue.Prioritized = true;
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(savedIssue);
+                    tx.Commit();
+                }
+            }
+
+            if (issue != null && savedIssue.IsUrgent)
+            {
+                savedIssue.MakeUrgent(CurrentUser);
+                savedIssue.Prioritized = true;
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(savedIssue);
+                    tx.Commit();
+                }
+            }
+
+            if (issue != null && !savedIssue.IsUrgent)
+            {
+                issue.Open(CurrentUser);
+                savedIssue.Prioritized = false;
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(savedIssue);
+                    tx.Commit();
+                }
+            }
 
             var hash = $"#issue{savedIssue.Number}";
             if (string.IsNullOrEmpty(andNew))
             {
-                RedirectToUrl($"/project/{project.Slug}/issue/index{hash}");
+                if (issue != null && (issue.State != IssueState.Open || issue.State != IssueState.Urgent))
+                {
+                    RedirectToUrl($"/project/{project.Slug}/issue/{issueId}/view");
+                }
+                else
+                {
+                    RedirectToUrl($"/project/{project.Slug}/issue/index{hash}");
+                }
             }
             else
             {
@@ -230,11 +265,40 @@
             return new { savedIssue.Id, savedIssue.Number, savedIssue.Name };
         }
 
+        [MustHaveProject]
+        public void Urgent(string projectSlug, int issueId, bool data)
+        {
+            var project = session.Slug<Project>(projectSlug);
+            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+
+            if (data)
+            {
+                issue.MakeUrgent(CurrentUser);
+                issue.Prioritized = true;
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(issue);
+                    tx.Commit();
+                }
+            }
+            else
+            {
+                issue.Open(CurrentUser);
+                issue.Prioritized = false;
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(issue);
+                    tx.Commit();
+                }
+            }
+            RedirectToReferrer();
+        }
+
         private Issue SaveIssue(Project project, Issue issue, IEnumerable<Label> labels)
         {
             if (issue != null)
             {
-                var name = Request.Params["item.Name"];
+                var name = Request.Params["item.Name"] == null ? issue.Name : Request.Params["item.Name"];
                 BindObjectInstance(issue, "item");
                 issue.Name = name.Replace("\"", "'");
                 issue.Change(CurrentUser);
@@ -392,6 +456,9 @@
                 case "1":
                     issue.ChangeState(CurrentUser, IssueState.Open);
                     break;
+                case "6":
+                    issue.ChangeState(CurrentUser, IssueState.Urgent);
+                    break;
             }
 
             if (issue.IsArchived) return;
@@ -417,6 +484,7 @@
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
             if (issue.State != IssueState.Archived && issue.State != IssueState.Closed)
             {
+                issue.Urgent = false;
                 issue.Close(CurrentUser);
                 using (var tx = session.BeginTransaction())
                 {
@@ -472,7 +540,15 @@
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
             if (issue.State != IssueState.Archived || issue.State != IssueState.Open)
             {
-                issue.Open(CurrentUser);
+                if (issue.Urgent)
+                {
+                    issue.MakeUrgent(CurrentUser);
+                }
+                else
+                {
+                    issue.Open(CurrentUser);
+                }
+
                 using (var tx = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(issue);
@@ -524,7 +600,16 @@
         [return: JSONReturnBinder]
         public Dictionary<int, int> GetPrioOrder(string projectSlug)
         {
-            var issues = session.Query<Issue>().Where(x => x.Project.Slug == projectSlug && x.Pickups.Count == 0).ToList().Where(x => x.ChangeStates.Last().IssueState == IssueState.Open).OrderByDescending(x => x.Prioritized).ThenBy(x => x.PrioOrder).ThenByDescending(x => x.Number);
+            var issues = session.Query<Issue>()
+                .Where(x => x.Project.Slug == projectSlug && x.Pickups.Count == 0)
+                .ToList()
+                .Where(x => x.ChangeStates.Last().IssueState == IssueState.Open)
+                .OrderByDescending(x => x.Prioritized)
+                .Where(x => x.ChangeStates.Last().IssueState == IssueState.Urgent)
+                .OrderByDescending(x => x.Prioritized)
+                .ThenBy(x => x.PrioOrder)
+                .ThenByDescending(x => x.Number);
+
             return issues.Select((x, i) => new { x.Number, i }).ToDictionary(x => x.Number, x => x.i);
         }
 
