@@ -30,6 +30,7 @@
     public class IssueController : SecureController
     {
         protected ISettingService SettingService { get; }
+
         private readonly ISessionFactory sessionFactory;
         private readonly IEntryClient entryClient;
         private readonly IEmailService emailService;
@@ -51,10 +52,23 @@
 
             var filterPresets = session.Query<FilterPreset>().Where(x => x.User == CurrentUser && x.IsActive && (x.Project == null || (x.Project != null && x.Project.Id == project.Id))).ToList();
             var globalFilterPresets = session.Query<FilterPreset>().Where(x => x.User == null && x.IsActive && (x.Project == null || (x.Project != null && x.Project.Id == project.Id))).ToList();
+            var redHex = "fe0000";
+            var labels = session.Query<Label>().Where(x => x.IsActive).ToArray();
+            var hasRedLabel = false;
 
+            foreach (var check in labels)
+            {
+                if (check.Color == redHex)
+                {
+                    hasRedLabel = true;
+                }
+            }
+
+            //var query = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
             PropertyBag.Add("project", project);
             PropertyBag.Add("result", parser);
             PropertyBag.Add("labels", CurrentUser.IsAdmin ? project.Labels : project.Labels.Where(l => l.VisibleForCustomer).ToList());
+            PropertyBag.Add("redLabel", hasRedLabel);
             PropertyBag.Add("customerLabels", CurrentUser.IsAdmin ? project.Labels : project.Labels.Where(l => l.ApplicableByCustomer).ToList());
             PropertyBag.Add("filterPresets", filterPresets);
             PropertyBag.Add("globalFilterPresets", globalFilterPresets);
@@ -70,7 +84,7 @@
         {
             var startDate = DateTime.Parse("2016-06-01");
             var dumpBookings = session.Query<Booking>().Where(b => b.Project == project && b.Issue == null && b.Date >= startDate);
-            DummyIssue dummy = new DummyIssue {Name = "DUMP: " + project.Name, Bookings = dumpBookings.ToList()};
+            DummyIssue dummy = new DummyIssue { Name = "DUMP: " + project.Name, Bookings = dumpBookings.ToList() };
             return dummy;
         }
 
@@ -96,7 +110,7 @@
 
             var issueStates = EnumHelper.ToDictionary(typeof(IssueState));
             var statusList = issueStates.Where(s =>
-                new[] {IssueState.Open, IssueState.Done, IssueState.Hold, IssueState.Closed}.Contains((IssueState)s.Key))
+                new[] { IssueState.Open, IssueState.Done, IssueState.Hold, IssueState.Closed }.Contains((IssueState)s.Key))
                 .ToList();
 
             PropertyBag.Add("item", item);
@@ -108,7 +122,7 @@
             PropertyBag.Add("datetime", DateTime.Now);
 
             item.Touch(CurrentUser);
-            foreach(var action in item.Actions)
+            foreach (var action in item.Actions)
             {
                 action.Touch(CurrentUser);
             }
@@ -155,7 +169,7 @@
                 throw new ProjectClosedException(project);
             }
             PropertyBag.Add("project", project);
-            PropertyBag.Add("item", new Issue(){Project = project});
+            PropertyBag.Add("item", new Issue() { Project = project });
             PropertyBag.Add("labels", CurrentUser.IsAdmin ? project.Labels : project.Labels.Where(l => l.ApplicableByCustomer));
             RenderView("edit");
         }
@@ -213,7 +227,7 @@
 
             var savedIssue = SaveIssue(project, issue, labelObjects);
 
-            return new {savedIssue.Id, savedIssue.Number, savedIssue.Name};
+            return new { savedIssue.Id, savedIssue.Number, savedIssue.Name };
         }
 
         private Issue SaveIssue(Project project, Issue issue, IEnumerable<Label> labels)
@@ -300,13 +314,13 @@
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
             if (issue.IsArchived) return;
             var comment = new Comment
-                              {
-                                  Text = body,
-                                  CreatedAt = DateTime.Now,
-                                  Issue = issue,
-                                  User = CurrentUser,
-                                  IsInternal = isInternal
-                              };
+            {
+                Text = body,
+                CreatedAt = DateTime.Now,
+                Issue = issue,
+                User = CurrentUser,
+                IsInternal = isInternal
+            };
             using (var transaction = session.BeginTransaction())
             {
                 session.SaveOrUpdate(comment);
@@ -368,10 +382,10 @@
             {
                 case "2":
                     issue.ChangeState(CurrentUser, IssueState.Done);
-                break;
+                    break;
                 case "3":
                     issue.ChangeState(CurrentUser, IssueState.Hold);
-                break;
+                    break;
                 case "4":
                     issue.ChangeState(CurrentUser, IssueState.Closed);
                     break;
@@ -381,7 +395,7 @@
             }
 
             if (issue.IsArchived) return;
-            var booking = new Booking {User = CurrentUser, Date = date, Minutes = minutes, Issue = issue, Project = project, Comment = comment, Unbillable = project.Unbillable};
+            var booking = new Booking { User = CurrentUser, Date = date, Minutes = minutes, Issue = issue, Project = project, Comment = comment, Unbillable = project.Unbillable };
 
             using (var tx = session.BeginTransaction())
             {
@@ -412,7 +426,7 @@
             }
         }
 
-        [MustHaveProject] 
+        [MustHaveProject]
         public void OnHold(string projectSlug, int issueId)
         {
             RedirectToReferrer();
@@ -486,7 +500,7 @@
         public void ReOrderIssue(string projectSlug, int issueNumber, int newIndex)
         {
             var issues = session.Query<Issue>().Where(x => x.Project.Slug == projectSlug && x.Pickups.Count == 0).ToList().Where(x => x.ChangeStates.Last().IssueState == IssueState.Open).OrderBy(x => x.PrioOrder).ToList();
-            
+
             var issue = session.Query<Issue>().Single(x => x.Project.Slug == projectSlug && x.Number == issueNumber);
             issues.Remove(issue);
             issue.Prioritized = true;
@@ -511,7 +525,7 @@
         public Dictionary<int, int> GetPrioOrder(string projectSlug)
         {
             var issues = session.Query<Issue>().Where(x => x.Project.Slug == projectSlug && x.Pickups.Count == 0).ToList().Where(x => x.ChangeStates.Last().IssueState == IssueState.Open).OrderByDescending(x => x.Prioritized).ThenBy(x => x.PrioOrder).ThenByDescending(x => x.Number);
-            return issues.Select((x, i) => new {x.Number, i}).ToDictionary(x => x.Number, x => x.i);
+            return issues.Select((x, i) => new { x.Number, i }).ToDictionary(x => x.Number, x => x.i);
         }
 
         [MustHaveProject]
@@ -541,7 +555,7 @@
                 items = items.Where(i => issues.Split(',').Contains(i.Number.ToString())).ToList();
             }
 
-            var json = JsonConvert.SerializeObject(items, new JsonSerializerSettings{ DefaultValueHandling = DefaultValueHandling.Ignore, DateParseHandling = DateParseHandling.None});
+            var json = JsonConvert.SerializeObject(items, new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore, DateParseHandling = DateParseHandling.None });
 
             CancelView();
 
@@ -724,7 +738,7 @@
                 Error($"Gefactureerde taken mogen niet verplaatst worden.\r\nTaken: {string.Join(", ", invoicedIssues.Select(x => x.Number))}", true);
                 return;
             }
-            
+
             using (var transaction = session.BeginTransaction())
             {
                 var maxIssueNumber = targetProject.Issues.Except(sourceProject.Issues.Intersect(issues)).Any() ? targetProject.Issues.Except(sourceProject.Issues.Intersect(issues)).Max(x => x.Number) : 0;
@@ -796,7 +810,7 @@
                     issue.Project = targetProject;
                     if (renumber || issue.Number <= maxIssueNumber) issue.Number = ++maxIssueNumber;
                     targetProject.Issues.Add(issue);
-                    
+
                     session.SaveOrUpdate(issue);
                 }
 
