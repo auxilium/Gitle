@@ -60,7 +60,9 @@
     <section class="top-bar-section">
       <ul class="left">
 	      <li class="divider"></li>
+	      <% if not CurrentUser.IsAdmin: %>
 	      <li><a href="/dashboard/index#service">Dashboard</a></li>
+		      <% end %>
 	      <li class="divider"></li>
 	      <% if CurrentUser.IsAdmin: %>
 		      <li class="divider"></li>

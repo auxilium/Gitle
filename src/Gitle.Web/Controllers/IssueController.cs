@@ -194,6 +194,28 @@
                 }
             }
 
+            if (issue != null && savedIssue.IsUrgent)
+            {
+                savedIssue.MakeUrgent(CurrentUser);
+                savedIssue.Prioritized = true;
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(savedIssue);
+                    tx.Commit();
+                }
+            }
+
+            if (issue != null && !savedIssue.IsUrgent)
+            {
+                issue.Open(CurrentUser);
+                savedIssue.Prioritized = false;
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(savedIssue);
+                    tx.Commit();
+                }
+            }
+
             var hash = $"#issue{savedIssue.Number}";
             if (string.IsNullOrEmpty(andNew))
             {
