@@ -2,7 +2,7 @@
   <% if action.GetType().Name.Replace("Proxy", "") == "ChangeState": %>
   <div class="row">
     <div class="small-1 columns ${action.IssueState}">
-      <% if action.IssueState.ToString() == "Open" or action.IssueState.ToString() != "Urgent": %>
+      <% if action.IssueState.ToString() == "Open": %>
       <i class="fa fa-exclamation-circle blue"></i>
       <% elif action.IssueState.ToString() == "Done": %>
       <i class="fa fa-thumbs-o-up green"></i>
@@ -14,9 +14,9 @@
       <i class="fa fa-trash red"></i>
 	      <% elif action.IssueState.ToString() == "Urgent": %>
 		      <i class="fa fa-exclamation-circle red"></i>
-      <% end %>
+		      <% end %>
     </div>
-    <div class="small-11 columns">
+	  <div class="small-11 columns">
       ${action.HtmlText}
     </div>
   </div>

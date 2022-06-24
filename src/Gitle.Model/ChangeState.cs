@@ -39,10 +39,19 @@
                 state = (IssueState == IssueState.Open) ? Language.ChangeState_Opened.ToLower() : state;
 
                 var openings = Issue.ChangeStates.Where(x => x.IssueState == IssueState.Open || x.IssueState == IssueState.Urgent).ToList();
+
+
                 if (openings.Count() > 1 && openings.OrderByDescending(x => x.CreatedAt).Last() != this &&
                     IssueState == IssueState.Open)
                 {
-                    state = Language.ChangeState_Reopened.ToLower();
+                    if (IssueState != IssueState.Urgent)
+                    {
+                        state = Language.IssueAction_Delete_Urgent.ToLower();
+                    }
+                    else
+                    {
+                        state = Language.ChangeState_Reopened.ToLower();
+                    }
                 }
                 return string.Format("{4} is {0}{1} {3} <strong>{2}</strong>", state,
                                      User != null ? string.Format(" {1} <strong>{0}</strong>", User.FullName, Language.By) : "", DateTimeHelper.Readable(CreatedAt), Language.On, Language.TheIssue);

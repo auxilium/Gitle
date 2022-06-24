@@ -435,6 +435,9 @@
   <data name="Delete" xml:space="preserve">
     <value>Verwijder</value>
   </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>verwijderd</value>
+  </data>
   <data name="Group" xml:space="preserve">
     <value>Groep</value>
   </data>
@@ -836,5 +839,8 @@
   </data>
   <data name="Urgent_Issues" xml:space="preserve">
     <value>Spoed tickets</value>
+  </data>
+  <data name="IssueAction_Delete_Urgent" xml:space="preserve">
+    <value>Spoed status verwijderd</value>
   </data>
 </root>

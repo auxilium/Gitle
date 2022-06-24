@@ -230,7 +230,7 @@
         }
 
         [MustHaveProject]
-        public void Urgent(string projectSlug, int issueId, long[] labels, bool data)
+        public void Urgent(string projectSlug, int issueId, bool data)
         {
             var project = session.Slug<Project>(projectSlug);
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
@@ -504,7 +504,15 @@
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
             if (issue.State != IssueState.Archived || issue.State != IssueState.Open)
             {
-                issue.Open(CurrentUser);
+                if (issue.Urgent)
+                {
+                    issue.MakeUrgent(CurrentUser);
+                }
+                else
+                {
+                    issue.Open(CurrentUser);
+                }
+
                 using (var tx = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(issue);

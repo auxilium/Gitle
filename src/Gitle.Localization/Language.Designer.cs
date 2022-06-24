@@ -790,6 +790,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to verwijderd.
+        /// </summary>
+        public static string Deleted {
+            get {
+                return ResourceManager.GetString("Deleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Omschrijving.
         /// </summary>
         public static string Description {
@@ -1173,6 +1182,15 @@ namespace Gitle.Localization {
         public static string IssueAction_Comment_EmailSubject {
             get {
                 return ResourceManager.GetString("IssueAction_Comment_EmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spoed status verwijderd.
+        /// </summary>
+        public static string IssueAction_Delete_Urgent {
+            get {
+                return ResourceManager.GetString("IssueAction_Delete_Urgent", resourceCulture);
             }
         }
         
