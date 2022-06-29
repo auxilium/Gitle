@@ -180,6 +180,7 @@ namespace Gitle.Web.Controllers
             RenderView("edit");
         }
 
+        [Admin]
         public void Edit(string projectSlug)
         {
             var project = session.SlugOrDefault<Project>(projectSlug);

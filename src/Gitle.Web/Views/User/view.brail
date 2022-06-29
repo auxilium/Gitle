@@ -40,7 +40,9 @@
               <td class="customer">${?project.Project.Application.Customer.Name}</td>
               <td>
                 <a class="button tiny no-margin" href="/project/${project.Project.Slug}/issues">Takenlijst</a>
+                <% if CurrentUser.IsAdmin: %>
                 <a class="button tiny success no-margin" href="/project/${project.Project.Slug}/edit">Bewerk</a>
+                  <% end %>
               </td>
             </tr>
             <% end %>
