@@ -44,7 +44,6 @@
             RenderView("edit");
         }
 
-        [Admin]
         public void Edit(string applicationSlug)
         {
             var application = session.SlugOrDefault<Application>(applicationSlug);
