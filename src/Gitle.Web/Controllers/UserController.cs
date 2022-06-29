@@ -64,7 +64,8 @@
         public void Edit(long userId)
         {
             var user = session.Get<User>(userId);
-
+            var customer = new List<Customer> { user.Customer };
+            var projects = user.Customer.Projects;
             var jamesEmployees = new List<Employee>();
             var sqlConnectionHelper = new SqlConnectionHelper();
 
@@ -85,13 +86,12 @@
 
             PropertyBag.Add("item", user);
             PropertyBag.Add("selectedprojects", user.Projects.Select(x => x.Project).ToList());
-            PropertyBag.Add("customers", session.Query<Customer>().Where(x => x.IsActive).ToList());
-            PropertyBag.Add("projects", session.Query<Project>().Where(x => x.IsActive).OrderBy(x => x.Name).ToList());
+            PropertyBag.Add("customers", customer);
+            PropertyBag.Add("projects", projects);
             PropertyBag.Add("customerId", user.Customer?.Id ?? 0);
             PropertyBag.Add("jamesEmployees", jamesEmployees.ToList());
         }
 
-        [Admin]
         public void View(long userId)
         {
             var user = session.Get<User>(userId);

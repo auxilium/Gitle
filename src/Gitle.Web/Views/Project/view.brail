@@ -112,9 +112,9 @@
     </div>
     <div class="row">
       <div class="large-12 columns">
-        <h2>${t.Developers}</h2>
+        <h2>DTS Team</h2>
         <% if developers.Count == 0: %>
-        <p>${t.Developers_None}</p>
+        <p>No DTS devs found</p>
         <% else: %>
         <table class="small-blocks" id="developers">
           <thead>

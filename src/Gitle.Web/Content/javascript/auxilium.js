@@ -417,12 +417,12 @@ $.fn.nestedTable = function (conf) {
 
     var deleteHeader = $('<th>' + config.deleteText + '</th>');
     table.find('thead tr').append(deleteHeader);
-    var deleteButton = $('<a href="#" class="button tiny no-margin alert">Verwijder</a>');
+    var deleteButton = $('<a href="#" class="button tiny no-margin alert">Delete</a>');
     deleteButton.click(deleteRow);
     var deleteCell = $('<td></td>').append(deleteButton);
     table.find('tbody tr').append(deleteCell);
 
-    var addRow = $('<a href="#" class="button small">Nieuw</a>');
+    var addRow = $('<a href="#" class="button small">New</a>');
     addRow.click(function (e) {
       e.preventDefault();
       var fr = table.find('tbody tr:last-child input:first-child');

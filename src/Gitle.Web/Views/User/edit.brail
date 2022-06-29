@@ -103,8 +103,8 @@
               </thead>
               <tbody>
                 <% count = 0 %>
-                <% for project in projects: %>
-                <% userProject = item.GetUserProject(project) %>
+	                <% for project in projects: %>
+	                <% userProject = item.GetUserProject(project) %>
                 <% if project.Closed: %>
                 <tr class="red">
                 <% else: %>

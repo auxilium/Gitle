@@ -86,12 +86,14 @@
 	        <li><a href="#" data-filter="state:Urgent" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Urgent): %> active<% end %>">${t.Urgent}</a></li>
         </ul>
       </div>
+      <% if CurrentUser.IsAdmin: %>
       <div class="large-3 columns">
         <ul class="button-group">
           <li><a href="#" data-filter="bookingstate:Any" class="button tiny no-margin secondary<% if result.BookingStates.Contains(Gitle.Model.Enum.IssueBookingState.Any): %> active<% end %>">${t.Booked}</a></li>
           <li><a href="#" data-filter="bookingstate:None" class="button tiny no-margin secondary<% if result.BookingStates.Contains(Gitle.Model.Enum.IssueBookingState.None): %> active<% end %>">${t.Unbooked}</a></li>
         </ul>
       </div>
+        <% end %>
       <div class="large-2 small-12 columns">
         <button href="#" data-dropdown="sorts" aria-controls="sorts" aria-expanded="false" class="button tiny dropdown no-margin">${t.Sort}:</button>
         <ul id="sorts" data-dropdown-content="" class="f-dropdown" aria-hidden="true" tabindex="-1">
