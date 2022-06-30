@@ -62,7 +62,7 @@
         }
 
         [Admin]
-        public void Edit(long userId, long customerId, bool setCustomer)
+        public void Edit(long userId, long customerId, bool setCustomer = false)
         {
             var user = session.Get<User>(userId);
             
