@@ -161,15 +161,32 @@
   </div>
 </div>
 <script>
-  $(function () {
-    $('#closedProjects').change(function () {
-      if ($(this).is(':checked')) {
-        $('#projecten tr.red').show();
-      } else {
-        $('#projecten tr.red').hide();
-        $('#projecten tr.red input[type=checkbox]:checked').closest('tr').show();
-      }
-    }).change();
+	$(function () {
+	$('#closedProjects').change(function () {
+	if ($(this).is(':checked')) {
+	$('#projecten tr.red').show();
+	} else {
+	$('#projecten tr.red').hide();
+	$('#projecten tr.red input[type=checkbox]:checked').closest('tr').show();
+	}
+	}).change();
+	});
 
-  });
+	$(document).ready(function() {
+	
+	$('select#customerId').change(function () {
+	var selectedCustomer = $(this).children("option:selected").val();
+  alert("Save customer to reload projects")
+	$.ajax({
+	type: "POST",
+	url: "/user/${item.Id}/edit",
+	data: { customerId: selectedCustomer,
+  setCustomer: true
+	},
+	success: "succes",
+	dataType: "JSON"
+	});
+  location.reload();
+	});
+	})
 </script>

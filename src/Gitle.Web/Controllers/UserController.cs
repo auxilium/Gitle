@@ -26,7 +26,8 @@
         [Admin]
         public void Index()
         {
-            PropertyBag.Add("items", session.Query<User>().Where(user => user.IsActive).ToList());
+            var items = session.Query<User>().Where(user => user.IsActive).ToList();
+            PropertyBag.Add("items", items);
         }
 
         [Admin]
@@ -61,11 +62,23 @@
         }
 
         [Admin]
-        public void Edit(long userId)
+        public void Edit(long userId, long customerId, bool setCustomer)
         {
             var user = session.Get<User>(userId);
-            var customer = new List<Customer> { user.Customer };
-            var projects = user.Customer.Projects;
+            
+            if (customerId == 0)
+            {
+                customerId = user.Customer.Id;
+            }
+            var application = session.Query<Application>().FirstOrDefault(a => a.Customer.Id == customerId);
+            var customer = session.Query<Customer>().Where(x => x.IsActive).ToList();
+
+            var projects = session.Query<Project>()
+                .Where(p => p.Application.Id == application.Id)
+                .Where(x => x.IsActive)
+                .OrderBy(x => x.Name)
+                .ToList();
+
             var jamesEmployees = new List<Employee>();
             var sqlConnectionHelper = new SqlConnectionHelper();
 
@@ -90,6 +103,13 @@
             PropertyBag.Add("projects", projects);
             PropertyBag.Add("customerId", user.Customer?.Id ?? 0);
             PropertyBag.Add("jamesEmployees", jamesEmployees.ToList());
+
+            if (setCustomer)
+            {
+                var password = user.Password.ToString();
+                Save(userId, password, customerId);
+                RedirectToSiteRoot();
+            }
         }
 
         public void View(long userId)
