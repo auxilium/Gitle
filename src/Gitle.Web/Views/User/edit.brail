@@ -173,20 +173,22 @@
 	});
 
 	$(document).ready(function() {
-	
+
 	$('select#customerId').change(function () {
 	var selectedCustomer = $(this).children("option:selected").val();
-  alert("Save customer to reload projects")
+	alert("Save customer to reload projects")
 	$.ajax({
 	type: "POST",
 	url: "/user/${item.Id}/edit",
 	data: { customerId: selectedCustomer,
-  setCustomer: true
+	setCustomer: true
 	},
 	success: "succes",
 	dataType: "JSON"
 	});
-  location.reload();
+	setTimeout(function(){
+	location.reload();
+	}, 1800);
 	});
-	})
+	});
 </script>

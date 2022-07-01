@@ -74,7 +74,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="large-3 columns">Taak labels</div>
+        <div class="large-3 columns">Taak labels <% if item.Labels.Count == 0 :%>(${t.Required})<%end%></div>
         <div class="large-9 columns">
           <table class="nested">
             <thead>

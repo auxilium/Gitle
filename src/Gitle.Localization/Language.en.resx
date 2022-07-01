@@ -690,4 +690,7 @@
   <data name="Hour" xml:space="preserve">
     <value>hour(s)</value>
   </data>
+  <data name="Required" xml:space="preserve">
+    <value>Required</value>
+  </data>
 </root>

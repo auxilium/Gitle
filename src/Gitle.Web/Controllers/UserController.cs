@@ -62,22 +62,37 @@
         }
 
         [Admin]
-        public void Edit(long userId, long customerId, bool setCustomer = false)
+        public void Edit(long userId, bool setCustomer, long? customerId)
         {
+            if (!customerId.HasValue)
+            {
+                customerId = 0;
+            }
             var user = session.Get<User>(userId);
-            
+
             if (customerId == 0)
             {
-                customerId = user.Customer.Id;
+                customerId = user.Customer?.Id;
             }
-            var application = session.Query<Application>().FirstOrDefault(a => a.Customer.Id == customerId);
-            var customer = session.Query<Customer>().Where(x => x.IsActive).ToList();
 
-            var projects = session.Query<Project>()
-                .Where(p => p.Application.Id == application.Id)
-                .Where(x => x.IsActive)
-                .OrderBy(x => x.Name)
-                .ToList();
+            var customer = session.Query<Customer>().Where(x => x.IsActive).ToList();
+            List<Project> projects;
+            if (user.Customer != null)
+            {
+                var application = session.Query<Application>().FirstOrDefault(a => a.Customer.Id == customerId) ?? throw new Exception("Error application");
+                projects = session.Query<Project>()
+                    .Where(p => p.Application.Id == application.Id)
+                    .Where(x => x.IsActive)
+                    .OrderBy(x => x.Name)
+                    .ToList();
+            }
+            else
+            {
+                 projects = session.Query<Project>()
+                    .Where(x => x.IsActive)
+                    .OrderBy(x => x.Name)
+                    .ToList();
+            }
 
             var jamesEmployees = new List<Employee>();
             var sqlConnectionHelper = new SqlConnectionHelper();
@@ -98,6 +113,7 @@
             sqlConnectionHelper.CloseSqlConnection();
 
             PropertyBag.Add("item", user);
+
             PropertyBag.Add("selectedprojects", user.Projects.Select(x => x.Project).ToList());
             PropertyBag.Add("customers", customer);
             PropertyBag.Add("projects", projects);
@@ -108,8 +124,9 @@
             {
                 var password = user.Password.ToString();
                 Save(userId, password, customerId);
-                RedirectToSiteRoot();
+                RedirectToUrl($"/user/{user.Id}/edit");
             }
+
         }
 
         public void View(long userId)
@@ -180,7 +197,7 @@
         }
 
         [Admin]
-        public void Save(long userId, string password, long customerId)
+        public void Save(long userId, string password, long? customerId)
         {
             var item = session.Get<User>(userId);
             if (item != null)

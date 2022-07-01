@@ -846,4 +846,7 @@
   <data name="Hour" xml:space="preserve">
     <value>uur</value>
   </data>
+  <data name="Required" xml:space="preserve">
+    <value>Verplicht</value>
+  </data>
 </root>
