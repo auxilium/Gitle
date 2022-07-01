@@ -198,7 +198,7 @@
             var labelContainsUrgentFlag = session.Query<Label>().Where(l => l.MakeIssueUrgent && labels.Contains(l.Id)).ToList().Any();
             var savedIssue = SaveIssue(project, issue, query);
 
-            if (issue == null && (savedIssue.IsUrgent || labelContainsUrgentFlag))
+            if (issue == null && savedIssue.IsUrgent || labelContainsUrgentFlag)
             {
                 savedIssue.MakeUrgent(CurrentUser);
                 savedIssue.Prioritized = true;
@@ -209,7 +209,7 @@
                 }
             }
 
-            if (issue != null && (savedIssue.IsUrgent || labelContainsUrgentFlag))
+            if (issue != null && savedIssue.IsUrgent || labelContainsUrgentFlag)
             {
                 savedIssue.MakeUrgent(CurrentUser);
                 savedIssue.Prioritized = true;
@@ -220,7 +220,7 @@
                 }
             }
 
-            if (issue != null && (!savedIssue.IsUrgent || !labelContainsUrgentFlag))
+            if (issue != null && !savedIssue.IsUrgent)
             {
                 issue.Open(CurrentUser);
                 savedIssue.Prioritized = false;
