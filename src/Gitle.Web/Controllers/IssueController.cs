@@ -195,11 +195,13 @@
 
             var issue = session.Query<Issue>().SingleOrDefault(i => i.Number == issueId && i.Project == project);
             var query = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
+            var labelContainsUrgentFlag = session.Query<Label>().Where(l => l.MakeIssueUrgent && labels.Contains(l.Id)).ToList().Any();
             var savedIssue = SaveIssue(project, issue, query);
 
-            if (issue == null && savedIssue.IsUrgent)
+            if (issue == null && (savedIssue.IsUrgent || labelContainsUrgentFlag))
             {
                 savedIssue.MakeUrgent(CurrentUser);
+                savedIssue.Urgent = true;
                 savedIssue.Prioritized = true;
                 using (var tx = session.BeginTransaction())
                 {
@@ -208,9 +210,10 @@
                 }
             }
 
-            if (issue != null && savedIssue.IsUrgent)
+            if (issue != null && (savedIssue.IsUrgent || labelContainsUrgentFlag))
             {
                 savedIssue.MakeUrgent(CurrentUser);
+                savedIssue.Urgent = true;
                 savedIssue.Prioritized = true;
                 using (var tx = session.BeginTransaction())
                 {
@@ -219,7 +222,7 @@
                 }
             }
 
-            if (issue != null && !savedIssue.IsUrgent)
+            if (issue != null && (!savedIssue.IsUrgent || !labelContainsUrgentFlag))
             {
                 issue.Open(CurrentUser);
                 savedIssue.Prioritized = false;
@@ -422,6 +425,17 @@
             if (issue.IsArchived) return;
             var label = project.Labels.First(l => l.Id == param);
             issue.Labels.Add(label);
+            if (label.MakeIssueUrgent)
+            {
+                issue.MakeUrgent(CurrentUser);
+                issue.Urgent = true;
+                issue.Prioritized = true;
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(issue);
+                    tx.Commit();
+                }
+            }
             issue.Change(CurrentUser);
 
             using (var transaction = session.BeginTransaction())
@@ -429,6 +443,7 @@
                 session.SaveOrUpdate(issue);
                 transaction.Commit();
             }
+            RedirectToReferrer();
         }
 
         [Admin]

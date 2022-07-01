@@ -9,5 +9,7 @@
         public virtual bool ToFreckle { get; set; }
 
         public virtual Project Project { get; set; }
+
+        public virtual bool MakeIssueUrgent { get; set; }
     }
 }

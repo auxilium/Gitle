@@ -236,7 +236,7 @@ namespace Gitle.Web.Controllers
 
             var labels = BindObject<Label[]>("label");
 
-            if (labels.Length < 2)
+            if (labels.Length < 1 || labels.Length == 1)
             {
                 Error("Minimaal 1 label is verplicht", true);
                 return;
