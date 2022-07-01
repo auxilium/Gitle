@@ -201,7 +201,6 @@
             if (issue == null && (savedIssue.IsUrgent || labelContainsUrgentFlag))
             {
                 savedIssue.MakeUrgent(CurrentUser);
-                savedIssue.Urgent = true;
                 savedIssue.Prioritized = true;
                 using (var tx = session.BeginTransaction())
                 {
@@ -213,7 +212,6 @@
             if (issue != null && (savedIssue.IsUrgent || labelContainsUrgentFlag))
             {
                 savedIssue.MakeUrgent(CurrentUser);
-                savedIssue.Urgent = true;
                 savedIssue.Prioritized = true;
                 using (var tx = session.BeginTransaction())
                 {

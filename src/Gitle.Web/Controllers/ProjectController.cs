@@ -14,6 +14,7 @@ namespace Gitle.Web.Controllers
     using System.IO;
     using System.Linq;
     using System.Text;
+    using Castle.Core.Internal;
     using ViewModel;
 
     public class ProjectController : SecureController
@@ -236,7 +237,7 @@ namespace Gitle.Web.Controllers
 
             var labels = BindObject<Label[]>("label");
 
-            if (labels.Length < 1 || labels.Length == 1)
+            if (labels.Length < 1 || labels.Any(l => l.Name == null))
             {
                 Error("Minimaal 1 label is verplicht", true);
                 return;
