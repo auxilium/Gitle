@@ -236,6 +236,12 @@ namespace Gitle.Web.Controllers
 
             var labels = BindObject<Label[]>("label");
 
+            if (labels.Length < 2)
+            {
+                Error("Minimaal 1 label is verplicht", true);
+                return;
+            }
+
             var labelsToDelete = item.Labels.Where(l => !labels.Select(x => x.Id).Contains(l.Id)).ToList();
 
             var userProjects = BindObject<UserProject[]>("userProject");
