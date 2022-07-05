@@ -89,32 +89,32 @@
             </thead>
             <tbody>
               <% if item.Labels.Count == 0 :%>
-              <tr class="hide">
+              <tr>
                 <td>
-                  <input type="hidden" name="label[-1].Id" value="" data-nested-remove="" />
-                  <input type="hidden" name="label[-1].Project.Id" value="${item.Id}" />
-                  <input type="text" name="label[-1].Name" value="" />
+                  <input type="hidden" name="label[0].Id" value="" data-nested-remove="" />
+                  <input type="hidden" name="label0].Project.Id" value="${item.Id}" />
+                  <input type="text" name="label[0].Name" value="" required/>
                 </td>
                 <td>
                   <div class="row collapse">
                     <div class="small-10 columns">
-                      <input type="text" name="label[-1].Color" value="" class="colorpicker" />
+                      <input type="text" name="label[0].Color" value="" class="colorpicker" />
                     </div>
                     <div class="small-2 columns">
-                      <a class="colorpicker-open button secondary postfix" rel="label[-1].Color" href="#" title="Open kleurenpalet">
+                      <a class="colorpicker-open button secondary postfix" rel="label[0].Color" href="#" title="Open kleurenpalet">
                         <i class="fa fa-th"></i>
                       </a>
                     </div>
                   </div>
                 </td>
                 <td>
-                  <input type="checkbox" name="label[-1].VisibleForCustomer" value="true" />
+                  <input type="checkbox" name="label[0].VisibleForCustomer" value="true" />
                 </td>
                 <td>
-                  <input type="checkbox" name="label[-1].ApplicableByCustomer" value="true" />
+                  <input type="checkbox" name="label[0].ApplicableByCustomer" value="true" />
                 </td>
                 <td>
-                  <input type="checkbox" name="label[-1}].ToFreckle" value="true" />
+                  <input type="checkbox" name="label[0].ToFreckle" value="true" />
                 </td>
 	              <td>
 		              <input type="checkbox" name="item_Urgent" value="true" />

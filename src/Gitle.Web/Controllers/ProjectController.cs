@@ -235,9 +235,9 @@ namespace Gitle.Web.Controllers
                 session.SaveOrUpdate(application);
             }
 
-            var labels = BindObject<Label[]>("label");
+            var labels = BindObject<Label[]>("label").ToList();
 
-            if (labels.Length < 1 || labels.Any(l => l.Name == null))
+            if (labels.Count < 1)
             {
                 Error("Minimaal 1 label is verplicht", true);
                 return;

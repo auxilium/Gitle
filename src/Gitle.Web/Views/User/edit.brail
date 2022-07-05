@@ -44,13 +44,16 @@
         <div class="row">
           <div class="large-3 columns">Inlog</div>
           <div class="large-9 columns">
-            <input type="text" name="item.Name" value="${?item.Name}" data-abide-validator="checkUserName" data-userid="${item.Id}" required />
+            <input type="text" name="item.Name" value="${?item.Name}" data-abide-validator="checkUserName" data-userid="${item.Id}" required <% if not item.Name == null: %> disabled <% end %>/>
             <small class="error">Geef een inlognaam op</small>
           </div>
         </div>
         <div class="row">
           <div class="large-3 columns">Wachtwoord</div>
-          <div class="large-9 columns">${Form.PasswordField("password")}</div>
+          <div class="large-9 columns">
+	          <input type="password" name="Password" id="Password" value="${item.Password}" />
+          </div>
+	       
         </div>
         <div class="row">
           <div class="large-3 columns">GitHub username</div>

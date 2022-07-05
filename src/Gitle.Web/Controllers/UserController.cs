@@ -88,10 +88,10 @@
             }
             else
             {
-                 projects = session.Query<Project>()
-                    .Where(x => x.IsActive)
-                    .OrderBy(x => x.Name)
-                    .ToList();
+                projects = session.Query<Project>()
+                   .Where(x => x.IsActive)
+                   .OrderBy(x => x.Name)
+                   .ToList();
             }
 
             var jamesEmployees = new List<Employee>();
@@ -123,6 +123,10 @@
             if (setCustomer)
             {
                 var password = user.Password.ToString();
+                if ((!string.IsNullOrWhiteSpace(password) && !password.Contains("Gitle.Model.Nested.Password")) || user.Password == null)
+                {
+                    user.Password = new Password(password);
+                }
                 Save(userId, password, customerId);
                 RedirectToUrl($"/user/{user.Id}/edit");
             }
@@ -209,7 +213,7 @@
                 item = BindObject<User>("item");
             }
 
-            if (!string.IsNullOrWhiteSpace(password) || item.Password == null)
+            if ((!string.IsNullOrWhiteSpace(password) && !password.Contains("Gitle.Model.Nested.Password")) || item.Password == null)
             {
                 item.Password = new Password(password);
             }
