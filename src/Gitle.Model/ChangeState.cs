@@ -38,8 +38,7 @@
                 var state = Language.ResourceManager.GetString(IssueState.ToString()).ToLower();
                 state = (IssueState == IssueState.Open) ? Language.ChangeState_Opened.ToLower() : state;
 
-                var openings = Issue.ChangeStates.Where(x => x.IssueState == IssueState.Open || x.IssueState == IssueState.Urgent).ToList();
-
+                var openings = Issue.ChangeStates.Where(x => x.IssueState == IssueState.Open).ToList();
 
                 if (openings.Count() > 1 && openings.OrderByDescending(x => x.CreatedAt).Last() != this &&
                     IssueState == IssueState.Open)
@@ -64,7 +63,7 @@
             {
                 var state = Language.ResourceManager.GetString(IssueState.ToString()).ToLower();
                 state = (IssueState == IssueState.Open) ? Language.ChangeState_Opened.ToLower() : state;
-                var openings = Issue.ChangeStates.Where(x => x.IssueState == IssueState.Open || x.IssueState == IssueState.Urgent).ToList();
+                var openings = Issue.ChangeStates.Where(x => x.IssueState == IssueState.Open).ToList();
                 if (openings.Count() > 1 && openings.OrderByDescending(x => x.CreatedAt).Last() != this &&
                     IssueState == IssueState.Open)
                 {

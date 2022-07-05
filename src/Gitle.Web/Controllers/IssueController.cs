@@ -205,9 +205,9 @@
                 }
             }
 
-            if (issue != null && !savedIssue.IsUrgent)
+            if (issue != null && !savedIssue.IsUrgent && !savedIssue.IsClosed && !savedIssue.IsDone && !savedIssue.IsArchived)
             {
-                issue.Open(CurrentUser);
+                savedIssue.Open(CurrentUser);
                 savedIssue.Prioritized = false;
                 using (var tx = session.BeginTransaction())
                 {
