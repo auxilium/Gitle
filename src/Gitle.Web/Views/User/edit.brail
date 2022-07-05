@@ -44,13 +44,16 @@
         <div class="row">
           <div class="large-3 columns">Inlog</div>
           <div class="large-9 columns">
-            <input type="text" name="item.Name" value="${?item.Name}" data-abide-validator="checkUserName" data-userid="${item.Id}" required />
+            <input type="text" name="item.Name" value="${?item.Name}" data-abide-validator="checkUserName" data-userid="${item.Id}" required <% if not item.Name == null: %> disabled <% end %>/>
             <small class="error">Geef een inlognaam op</small>
           </div>
         </div>
         <div class="row">
           <div class="large-3 columns">Wachtwoord</div>
-          <div class="large-9 columns">${Form.PasswordField("password")}</div>
+          <div class="large-9 columns">
+	          <input type="password" name="Password" id="Password" value="${item.Password}" />
+          </div>
+	       
         </div>
         <div class="row">
           <div class="large-3 columns">GitHub username</div>
@@ -103,8 +106,8 @@
               </thead>
               <tbody>
                 <% count = 0 %>
-                <% for project in projects: %>
-                <% userProject = item.GetUserProject(project) %>
+	                <% for project in projects: %>
+	                <% userProject = item.GetUserProject(project) %>
                 <% if project.Closed: %>
                 <tr class="red">
                 <% else: %>
@@ -161,15 +164,34 @@
   </div>
 </div>
 <script>
-  $(function () {
-    $('#closedProjects').change(function () {
-      if ($(this).is(':checked')) {
-        $('#projecten tr.red').show();
-      } else {
-        $('#projecten tr.red').hide();
-        $('#projecten tr.red input[type=checkbox]:checked').closest('tr').show();
-      }
-    }).change();
+	$(function () {
+	$('#closedProjects').change(function () {
+	if ($(this).is(':checked')) {
+	$('#projecten tr.red').show();
+	} else {
+	$('#projecten tr.red').hide();
+	$('#projecten tr.red input[type=checkbox]:checked').closest('tr').show();
+	}
+	}).change();
+	});
 
-  });
+	$(document).ready(function() {
+
+	$('select#customerId').change(function () {
+	var selectedCustomer = $(this).children("option:selected").val();
+	alert("Save customer to reload projects")
+	$.ajax({
+	type: "POST",
+	url: "/user/${item.Id}/edit",
+	data: { customerId: selectedCustomer,
+	setCustomer: true
+	},
+	success: "succes",
+	dataType: "JSON"
+	});
+	setTimeout(function(){
+	location.reload();
+	}, 1800);
+	});
+	});
 </script>

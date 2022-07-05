@@ -25,6 +25,7 @@
     public class IssueController : SecureController
     {
         protected ISettingService SettingService { get; }
+
         private readonly ISessionFactory sessionFactory;
         private readonly IEntryClient entryClient;
         private readonly IEmailService emailService;
@@ -46,10 +47,23 @@
 
             var filterPresets = session.Query<FilterPreset>().Where(x => x.User == CurrentUser && x.IsActive && (x.Project == null || (x.Project != null && x.Project.Id == project.Id))).ToList();
             var globalFilterPresets = session.Query<FilterPreset>().Where(x => x.User == null && x.IsActive && (x.Project == null || (x.Project != null && x.Project.Id == project.Id))).ToList();
+            var redHex = "fe0000";
+            var labels = session.Query<Label>().Where(x => x.IsActive).ToArray();
+            var hasRedLabel = false;
 
+            foreach (var check in labels)
+            {
+                if (check.Color == redHex)
+                {
+                    hasRedLabel = true;
+                }
+            }
+
+            //var query = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
             PropertyBag.Add("project", project);
             PropertyBag.Add("result", parser);
             PropertyBag.Add("labels", CurrentUser.IsAdmin ? project.Labels : project.Labels.Where(l => l.VisibleForCustomer).ToList());
+            PropertyBag.Add("redLabel", hasRedLabel);
             PropertyBag.Add("customerLabels", CurrentUser.IsAdmin ? project.Labels : project.Labels.Where(l => l.ApplicableByCustomer).ToList());
             PropertyBag.Add("filterPresets", filterPresets);
             PropertyBag.Add("globalFilterPresets", globalFilterPresets);
@@ -181,9 +195,10 @@
 
             var issue = session.Query<Issue>().SingleOrDefault(i => i.Number == issueId && i.Project == project);
             var query = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
+            var labelContainsUrgentFlag = session.Query<Label>().Where(l => l.MakeIssueUrgent && labels.Contains(l.Id)).ToList().Any();
             var savedIssue = SaveIssue(project, issue, query);
 
-            if (issue == null && savedIssue.IsUrgent)
+            if (issue == null && savedIssue.IsUrgent || labelContainsUrgentFlag)
             {
                 savedIssue.MakeUrgent(CurrentUser);
                 savedIssue.Prioritized = true;
@@ -194,7 +209,7 @@
                 }
             }
 
-            if (issue != null && savedIssue.IsUrgent)
+            if (issue != null && savedIssue.IsUrgent || labelContainsUrgentFlag)
             {
                 savedIssue.MakeUrgent(CurrentUser);
                 savedIssue.Prioritized = true;
@@ -408,6 +423,17 @@
             if (issue.IsArchived) return;
             var label = project.Labels.First(l => l.Id == param);
             issue.Labels.Add(label);
+            if (label.MakeIssueUrgent)
+            {
+                issue.MakeUrgent(CurrentUser);
+                issue.Urgent = true;
+                issue.Prioritized = true;
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(issue);
+                    tx.Commit();
+                }
+            }
             issue.Change(CurrentUser);
 
             using (var transaction = session.BeginTransaction())
@@ -415,6 +441,7 @@
                 session.SaveOrUpdate(issue);
                 transaction.Commit();
             }
+            RedirectToReferrer();
         }
 
         [Admin]

@@ -843,4 +843,10 @@
   <data name="IssueAction_Delete_Urgent" xml:space="preserve">
     <value>Spoed status verwijderd</value>
   </data>
+  <data name="Hour" xml:space="preserve">
+    <value>uur</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Verplicht</value>
+  </data>
 </root>

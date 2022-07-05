@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <% for item in items: %>
+	      <% for item in items: %>
         <tr>
           <td class="name">${item.FullName}</td>
           <td class="login">${item.Name}</td>
@@ -33,7 +33,7 @@
             </ul>
           </td>
         </tr>
-        <% end %>
+		      <% end %>
       </tbody>
     </table>
   </div>

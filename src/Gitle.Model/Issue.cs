@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using Enum;
     using Helpers;
@@ -324,7 +325,8 @@
 
         public virtual string CostString(decimal hourPrice)
         {
-            return TotalHours > 0 ? ((decimal)TotalHours * hourPrice).ToString("C") : "n.n.b.";
+            var culture = new CultureInfo("nl-NL");
+            return TotalHours > 0 ? ((decimal)TotalHours * hourPrice).ToString("C", culture) : "n.n.b.";
         }
 
         public virtual IList<IIssueAction> GetActions(bool descending)

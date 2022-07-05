@@ -50,7 +50,13 @@
                 <a href="/project/${project.Slug}/issue/${issue.Number}/view" data-quickview="/project/${project.Slug}/issue/${issue.Number}/quickview">${issue.Name}</a>
                 <% for label in labels: %>
                 <%  if issue.CheckLabel(label.Name): %>
-                <span title="${label.Name}" class="label no-margin<% if label.VisibleForCustomer: %> radius<% end %>" style="background-color: #${label.Color};">${label.Name}</span>
+	                <%  if redLabel: %>
+		                <span class="label no-margin"
+		                <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color};color: #000000;">${label.Name}</span>
+			                <% else: %>
+				                <span class="label no-margin"
+				                <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color};">${label.Name}</span>
+					                <% end %>
                 <% end %>
                 <% end %>
               </div>

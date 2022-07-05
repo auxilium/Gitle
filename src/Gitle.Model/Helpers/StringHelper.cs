@@ -50,7 +50,9 @@ namespace Gitle.Model.Helpers
 
         public static string ToHourDayNotation(this double hours)
         {
-            return hours < 8 ? $"{hours} uur" : $"{hours/8} dag";
+            return hours < 8 ?
+               hours > 1 ? $"{hours} hours" : $"{hours} hour" :
+               hours/8 > 1 ? $"{hours/8} days" : $"{hours / 8} day";
         }
     }
 }

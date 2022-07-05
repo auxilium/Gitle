@@ -11,6 +11,7 @@
             Map(x => x.VisibleForCustomer);
             Map(x => x.ApplicableByCustomer);
             Map(x => x.ToFreckle);
+            Map(x => x.MakeIssueUrgent);
             References(x => x.Project).Column("Project_id").LazyLoad(Laziness.False);
         }
     }

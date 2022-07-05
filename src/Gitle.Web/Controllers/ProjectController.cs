@@ -14,6 +14,7 @@ namespace Gitle.Web.Controllers
     using System.IO;
     using System.Linq;
     using System.Text;
+    using Castle.Core.Internal;
     using ViewModel;
 
     public class ProjectController : SecureController
@@ -234,7 +235,13 @@ namespace Gitle.Web.Controllers
                 session.SaveOrUpdate(application);
             }
 
-            var labels = BindObject<Label[]>("label");
+            var labels = BindObject<Label[]>("label").ToList();
+
+            if (labels.Count < 1)
+            {
+                Error("Minimaal 1 label is verplicht", true);
+                return;
+            }
 
             var labelsToDelete = item.Labels.Where(l => !labels.Select(x => x.Id).Contains(l.Id)).ToList();
 

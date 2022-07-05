@@ -182,7 +182,11 @@
 	$(document).ready(function() {
 	$("#item_Urgent").change(function() {
 	if(this.checked) {
+	if ($.cookie("culture") === "en-GB"){
+	alert("Save issue to set urgent");
+	} else {
 	alert("Taak opslaan om taak te wijzigen");
+	}
 	$.ajax({
 	type: "POST",
 	url: "/project/${project.Slug}/issue/${item.Number}/urgent",
@@ -193,7 +197,11 @@
 	dataType: "JSON"
 	});
 	} else {
+	if ($.cookie("culture") === "en-GB"){
+	alert("Save issue to set urgent");
+	} else {
 	alert("Taak opslaan om taak te wijzigen");
+	}
 	$.ajax({
 	type: "POST",
 	url: "/project/${project.Slug}/issue/${item.Number}/urgent",

@@ -1051,6 +1051,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to uur.
+        /// </summary>
+        public static string Hour {
+            get {
+                return ResourceManager.GetString("Hour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zelfstandig.
         /// </summary>
         public static string Independently {
@@ -1884,6 +1893,15 @@ namespace Gitle.Localization {
         public static string Projects_ShowClosed {
             get {
                 return ResourceManager.GetString("Projects_ShowClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verplicht.
+        /// </summary>
+        public static string Required {
+            get {
+                return ResourceManager.GetString("Required", resourceCulture);
             }
         }
         
