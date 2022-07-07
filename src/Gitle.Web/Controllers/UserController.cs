@@ -54,45 +54,20 @@
             sqlConnectionHelper.CloseSqlConnection();
 
             PropertyBag.Add("selectedprojects", new List<Project>());
-            PropertyBag.Add("customers", session.Query<Customer>().Where(x => x.IsActive).ToList());
+            PropertyBag.Add("customers", session.Query<Customer>().Where(x => x.IsActive).OrderBy(x => x.Name).ToList());
             PropertyBag.Add("notificationprojects", new List<Project>());
-            PropertyBag.Add("projects", session.Query<Project>().Where(x => x.IsActive).OrderBy(x => x.Name).ToList());
+            PropertyBag.Add("projects", session.Query<Project>()
+                .Where(x => x.IsActive)
+                .OrderBy(x => x.Name)
+                .ToList());
             PropertyBag.Add("jamesEmployees", jamesEmployees.ToList());
             RenderView("edit");
         }
 
         [Admin]
-        public void Edit(long userId, bool setCustomer, long? customerId)
+        public void Edit(long userId)
         {
-            if (!customerId.HasValue)
-            {
-                customerId = 0;
-            }
             var user = session.Get<User>(userId);
-
-            if (customerId == 0)
-            {
-                customerId = user.Customer?.Id;
-            }
-
-            var customer = session.Query<Customer>().Where(x => x.IsActive).ToList();
-            List<Project> projects;
-            if (user.Customer != null)
-            {
-                var application = session.Query<Application>().FirstOrDefault(a => a.Customer.Id == customerId) ?? throw new Exception("Error application");
-                projects = session.Query<Project>()
-                    .Where(p => p.Application.Id == application.Id)
-                    .Where(x => x.IsActive)
-                    .OrderBy(x => x.Name)
-                    .ToList();
-            }
-            else
-            {
-                projects = session.Query<Project>()
-                   .Where(x => x.IsActive)
-                   .OrderBy(x => x.Name)
-                   .ToList();
-            }
 
             var jamesEmployees = new List<Employee>();
             var sqlConnectionHelper = new SqlConnectionHelper();
@@ -113,25 +88,13 @@
             sqlConnectionHelper.CloseSqlConnection();
 
             PropertyBag.Add("item", user);
-
             PropertyBag.Add("selectedprojects", user.Projects.Select(x => x.Project).ToList());
-            PropertyBag.Add("customers", customer);
-            PropertyBag.Add("projects", projects);
+            PropertyBag.Add("customers", session.Query<Customer>().Where(x => x.IsActive).OrderBy(x => x.Name).ToList());
+            PropertyBag.Add("projects", session.Query<Project>().Where(x => x.IsActive).OrderBy(x => x.Name).ToList());
             PropertyBag.Add("customerId", user.Customer?.Id ?? 0);
+            PropertyBag.Add("customerName", user.Customer?.Name ?? "");
             PropertyBag.Add("jamesEmployees", jamesEmployees.ToList());
-
-            if (setCustomer)
-            {
-                var password = user.Password.ToString();
-                if ((!string.IsNullOrWhiteSpace(password) && !password.Contains("Gitle.Model.Nested.Password")) || user.Password == null)
-                {
-                    user.Password = new Password(password);
-                }
-                Save(userId, password, customerId);
-                RedirectToUrl($"/user/{user.Id}/edit");
             }
-
-        }
 
         public void View(long userId)
         {

@@ -17,9 +17,14 @@
       </div>
       <div class="row">
         <div class="large-3 columns">Klant</div>
-        <div class="large-9 columns">
-          ${Form.Select("customerId", customers, {"class": "chosen-select", "value": "Id", "text": "Name", "firstoption": "Kies een klant", "pattern":"select"})}
-          <small class="error">Kies een klant</small>
+        <div class="large-9 columns" id="customerList">
+	        <select id="customerId" name="customerId" class="chosen-select" text="Name">
+		        <% if item.Customer == null: %><option value="0" disabled hidden selected>Kies een klant</option><% end %>
+		        <% for customer in customers: %>
+		         <option value="${customer.Id}" <% if item.Customer != null and customer.Id == item.Customer.Id: %>selected<% end %>>${customer.Name}</option>
+            <% end %>
+	        </select>
+	        <small class="error">Kies een klant</small>
         </div>
       </div>
       <div class="row">
@@ -163,7 +168,7 @@
     </form>
   </div>
 </div>
-<script>
+<script type="text/javascript">
 	$(function () {
 	$('#closedProjects').change(function () {
 	if ($(this).is(':checked')) {
@@ -175,23 +180,26 @@
 	}).change();
 	});
 
-	$(document).ready(function() {
+	$(document).ready(function () {
+	$('#projecten').DataTable({
+	initComplete: function () {
+	this.api()
+	.columns([4])
+	.every(function () {
+	var column = this;
+	var select = $('#customerId')
+	.on('change', function () {
+  var selectedOption = $(this).find('option:selected');
+	var val = $.fn.dataTable.util.escapeRegex(selectedOption.text());
+	
+  if ($(this).val() != null) {
+	column.search(val ? '^' + val + '$' : '', true, false).draw();
+  }
+	})
+	.trigger('change');
 
-	$('select#customerId').change(function () {
-	var selectedCustomer = $(this).children("option:selected").val();
-	alert("Save customer to reload projects")
-	$.ajax({
-	type: "POST",
-	url: "/user/${item.Id}/edit",
-	data: { customerId: selectedCustomer,
-	setCustomer: true
-	},
-	success: "succes",
-	dataType: "JSON"
 	});
-	setTimeout(function(){
-	location.reload();
-	}, 1800);
+	}
 	});
 	});
 </script>
