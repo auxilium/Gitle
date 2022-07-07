@@ -1688,6 +1688,14 @@ table#userTable {
   }
 }
 
+table#project-table {
+  .closed {
+    background: repeating-linear-gradient(143deg, #ffffff 14px, #d2d4d6 19px);
+  }
+}
+
+
+
 .label {
   display: inline-block;
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
@@ -1703,11 +1711,3 @@ table#userTable {
   background-color: #008CBA;
   color: black;
 }
-
-table#project-table {
-  .closed {
-    background: repeating-linear-gradient(143deg, #ffffff 14px, #d2d4d6 19px);
-  }
-}
-
-
