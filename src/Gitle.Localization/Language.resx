@@ -849,4 +849,7 @@
   <data name="Required" xml:space="preserve">
     <value>Verplicht</value>
   </data>
+  <data name="Choose_Customer" xml:space="preserve">
+    <value>Kies klant</value>
+  </data>
 </root>

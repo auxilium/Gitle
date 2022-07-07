@@ -693,4 +693,7 @@
   <data name="Required" xml:space="preserve">
     <value>Required</value>
   </data>
+  <data name="Choose_Customer" xml:space="preserve">
+    <value>Choose customer</value>
+  </data>
 </root>

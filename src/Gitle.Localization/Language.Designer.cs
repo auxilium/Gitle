@@ -349,6 +349,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kies klant.
+        /// </summary>
+        public static string Choose_Customer {
+            get {
+                return ResourceManager.GetString("Choose_Customer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wis zoekresultaten.
         /// </summary>
         public static string Clear_Search {

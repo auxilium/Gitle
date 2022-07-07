@@ -19,7 +19,7 @@
 				<div class="large-3 columns">Klant</div>
 				<div class="large-9 columns" id="customerList">
 					<select id="customerId" name="customerId" class="chosen-select" text="Name">
-						<% if item.Customer == null: %><option value="0" disabled="" hidden="" selected="">Kies een klant</option>
+						<% if item.Customer == null: %><option value="0" disabled="" hidden="" selected="">${t.Choose_Customer}</option>
 						<% end %>
 						<% for customer in customers: %>
 						<option value="${customer.Id}"
