@@ -195,19 +195,18 @@
 
             var issue = session.Query<Issue>().SingleOrDefault(i => i.Number == issueId && i.Project == project);
             var query = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
-            //var labelContainsUrgentFlag = session.Query<Label>().Where(l => l.MakeIssueUrgent && labels.Contains(l.Id)).ToList().Any();
             var savedIssue = SaveIssue(project, issue, query);
             var labelUrgentCheckboxChecked = query.Any(l => l.MakeIssueUrgent);
 
             if (query.Count < 1)
             {
-                Error(" 1 label minimal is required", true);
+                Error("1 label minimal is required", true);
                 return;
             }
 
-            if (query.Count < 1)
+            if (query.Count > 1)
             {
-                Error(" 1 label maximum permitted", true);
+                Error("Maximum1 label required", true);
                 return;
             }
 
@@ -405,6 +404,8 @@
                 throw new ProjectClosedException(project);
             }
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var previousLabel = issue.Labels;
+           
             if (issue.IsArchived) return;
             var label = project.Labels.First(l => l.Id == param);
             issue.Labels.Add(label);
@@ -426,7 +427,47 @@
                 session.SaveOrUpdate(issue);
                 transaction.Commit();
             }
+
+            if (previousLabel.Count > 0)
+            {
+                int id = (int)previousLabel[0].Id;
+                DeleteLabel(projectSlug, issueId, id);
+            }
             RedirectToReferrer();
+        }
+
+        [MustHaveProject]
+        public void DeleteLabel(string projectSlug, int issueId, int param)
+        {
+            RedirectToReferrer();
+            var project = session.Slug<Project>(projectSlug);
+            if (project.Closed)
+            {
+                throw new ProjectClosedException(project);
+            }
+            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            if (issue.IsArchived) return;
+            var label = project.Labels.First(l => l.Id == param);
+            if (label.MakeIssueUrgent)
+            {
+                issue.Open(CurrentUser);
+                issue.Urgent = false;
+                issue.Prioritized = true;
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(issue);
+                    tx.Commit();
+                }
+            }
+            issue.Labels.Remove(label);
+            issue.Change(CurrentUser);
+
+                using (var transaction = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(issue);
+                    transaction.Commit();
+                }
+                RedirectToReferrer();
         }
 
         [Admin]
@@ -480,6 +521,12 @@
             RedirectToReferrer();
             var project = session.Slug<Project>(projectSlug);
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var previousLabel = issue.Labels;
+            if (previousLabel.Count > 0)
+            {
+                int id = (int)previousLabel[0].Id;
+                DeleteLabel(projectSlug, issueId, id);
+            }
             if (issue.State != IssueState.Archived && issue.State != IssueState.Closed)
             {
                 issue.Urgent = false;

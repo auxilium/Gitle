@@ -45,7 +45,11 @@
           <% for label in project.Labels: %>
           <%   if (CurrentUser.IsAdmin or label.VisibleForCustomer): %>
           <%     if item.CheckLabel(label.Name): %>
-          <li><span class="label no-margin radius" title="${label.Name}" style="background-color: #${label.Color};">${label.Name}</span></li>
+          <li><span class="label no-margin radius" title="${label.Name}" style="background-color: #${label.Color};">${label.Name}
+	          <!--<a href="/project/${project.Slug}/issue/${item.Number}/DeleteLabel/${label.Id}"><i class="fa fa-trash" style="color: black;">
+					</a>-->
+	          </i>
+          </span></li>
           <%     end %>
           <%   end %>
           <% end %>
@@ -53,7 +57,7 @@
         <% if not item.IsArchived: %>
         <% if not project.Closed: %>
         <p class="labels no-margin">
-          <a href="#" data-dropdown="addlabels" class="small button dropdown secondary radius"><strong>${t.Label_Add}</strong></a>
+          <a href="#" data-dropdown="addlabels" class="small button dropdown secondary radius"><strong>${t.Label_Add_Change}</strong></a>
         </p>
         <ul id="addlabels" data-dropdown-content class="f-dropdown">
           <% openLabels = false %>
@@ -61,7 +65,9 @@
           <%   if (CurrentUser.IsAdmin or label.ApplicableByCustomer): %>
           <%     if not item.CheckLabel(label.Name): %>
           <%       openLabels = true %>
-          <li><a href="/project/${project.Slug}/issue/${item.Number}/addlabel/${label.Id}"><span class="label no-margin radius" title="${label.Name}" style="background-color: #${label.Color};">${label.Name}</span></a></li>
+          <li><a href="/project/${project.Slug}/issue/${item.Number}/addlabel/${label.Id}">
+	          <span class="label no-margin radius" title="${label.Name}" style="background-color: #${label.Color};">${label.Name}</span>
+          </a></li>
           <%     end %>
           <%   end %>
           <% end %>
@@ -178,40 +184,3 @@
     </div>
   </div>
 </div>
-<script>
-	$(document).ready(function() {
-	$("#item_Urgent").change(function() {
-	if(this.checked) {
-	if ($.cookie("culture") === "en-GB"){
-	alert("Save issue to set urgent");
-	} else {
-	alert("Taak opslaan om taak te wijzigen");
-	}
-	$.ajax({
-	type: "POST",
-	url: "/project/${project.Slug}/issue/${item.Number}/urgent",
-	data: { data: true,
-	item_name: "${?item.Name}"
-	},
-	success: "succes",
-	dataType: "JSON"
-	});
-	} else {
-	if ($.cookie("culture") === "en-GB"){
-	alert("Save issue to set urgent");
-	} else {
-	alert("Taak opslaan om taak te wijzigen");
-	}
-	$.ajax({
-	type: "POST",
-	url: "/project/${project.Slug}/issue/${item.Number}/urgent",
-	data: { data: false,
-	item_name: "${?item.Name}"
-	},
-	success: "succes",
-	dataType: "JSON"
-	});
-	}
-	});
-	});
-</script>

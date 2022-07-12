@@ -852,4 +852,7 @@
   <data name="Choose_Customer" xml:space="preserve">
     <value>Kies klant</value>
   </data>
+  <data name="Label_Add_Change" xml:space="preserve">
+    <value>Label aanpassen</value>
+  </data>
 </root>

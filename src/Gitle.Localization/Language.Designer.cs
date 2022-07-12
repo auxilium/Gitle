@@ -1276,6 +1276,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Label aanpassen.
+        /// </summary>
+        public static string Label_Add_Change {
+            get {
+                return ResourceManager.GetString("Label_Add_Change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Labels.
         /// </summary>
         public static string Labels {

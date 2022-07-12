@@ -696,4 +696,7 @@
   <data name="Choose_Customer" xml:space="preserve">
     <value>Choose customer</value>
   </data>
+  <data name="Label_Add_Change" xml:space="preserve">
+    <value>Change label</value>
+  </data>
 </root>
