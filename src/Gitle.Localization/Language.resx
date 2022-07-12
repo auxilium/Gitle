@@ -841,7 +841,7 @@
     <value>Spoed tickets</value>
   </data>
   <data name="IssueAction_Delete_Urgent" xml:space="preserve">
-    <value>Spoed status verwijderd</value>
+    <value>Spoed status is verwijderd</value>
   </data>
   <data name="Hour" xml:space="preserve">
     <value>uur</value>

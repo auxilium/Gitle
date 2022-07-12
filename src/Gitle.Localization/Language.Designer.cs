@@ -1204,7 +1204,7 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spoed status verwijderd.
+        ///   Looks up a localized string similar to Spoed status is verwijderd.
         /// </summary>
         public static string IssueAction_Delete_Urgent {
             get {

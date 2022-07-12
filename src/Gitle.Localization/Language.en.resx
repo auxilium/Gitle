@@ -699,4 +699,7 @@
   <data name="Label_Add_Change" xml:space="preserve">
     <value>Change label</value>
   </data>
+  <data name="IssueAction_Delete_Urgent" xml:space="preserve">
+    <value>not urgent, urgent status deleted</value>
+  </data>
 </root>

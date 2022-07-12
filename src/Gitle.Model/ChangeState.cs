@@ -22,13 +22,13 @@
                 state = (IssueState == IssueState.Open) ? Language.ChangeState_Opened.ToLower() : state;
                 var openings = Issue.ChangeStates.Where(x => x.IssueState == IssueState.Open).ToList();
                 var previousChangeStates = Issue.ChangeStates.Where(x => x.CreatedAt < CreatedAt).OrderBy(i => i.CreatedAt).ToList();
-
+                var urgentCheck = previousChangeStates.LastOrDefault() != null && previousChangeStates.Last().IssueState == IssueState.Urgent;
                 if (openings.Count() > 1 && openings.OrderByDescending(x => x.CreatedAt).Last() != this &&
                     IssueState == IssueState.Open)
                 {
-                    if (previousChangeStates.LastOrDefault() != null && previousChangeStates.Last().IssueState == IssueState.Urgent)
+                    if (urgentCheck)
                     {
-                        state = Language.IssueAction_Delete_Urgent.ToLower();
+                        state = Language.IssueAction_Delete_Urgent;
                     }
                     else
                     {
@@ -49,11 +49,11 @@
 
                 var openings = Issue.ChangeStates.Where(x => x.IssueState == IssueState.Open).ToList();
                 var previousChangeStates = Issue.ChangeStates.Where(x => x.CreatedAt < CreatedAt).OrderBy(i => i.CreatedAt).ToList();
-
+                var urgentCheck = previousChangeStates.LastOrDefault() != null && previousChangeStates.Last().IssueState == IssueState.Urgent;
                 if (openings.Count() > 1 && openings.OrderByDescending(x => x.CreatedAt).Last() != this &&
                     IssueState == IssueState.Open)
                 {
-                    if (previousChangeStates.LastOrDefault() != null && previousChangeStates.Last().IssueState == IssueState.Urgent)
+                    if (urgentCheck)
                     {
                         state = Language.IssueAction_Delete_Urgent.ToLower();
                     }
