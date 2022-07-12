@@ -54,9 +54,12 @@
             sqlConnectionHelper.CloseSqlConnection();
 
             PropertyBag.Add("selectedprojects", new List<Project>());
-            PropertyBag.Add("customers", session.Query<Customer>().Where(x => x.IsActive).ToList());
+            PropertyBag.Add("customers", session.Query<Customer>().Where(x => x.IsActive).OrderBy(x => x.Name).ToList());
             PropertyBag.Add("notificationprojects", new List<Project>());
-            PropertyBag.Add("projects", session.Query<Project>().Where(x => x.IsActive).OrderBy(x => x.Name).ToList());
+            PropertyBag.Add("projects", session.Query<Project>()
+                .Where(x => x.IsActive)
+                .OrderBy(x => x.Name)
+                .ToList());
             PropertyBag.Add("jamesEmployees", jamesEmployees.ToList());
             RenderView("edit");
         }
@@ -91,7 +94,7 @@
             PropertyBag.Add("customerId", user.Customer?.Id ?? 0);
             PropertyBag.Add("customerName", user.Customer?.Name ?? "");
             PropertyBag.Add("jamesEmployees", jamesEmployees.ToList());
-        }
+            }
 
         public void View(long userId)
         {

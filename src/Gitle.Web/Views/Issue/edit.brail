@@ -67,7 +67,7 @@
             </div>
           </div>
         </div>
-	      <div class="large-3 columns end">
+	      <!--<div class="large-3 columns end">
 		      <div class="row collapse">
 			      <div class="small-3 large-2 columns">
 				      <span class="prefix">
@@ -78,7 +78,7 @@
 				      <label for="item_Urgent" class="postfix text-left">${t.Urgent}</label>
 			      </div>
 		      </div>
-	      </div>
+	      </div>-->
       </div>
         <% else: %>
 	        <div class="row">

@@ -195,10 +195,17 @@
 
             var issue = session.Query<Issue>().SingleOrDefault(i => i.Number == issueId && i.Project == project);
             var query = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
-            var labelContainsUrgentFlag = session.Query<Label>().Where(l => l.MakeIssueUrgent && labels.Contains(l.Id)).ToList().Any();
+            //var labelContainsUrgentFlag = session.Query<Label>().Where(l => l.MakeIssueUrgent && labels.Contains(l.Id)).ToList().Any();
             var savedIssue = SaveIssue(project, issue, query);
+            var labelUrgentCheckboxChecked = query.Any(l => l.MakeIssueUrgent);
 
-            if (issue == null && savedIssue.IsUrgent || labelContainsUrgentFlag)
+            if (query.Count < 1)
+            {
+                Error("Minimaal 1 label is verplicht", true);
+                return;
+            }
+
+            if (issue == null && labelUrgentCheckboxChecked)
             {
                 savedIssue.MakeUrgent(CurrentUser);
                 savedIssue.Prioritized = true;
@@ -209,7 +216,7 @@
                 }
             }
 
-            if (issue != null && savedIssue.IsUrgent || labelContainsUrgentFlag)
+            if (issue != null && labelUrgentCheckboxChecked)
             {
                 savedIssue.MakeUrgent(CurrentUser);
                 savedIssue.Prioritized = true;
@@ -220,9 +227,10 @@
                 }
             }
 
-            if (issue != null && !savedIssue.IsUrgent)
+            if (issue != null && !labelUrgentCheckboxChecked)
             {
-                issue.Open(CurrentUser);
+                savedIssue.Open(CurrentUser);
+                savedIssue.Urgent = false;
                 savedIssue.Prioritized = false;
                 using (var tx = session.BeginTransaction())
                 {
@@ -264,35 +272,6 @@
             var savedIssue = SaveIssue(project, issue, labelObjects);
 
             return new { savedIssue.Id, savedIssue.Number, savedIssue.Name };
-        }
-
-        [MustHaveProject]
-        public void Urgent(string projectSlug, int issueId, bool data)
-        {
-            var project = session.Slug<Project>(projectSlug);
-            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
-
-            if (data)
-            {
-                issue.MakeUrgent(CurrentUser);
-                issue.Prioritized = true;
-                using (var tx = session.BeginTransaction())
-                {
-                    session.SaveOrUpdate(issue);
-                    tx.Commit();
-                }
-            }
-            else
-            {
-                issue.Open(CurrentUser);
-                issue.Prioritized = false;
-                using (var tx = session.BeginTransaction())
-                {
-                    session.SaveOrUpdate(issue);
-                    tx.Commit();
-                }
-            }
-            RedirectToReferrer();
         }
 
         private Issue SaveIssue(Project project, Issue issue, IEnumerable<Label> labels)
@@ -533,6 +512,7 @@
             if (issue.State != IssueState.Archived && issue.State != IssueState.Done)
             {
                 issue.Done(CurrentUser);
+                issue.Urgent = false;
                 using (var tx = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(issue);

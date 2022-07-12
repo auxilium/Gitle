@@ -1,76 +1,70 @@
 ﻿<script src="/content/vendor/jscolor-2.1.1/jscolor.js"></script>
 <div class="row">
-	<div class="large-12 columns">
-		<% if item.Id > 0: %>
-		<h1>Gebruiker bewerken</h1>
-		<% else: %>
-		<h1>Nieuwe gebruiker</h1>
-		<% end %>
-		<form action="/user/${?item.Id}/save" method="POST" autocomplete="off" data-abide="">
-			${Form.HiddenField("item.Id")}
-			<div class="row">
-				<div class="large-3 columns">Naam</div>
-				<div class="large-9 columns">
-					<input type="text" name="item.FullName" value="${?item.FullName}" required="" />
-					<small class="error">Geef een naam op</small>
-				</div>
-			</div>
-			<div class="row">
-				<div class="large-3 columns">Klant</div>
-				<div class="large-9 columns" id="customerList">
-					<select id="customerId" name="customerId" class="chosen-select" text="Name">
-						<% if item.Customer == null: %><option value="0" disabled="" hidden="" selected="">${t.Choose_Customer}</option>
-						<% end %>
-						<% for customer in customers: %>
-						<option value="${customer.Id}"
-							<% if item.Customer != null and customer.Id == item.Customer.Id: %>selected<% end %>>${customer.Name}</option>
-						<% end %>
-					</select>
-					<small class="error">Kies een klant</small>
-				</div>
-			</div>
-			<div class="row">
-				<div class="large-3 columns">Telefoonnummer</div>
-				<div class="large-9 columns">
-					<input type="tel" name="item.Phone" value="${?item.Phone}" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="large-3 columns">Emailadres</div>
-				<div class="large-9 columns">
-					<input type="text" name="item.Emailaddress" value="${?item.EmailAddress}" required="" />
-					<small class="error">Geef een emailadres op</small>
-				</div>
-			</div>
-			<div class="row">
-				<div class="large-3 columns">Comments</div>
-				<div class="large-9 columns">
-					<textarea type="text" id="item_Comments" name="item.Comments" value="" class="focus">${?item.Comments}</textarea>
-				</div>
-			</div>
-			<div class="panel">
-				<h3>Logingegevens</h3>
-				<div class="row">
-					<div class="large-3 columns">Inlog</div>
-					<div class="large-9 columns">
-						<input type="text" name="item.Name" value="${?item.Name}" data-abide-validator="checkUserName" data-userid="${item.Id}" required=""
-						<% if not item.Name == null: %> disabled
-						<% end %>/>
-						<small class="error">Geef een inlognaam op</small>
-					</div>
-				</div>
-				<div class="row">
-					<div class="large-3 columns">Wachtwoord</div>
-					<div class="large-9 columns">
-						<input type="password" name="Password" id="Password" value="${item.Password}" />
-					</div>
-
-				</div>
-				<div class="row">
-					<div class="large-3 columns">GitHub username</div>
-					<div class="large-9 columns">${Form.TextField("item.GitHubUsername")}</div>
-				</div>
-				<!--<div class="row">
+  <div class="large-12 columns">
+    <% if item.Id > 0: %>
+    <h1>Gebruiker bewerken</h1>
+    <% else: %>
+    <h1>Nieuwe gebruiker</h1>
+    <% end %>
+    <form action="/user/${?item.Id}/save" method="POST" autocomplete="off" data-abide>
+      ${Form.HiddenField("item.Id")}
+      <div class="row">
+        <div class="large-3 columns">Naam</div>
+        <div class="large-9 columns">
+          <input type="text" name="item.FullName" value="${?item.FullName}" required />
+          <small class="error">Geef een naam op</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-3 columns">Klant</div>
+        <div class="large-9 columns" id="customerList">
+	        <select id="customerId" name="customerId" class="chosen-select" text="Name">
+		        <% if item.Customer == null: %><option value="0" disabled hidden selected>Kies een klant</option><% end %>
+		        <% for customer in customers: %>
+		         <option value="${customer.Id}" <% if item.Customer != null and customer.Id == item.Customer.Id: %>selected<% end %>>${customer.Name}</option>
+            <% end %>
+	        </select>
+	        <small class="error">Kies een klant</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-3 columns">Telefoonnummer</div>
+        <div class="large-9 columns"><input type="tel" name="item.Phone" value="${?item.Phone}" /></div>
+      </div>
+      <div class="row">
+        <div class="large-3 columns">Emailadres</div>
+        <div class="large-9 columns">
+          <input type="text" name="item.Emailaddress" value="${?item.EmailAddress}" required />
+          <small class="error">Geef een emailadres op</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-3 columns">Comments</div>
+        <div class="large-9 columns">
+          <textarea type="text" id="item_Comments" name="item.Comments" value="" class="focus">${?item.Comments}</textarea>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Logingegevens</h3>
+        <div class="row">
+          <div class="large-3 columns">Inlog</div>
+          <div class="large-9 columns">
+            <input type="text" name="item.Name" value="${?item.Name}" data-abide-validator="checkUserName" data-userid="${item.Id}" required <% if not item.Name == null: %> disabled <% end %>/>
+            <small class="error">Geef een inlognaam op</small>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-3 columns">Wachtwoord</div>
+          <div class="large-9 columns">
+	          <input type="password" name="Password" id="Password" value="${item.Password}" />
+          </div>
+	       
+        </div>
+        <div class="row">
+          <div class="large-3 columns">GitHub username</div>
+          <div class="large-9 columns">${Form.TextField("item.GitHubUsername")}</div>
+        </div>
+        <!--<div class="row">
           <div class="large-3 columns">Freckle emailadres</div>
           <div class="large-9 columns">#{Form.TextField("item.FreckleEmail")}</div>
         </div>-->
