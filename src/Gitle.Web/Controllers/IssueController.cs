@@ -408,6 +408,11 @@
            
             if (issue.IsArchived) return;
             var label = project.Labels.First(l => l.Id == param);
+            if (previousLabel.Count > 0)
+            {
+                int id = (int)previousLabel[0].Id;
+                DeleteLabel(projectSlug, issueId, id);
+            }
             issue.Labels.Add(label);
             if (label.MakeIssueUrgent)
             {
@@ -428,11 +433,7 @@
                 transaction.Commit();
             }
 
-            if (previousLabel.Count > 0)
-            {
-                int id = (int)previousLabel[0].Id;
-                DeleteLabel(projectSlug, issueId, id);
-            }
+           
             RedirectToReferrer();
         }
 
