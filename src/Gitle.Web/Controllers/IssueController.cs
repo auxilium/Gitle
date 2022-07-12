@@ -201,7 +201,13 @@
 
             if (query.Count < 1)
             {
-                Error("Minimaal 1 label is verplicht", true);
+                Error(" 1 label minimal is required", true);
+                return;
+            }
+
+            if (query.Count < 1)
+            {
+                Error(" 1 label maximum permitted", true);
                 return;
             }
 
