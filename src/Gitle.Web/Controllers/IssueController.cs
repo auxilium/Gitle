@@ -404,7 +404,11 @@
                     tx.Commit();
                 }
             }
-            issue.Change(CurrentUser);
+
+            if (!label.MakeIssueUrgent)
+            {
+                issue.Change(CurrentUser);
+            }
 
             using (var transaction = session.BeginTransaction())
             {
@@ -428,6 +432,8 @@
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
             if (issue.IsArchived) return;
             var label = project.Labels.First(l => l.Id == param);
+            var previousChangeStates = issue.ChangeStates.OrderBy(i => i.CreatedAt).ToList();
+            var urgentCheck = previousChangeStates.LastOrDefault() != null && previousChangeStates.Last().IssueState == IssueState.Urgent;
             if (label.MakeIssueUrgent)
             {
                 issue.Open(CurrentUser);
@@ -440,7 +446,6 @@
                 }
             }
             issue.Labels.Remove(label);
-            issue.Change(CurrentUser);
 
             using (var transaction = session.BeginTransaction())
             {

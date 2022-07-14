@@ -272,17 +272,17 @@
 
         public virtual string DevversString
         {
-            get { return Hours > 0 ? Devvers.ToString() : "n.n.b."; }
+            get { return Hours > 0 ? Devvers.ToString() : "t.b.d."; }
         }
 
         public virtual string HoursString
         {
-            get { return Hours > 0 ? Hours.ToHourDayNotation() : "n.n.b."; }
+            get { return Hours > 0 ? Hours.ToHourDayNotation() : "t.b.d."; }
         }
 
         public virtual string EstimateString
         {
-            get { return Hours > 0 ? $"{Devvers} developer{(Devvers > 1 ? "s" : "")} {HoursString}" : "n.n.b."; }
+            get { return Hours > 0 ? $"{Devvers} developer{(Devvers > 1 ? "s" : "")} {HoursString}" : "t.b.d."; }
         }
 
         public virtual double TotalHours
@@ -292,7 +292,7 @@
 
         public virtual string TotalHoursString
         {
-            get { return TotalHours > 0 ? TotalHours.ToHourDayNotation() : "n.n.b."; }
+            get { return TotalHours > 0 ? TotalHours.ToHourDayNotation() : "t.b.d."; }
         }
 
         public virtual IList<Invoice> Invoices
@@ -326,7 +326,7 @@
         public virtual string CostString(decimal hourPrice)
         {
             var culture = new CultureInfo("nl-NL");
-            return TotalHours > 0 ? ((decimal)TotalHours * hourPrice).ToString("C", culture) : "n.n.b.";
+            return TotalHours > 0 ? ((decimal)TotalHours * hourPrice).ToString("C", culture) : "t.b.d.";
         }
 
         public virtual IList<IIssueAction> GetActions(bool descending)

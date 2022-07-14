@@ -700,7 +700,7 @@
     <value>Change label</value>
   </data>
   <data name="IssueAction_Delete_Urgent" xml:space="preserve">
-    <value>not urgent, urgent status deleted</value>
+    <value>open, urgent status deleted</value>
   </data>
   <data name="Label_Required" xml:space="preserve">
     <value>minimal 1 label required</value>

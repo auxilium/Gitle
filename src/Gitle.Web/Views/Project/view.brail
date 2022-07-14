@@ -14,8 +14,9 @@
     <% if project.Closed: %>
     <p class="red">${t.Project_Closed}</p>
     <% end %>
+			
     <span>${t.Comments}</span>
-    <textarea data-live-comments="/project/${project.Slug}/comments">${?project.Comments}</textarea>
+    <textarea data-live-comments="/project/${project.Slug}/comments"  <% if not CurrentUser.IsAdmin: %> disabled <% end %>>${?project.Comments}</textarea>
 
     <% if CurrentUser.IsAdmin: %>
     <% if application != null: %>
@@ -112,9 +113,9 @@
     </div>
     <div class="row">
       <div class="large-12 columns">
-				<h2>${t.Developers}</h2>
+				<h2>DTS TEAM</h2>
         <% if developers.Count == 0: %>
-	        <p>${t.Developers_None}</p>
+	        <p>No DTS Teams found</p>
         <% else: %>
         <table class="small-blocks" id="developers">
           <thead>
@@ -157,7 +158,9 @@
               <td class="name"><a href="${document.Path}">${document.Name}</a></td>
               <td class="date">${document.DateString}</td>
               <td class="date">${document.UserFullName}</td>
+	            <% if CurrentUser.IsAdmin: %>
               <td><a class="button alert tiny no-margin" href="/project/${project.Slug}/deletedocument/${document.Id}">${t.Delete}</a></td>
+                <% end %>
             </tr>
             <% end %>
           </tbody>
@@ -191,6 +194,6 @@
     <td class="name"><a href="{{path}}">{{name}}</a></td>
     <td class="date">{{date}}</td>
     <td class="date">{{uploader}}</td>
-    <td><a class="button alert tiny no-margin" href="/project/${project.Slug}/deletedocument/{{id}}">${t.Delete}</a></td>
+	  <td><a class="button alert tiny no-margin" href="/project/${project.Slug}/deletedocument/{{id}}">${t.Delete}</a></td>
   </tr>
 </script>

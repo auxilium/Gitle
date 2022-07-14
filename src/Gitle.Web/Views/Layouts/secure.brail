@@ -53,7 +53,7 @@
   <nav class="top-bar" data-topbar>
     <ul class="title-area">
       <li class="name">
-        <h1><a href="/"><img src="/Content/images/logo.png" /> ${t.AppName}</a></h1>
+	      <h1><a href="/"><img src="/Content/images/DTSlogoNav.png"/> ${t.AppName}</a></h1>
       </li>
       <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
     </ul>
@@ -145,8 +145,8 @@
   <div class="footer">
     <div class="row">
       <div class="large-8 small-8 columns">
-        <h1><a href="/"><img src="/Content/images/logo.png" /> ${t.AppName}</a></h1>
-        <p>This is a project by Auxilium B.V.</p>
+	      <h1><a href="/"><img src="/Content/images/DTSlogoNav.png"/> ${t.AppName}</a></h1>
+        <p>This is a project by Digital Trust Solutions B.V.</p>
       </div>
       <div class="large-4 small-4 columns text-right">
         <h1>${provider}</h1>

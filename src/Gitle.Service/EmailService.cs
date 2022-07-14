@@ -53,7 +53,9 @@
             if (action is ChangeState)
                 action = _session.Get<ChangeState>(((ChangeState)action).Id);
             var project = action.Issue.Project;
-            IList<User> users = (from userProject in project.Users where userProject.Notifications && (!userProject.OnlyOwnIssues || action.Issue.CreatedBy == userProject.User) && userProject.User != action.User && userProject.IsActive && userProject.User.IsActive select userProject.User).ToList();
+            IList<User> users = (from userProject in project.Users where userProject.Notifications && 
+                                                                         (!userProject.OnlyOwnIssues || action.Issue.CreatedBy == userProject.User) && 
+                                                                         userProject.IsActive && userProject.User.IsActive select userProject.User).ToList();
 
             if ((action as ChangeState)?.IssueState == IssueState.Open)
             {

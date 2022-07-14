@@ -57,17 +57,17 @@
 
         public virtual string DevversString
         {
-            get { return Hours > 0 ? Devvers.ToString() : "n.n.b."; }
+            get { return Hours > 0 ? Devvers.ToString() : "t.b.d."; }
         }
 
         public virtual string HoursString
         {
-            get { return Hours > 0 ? Hours <= 2.5 ? string.Format("{0} uur", Hours) : string.Format("{0} dag", Hours/8) : "n.n.b."; }
+            get { return Hours > 0 ? Hours <= 2.5 ? string.Format("{0} uur", Hours) : string.Format("{0} dag", Hours/8) : "t.b.d."; }
         }
 
         public virtual string EstimateString
         {
-            get { return Hours > 0 ? string.Format("{0} developer{1} {2}", Devvers, Devvers > 1 ? "s" : "", HoursString) : "n.n.b."; }
+            get { return Hours > 0 ? string.Format("{0} developer{1} {2}", Devvers, Devvers > 1 ? "s" : "", HoursString) : "t.b.d."; }
         }
 
         public virtual double TotalHours
@@ -78,7 +78,7 @@
         public virtual string CostString(double hourPrice)
         {
             var culture = new CultureInfo("nl-NL");
-            return TotalHours > 0 ? (TotalHours*hourPrice).ToString("C", culture) : "n.n.b.";
+            return TotalHours > 0 ? (TotalHours*hourPrice).ToString("C", culture) : "t.b.d.";
         }
 
         [DataMember(Name = "body")]
