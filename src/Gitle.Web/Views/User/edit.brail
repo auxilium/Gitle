@@ -1,172 +1,183 @@
 ﻿<script src="/content/vendor/jscolor-2.1.1/jscolor.js"></script>
 <div class="row">
-  <div class="large-12 columns">
-    <% if item.Id > 0: %>
-    <h1>Gebruiker bewerken</h1>
-    <% else: %>
-    <h1>Nieuwe gebruiker</h1>
-    <% end %>
-    <form action="/user/${?item.Id}/save" method="POST" autocomplete="off" data-abide>
-      ${Form.HiddenField("item.Id")}
-      <div class="row">
-        <div class="large-3 columns">Naam</div>
-        <div class="large-9 columns">
-          <input type="text" name="item.FullName" value="${?item.FullName}" required />
-          <small class="error">Geef een naam op</small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="large-3 columns">Klant</div>
-        <div class="large-9 columns" id="customerList">
-	        <select id="customerId" name="customerId" class="chosen-select" text="Name">
-		        <% if item.Customer == null: %><option value="0" disabled hidden selected>Kies een klant</option><% end %>
-		        <% for customer in customers: %>
-		         <option value="${customer.Id}" <% if item.Customer != null and customer.Id == item.Customer.Id: %>selected<% end %>>${customer.Name}</option>
-            <% end %>
-	        </select>
-	        <small class="error">Kies een klant</small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="large-3 columns">Telefoonnummer</div>
-        <div class="large-9 columns"><input type="tel" name="item.Phone" value="${?item.Phone}" /></div>
-      </div>
-      <div class="row">
-        <div class="large-3 columns">Emailadres</div>
-        <div class="large-9 columns">
-          <input type="text" name="item.Emailaddress" value="${?item.EmailAddress}" required />
-          <small class="error">Geef een emailadres op</small>
-        </div>
-      </div>
-      <div class="row">
-        <div class="large-3 columns">Comments</div>
-        <div class="large-9 columns">
-          <textarea type="text" id="item_Comments" name="item.Comments" value="" class="focus">${?item.Comments}</textarea>
-        </div>
-      </div>
-      <div class="panel">
-        <h3>Logingegevens</h3>
-        <div class="row">
-          <div class="large-3 columns">Inlog</div>
-          <div class="large-9 columns">
-            <input type="text" name="item.Name" value="${?item.Name}" data-abide-validator="checkUserName" data-userid="${item.Id}" required <% if not item.Name == null: %> disabled <% end %>/>
-            <small class="error">Geef een inlognaam op</small>
-          </div>
-        </div>
-        <div class="row">
-          <div class="large-3 columns">Wachtwoord</div>
-          <div class="large-9 columns">
-	          <input type="password" name="Password" id="Password" value="${item.Password}" />
-          </div>
-	       
-        </div>
-        <div class="row">
-          <div class="large-3 columns">GitHub username</div>
-          <div class="large-9 columns">${Form.TextField("item.GitHubUsername")}</div>
-        </div>
-        <!--<div class="row">
+	<div class="large-12 columns">
+		<% if item.Id > 0: %>
+		<h1>Gebruiker bewerken</h1>
+		<% else: %>
+		<h1>Nieuwe gebruiker</h1>
+		<% end %>
+		<form action="/user/${?item.Id}/save" method="POST" autocomplete="off" data-abide="">
+			${Form.HiddenField("item.Id")}
+			<div class="row">
+				<div class="large-3 columns">Naam</div>
+				<div class="large-9 columns">
+					<input type="text" name="item.FullName" value="${?item.FullName}" required="" />
+					<small class="error">Geef een naam op</small>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-3 columns">Klant</div>
+				<div class="large-9 columns" id="customerList">
+					<select id="customerId" name="customerId" class="chosen-select" text="Name">
+						<% if item.Customer == null: %><option value="0" disabled="" hidden="" selected="">Kies een klant</option>
+						<% end %>
+						<% for customer in customers: %>
+						<option value="${customer.Id}"
+							<% if item.Customer != null and customer.Id == item.Customer.Id: %>selected<% end %>>${customer.Name}</option>
+						<% end %>
+					</select>
+					<small class="error">Kies een klant</small>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-3 columns">Telefoonnummer</div>
+				<div class="large-9 columns">
+					<input type="tel" name="item.Phone" value="${?item.Phone}" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-3 columns">Emailadres</div>
+				<div class="large-9 columns">
+					<input type="text" name="item.Emailaddress" value="${?item.EmailAddress}" required="" />
+					<small class="error">Geef een emailadres op</small>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-3 columns">Comments</div>
+				<div class="large-9 columns">
+					<textarea type="text" id="item_Comments" name="item.Comments" value="" class="focus">${?item.Comments}</textarea>
+				</div>
+			</div>
+			<div class="panel">
+				<h3>Logingegevens</h3>
+				<div class="row">
+					<div class="large-3 columns">Inlog</div>
+					<div class="large-9 columns">
+						<input type="text" name="item.Name" value="${?item.Name}" data-abide-validator="checkUserName" data-userid="${item.Id}" required=""
+						<% if not item.Name == null: %> disabled
+						<% end %>/>
+						<small class="error">Geef een inlognaam op</small>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-3 columns">Wachtwoord</div>
+					<div class="large-9 columns">
+						<input type="password" name="Password" id="Password" value="${item.Password}" />
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="large-3 columns">GitHub username</div>
+					<div class="large-9 columns">${Form.TextField("item.GitHubUsername")}</div>
+				</div>
+				<!--<div class="row">
           <div class="large-3 columns">Freckle emailadres</div>
           <div class="large-9 columns">#{Form.TextField("item.FreckleEmail")}</div>
         </div>-->
-        <div class="row">
-          <div class="large-3 columns">Kleur planbord</div>
-          <div class="large-9 columns">${Form.TextField("item.Color", DictHelper.Create("data-jscolor="))}</div>
-        </div>
-        <div class="row">
-          <div class="large-3 columns">James user account</div>
-          <div class="large-9 columns">${Form.Select("item.JamesEmployeeId", jamesEmployees, {"class": "chosen-select", "value": "Id", "text": "FullName", "firstoption": "Kies een medewerker", "pattern":"select"})}</div>
-        </div>
-        <div class="row">
-          <div class="large-3 columns">Default filtering</div>
-          <div class="large-9 columns">
-            ${Form.Select("item.DefaultState", {"0": "Alle taken", "1": "Open taken", "2": "Voltooide taken"}, {"value": "Key", "text": "Value"})}
-          </div>
-        </div>
-        <div class="row">
-          <div class="large-3 small-6 columns">Heeft adminrechten</div>
-          <div class="large-9 small-6 columns">${Form.CheckboxField("item.IsAdmin")}</div>
-        </div>
-        <div class="row">
-          <div class="large-3 small-6 columns">Kan uren boeken</div>
-          <div class="large-9 small-6 columns">${Form.CheckboxField("item.CanBookHours")}</div>
-        </div>
-      </div>
-      <div class="panel">
-        <h3>Projecten</h3>
-        <input type="checkbox" id="closedProjects" /> Laat gesloten projecten zien
-       <div class="row projects">
-          <div class="large-12 columns">
-            <table id="projecten" class="datatable tablesorter">
-              <thead>
-                <tr>
-                  <th>Project</th>
-                  <th>Nummer</th>
-                  <th>Type</th>
-                  <th>Applicatie</th>
-                  <th>Klant</th>
-                  <th>Project zichtbaar</th>
-                  <th>Notificaties ontvangen</th>
-                  <th>Alleen notificatie van eigen tickets</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% count = 0 %>
-	                <% for project in projects: %>
-	                <% userProject = item.GetUserProject(project) %>
-                <% if project.Closed: %>
-                <tr class="red">
-                <% else: %>
-                <tr>
-                <% end %>
-                  <td>
-                    <input type="hidden" name="userProject[${count}].Id" value="${userProject.Id}" />
-                    <input type="hidden" name="userProject[${count}].Project.Id" value="${project.Id}" />
-                    <input type="hidden" name="userProject[${count}].User.Id" value="${item.Id}" />
-                    ${?project.Name}
-                  </td>
-                  <td>
-                    ${?project.Number}
-                  </td>
-                 <td>
-                    ${?project.Type}
-                  </td>
-                  <td>
-                    ${?project.Application.Name}
-                  </td>
-                  <td>
-                    ${?project.Application.Customer.Name}
-                  </td>
-                  <td>
-                    <div class="inline-checkbox">
-                      <input type="checkbox" name="userProject[${count}].Subscribed" value="true" <% if selectedprojects.Contains(project): %>checked<% end %>/> Project is zichtbaar
-                      <input type="hidden" name="userProject[${count}].Subscribed" value="false" />
-                    </div>
-                  </td>
-                  <td>
-                    <div class="inline-checkbox">
-                      <input type="checkbox" name="userProject[${count}].Notifications" value="true" <% if userProject.Notifications: %>checked<% end %>/> Notificaties ontvangen
-                      <input type="hidden" name="userProject[${count}].Notifications" value="false" />
-                    </div>
-                  </td>
-                  <td>
-                    <div class="inline-checkbox">
-                      <input type="checkbox" name="userProject[${count}].OnlyOwnIssues" value="true" <% if userProject.OnlyOwnIssues: %>checked<% end %>/> Alleen van zelf aangemaakte tickets
-                      <input type="hidden" name="userProject[${count}].OnlyOwnIssues" value="false" />
-                    </div>
-                  </td>
-                </tr>
-                <% count++ %>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="large-12 columns"><input type="submit" class="button" value="Opslaan" /></div>
-      </div>
-    </form>
-  </div>
+				<div class="row">
+					<div class="large-3 columns">Kleur planbord</div>
+					<div class="large-9 columns">${Form.TextField("item.Color", DictHelper.Create("data-jscolor="))}</div>
+				</div>
+				<div class="row">
+					<div class="large-3 columns">James user account</div>
+					<div class="large-9 columns">${Form.Select("item.JamesEmployeeId", jamesEmployees, {"class": "chosen-select", "value": "Id", "text": "FullName", "firstoption": "Kies een medewerker", "pattern":"select"})}</div>
+				</div>
+				<div class="row">
+					<div class="large-3 columns">Default filtering</div>
+					<div class="large-9 columns">
+						${Form.Select("item.DefaultState", {"0": "Alle taken", "1": "Open taken", "2": "Voltooide taken"}, {"value": "Key", "text": "Value"})}
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-3 small-6 columns">Heeft adminrechten</div>
+					<div class="large-9 small-6 columns">${Form.CheckboxField("item.IsAdmin")}</div>
+				</div>
+				<div class="row">
+					<div class="large-3 small-6 columns">Kan uren boeken</div>
+					<div class="large-9 small-6 columns">${Form.CheckboxField("item.CanBookHours")}</div>
+				</div>
+			</div>
+			<div class="panel">
+				<h3>Projecten</h3>
+				<input type="checkbox" id="closedProjects" /> Laat gesloten projecten zien
+				<div class="row projects">
+					<div class="large-12 columns">
+						<table id="projecten" class="datatable tablesorter">
+							<thead>
+								<tr>
+									<th>Project</th>
+									<th>Nummer</th>
+									<th>Type</th>
+									<th>Applicatie</th>
+									<th>Klant</th>
+									<th>Project zichtbaar</th>
+									<th>Notificaties ontvangen</th>
+									<th>Alleen notificatie van eigen tickets</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% count = 0 %>
+								<% for project in projects: %>
+								<% userProject = item.GetUserProject(project) %>
+								<% if project.Closed: %>
+								<tr class="red">
+									<% else: %>
+									<tr>
+										<% end %>
+										<td>
+											<input type="hidden" name="userProject[${count}].Id" value="${userProject.Id}" />
+											<input type="hidden" name="userProject[${count}].Project.Id" value="${project.Id}" />
+											<input type="hidden" name="userProject[${count}].User.Id" value="${item.Id}" />
+											${?project.Name}
+										</td>
+										<td>
+											${?project.Number}
+										</td>
+										<td>
+											${?project.Type}
+										</td>
+										<td>
+											${?project.Application.Name}
+										</td>
+										<td>
+											${?project.Application.Customer.Name}
+										</td>
+										<td>
+											<div class="inline-checkbox">
+												<input type="checkbox" name="userProject[${count}].Subscribed" value="true"
+												<% if selectedprojects.Contains(project): %>checked<% end %>/> Project is zichtbaar
+												<input type="hidden" name="userProject[${count}].Subscribed" value="false" />
+											</div>
+										</td>
+										<td>
+											<div class="inline-checkbox">
+												<input type="checkbox" name="userProject[${count}].Notifications" value="true"
+												<% if userProject.Notifications: %>checked<% end %>/> Notificaties ontvangen
+												<input type="hidden" name="userProject[${count}].Notifications" value="false" />
+											</div>
+										</td>
+										<td>
+											<div class="inline-checkbox">
+												<input type="checkbox" name="userProject[${count}].OnlyOwnIssues" value="true"
+												<% if userProject.OnlyOwnIssues: %>checked<% end %>/> Alleen van zelf aangemaakte tickets
+												<input type="hidden" name="userProject[${count}].OnlyOwnIssues" value="false" />
+											</div>
+										</td>
+									</tr>
+									<% count++ %>
+									<% end %>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-12 columns">
+					<input type="submit" class="button" value="Opslaan" />
+				</div>
+			</div>
+		</form>
+	</div>
 </div>
 <script type="text/javascript">
 	$(function () {
@@ -189,12 +200,12 @@
 	var column = this;
 	var select = $('#customerId')
 	.on('change', function () {
-  var selectedOption = $(this).find('option:selected');
+	var selectedOption = $(this).find('option:selected');
 	var val = $.fn.dataTable.util.escapeRegex(selectedOption.text());
-	
-  if ($(this).val() != null) {
+
+	if ($(this).val() != null) {
 	column.search(val ? '^' + val + '$' : '', true, false).draw();
-  }
+	}
 	})
 	.trigger('change');
 

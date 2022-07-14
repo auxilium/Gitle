@@ -27,25 +27,16 @@
         <% end %>
         <p class="state no-margin"><strong>${t.State}:</strong> ${item.StateString}</p>
         <% end %>
-	        <!--<form action="/project/${project.Slug}/issue/${item.Number}/save" method="POST" autocomplete="off" data-abide>
-	        <p class="no-margin"><strong>${t.Urgent}:</strong>
-		        ${Form.CheckboxField("item.Urgent")}
-	        </p>
-		        <div class="row">
-			        <div class="large-12 columns">
-				        <input type="hidden" name="item.Name" value="${?item.Name}" class="focus" required="" />
-				        <input type="submit" class="button" value="${t.Save}" />
-			        </div>
-		        </div>
-	        </form>-->
-        <p class="labels no-margin">
+	        <p class="labels no-margin">
           <strong>${t.Labels}:</strong>
         </p>
 	        <ul class="no-style">
           <% for label in project.Labels: %>
           <%   if (CurrentUser.IsAdmin or label.VisibleForCustomer): %>
           <%     if item.CheckLabel(label.Name): %>
-          <li><span class="label no-margin radius" title="${label.Name}" style="background-color: #${label.Color};">${label.Name}</span></li>
+          <li><span class="label no-margin radius" title="${label.Name}" style="background-color: #${label.Color};">${label.Name}
+		          <a href="/project/${project.Slug}/issue/${item.Number}/DeleteLabel/${label.Id}"><i style="color: black;" class="fa fa-trash" aria-hidden="true"></i></a></span>
+          </li>
           <%     end %>
           <%   end %>
           <% end %>
@@ -178,40 +169,3 @@
     </div>
   </div>
 </div>
-<script>
-	$(document).ready(function() {
-	$("#item_Urgent").change(function() {
-	if(this.checked) {
-	if ($.cookie("culture") === "en-GB"){
-	alert("Save issue to set urgent");
-	} else {
-	alert("Taak opslaan om taak te wijzigen");
-	}
-	$.ajax({
-	type: "POST",
-	url: "/project/${project.Slug}/issue/${item.Number}/urgent",
-	data: { data: true,
-	item_name: "${?item.Name}"
-	},
-	success: "succes",
-	dataType: "JSON"
-	});
-	} else {
-	if ($.cookie("culture") === "en-GB"){
-	alert("Save issue to set urgent");
-	} else {
-	alert("Taak opslaan om taak te wijzigen");
-	}
-	$.ajax({
-	type: "POST",
-	url: "/project/${project.Slug}/issue/${item.Number}/urgent",
-	data: { data: false,
-	item_name: "${?item.Name}"
-	},
-	success: "succes",
-	dataType: "JSON"
-	});
-	}
-	});
-	});
-</script>

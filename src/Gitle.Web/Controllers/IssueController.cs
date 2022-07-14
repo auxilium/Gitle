@@ -47,7 +47,7 @@
 
             var filterPresets = session.Query<FilterPreset>().Where(x => x.User == CurrentUser && x.IsActive && (x.Project == null || (x.Project != null && x.Project.Id == project.Id))).ToList();
             var globalFilterPresets = session.Query<FilterPreset>().Where(x => x.User == null && x.IsActive && (x.Project == null || (x.Project != null && x.Project.Id == project.Id))).ToList();
-            var redHex = "fe0000";
+            const string redHex = "fe0000";
             var labels = session.Query<Label>().Where(x => x.IsActive).ToArray();
             var hasRedLabel = false;
 
@@ -199,12 +199,6 @@
             var savedIssue = SaveIssue(project, issue, query);
             var labelUrgentCheckboxChecked = query.Any(l => l.MakeIssueUrgent);
 
-            if (query.Count < 1)
-            {
-                Error("Minimaal 1 label is verplicht", true);
-                return;
-            }
-
             if (issue == null && labelUrgentCheckboxChecked)
             {
                 savedIssue.MakeUrgent(CurrentUser);
@@ -220,18 +214,6 @@
             {
                 savedIssue.MakeUrgent(CurrentUser);
                 savedIssue.Prioritized = true;
-                using (var tx = session.BeginTransaction())
-                {
-                    session.SaveOrUpdate(savedIssue);
-                    tx.Commit();
-                }
-            }
-
-            if (issue != null && !labelUrgentCheckboxChecked)
-            {
-                savedIssue.Open(CurrentUser);
-                savedIssue.Urgent = false;
-                savedIssue.Prioritized = false;
                 using (var tx = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(savedIssue);
@@ -413,6 +395,40 @@
                     tx.Commit();
                 }
             }
+            issue.Change(CurrentUser);
+
+            using (var transaction = session.BeginTransaction())
+            {
+                session.SaveOrUpdate(issue);
+                transaction.Commit();
+            }
+            RedirectToReferrer();
+        }
+
+        [MustHaveProject]
+        public void DeleteLabel(string projectSlug, int issueId, int param)
+        {
+            RedirectToReferrer();
+            var project = session.Slug<Project>(projectSlug);
+            if (project.Closed)
+            {
+                throw new ProjectClosedException(project);
+            }
+            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            if (issue.IsArchived) return;
+            var label = project.Labels.First(l => l.Id == param);
+            if (label.MakeIssueUrgent)
+            {
+                issue.Open(CurrentUser);
+                issue.Urgent = false;
+                issue.Prioritized = true;
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(issue);
+                    tx.Commit();
+                }
+            }
+            issue.Labels.Remove(label);
             issue.Change(CurrentUser);
 
             using (var transaction = session.BeginTransaction())
