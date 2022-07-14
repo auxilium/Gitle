@@ -198,18 +198,6 @@
             var savedIssue = SaveIssue(project, issue, query);
             var labelUrgentCheckboxChecked = query.Any(l => l.MakeIssueUrgent);
 
-            if (query.Count < 1)
-            {
-                Error("1 label minimal is required", true);
-                return;
-            }
-
-            if (query.Count > 1)
-            {
-                Error("Maximum1 label required", true);
-                return;
-            }
-
             if (issue == null && labelUrgentCheckboxChecked)
             {
                 savedIssue.MakeUrgent(CurrentUser);
@@ -225,18 +213,6 @@
             {
                 savedIssue.MakeUrgent(CurrentUser);
                 savedIssue.Prioritized = true;
-                using (var tx = session.BeginTransaction())
-                {
-                    session.SaveOrUpdate(savedIssue);
-                    tx.Commit();
-                }
-            }
-
-            if (issue != null && !labelUrgentCheckboxChecked)
-            {
-                savedIssue.Open(CurrentUser);
-                savedIssue.Urgent = false;
-                savedIssue.Prioritized = false;
                 using (var tx = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(savedIssue);
@@ -405,13 +381,16 @@
             }
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
             var previousLabel = issue.Labels;
-           
+
             if (issue.IsArchived) return;
             var label = project.Labels.First(l => l.Id == param);
             if (previousLabel.Count > 0)
             {
-                int id = (int)previousLabel[0].Id;
-                DeleteLabel(projectSlug, issueId, id);
+                for (int i = 0; i <= previousLabel.Count; i++)
+                {
+                    int id = (int)previousLabel[0].Id;
+                    DeleteLabel(projectSlug, issueId, id);
+                }
             }
             issue.Labels.Add(label);
             if (label.MakeIssueUrgent)
@@ -433,7 +412,7 @@
                 transaction.Commit();
             }
 
-           
+
             RedirectToReferrer();
         }
 
@@ -463,12 +442,12 @@
             issue.Labels.Remove(label);
             issue.Change(CurrentUser);
 
-                using (var transaction = session.BeginTransaction())
-                {
-                    session.SaveOrUpdate(issue);
-                    transaction.Commit();
-                }
-                RedirectToReferrer();
+            using (var transaction = session.BeginTransaction())
+            {
+                session.SaveOrUpdate(issue);
+                transaction.Commit();
+            }
+            RedirectToReferrer();
         }
 
         [Admin]

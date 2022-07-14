@@ -855,4 +855,31 @@
   <data name="Label_Add_Change" xml:space="preserve">
     <value>Label aanpassen</value>
   </data>
+  <data name="Label_Required" xml:space="preserve">
+    <value>mininaal 1 label verplicht</value>
+  </data>
+  <data name="Administrative" xml:space="preserve">
+    <value>Administratief</value>
+  </data>
+  <data name="Comment_Count" xml:space="preserve">
+    <value>Aantal reacties</value>
+  </data>
+  <data name="Created_At" xml:space="preserve">
+    <value>Aanmaakdatum</value>
+  </data>
+  <data name="Created_By" xml:space="preserve">
+    <value>Aanmelder</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Nummer</value>
+  </data>
+  <data name="Picked_Up_At" xml:space="preserve">
+    <value>Behandeldatum</value>
+  </data>
+  <data name="Picked_Up_By" xml:space="preserve">
+    <value>Behandelaar</value>
+  </data>
+  <data name="Total_Hours" xml:space="preserve">
+    <value>Inspanning</value>
+  </data>
 </root>

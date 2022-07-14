@@ -702,4 +702,31 @@
   <data name="IssueAction_Delete_Urgent" xml:space="preserve">
     <value>not urgent, urgent status deleted</value>
   </data>
+  <data name="Label_Required" xml:space="preserve">
+    <value>minimal 1 label required</value>
+  </data>
+  <data name="Administrative" xml:space="preserve">
+    <value>Administrative</value>
+  </data>
+  <data name="Comment_Count" xml:space="preserve">
+    <value>Comments count</value>
+  </data>
+  <data name="Created_At" xml:space="preserve">
+    <value>Created at</value>
+  </data>
+  <data name="Created_By" xml:space="preserve">
+    <value>Created by</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="Picked_Up_At" xml:space="preserve">
+    <value>Picked up at</value>
+  </data>
+  <data name="Picked_Up_By" xml:space="preserve">
+    <value>Picked up by</value>
+  </data>
+  <data name="Total_Hours" xml:space="preserve">
+    <value>Total hours</value>
+  </data>
 </root>

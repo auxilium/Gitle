@@ -187,6 +187,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Administratief.
+        /// </summary>
+        public static string Administrative {
+            get {
+                return ResourceManager.GetString("Administrative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Applicatie.
         /// </summary>
         public static string Application {
@@ -394,6 +403,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aantal reacties.
+        /// </summary>
+        public static string Comment_Count {
+            get {
+                return ResourceManager.GetString("Comment_Count", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieuwe reactie.
         /// </summary>
         public static string Comment_New {
@@ -453,6 +471,24 @@ namespace Gitle.Localization {
         public static string ContainsNotLabels {
             get {
                 return ResourceManager.GetString("ContainsNotLabels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aanmaakdatum.
+        /// </summary>
+        public static string Created_At {
+            get {
+                return ResourceManager.GetString("Created_At", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aanmelder.
+        /// </summary>
+        public static string Created_By {
+            get {
+                return ResourceManager.GetString("Created_By", resourceCulture);
             }
         }
         
@@ -1285,6 +1321,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to mininaal 1 label verplicht.
+        /// </summary>
+        public static string Label_Required {
+            get {
+                return ResourceManager.GetString("Label_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Labels.
         /// </summary>
         public static string Labels {
@@ -1582,6 +1627,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nummer.
+        /// </summary>
+        public static string Number {
+            get {
+                return ResourceManager.GetString("Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to op.
         /// </summary>
         public static string On {
@@ -1803,6 +1857,24 @@ namespace Gitle.Localization {
         public static string Phone {
             get {
                 return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Behandeldatum.
+        /// </summary>
+        public static string Picked_Up_At {
+            get {
+                return ResourceManager.GetString("Picked_Up_At", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Behandelaar.
+        /// </summary>
+        public static string Picked_Up_By {
+            get {
+                return ResourceManager.GetString("Picked_Up_By", resourceCulture);
             }
         }
         
@@ -2145,6 +2217,15 @@ namespace Gitle.Localization {
         public static string To {
             get {
                 return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inspanning.
+        /// </summary>
+        public static string Total_Hours {
+            get {
+                return ResourceManager.GetString("Total_Hours", resourceCulture);
             }
         }
         

@@ -67,27 +67,24 @@
             </div>
           </div>
         </div>
-	      <!--<div class="large-3 columns end">
-		      <div class="row collapse">
-			      <div class="small-3 large-2 columns">
-				      <span class="prefix">
-								${Form.CheckboxField("item.Urgent")}
-							</span>
-			      </div>
-			      <div class="small-9 large-10 columns">
-				      <label for="item_Urgent" class="postfix text-left">${t.Urgent}</label>
-			      </div>
-		      </div>
-	      </div>-->
       </div>
 	      <% end %>
+          <br />
       <div class="row">
-        <div class="large-3 columns">${t.Labels}</div>
-        <div class="large-9 columns">
-          <% for label in labels: %>
+        <div class="large-3 columns">
+					${t.Labels}
           <div>
-            <input type="checkbox" class="inline" name="labels[${label.Id}]" value="${label.Id}" <% if item.CheckLabel(label.Name): %>checked="checked"<% end %>/> <span class="label no-margin radius" style="background-color: #${label.Color};">${label.Name}</span>
+					<small>${t.Label_Required}</small>
           </div>
+        </div>
+	      <div class="large-9 columns">
+          <%count = 0%>
+		      <% for label in labels: %>
+          <div>
+            <input type="radio" class="inline" name="labels" value="${label.Id}" <% if item.CheckLabel(label.Name): %>checked="checked"<% end %> required/>
+		          <span class="label no-margin radius" style="background-color: #${label.Color};">${label.Name}</span>
+          </div>
+            <%count++%>
           <% end %>
         </div>
       </div>

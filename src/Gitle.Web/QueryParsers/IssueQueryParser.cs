@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using Localization;
     using Model;
     using Model.Enum;
     using Model.Helpers;
@@ -35,18 +36,17 @@
 
         public Dictionary<string, string> AllSorts = new Dictionary<string, string>()
                             {
-                                {"IsUrgent", "Spoed"},
-                                {"CreatedBy", "Aanmelder"},
-                                {"CreatedAt", "Aanmaakdatum"},
-                                {"PickedUpBy", "Behandelaar"},
-                                {"PickedUpAt", "Behandeldatum"},
-                                {"Number", "Nummer"},
-                                {"Name", "Naam"},
-                                {"TotalHours", "Inspanning"},
-                                {"Comments.Count", "Aantal reacties"},
-                                {"IsAdministrative", "Administratief"}
+                                {"IsUrgent", Language.Urgent},
+                                {"CreatedBy", Language.Created_By},
+                                {"CreatedAt", Language.Created_At},
+                                {"PickedUpBy", Language.Picked_Up_By},
+                                {"PickedUpAt", Language.Picked_Up_At},
+                                {"Number", Language.Number},
+                                {"Name", Language.Name},
+                                {"TotalHours", Language.Total_Hours},
+                                {"Comments.Count", Language.Comment_Count},
+                                {"IsAdministrative", Language.Administrative}
                             };
-
 
         public IssueQueryParser(ISessionFactory sessionFactory, string query, Project project, User currentUser)
         {

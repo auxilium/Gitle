@@ -53,7 +53,7 @@
     <div class="panel ${action.GetType().Name} <% if action.IsInternal :%> is-internal <% end %>">
       <small class="right">${Helpers.DateTimeHelper.Readable(action.CreatedAt)}</small>
       <% if action.User != null: %>
-      <strong>${action.User.FullName} <% if action.User.IsAdmin: %> <span class="label no-margin radius">Developer</span> <% end %></strong>
+      <strong>${action.User.FullName} <% if action.User.IsAdmin: %> <span class="label no-margin radius">DTS Team</span> <% end %></strong>
       <% end %>
       <div class="">${action.HtmlText}</div>
       <% if CurrentUser.CanBookHours or CurrentUser.IsAdmin : %>
