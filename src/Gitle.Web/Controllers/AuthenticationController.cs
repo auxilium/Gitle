@@ -56,6 +56,11 @@ namespace Gitle.Web.Controllers
             {
                Context.Response.CreateCookie("culture", configCulture);
             }
+
+            if (user.IsCustomer)
+            {
+                Context.Response.CreateCookie("role", "isCustomer");
+            }
             FormsAuthentication.SetAuthCookie(name, persistent);
             
             if (string.IsNullOrEmpty(returnUrl))

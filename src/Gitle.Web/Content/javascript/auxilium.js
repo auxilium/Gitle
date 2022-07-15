@@ -235,7 +235,7 @@ $.fn.upload = function () {
     }
     if ($.cookie("culture") === "en-GB") {
       uploadButton = $('<a href="#" class="button no-margin tiny">Upload picture/file</a>')
-        .insertBefore(this);
+          .insertBefore(this);
     } else {
       uploadButton = $('<a href="#" class="button no-margin tiny">Upload afbeelding/bestand</a>')
         .insertBefore(this);
@@ -283,16 +283,20 @@ $.fn.uploadList = function() {
     var uploadButton;
     if (!$.browser.msie) {
       if ($.cookie("culture") === "en-GB") {
-        list.after($(
-          '<small class="info">You can also upload pictures (jpg, png, gif) and files (doc, docx, xls, xlsx, pdf, txt) by dragging them to the text field.</small>'));
+        if ($.cookie("role") !== "isCustomer") {
+          list.after($(
+            '<small class="info">You can also upload pictures (jpg, png, gif) and files (doc, docx, xls, xlsx, pdf, txt) by dragging them to the text field.</small>'));
+        }
       } else {
         list.after($(
           '<small class="info">Je kunt ook afbeeldingen (jpg, png, gif) en bestanden (doc, docx, xls, xlsx, pdf, txt) uploaden door ze op het textveld te slepen.</small>'));
       }
     }
     if ($.cookie("culture") === "en-GB") {
-      uploadButton = $('<a href="#" class="button no-margin tiny">Upload picture/file</a>')
-        .insertBefore(this);
+      if ($.cookie("role") !== "isCustomer") {
+        uploadButton = $('<a href="#" class="button no-margin tiny">Upload picture/file</a>')
+          .insertBefore(this);
+      }
     } else {
       uploadButton = $('<a href="#" class="button no-margin tiny">Upload afbeelding/bestand</a>')
         .insertBefore(this);
@@ -332,7 +336,9 @@ $.fn.uploadList = function() {
         progressbar.hide();
       }
     };
-    $(this).ajaxUploadDrop(uploadOptions);
+    if ($.cookie("role") !== "isCustomer") {
+      $(this).ajaxUploadDrop(uploadOptions);
+    }
     uploadButton.ajaxUploadPrompt(uploadOptions);
   });
 };
