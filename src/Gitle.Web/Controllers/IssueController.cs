@@ -59,7 +59,6 @@
                 }
             }
 
-            //var query = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
             PropertyBag.Add("project", project);
             PropertyBag.Add("result", parser);
             PropertyBag.Add("labels", CurrentUser.IsAdmin ? project.Labels : project.Labels.Where(l => l.VisibleForCustomer).ToList());
@@ -195,9 +194,8 @@
 
             var issue = session.Query<Issue>().SingleOrDefault(i => i.Number == issueId && i.Project == project);
             var query = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
-            //var labelContainsUrgentFlag = session.Query<Label>().Where(l => l.MakeIssueUrgent && labels.Contains(l.Id)).ToList().Any();
             var savedIssue = SaveIssue(project, issue, query);
-            var labelUrgentCheckboxChecked = query.Any(l => l.MakeIssueUrgent);
+            var labelUrgentCheckboxChecked = query.Any(l => l.LabelIsUrgent);
 
             if (issue == null && labelUrgentCheckboxChecked)
             {
@@ -384,7 +382,7 @@
             if (issue.IsArchived) return;
             var label = project.Labels.First(l => l.Id == param);
             issue.Labels.Add(label);
-            if (label.MakeIssueUrgent)
+            if (label.LabelIsUrgent)
             {
                 issue.MakeUrgent(CurrentUser);
                 issue.Urgent = true;
@@ -417,7 +415,7 @@
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
             if (issue.IsArchived) return;
             var label = project.Labels.First(l => l.Id == param);
-            if (label.MakeIssueUrgent)
+            if (label.LabelIsUrgent)
             {
                 issue.Open(CurrentUser);
                 issue.Urgent = false;
@@ -549,7 +547,7 @@
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
             if (issue.State != IssueState.Archived || issue.State != IssueState.Open)
             {
-                if (issue.Urgent)
+                if (issue.Labels.Any(l => l.LabelIsUrgent))
                 {
                     issue.MakeUrgent(CurrentUser);
                 }

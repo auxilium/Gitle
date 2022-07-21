@@ -12,7 +12,7 @@
               </div>
               <div class="small-6 columns large-text-center medium-text-right">
 
-                <% if issue.IsOpen or issue.IsUrgent: %>
+								<% if issue.IsOpen or issue.SetUrgent: %>
                 <% if issue.IsAdministrative : %>
                 <i class="fa fa-bookmark yellow" title="administratief"></i>
                 <% else :%>
@@ -32,14 +32,11 @@
                 <% if issue.PickedUpBy != null and issue.IsOpen: %>
                 <i class="fa fa-user orange pickedup" title="In behandeling"></i>
                 <% end %>
-	                <!--<% if issue.Urgent : %>
-		                <i class="fa fa-exclamation red" title="spoed"></i>
-		                <% end %>-->
               </div>
 	            <div class="small-6 columns large-text-center medium-text-right">
-		            <% if issue.Urgent : %>
-			            <i class="fa fa-exclamation-circle red" title="spoed"></i>
-			            <% end %>
+								<% if issue.SetUrgent : %>
+								<i class="fa fa-exclamation red" title="spoed"></i>
+								<% end %>
 	            </div>
             </div>
           </div>

@@ -10,6 +10,6 @@
 
         public virtual Project Project { get; set; }
 
-        public virtual bool MakeIssueUrgent { get; set; }
+        public virtual bool LabelIsUrgent { get; set; }
     }
 }
