@@ -142,7 +142,7 @@
                 <td><input type="checkbox" name="label[${count}].VisibleForCustomer" value="true" <% if label.VisibleForCustomer: %>checked="checked"<% end %>/></td>
                 <td><input type="checkbox" name="label[${count}].ApplicableByCustomer" value="true" <% if label.ApplicableByCustomer: %>checked="checked"<% end %>/></td>
                 <td><input type="checkbox" name="label[${count}].ToFreckle" value="true" <% if label.ToFreckle: %>checked="checked"<% end %>/></td>
-	              <td><input type="checkbox" name="label[${count}].MakeIssueUrgent" value="true"<% if label.MakeIssueUrgent: %>checked="checked"<% end %>/></td>
+	              <td><input type="checkbox" name="label[${count}].LabelIsUrgent" value="true"<% if LabelIsUrgent: %>checked="checked"<% end %>/></td>
               </tr>
               <% count++ %>
               <% end %>

@@ -2,9 +2,9 @@
 
 <ul class="tabs" data-tab data-options="deep_linking:true">
 	<% if CurrentUser.IsAdmin: %>
-	<li class="tab-title active"><a href="#initial">Initiele projecten</a></li>
+	<li class="tab-title active"><a href="#initial">${t.Initial_Projects}</a></li>
     <% end %>
-  <li class="tab-title"><a href="#service">Service projecten</a></li>
+  <li class="tab-title"><a href="#service">${t.Service_Projects}</a></li>
 </ul>
 <div class="tabs-content">
   <div class="content active" id="initial">
@@ -52,9 +52,10 @@
     </table>
   </div>
   <div class="content" id="service">
-    <input type="checkbox" id="toggle-overview" /> Toon alle tickets
+		<div><input type="checkbox" id="toggle-overview" /> ${t.Show_All_Tickets}
+	</div>
     <br/>
-    <input type="checkbox" id="toggle-empties" checked /> Verberg projecten zonder tickets
+		<div> <input type="checkbox" id="toggle-empties" checked /> ${t.Hide_Projects_Without_Tickets}</div>
     <% if CurrentUser.IsAdmin: %>
     <div class="large-0 small-6 columns right">
       <a href="/dashboard/exportopenticketsbyproject" class="button tiny">Export openstaande issues</a>

@@ -93,7 +93,7 @@
 			</div>
 			<div class="panel">
 				<h3>Projecten</h3>
-				<input type="checkbox" id="closedProjects" /> Laat gesloten projecten zien
+				<input type="checkbox" id="closedProjects" checked/> Laat gesloten projecten zien
 				<div class="row projects">
 					<div class="large-12 columns">
 						<table id="projecten" class="datatable tablesorter">
@@ -167,7 +167,7 @@
 			</div>
 			<div class="row">
 				<div class="large-12 columns">
-					<input type="submit" class="button" value="Opslaan" />
+					<input type="submit" class="button" value="${t.Save}" />
 				</div>
 			</div>
 		</form>
@@ -187,6 +187,7 @@
 
 	$(document).ready(function () {
 	$('#projecten').DataTable({
+	pageLength: 10,
 	initComplete: function () {
 	this.api()
 	.columns([4])
@@ -198,11 +199,14 @@
 	var val = $.fn.dataTable.util.escapeRegex(selectedOption.text());
 
 	if ($(this).val() != null) {
+	if (val == "DTS team"){
+	column.search('', true, false).draw();
+	} else {
 	column.search(val ? '^' + val + '$' : '', true, false).draw();
+	}
 	}
 	})
 	.trigger('change');
-
 	});
 	}
 	});

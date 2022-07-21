@@ -882,4 +882,19 @@
   <data name="Total_Hours" xml:space="preserve">
     <value>Inspanning</value>
   </data>
+  <data name="Hide_Projects_Without_Tickets" xml:space="preserve">
+    <value>Verberg projecten zonder tickets</value>
+  </data>
+  <data name="Initial_Projects" xml:space="preserve">
+    <value>Initiele projecten</value>
+  </data>
+  <data name="New_Filter_Preset" xml:space="preserve">
+    <value>New filter preset</value>
+  </data>
+  <data name="Service_Projects" xml:space="preserve">
+    <value>Service projecten</value>
+  </data>
+  <data name="Show_All_Tickets" xml:space="preserve">
+    <value>Toon alle tickets</value>
+  </data>
 </root>

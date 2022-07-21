@@ -196,7 +196,7 @@
             var issue = session.Query<Issue>().SingleOrDefault(i => i.Number == issueId && i.Project == project);
             var query = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
             var savedIssue = SaveIssue(project, issue, query);
-            var labelUrgentCheckboxChecked = query.Any(l => l.MakeIssueUrgent);
+            var labelUrgentCheckboxChecked = query.Any(l => l.LabelIsUrgent);
 
             if (issue == null && labelUrgentCheckboxChecked)
             {
@@ -393,7 +393,7 @@
                 }
             }
             issue.Labels.Add(label);
-            if (label.MakeIssueUrgent)
+            if (label.LabelIsUrgent)
             {
                 issue.MakeUrgent(CurrentUser);
                 issue.Urgent = true;
@@ -405,7 +405,7 @@
                 }
             }
 
-            if (!label.MakeIssueUrgent)
+            if (!label.LabelIsUrgent)
             {
                 issue.Change(CurrentUser);
             }
@@ -434,7 +434,7 @@
             var label = project.Labels.First(l => l.Id == param);
             var previousChangeStates = issue.ChangeStates.OrderBy(i => i.CreatedAt).ToList();
             var urgentCheck = previousChangeStates.LastOrDefault() != null && previousChangeStates.Last().IssueState == IssueState.Urgent;
-            if (label.MakeIssueUrgent)
+            if (label.LabelIsUrgent)
             {
                 issue.Open(CurrentUser);
                 issue.Urgent = false;
@@ -506,12 +506,7 @@
             RedirectToReferrer();
             var project = session.Slug<Project>(projectSlug);
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
-            var previousLabel = issue.Labels;
-            if (previousLabel.Count > 0)
-            {
-                int id = (int)previousLabel[0].Id;
-                DeleteLabel(projectSlug, issueId, id);
-            }
+          
             if (issue.State != IssueState.Archived && issue.State != IssueState.Closed)
             {
                 issue.Urgent = false;
@@ -569,9 +564,11 @@
                 throw new ProjectClosedException(project);
             }
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+           
             if (issue.State != IssueState.Archived || issue.State != IssueState.Open)
             {
-                if (issue.Urgent)
+                var labels = issue.Labels;
+                if (labels.Any(l => l.LabelIsUrgent))
                 {
                     issue.MakeUrgent(CurrentUser);
                 }

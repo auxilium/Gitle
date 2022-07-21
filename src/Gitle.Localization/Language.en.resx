@@ -729,4 +729,19 @@
   <data name="Total_Hours" xml:space="preserve">
     <value>Total hours</value>
   </data>
+  <data name="Hide_Projects_Without_Tickets" xml:space="preserve">
+    <value>Hide all projects without issues</value>
+  </data>
+  <data name="Initial_Projects" xml:space="preserve">
+    <value>Initial projects</value>
+  </data>
+  <data name="New_Filter_Preset" xml:space="preserve">
+    <value>New filter preset</value>
+  </data>
+  <data name="Service_Projects" xml:space="preserve">
+    <value>Service projects</value>
+  </data>
+  <data name="Show_All_Tickets" xml:space="preserve">
+    <value>Show all issues</value>
+  </data>
 </root>

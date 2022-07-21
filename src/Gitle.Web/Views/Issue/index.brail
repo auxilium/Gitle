@@ -74,9 +74,6 @@
 <div class="row filters collapse">
   <div class="small-12 columns">
     <div class="row collapse">
-      <div class="large-1 small-12 columns">
-        <span class="three-state-checker button tiny" data-state="none" data-selector=".issues .issuestate input[type=checkbox]"></span>
-      </div>
       <div class="large-4 columns">
         <ul class="button-group">
           <li><a href="#" data-filter="state:Open" class="button tiny no-margin secondary<% if result.States.Contains(Gitle.Model.Enum.IssueState.Open): %> active<% end %>">${t.Open}</a></li>

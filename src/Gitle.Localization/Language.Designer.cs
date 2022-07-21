@@ -1087,6 +1087,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verberg projecten zonder tickets.
+        /// </summary>
+        public static string Hide_Projects_Without_Tickets {
+            get {
+                return ResourceManager.GetString("Hide_Projects_Without_Tickets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to On hold.
         /// </summary>
         public static string Hold {
@@ -1110,6 +1119,15 @@ namespace Gitle.Localization {
         public static string Independently {
             get {
                 return ResourceManager.GetString("Independently", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initiele projecten.
+        /// </summary>
+        public static string Initial_Projects {
+            get {
+                return ResourceManager.GetString("Initial_Projects", resourceCulture);
             }
         }
         
@@ -1533,6 +1551,15 @@ namespace Gitle.Localization {
         public static string New {
             get {
                 return ResourceManager.GetString("New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New filter preset.
+        /// </summary>
+        public static string New_Filter_Preset {
+            get {
+                return ResourceManager.GetString("New_Filter_Preset", resourceCulture);
             }
         }
         
@@ -2046,6 +2073,24 @@ namespace Gitle.Localization {
         public static string Search_Customer {
             get {
                 return ResourceManager.GetString("Search_Customer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service projecten.
+        /// </summary>
+        public static string Service_Projects {
+            get {
+                return ResourceManager.GetString("Service_Projects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toon alle tickets.
+        /// </summary>
+        public static string Show_All_Tickets {
+            get {
+                return ResourceManager.GetString("Show_All_Tickets", resourceCulture);
             }
         }
         
