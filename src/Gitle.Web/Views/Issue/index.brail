@@ -227,18 +227,6 @@
   <div class="row">
     <div class="small-2 columns">${t.Issues_Selected}:</div>
     <div class="small-10 columns">
-      <% if not project.Closed: %>
-      <button href="#" data-dropdown="addLabels" aria-controls="addLabels" aria-expanded="false" class="button tiny dropdown">${t.Label_Add}</button>
-      <ul id="addLabels" data-dropdown-content class="f-dropdown" aria-hidden="true" tabindex="-1">
-        <% for label in customerLabels: %>
-        <li>
-          <a href="/project/${project.Slug}/addlabel?label=${WebUtility.UrlEncode(label.Name)}" data-group-action>
-            <span class="label no-margin<% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color}; ">${label.Name}</span>
-          </a>
-        </li>
-        <% end %>
-      </ul>
-      <% end %>
       <a href="/project/${project.Slug}/changestate?state=4" data-group-action class="button tiny no-margin alert"><i class="fa fa-ban"></i> ${t.Close}</a>
       <a href="/project/${project.Slug}/changestate?state=1" data-group-action class="button tiny no-margin"><i class="fa fa-info-circle"></i> ${t.Open}</a>
       <a href="/project/${project.Slug}/changestate?state=3" data-group-action class="button tiny no-margin on-hold"><i class="fa fa-hand-paper-o"></i> ${t.OnHold}</a>
