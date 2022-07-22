@@ -412,15 +412,13 @@
                 issue.MakeUrgent(CurrentUser);
                 issue.Urgent = true;
                 issue.Prioritized = true;
-                using (var tx = session.BeginTransaction())
-                {
-                    session.SaveOrUpdate(issue);
-                    tx.Commit();
-                }
             }
 
             if (!label.LabelIsUrgent)
             {
+                issue.Open(CurrentUser);
+                issue.Urgent = false;
+                issue.Prioritized = false;
                 issue.Change(CurrentUser);
             }
 
