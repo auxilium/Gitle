@@ -201,6 +201,7 @@
             {
                 savedIssue.MakeUrgent(CurrentUser);
                 savedIssue.Prioritized = true;
+                savedIssue.Urgent = true;
                 using (var tx = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(savedIssue);
@@ -212,6 +213,19 @@
             {
                 savedIssue.MakeUrgent(CurrentUser);
                 savedIssue.Prioritized = true;
+                savedIssue.Urgent = true;
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(savedIssue);
+                    tx.Commit();
+                }
+            }
+
+            if (issue != null && !labelUrgentCheckboxChecked)
+            {
+                savedIssue.Open(CurrentUser);
+                savedIssue.Prioritized = false;
+                savedIssue.Urgent = false;
                 using (var tx = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(savedIssue);
