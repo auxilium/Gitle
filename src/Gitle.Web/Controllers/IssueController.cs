@@ -433,7 +433,7 @@
             {
                 issue.Open(CurrentUser);
                 issue.Urgent = false;
-                issue.Prioritized = true;
+                issue.Prioritized = false;
                 using (var tx = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(issue);
