@@ -8,7 +8,7 @@
     <div class="row">
       <div class="large-12 columns">
         <h2>Contactpersonen</h2>
-        <% if customer.AllContacts.Count == 0: %>
+        <% if customerContacts == 0: %>
         <p>Geen contactpersonen gevonden</p>
         <% else: %>
         <table class="small-blocks" id="customers">
@@ -20,7 +20,7 @@
             </tr>
           </thead>
           <tbody>
-            <% for contact in customer.AllContacts: %>
+            <% for contact in customerContacts: %>
             <tr>
               <td class="name">
                 <a href="/user/${contact.Id}/view">${contact.FullName}</a>
@@ -51,7 +51,7 @@
             <% if app.Projects.Count == 0: %>
             <tr><td>Geen projecten gevonden</td></tr>
             <% else: %>
-            <% for project in app.Projects: %>
+            <% for project in projects: %>
             <tr>
               <td><a href="/project/${project.Slug}/view">${project.Name}</a></td>
             </tr>

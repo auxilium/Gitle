@@ -57,11 +57,13 @@
         {
             var application = session.SlugOrDefault<Application>(applicationSlug);
             var installations = session.Query<Installation>().Where(x => x.Application == application && x.IsActive);
+            var projects = session.Query<Project>().Where(a => a.Application == application && a.IsActive);
             if (!installations.IsEmpty())
             {
                 PropertyBag.Add("installations", installations);
             }
             PropertyBag.Add("item", application);
+            PropertyBag.Add("projects", projects);
         }
         [Admin]
         public void Save(string applicationSlug, long customerId)

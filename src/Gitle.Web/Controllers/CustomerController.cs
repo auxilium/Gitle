@@ -28,10 +28,16 @@
         public void View(string customerSlug)
         {
             var customer = session.SlugOrDefault<Customer>(customerSlug);
-            var applications = session.Query<Application>().Where(x => x.Customer == customer && x.IsActive).OrderBy(x => x.Name);
-            PropertyBag.Add("applications", applications);
-            PropertyBag.Add("customer", customer);
+            var customerContacts = customer.Contacts.Where(x => x.IsActive).ToList();
+            var applications = session.Query<Application>()
+                .Where(x => x.Customer == customer && x.IsActive)
+                .OrderBy(x => x.Name);
+            var projects = session.Query<Project>().Where(a => a.Application == applications.FirstOrDefault() && a.IsActive);
 
+            PropertyBag.Add("applications", applications);
+            PropertyBag.Add("projects", projects);
+            PropertyBag.Add("customer", customer);
+            PropertyBag.Add("customerContacts", customerContacts);
         }
 
         [Admin]

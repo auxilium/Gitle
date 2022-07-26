@@ -47,8 +47,6 @@
         public virtual bool TicketRequiredForBooking { get; set; }
 
         public virtual bool IsMuted { get; set; } //Prevents all action notification emails from being sent to users
-
-        //public virtual Customer Customer { get; set; }
         public virtual Application Application { get; set; }
 
         public virtual IList<UserProject> Users { get; set; }
