@@ -5,7 +5,7 @@
       <td style="max-width: 800px; margin: 0 auto;">
         <div style="font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; max-width: 800px; margin: 0 auto;">
           <h1>
-            <a href="http://gitle.auxilium.nl/project/${item.Issue.Project.Slug}/issue/${item.Issue.Number}/view" style="color: #008cba; text-decoration: none;">
+            <a href="http://gitle.digitaltrustsolutions.nl/project/${item.Issue.Project.Slug}/issue/${item.Issue.Number}/view" style="color: #008cba; text-decoration: none;">
               #${item.Issue.Number} - ${item.Issue.Name}
             </a>
           </h1>

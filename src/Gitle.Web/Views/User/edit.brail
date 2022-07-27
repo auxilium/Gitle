@@ -199,7 +199,7 @@
 	var val = $.fn.dataTable.util.escapeRegex(selectedOption.text());
 
 	if ($(this).val() != null) {
-	if (val == "DTS team"){
+	if (val == "DTS"){
 	column.search('', true, false).draw();
 	} else {
 	column.search(val ? '^' + val + '$' : '', true, false).draw();
