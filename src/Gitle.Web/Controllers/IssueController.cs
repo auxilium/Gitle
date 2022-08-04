@@ -224,7 +224,7 @@
 
             if (issue != null && !labelUrgentCheckboxChecked)
             {
-                if (issue.State != IssueState.Closed)
+                if (issue.State != IssueState.Closed && issue.State != IssueState.Archived && issue.State != IssueState.Done && issue.State != IssueState.Hold && issue.State != IssueState.Urgent)
                 {
                     savedIssue.Open(CurrentUser);
                     savedIssue.Prioritized = false;
