@@ -224,13 +224,16 @@
 
             if (issue != null && !labelUrgentCheckboxChecked)
             {
-                savedIssue.Open(CurrentUser);
-                savedIssue.Prioritized = false;
-                savedIssue.Urgent = false;
-                using (var tx = session.BeginTransaction())
+                if (issue.State != IssueState.Closed)
                 {
-                    session.SaveOrUpdate(savedIssue);
-                    tx.Commit();
+                    savedIssue.Open(CurrentUser);
+                    savedIssue.Prioritized = false;
+                    savedIssue.Urgent = false;
+                    using (var tx = session.BeginTransaction())
+                    {
+                        session.SaveOrUpdate(savedIssue);
+                        tx.Commit();
+                    }
                 }
             }
 
@@ -518,7 +521,7 @@
             RedirectToReferrer();
             var project = session.Slug<Project>(projectSlug);
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
-          
+
             if (issue.State != IssueState.Archived && issue.State != IssueState.Closed)
             {
                 issue.Urgent = false;
@@ -576,7 +579,7 @@
                 throw new ProjectClosedException(project);
             }
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
-           
+
             if (issue.State != IssueState.Archived || issue.State != IssueState.Open)
             {
                 var labels = issue.Labels;
