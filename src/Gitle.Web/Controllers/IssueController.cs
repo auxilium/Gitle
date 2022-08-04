@@ -211,19 +211,22 @@
 
             if (issue != null && labelUrgentCheckboxChecked)
             {
-                savedIssue.MakeUrgent(CurrentUser);
-                savedIssue.Prioritized = true;
-                savedIssue.Urgent = true;
-                using (var tx = session.BeginTransaction())
+                if (issue.State != IssueState.Closed && issue.State != IssueState.Archived && issue.State != IssueState.Done && issue.State != IssueState.Hold && issue.State != IssueState.Urgent)
                 {
-                    session.SaveOrUpdate(savedIssue);
-                    tx.Commit();
+                    savedIssue.MakeUrgent(CurrentUser);
+                    savedIssue.Prioritized = true;
+                    savedIssue.Urgent = true;
+                    using (var tx = session.BeginTransaction())
+                    {
+                        session.SaveOrUpdate(savedIssue);
+                        tx.Commit();
+                    }
                 }
             }
 
             if (issue != null && !labelUrgentCheckboxChecked)
             {
-                if (issue.State != IssueState.Closed)
+                if (issue.State != IssueState.Closed && issue.State != IssueState.Archived && issue.State != IssueState.Done && issue.State != IssueState.Hold && issue.State != IssueState.Urgent || issue.State == IssueState.Urgent)
                 {
                     savedIssue.Open(CurrentUser);
                     savedIssue.Prioritized = false;
@@ -233,7 +236,7 @@
                         session.SaveOrUpdate(savedIssue);
                         tx.Commit();
                     }
-                }
+                } 
             }
 
             var hash = $"#issue{savedIssue.Number}";
