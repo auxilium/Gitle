@@ -223,13 +223,16 @@
 
             if (issue != null && !labelUrgentCheckboxChecked)
             {
-                savedIssue.Open(CurrentUser);
-                savedIssue.Prioritized = false;
-                savedIssue.Urgent = false;
-                using (var tx = session.BeginTransaction())
+                if (issue.State != IssueState.Closed)
                 {
-                    session.SaveOrUpdate(savedIssue);
-                    tx.Commit();
+                    savedIssue.Open(CurrentUser);
+                    savedIssue.Prioritized = false;
+                    savedIssue.Urgent = false;
+                    using (var tx = session.BeginTransaction())
+                    {
+                        session.SaveOrUpdate(savedIssue);
+                        tx.Commit();
+                    }
                 }
             }
 
