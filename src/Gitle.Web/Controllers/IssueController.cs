@@ -239,6 +239,12 @@
                 } 
             }
 
+            using (var tx = session.BeginTransaction())
+            {
+                session.SaveOrUpdate(savedIssue);
+                tx.Commit();
+            }
+
             var hash = $"#issue{savedIssue.Number}";
             if (string.IsNullOrEmpty(andNew))
             {
