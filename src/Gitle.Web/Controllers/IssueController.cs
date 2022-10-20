@@ -236,7 +236,7 @@
                         session.SaveOrUpdate(savedIssue);
                         tx.Commit();
                     }
-                } 
+                }
             }
 
             using (var tx = session.BeginTransaction())
@@ -276,6 +276,20 @@
             var labelObjects = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
 
             var savedIssue = SaveIssue(project, issue, labelObjects);
+            var query = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
+            var labelUrgentCheckboxChecked = query.Any(l => l.LabelIsUrgent);
+
+            if (issue == null && labelUrgentCheckboxChecked)
+            {
+                savedIssue.MakeUrgent(CurrentUser);
+                savedIssue.Prioritized = true;
+                savedIssue.Urgent = true;
+                using (var tx = session.BeginTransaction())
+                {
+                    session.SaveOrUpdate(savedIssue);
+                    tx.Commit();
+                }
+            }
 
             return new { savedIssue.Id, savedIssue.Number, savedIssue.Name };
         }
@@ -514,9 +528,17 @@
             RedirectToReferrer();
             var project = session.Slug<Project>(projectSlug);
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var labelUrgent = issue.Labels.Where(i => i.LabelIsUrgent).Select(x => x.Id).ToArray();
+            int labelId = (int)labelUrgent[0];
+
+            if (issue.Labels.Any(l => l.LabelIsUrgent))
+            {
+                DeleteLabel(projectSlug, issueId, labelId);
+            }
             if (issue.State != IssueState.Archived && issue.State != IssueState.Closed)
             {
                 issue.Urgent = false;
+                issue.Prioritized = false;
                 issue.Close(CurrentUser);
                 using (var tx = session.BeginTransaction())
                 {
@@ -532,6 +554,13 @@
             RedirectToReferrer();
             var project = session.Slug<Project>(projectSlug);
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var labelUrgent = issue.Labels.Where(i => i.LabelIsUrgent).Select(x => x.Id).ToArray();
+            int labelId = (int)labelUrgent[0];
+
+            if (issue.Labels.Any(l => l.LabelIsUrgent))
+            {
+                DeleteLabel(projectSlug, issueId, labelId);
+            }
             if (issue.State != IssueState.Archived && issue.State != IssueState.Hold)
             {
                 issue.OnHold(CurrentUser);
@@ -549,10 +578,18 @@
             RedirectToReferrer();
             var project = session.Slug<Project>(projectSlug);
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var labelUrgent = issue.Labels.Where(i => i.LabelIsUrgent).Select(x => x.Id).ToArray();
+            int labelId = (int)labelUrgent[0];
+
+            if (issue.Labels.Any(l => l.LabelIsUrgent))
+            {
+                DeleteLabel(projectSlug, issueId, labelId);
+            }
             if (issue.State != IssueState.Archived && issue.State != IssueState.Done)
             {
                 issue.Done(CurrentUser);
                 issue.Urgent = false;
+                issue.Prioritized = false;
                 using (var tx = session.BeginTransaction())
                 {
                     session.SaveOrUpdate(issue);
@@ -597,9 +634,19 @@
             if (!CurrentUser.IsAdmin) return;
             var project = session.Slug<Project>(projectSlug);
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var labelUrgent = issue.Labels.Where(i => i.LabelIsUrgent).Select(x => x.Id).ToArray();
+            int labelId = (int)labelUrgent[0];
+
+            if (issue.Labels.Any(l => l.LabelIsUrgent))
+            {
+                DeleteLabel(projectSlug, issueId, labelId);
+            }
+
             issue.Archive(CurrentUser);
             using (var tx = session.BeginTransaction())
             {
+                issue.Urgent = false;
+                issue.Prioritized = false;
                 session.SaveOrUpdate(issue);
                 tx.Commit();
             }
@@ -729,7 +776,7 @@
         public object Autocomplete(long projectId, string query)
         {
             var suggestions = new List<Suggestion>();
-            var issues = session.Query<Issue>().Where(i => i.Project.Id == projectId);
+            var issues = session.Query<Issue>().Where(i => i.Project.Id == projectId && i.IsActive);
             if (query != null)
             {
                 issues = issues.Where(i => i.Number.ToString().Contains(query) || i.Name.Contains(query));
