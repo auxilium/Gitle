@@ -88,19 +88,6 @@
             }
         }
 
-        public virtual bool IsUrgent
-        {
-            get
-            {
-                if (this.Urgent)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-        }
-
         public virtual bool SetUrgent
         {
             get { return State == IssueState.Urgent; }
