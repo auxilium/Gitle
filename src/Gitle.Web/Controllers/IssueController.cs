@@ -528,16 +528,9 @@
             RedirectToReferrer();
             var project = session.Slug<Project>(projectSlug);
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
-            var labelUrgent = issue.Labels.Where(i => i.LabelIsUrgent).Select(x => x.Id).ToArray();
-            int labelId = (int)labelUrgent[0];
-
-            if (issue.Labels.Any(l => l.LabelIsUrgent))
-            {
-                DeleteLabel(projectSlug, issueId, labelId);
-            }
+       
             if (issue.State != IssueState.Archived && issue.State != IssueState.Closed)
-            {
-                issue.Urgent = false;
+            {                
                 issue.Prioritized = false;
                 issue.Close(CurrentUser);
                 using (var tx = session.BeginTransaction())
@@ -554,13 +547,7 @@
             RedirectToReferrer();
             var project = session.Slug<Project>(projectSlug);
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
-            var labelUrgent = issue.Labels.Where(i => i.LabelIsUrgent).Select(x => x.Id).ToArray();
-            int labelId = (int)labelUrgent[0];
-
-            if (issue.Labels.Any(l => l.LabelIsUrgent))
-            {
-                DeleteLabel(projectSlug, issueId, labelId);
-            }
+        
             if (issue.State != IssueState.Archived && issue.State != IssueState.Hold)
             {
                 issue.OnHold(CurrentUser);
@@ -578,17 +565,10 @@
             RedirectToReferrer();
             var project = session.Slug<Project>(projectSlug);
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
-            var labelUrgent = issue.Labels.Where(i => i.LabelIsUrgent).Select(x => x.Id).ToArray();
-            int labelId = (int)labelUrgent[0];
-
-            if (issue.Labels.Any(l => l.LabelIsUrgent))
-            {
-                DeleteLabel(projectSlug, issueId, labelId);
-            }
+         
             if (issue.State != IssueState.Archived && issue.State != IssueState.Done)
             {
-                issue.Done(CurrentUser);
-                issue.Urgent = false;
+                issue.Done(CurrentUser);               
                 issue.Prioritized = false;
                 using (var tx = session.BeginTransaction())
                 {
@@ -634,18 +614,10 @@
             if (!CurrentUser.IsAdmin) return;
             var project = session.Slug<Project>(projectSlug);
             var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
-            var labelUrgent = issue.Labels.Where(i => i.LabelIsUrgent).Select(x => x.Id).ToArray();
-            int labelId = (int)labelUrgent[0];
-
-            if (issue.Labels.Any(l => l.LabelIsUrgent))
-            {
-                DeleteLabel(projectSlug, issueId, labelId);
-            }
-
+      
             issue.Archive(CurrentUser);
             using (var tx = session.BeginTransaction())
-            {
-                issue.Urgent = false;
+            {                
                 issue.Prioritized = false;
                 session.SaveOrUpdate(issue);
                 tx.Commit();

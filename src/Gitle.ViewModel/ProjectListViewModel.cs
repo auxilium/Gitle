@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Gitle.Model.Enum;
     using Model;
 
     public class ProjectListViewModel
@@ -16,7 +17,7 @@
             Customer = project.Application?.Customer?.Name;
             Type = project.TypeString;
             Closed = project.Closed;
-            Urgent = project.Issues.Any(i => i.Urgent);
+            Urgent = project.Issues.Any(i => i.ChangeStates.Last().IssueState == IssueState.Urgent);
         }
 
         public long Id { get; set; }
