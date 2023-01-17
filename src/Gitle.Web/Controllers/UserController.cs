@@ -168,7 +168,9 @@
     public void Save(long userId, string password, long? customerId)
     {
       var item = session.Get<User>(userId);
-      var name = item.Name;
+      var name = item?.Name;
+      var userName = CurrentUser.Name;
+
       if (item != null)
       {
         BindObjectInstance(item, "item");
@@ -218,14 +220,25 @@
         tx.Commit();
       }
 
-      if (name == item.Name)
+      // New User
+      if (name == null)
       {
         RedirectToUrl("/users");
+        return;
       }
-      else
+
+      // Edit User
+      if (name == item.Name || item.Name != null)
       {
-        FormsAuthentication.SignOut();
-        RedirectToSiteRoot();
+        if (CurrentUser.Name != userName)
+        {
+          FormsAuthentication.SignOut();
+          RedirectToSiteRoot();
+        }
+        else
+        {
+          RedirectToUrl("/users");
+        }
       }
     }
 
