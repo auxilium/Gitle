@@ -32,9 +32,9 @@
             <option value="0">Kies een applicatie...</option>
             <% for item in allApplications: %>
             <% if IsDefined("application") and item == application: %>
-            <option value="${item.Id}" data-customer="${item.Customer.Id}" selected>${item.Name}</option>
+            <option value="${item.Id}" data-customer="${?item.Customer.Id}" selected>${item.Name}</option>
             <% else: %>
-            <option value="${item.Id}" data-customer="${item.Customer.Id}">${item.Name}</option>
+            <option value="${item.Id}" data-customer="${?item.Customer.Id}">${item.Name}</option>
             <% end %>
             <% end %>
           </select>
