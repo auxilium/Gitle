@@ -1,6 +1,6 @@
 ﻿Beste ${user.FullName},<br/>
 <br/>
-Er is een nieuwe reactie geplaatst op de taak <strong>${item.Issue.Name}</strong>:<br/>
+Er is een nieuwe reactie geplaatst op de taak <strong>!{item.Issue.Name}</strong>:<br/>
 ${item.Comment.Body}<br/>
 <br/>
 Klik <a href="http://gitle.auxilium.nl/project/${project.Slug}/issue/${item.Issue.Number}/view">hier</a> om de reactie te bekijken.<br/>

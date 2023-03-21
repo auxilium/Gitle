@@ -44,7 +44,7 @@
           <div class="large-8 columns">
             <div class="row namerow">
               <div class="large-11 columns">
-                <a href="/project/${project.Slug}/issue/${issue.Number}/view" data-quickview="/project/${project.Slug}/issue/${issue.Number}/quickview">${issue.Name}</a>
+                <a href="/project/${project.Slug}/issue/${issue.Number}/view" data-quickview="/project/${project.Slug}/issue/${issue.Number}/quickview">!{issue.Name}</a>
                 <% for label in labels: %>
                 <%  if issue.CheckLabel(label.Name): %>
 	                <%  if redLabel: %>

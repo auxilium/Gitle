@@ -1,7 +1,7 @@
 ﻿<div class="row">
   <div class="large-12 columns">
     <a href="<% if IsDefined("referer"): %>${referer}<% else: %>/project/${project.Slug}/issues<% end %>">${t.BackToIndex}</a>
-    <h1>#<strong>${item.Number}</strong> - ${item.Name}</h1>
+    <h1>#<strong>${item.Number}</strong> - !{item.Name}</h1>
     <% if CurrentUser.IsAdmin and not project.Closed: %><h3><a href="edit">${t.Edit}</a></h3><% end %>
     <div class="row">
       <div class="large-3 columns small-text">

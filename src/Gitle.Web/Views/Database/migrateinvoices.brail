@@ -4,7 +4,7 @@
     <ul>
       <% for booking in lostBookings: %>
       <li>
-        ${booking.Id} - ${booking.Date.ToString("dd-MM-yyyy")} - ${booking.Comment} (${booking.Minutes}) - ${booking.Project.Name}
+        ${booking.Id} - ${booking.Date.ToString("dd-MM-yyyy")} - !{booking.Comment} (${booking.Minutes}) - ${booking.Project.Name}
         <ul>
           <% for invoice in booking.Invoices: %>
           <li>${invoice.Number} - ${invoice.Title}</li>
