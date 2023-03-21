@@ -25,8 +25,8 @@
     <add key="provider_phone" value="0900 - 289 454 86" />
   </appSettings>
   <connectionStrings>
-    <add name="Gitle" connectionString="Server=STATLER2016;Initial Catalog=Gitle;Integrated Security=SSPI;" />
-    <add name="James" connectionString="Server=STATLER2016;Initial Catalog=James;Integrated Security=SSPI;" />
+    <add name="Gitle" connectionString="Server=SQL2019;Initial Catalog=Gitle-DTS;Integrated Security=SSPI;" />
+    <add name="James" connectionString="Server=SQL2019;Initial Catalog=James-DTS;Integrated Security=SSPI;" />
   </connectionStrings>
   <monorail>
     <viewEngine viewPathRoot="views" xhtmlRendering="true" customEngine="Castle.MonoRail.Views.Brail.BooViewEngine, Castle.MonoRail.Views.Brail" />
