@@ -157,7 +157,7 @@
           </div>
           <div class="large-7 columns">
             <span class="booking-date <% if invoice.StartDate > booking.Date: %>old<% end %>">${booking.Date.ToString("dd-MM-yyyy")}</span> <span class="booking-info">${booking.User.FullName}</span>:
-            <span class="booking-comment">${booking.Comment}</span>
+            <span class="booking-comment">!{booking.Comment}</span>
           </div>
           <div class="large-1 columns text-center">
             <% if not booking.Unbillable: %>

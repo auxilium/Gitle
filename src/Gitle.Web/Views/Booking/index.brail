@@ -127,12 +127,12 @@
             <div class="large-5 columns end">
               <% if booking.Comment == null or booking.Comment == "": %>
               <% if booking.Issue: %>
-              <span class="booking-comment" title="#${booking.Issue.Number} - ${booking.Issue.Name}">#${booking.Issue.Number} - ${booking.Issue.ShortName()}</span>
+              <span class="booking-comment" title="#${booking.Issue.Number} - !{booking.Issue.Name}">#${booking.Issue.Number} - !{booking.Issue.ShortName()}</span>
               <% else: %>
               <span class="booking-comment" title="Niet gebonden aan een ticket">DUMP</span>
               <% end %>
               <% else: %>
-              <span class="booking-comment">${booking.Comment}</span>
+              <span class="booking-comment">!{booking.Comment}</span>
               <% end %>
               <% for invoice in booking.Invoices: %>
               <% if not invoice.IsDefinitive: %>
