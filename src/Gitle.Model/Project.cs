@@ -71,7 +71,7 @@
 
         public virtual string CompleteName => $"{Name} ({Application?.Name}, {Application?.Customer?.Name})";
 
-        public virtual IReadOnlyList<Issue> OpenIssues => Issues?.Where(x => !x.IsArchived && !x.IsAdministrative && x.IsOpen || x.IsUrgent).ToList() ?? new List<Issue>();
+        public virtual IReadOnlyList<Issue> OpenIssues => Issues?.Where(x => !x.IsArchived && !x.IsAdministrative && x.IsOpen || x.SetUrgent || x.Urgent).ToList() ?? new List<Issue>();
         public virtual IReadOnlyList<Issue> UrgentIssues => Issues?.Where(x => !x.IsArchived && !x.IsAdministrative && x.SetUrgent).ToList() ?? new List<Issue>();
         public virtual IReadOnlyList<Issue> DoneIssues => Issues?.Where(x => !x.IsArchived && !x.IsAdministrative && x.IsDone).ToList() ?? new List<Issue>();
         public virtual IReadOnlyList<Issue> HoldIssues => Issues?.Where(x => !x.IsArchived && !x.IsAdministrative && x.IsOnHold).ToList() ?? new List<Issue>();
