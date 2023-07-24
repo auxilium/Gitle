@@ -1,7 +1,7 @@
 ﻿<div class="row">
   <div class="large-12 columns">
     <a href="<% if IsDefined("referer"): %>${referer}<% else: %>/project/${project.Slug}/issues<% end %>">${t.BackToIndex}</a>
-    <h1>#<strong>${item.Number}</strong> - !{item.Name}</h1>
+    <h1>#<strong>${item.Id}</strong> - !{item.Name}</h1>
     <% if CurrentUser.IsAdmin and not project.Closed: %><h3><a href="edit">${t.Edit}</a></h3><% end %>
     <div class="row">
       <div class="large-3 columns small-text">
@@ -52,7 +52,7 @@
           <%   if (CurrentUser.IsAdmin or label.ApplicableByCustomer): %>
           <%     if not item.CheckLabel(label.Name): %>
           <%       openLabels = true %>
-          <li><a href="/project/${project.Slug}/issue/${item.Number}/addlabel/${label.Id}">
+          <li><a href="/project/${project.Slug}/issue/${item.Id}/addlabel/${label.Id}">
 	          <span class="label no-margin radius" title="${label.Name}" style="background-color: #${label.Color};">${label.Name}</span>
           </a></li>
           <%     end %>
@@ -75,7 +75,7 @@
         <ul id="forwardTask" data-dropdown-content class="f-dropdown">
           <% for user in users: %>
             <% if CurrentUser.IsAdmin and user != CurrentUser and user != item.PickedUpBy :%>
-          <li><a href="/project/${project.Slug}/issue/${item.Number}/handover?userId=${user.Id}">${user.FullName}</a></li>
+          <li><a href="/project/${project.Slug}/issue/${item.Id}/handover?userId=${user.Id}">${user.FullName}</a></li>
             <% end %>
           <% end %>
         </ul>
@@ -122,9 +122,9 @@
               </p>
               <!--<div class="large-12 columns">{Form.CheckboxField("close")} Sluit de taak</div>-->
               <!--<ul id="addstatus" data-dropdown-content class="f-dropdown">
-          <li><a href="/project/{project.Slug}/issue/{item.Number}">Standaard</a></li>
-          <li><a href="/project/{project.Slug}/issue/{item.Number}">Uitgevoerd</a></li>
-          <li><a href="/project/{project.Slug}/issue/{item.Number}">On hold</a></li>
+          <li><a href="/project/{project.Slug}/issue/{item.Id}">Standaard</a></li>
+          <li><a href="/project/{project.Slug}/issue/{item.Id}">Uitgevoerd</a></li>
+          <li><a href="/project/{project.Slug}/issue/{item.Id}">On hold</a></li>
         </ul>-->
             </div>
           </div>

@@ -37,7 +37,7 @@ namespace Gitle.Model
                     {
                         invoiceLine = new InvoiceLine()
                         {
-                            Description = $"#{booking.Issue.Number} - {booking.Issue.Name}",
+                            Description = $"#{booking.Issue.Id} - {booking.Issue.Name}",
                             Issue = booking.Issue,
                             Invoice = this
                         };
@@ -98,11 +98,11 @@ namespace Gitle.Model
         public virtual int IssueCount => Lines.Count(x => x.Issue != null);
 
         public virtual IList<InvoiceLine> ProjectLines => Lines.Where(x => x.Issue == null).ToList();
-        public virtual IList<InvoiceLine> IssueLines => Lines.Where(x => x.Issue != null).OrderBy(l => l.Issue.Number).ToList();
-        public virtual IList<Issue> Issues => Lines.Where(x => x.Issue != null).OrderBy(l => l.Issue.Number).Select(x => x.Issue).ToList();
+        public virtual IList<InvoiceLine> IssueLines => Lines.Where(x => x.Issue != null).OrderBy(l => l.Issue.Id).ToList();
+        public virtual IList<Issue> Issues => Lines.Where(x => x.Issue != null).OrderBy(l => l.Issue.Id).Select(x => x.Issue).ToList();
 
-        public virtual IList<InvoiceLine> UnbillableLines => Lines.Where(x => x.Null).OrderBy(l => l.Issue.Number).ToList();
-        public virtual IList<InvoiceLine> BillableLines => Lines.Where(x => !x.Null).OrderBy(l => l.Issue.Number).ToList();
+        public virtual IList<InvoiceLine> UnbillableLines => Lines.Where(x => x.Null).OrderBy(l => l.Issue.Id).ToList();
+        public virtual IList<InvoiceLine> BillableLines => Lines.Where(x => !x.Null).OrderBy(l => l.Issue.Id).ToList();
 
         public virtual void AddLine(InvoiceLine line)
         {

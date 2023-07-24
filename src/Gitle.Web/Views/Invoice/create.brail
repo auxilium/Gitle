@@ -78,7 +78,7 @@
       <% count = count + 1 %>
       <% end %>
       <% for line in invoice.IssueLines: %>
-      <div class="row invoiceline invoiceline-issue collapse" data-issue="${line.Issue.Number}">
+      <div class="row invoiceline invoiceline-issue collapse" data-issue="${line.Issue.Id}">
         <input type="hidden" name="lines[${count}].Issue.Id" id="lines_${count}_Issue_Id" value="${line.Issue.Id}" />
         <div class="large-8 columns">
           <div class="row collapse">
@@ -101,7 +101,7 @@
               </span>
             </div>
             <div class="small-1 columns">
-              <a href="#" class="prefix secondary" data-quickview="/project/${project.Slug}/issue/${line.Issue.Number}/quickview"><i class="fa fa-info blue"></i></a>
+              <a href="#" class="prefix secondary" data-quickview="/project/${project.Slug}/issue/${line.Issue.Id}/quickview"><i class="fa fa-info blue"></i></a>
             </div>
             <div class="small-8 columns">
               <input type="text" name="lines[${count}].Description" id="lines_${count}_Description" value="${line.Description}" />
@@ -150,7 +150,7 @@
       </div>
       <div class="bookings">
         <% for booking in line.Bookings: %>
-        <div class="row booking" data-booking="${booking.Id}" data-issue="${line.Issue.Number}" data-billable="<% output not booking.Unbillable %>">
+        <div class="row booking" data-booking="${booking.Id}" data-issue="${line.Issue.Id}" data-billable="<% output not booking.Unbillable %>">
           <input type="hidden" name="lines[${count}].Bookings[${booking.Id}].Id" id="lines_${count}_Bookings_${booking.Id}_Id" value="${booking.Id}" />
           <div class="large-1 columns text-right">
             <a href="#" class="delete-booking"><i class="fa fa-close red"></i></a>
@@ -179,7 +179,7 @@
           </div>
         </div>
         <% for invoiceLine in line.OldInvoiceLines: %>
-        <div class="row booking old-booking" data-issue="${line.Issue.Number}">
+        <div class="row booking old-booking" data-issue="${line.Issue.Id}">
           <div class="large-2 large-offset-1 columns">
             <span class="booking-date">${invoiceLine.Invoice.CreatedAt.ToString("dd-MM-yyyy")}</span>:
             <span class="label round" title="${invoiceLine.Invoice.Title}">${invoiceLine.Invoice.Number}</span>
@@ -202,7 +202,7 @@
         </div>
         <% end %>
         <% if line.OldInvoiceLines.Count > 1: %>
-        <div class="row booking old-booking" data-issue="${line.Issue.Number}">
+        <div class="row booking old-booking" data-issue="${line.Issue.Id}">
           <div class="large-2 large-offset-1 columns">
             <b>Totaal</b>:
           </div>

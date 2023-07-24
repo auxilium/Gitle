@@ -309,7 +309,7 @@ namespace Gitle.Web.Controllers
             {
                 foreach (var issueId in issueIds.Select(int.Parse))
                 {
-                    var issue = session.Query<Issue>().FirstOrDefault(x => x.Number == issueId && x.Project == project);
+                    var issue = session.Query<Issue>().FirstOrDefault(x => x.Id == issueId && x.Project == project);
                     if (!issue.Labels.Contains(realLabel)) issue.Labels.Add(realLabel);
                     session.SaveOrUpdate(issue);
                 }
@@ -334,7 +334,7 @@ namespace Gitle.Web.Controllers
             {
                 foreach (var issueId in issueIds.Select(int.Parse))
                 {
-                    var issue = session.Query<Issue>().FirstOrDefault(i => i.Number == issueId && i.Project == project);
+                    var issue = session.Query<Issue>().FirstOrDefault(i => i.Id == issueId && i.Project == project);
                     issue.ChangeState(CurrentUser, state);
                     session.SaveOrUpdate(issue);
                 }

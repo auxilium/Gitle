@@ -159,7 +159,7 @@
                 data: $(this).serialize(),
                 success: function(data) {
                   row.find('.booking_Issue_Id').val(data.Id).parent().removeClass('error');
-                  row.find('.issue-chooser').val('#' + data.Number + ' - ' + data.Name);
+                  row.find('.issue-chooser').val('#' + data.Id + ' - ' + data.Name);
                   row.find('.booking_Comment').prop("required", false).focus();
                   $(document).foundation('abide', 'reflow');
                   $('#newIssue').foundation('reveal', 'close');

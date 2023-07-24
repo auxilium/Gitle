@@ -295,7 +295,7 @@ $(function () {
                 data: $(this).serialize(),
                 success: function(data) {
                   row.find('.booking_Issue_Id').val(data.Id).parent().removeClass('error');
-                  row.find('.issue-chooser').val('#' + data.Number + ' - ' + data.Name);
+                  row.find('.issue-chooser').val('#' + data.Id + ' - ' + data.Name);
                   row.find('.booking_Comment').prop("required", false).focus();
                   $(document).foundation('abide', 'reflow');
                   $('#newIssue').foundation('reveal', 'close');
@@ -409,8 +409,8 @@ $('.dropdown').each(function () {
 
 
 $(function () {
-  var computeHoursForIssue = function (issueNumber) {
-    var issueLine = $('.invoiceline[data-issue=' + issueNumber + ']');
+  var computeHoursForIssue = function (issueId) {
+    var issueLine = $('.invoiceline[data-issue=' + issueId + ']');
     var hoursButton = issueLine.find('.invoiceline-hours');
     var hours = parseFloat(hoursButton.text());
     var estimateButton = issueLine.find('.invoiceline-estimate');

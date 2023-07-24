@@ -173,7 +173,7 @@
             children = issues.Select(i => new Resource()
             {
                 id = $"i{i.Id}",
-                title = $"#{i.Number} - {i.Name}",
+                title = $"#{i.Id} - {i.Name}",
                 parentId = $"p{project.Id}"
             }).ToList();
         }

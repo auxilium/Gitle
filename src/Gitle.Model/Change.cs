@@ -35,6 +35,6 @@ namespace Gitle.Model
             }
         }
 
-        public virtual string EmailSubject { get { return string.Format(Language.IssueAction_Change_EmailSubject, User != null ? User.FullName : "", Issue.Number); } }
+        public virtual string EmailSubject { get { return string.Format(Language.IssueAction_Change_EmailSubject, User != null ? User.FullName : "", Issue.Id); } }
     }
 }

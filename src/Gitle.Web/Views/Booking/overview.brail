@@ -28,13 +28,13 @@
           </div>
           <div class="large-1 columns">
             <% if booking.Issue: %>
-            <div class="booking-issue" title="#${booking.Issue.Number} - !{booking.Issue.Name}">#${booking.Issue.Number}</div>
+            <div class="booking-issue" title="#${booking.Issue.Id} - !{booking.Issue.Name}">#${booking.Issue.Id}</div>
             <% end %>
           </div>
           <div class="large-6 columns end">
             <% if booking.Comment == null or booking.Comment == "": %>
             <% if booking.Issue: %>
-            <span class="booking-comment" title="#${booking.Issue.Number} - !{booking.Issue.Name}">#${booking.Issue.Number} - !{booking.Issue.ShortName()}</span>
+            <span class="booking-comment" title="#${booking.Issue.Id} - !{booking.Issue.Name}">#${booking.Issue.Id} - !{booking.Issue.ShortName()}</span>
             <% end %>
             <% else: %>
             <span class="booking-comment">!{booking.Comment}</span>

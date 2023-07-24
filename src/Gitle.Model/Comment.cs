@@ -25,6 +25,6 @@ namespace Gitle.Model
 
         public virtual string Name { get { return User != null ? User.FullName : "Auxilium"; } }
 
-        public virtual string EmailSubject { get { return string.Format(Language.IssueAction_Comment_EmailSubject, User != null ? User.FullName : "", Issue.Number); } }
+        public virtual string EmailSubject { get { return string.Format(Language.IssueAction_Comment_EmailSubject, User != null ? User.FullName : "", Issue.Id); } }
     }
 }

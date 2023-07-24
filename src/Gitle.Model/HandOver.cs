@@ -35,7 +35,7 @@ namespace Gitle.Model
             }
         }
 
-        public virtual string EmailSubject { get { return string.Format("{3} {1} is {2} {4} {0}", User != null ? User.FullName : "", Issue.Number, Language.PickedUp.ToLower(), Language.Issue, Language.By); } }
+        public virtual string EmailSubject { get { return string.Format("{3} {1} is {2} {4} {0}", User != null ? User.FullName : "", Issue.Id, Language.PickedUp.ToLower(), Language.Issue, Language.By); } }
 
     }
 }

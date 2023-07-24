@@ -1,6 +1,6 @@
 ﻿$(function () {
-  var computeHoursForIssue = function (issueNumber) {
-    var issueLine = $('.invoiceline[data-issue=' + issueNumber + ']');
+  var computeHoursForIssue = function (issueId) {
+    var issueLine = $('.invoiceline[data-issue=' + issueId + ']');
     var hoursButton = issueLine.find('.invoiceline-hours');
     var hours = parseFloat(hoursButton.text());
     var estimateButton = issueLine.find('.invoiceline-estimate');

@@ -156,7 +156,7 @@
             }
 
             if (ids.Any())
-                itemsQuery = itemsQuery.Where(x => ids.Contains(x.Number));
+                itemsQuery = itemsQuery.Where(x => ids.Contains(x.Id));
 
             foreach (var involved in involveds)
             {

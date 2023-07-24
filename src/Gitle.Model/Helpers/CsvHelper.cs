@@ -37,7 +37,7 @@
             foreach (var issue in issues)
             {
                 rows += string.Format(rowTemplate, fieldseparator, lineEnd,
-                                      issue.Number,
+                                      issue.Id,
                                       issue.Name,
                                       issue.CreatedAt?.ToString("yyyy-MM-dd"),
                                       issue.CreatedBy?.FullName,
@@ -79,12 +79,12 @@
                                           "Labels");
 
             var rows = "";
-            foreach (var issue in issues.OrderBy(i => i.Project.TypeString).ThenBy(i => i.Project.Name).ThenBy(i => i.Number))
+            foreach (var issue in issues.OrderBy(i => i.Project.TypeString).ThenBy(i => i.Project.Name).ThenBy(i => i.Id))
             {
                 rows += string.Format(rowTemplate, fieldseparator, lineEnd,
                                       issue.Project.TypeString,
                                       issue.Project.Name,
-                                      issue.Number,
+                                      issue.Id,
                                       issue.Name,
                                       issue.CreatedAt?.ToString("yyyy-MM-dd"),
                                       issue.CreatedBy?.FullName,
@@ -123,7 +123,7 @@
             foreach (var booking in bookings)
             {
                 string issueNumber;
-                if (booking.Issue != null) issueNumber = booking.Issue.Number.ToString();
+                if (booking.Issue != null) issueNumber = booking.Issue.Id.ToString();
                 else issueNumber = "DUMP";
 
                 rows += string.Format(rowTemplate, fieldseparator, lineEnd,

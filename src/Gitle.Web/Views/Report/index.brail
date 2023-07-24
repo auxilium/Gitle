@@ -138,13 +138,13 @@
               <% for issue in project.Issues: %>
               <% isSelected = result.Issues.Contains(issue) %>
               <li>
-                <a href="#" data-filter="issue:${issue.Number}">
+                <a href="#" data-filter="issue:${issue.Id}">
                   <% if isSelected: %><i class="fa fa-check"></i>
                   <% end %>
-                  #${issue.Number} - ${issue.ShortName()}
+                  #${issue.Id} - ${issue.ShortName()}
                 </a>
                 <% if isSelected: %>
-                <a href="#" class="remove-filter" data-filter="issue:${issue.Number}">
+                <a href="#" class="remove-filter" data-filter="issue:${issue.Id}">
                   <i class="fa fa-close red"></i>
                 </a>
                 <% end %>
@@ -285,7 +285,7 @@
             <div class=" row booking-issue">
               <div class="small-6 columns">
                 <% if booking.Issue: %>
-                <a href="/project/${booking.Issue.Project.Slug}/issue/${booking.Issue.Number}/view" data-quickview="/project/${booking.Issue.Project.Slug}/issue/${booking.Issue.Number}/quickview">#${booking.Issue.Number}</a>
+                <a href="/project/${booking.Issue.Project.Slug}/issue/${booking.Issue.Id}/view" data-quickview="/project/${booking.Issue.Project.Slug}/issue/${booking.Issue.Id}/quickview">#${booking.Issue.Id}</a>
                 <% else: %>
                 <span class="booking-comment" title="Niet gebonden aan een ticket">DUMP</span>
                 <% end %>
@@ -302,7 +302,7 @@
           <div class="large-4 small-9 columns end">
             <% if booking.Comment == null or booking.Comment == "": %>
             <% if booking.Issue: %>
-            <span class="booking-comment" title="#${booking.Issue.Number} - !{booking.Issue.Name}">#${booking.Issue.Number} - !{booking.Issue.ShortName()}</span>
+            <span class="booking-comment" title="#${booking.Issue.Id} - !{booking.Issue.Name}">#${booking.Issue.Id} - !{booking.Issue.ShortName()}</span>
             <% end %>
             <% else: %>
             <span class="booking-comment">!{booking.Comment}</span>

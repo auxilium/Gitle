@@ -66,7 +66,7 @@
             IList<string> projects = new List<string>();
             IList<string> applications = new List<string>();
             IList<string> customers = new List<string>();
-            IList<int> issues = new List<int>();
+            IList<long> issues = new List<long>();
             string period = null;
             bool nullIssues = false;
             var searchQuery = Query;
@@ -93,8 +93,8 @@
                         customers.Add(value);
                         break;
                     case "issue":
-                        int issueNumber;
-                        if (int.TryParse(value, out issueNumber))
+                        long issueNumber;
+                        if (long.TryParse(value, out issueNumber))
                         {
                             issues.Add(issueNumber);
                         }
@@ -216,9 +216,9 @@
                 SelectedProject = Projects.Single(); //Het is er altijd maar één
                 foreach (var issue in issues)
                 {
-                    Issues.Add(session.Query<Issue>().FirstOrDefault(x => x.Number == issue && x.Project == SelectedProject));
+                    Issues.Add(session.Query<Issue>().FirstOrDefault(x => x.Id == issue && x.Project == SelectedProject));
                 }
-                issueExpression = x => issues.Contains(x.Issue.Number);
+                issueExpression = x => issues.Contains(x.Issue.Id);
             }
 
             if (nullIssues)

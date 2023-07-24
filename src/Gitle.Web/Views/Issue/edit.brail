@@ -1,12 +1,12 @@
 ﻿<div class="row">
   <div class="large-12 columns">
     <a href="/project/${project.Slug}/issues" id="back-button"><i class="fa fa-arrow-left"></i> ${t.BackToIndex}</a>
-    <% if item.Number > 0: %>
-    <h1>#<strong>${item.Number}</strong> - ${t.Issue_Edit}</h1>
+    <% if item.Id > 0: %>
+    <h1>#<strong>${item.Id}</strong> - ${t.Issue_Edit}</h1>
     <% else: %>
     <h1>${t.Issue_New}</h1>
     <% end %>
-    <form action="/project/${project.Slug}/issue/${item.Number}/save" method="POST" autocomplete="off" data-abide>
+    <form action="/project/${project.Slug}/issue/${item.Id}/save" method="POST" autocomplete="off" data-abide>
       ${Form.HiddenField("item.Number")}
       ${Form.HiddenField("item.State")}
       <input type="hidden" name="item.Milestone.Number" value="${project.MilestoneId}" />

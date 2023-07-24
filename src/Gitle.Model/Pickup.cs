@@ -45,7 +45,7 @@ namespace Gitle.Model
                 return string.Format("{3} {2} is {4}{0}{1}",
                                      User != null ? string.Format(" {1} {0}", User.FullName, Language.To) : "",
                                      ByUser != null ? string.Format(" {1} {0}", ByUser.FullName, Language.By) : "",
-                                     Issue.Number, Language.Issue, Language.HandedOver.ToLower());
+                                     Issue.Id, Language.Issue, Language.HandedOver.ToLower());
             }
         }
 

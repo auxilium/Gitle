@@ -2,13 +2,13 @@
   <% for issue in result.Items: %>
   <div class="row <% if issue.IsOpen: %><% if issue.PickedUpBy == null:%>orderable<% else: %>pickedup<% end %><% end %>">
     <div class="large-12 columns">
-      <div class="issue<% if issue.Touched(CurrentUser): %> touched<% end %> radius<% if issue.PickedUpBy == null: %> free<% end %> ${issue.State.ToString()}" data-issueid="${issue.Number}">
+      <div class="issue<% if issue.Touched(CurrentUser): %> touched<% end %> radius<% if issue.PickedUpBy == null: %> free<% end %> ${issue.State.ToString()}" data-issueid="${issue.Id}">
         <div class="row">
           <div class="large-1 columns issuestate">
             <div class="row">
               <div class="small-6 columns">
-                <span class="number">#${issue.Number}</span>
-                <input type="checkbox" name="issue" value="${issue.Number}" class="no-margin" />
+                <span class="number">#${issue.Id}</span>
+                <input type="checkbox" name="issue" value="${issue.Id}" class="no-margin" />
               </div>
               <div class="small-6 columns large-text-center medium-text-right">
 
@@ -44,7 +44,7 @@
           <div class="large-8 columns">
             <div class="row namerow">
               <div class="large-11 columns">
-                <a href="/project/${project.Slug}/issue/${issue.Number}/view" data-quickview="/project/${project.Slug}/issue/${issue.Number}/quickview">!{issue.Name}</a>
+                <a href="/project/${project.Slug}/issue/${issue.Id}/view" data-quickview="/project/${project.Slug}/issue/${issue.Id}/quickview">!{issue.Name}</a>
                 <% for label in labels: %>
                 <%  if issue.CheckLabel(label.Name): %>
 	                <%  if redLabel: %>
@@ -107,7 +107,7 @@
                 <strong>${t.Booked}: </strong>
               </div>
               <div class="large-2 columns text-right">
-                <a href="/report/index?query=project:${project.Slug} issue:${issue.Number} period:always" data-bookingschart="/project/${project.Slug}/issue/${issue.Number}/bookingschart">
+                <a href="/report/index?query=project:${project.Slug} issue:${issue.Id} period:always" data-bookingschart="/project/${project.Slug}/issue/${issue.Id}/bookingschart">
                 <div class="progress progress-border progress-status">
                   <% if issue.BillableBookingHours() > issue.TotalHours and issue.TotalHours != 0: %>
                   <span class="meter overbudget" style="width: 100% "></span>
@@ -121,7 +121,7 @@
                 </a>
               </div>
               <div class="large-2 columns text-right">
-                (<a href="/report/index?query=project:${project.Slug} issue:${issue.Number} period:always">${issue.UnbillableBookingHoursString()} unbillable</a>)
+                (<a href="/report/index?query=project:${project.Slug} issue:${issue.Id} period:always">${issue.UnbillableBookingHoursString()} unbillable</a>)
               </div>
             </div>
             <% end %>
@@ -160,10 +160,10 @@
             <div class="row collapse">
               <div class="large-12 small-12 columns">
                 <ul class="button-group actions">
-                  <li><a class="button tiny no-margin" href="/project/${project.Slug}/issue/${issue.Number}/view">Open</a></li>
+                  <li><a class="button tiny no-margin" href="/project/${project.Slug}/issue/${issue.Id}/view">Open</a></li>
                   <% if CurrentUser.IsAdmin and not issue.IsArchived and not project.Closed: %>
-                  <li><a class="button tiny success no-margin" href="/project/${project.Slug}/issue/${issue.Number}/pickup">${t.Pickup}</a></li>
-                  <li><a class="button tiny success no-margin" href="/project/${project.Slug}/issue/${issue.Number}/edit">${t.Edit}</a></li>
+                  <li><a class="button tiny success no-margin" href="/project/${project.Slug}/issue/${issue.Id}/pickup">${t.Pickup}</a></li>
+                  <li><a class="button tiny success no-margin" href="/project/${project.Slug}/issue/${issue.Id}/edit">${t.Edit}</a></li>
                   <% end %>
                 </ul>
               </div>

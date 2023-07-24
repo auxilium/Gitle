@@ -324,8 +324,8 @@
     });
 
     if (location.hash != "") {
-      var issueNumber = location.hash.replace('#issue', '');
-      var issue = $('.issue[data-issueid=' + issueNumber + ']');
+      var issueId = location.hash.replace('#issue', '');
+      var issue = $('.issue[data-issueid=' + issueId + ']');
       var windowHeight = window.innerHeight;
       var issueHeight = issue.height();
       var issuePosition = (windowHeight - issueHeight) / 2;

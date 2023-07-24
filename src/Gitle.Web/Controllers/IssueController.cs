@@ -99,7 +99,7 @@
             var project = session.Slug<Project>(projectSlug);
             PropertyBag.Add("project", project);
 
-            var item = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var item = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
             var statusString = string.Concat(Language.ResourceManager.GetString(item.State.ToString()).Select((currentChar, index) => index == 0 ? char.ToUpper(currentChar) : currentChar));
             var statusInt = item.State;
 
@@ -134,7 +134,7 @@
         {
             var project = session.Slug<Project>(projectSlug);
             PropertyBag.Add("project", project);
-            var item = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var item = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
             PropertyBag.Add("item", item);
             PropertyBag.Add("comments", item.Comments);
             PropertyBag.Add("datetime", DateTime.Now);
@@ -145,7 +145,7 @@
         public void BookingsChart(string projectSlug, int issueId)
         {
             var project = session.Slug<Project>(projectSlug);
-            var item = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var item = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
             var totalTime = item.Bookings.Where(x => x.IsActive).Sum(x => x.Hours);
             var bookings = item.Bookings.Where(x => x.IsActive).GroupBy(x => x.User).ToDictionary(x => x.Key, x => new { percentage = Math.Round(x.Sum(y => y.Hours) / totalTime * 100), percentageBillable = Math.Round(x.Where(y => !y.Unbillable).Sum(y => y.Hours) / x.Sum(y => y.Hours) * 100), total = x.Sum(y => y.Hours), totalBillable = x.Where(y => !y.Unbillable).Sum(y => y.Hours) });
             PropertyBag.Add("project", project);
@@ -179,7 +179,7 @@
                 throw new ProjectClosedException(project);
             }
             PropertyBag.Add("project", project);
-            var item = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var item = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
             PropertyBag.Add("item", item);
             PropertyBag.Add("labels", CurrentUser.IsAdmin ? project.Labels : project.Labels.Where(l => l.ApplicableByCustomer));
         }
@@ -193,7 +193,7 @@
                 throw new ProjectClosedException(project);
             }
 
-            var issue = session.Query<Issue>().SingleOrDefault(i => i.Number == issueId && i.Project == project);
+            var issue = session.Query<Issue>().SingleOrDefault(i => i.Id == issueId && i.Project == project);
             var query = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
             var savedIssue = SaveIssue(project, issue, query);
             var labelUrgentCheckboxChecked = query.Any(l => l.LabelIsUrgent);
@@ -246,7 +246,7 @@
                 tx.Commit();
             }
 
-            var hash = $"#issue{savedIssue.Number}";
+            var hash = $"#issue{savedIssue.Id}";
             if (string.IsNullOrEmpty(andNew))
             {
                 if (issue != null && (issue.State != IssueState.Open || issue.State != IssueState.Urgent))
@@ -273,7 +273,7 @@
                 throw new ProjectClosedException(project);
             }
 
-            var issue = session.Query<Issue>().SingleOrDefault(i => i.Number == issueId && i.Project == project);
+            var issue = session.Query<Issue>().SingleOrDefault(i => i.Id == issueId && i.Project == project);
             var labelObjects = session.Query<Label>().Where(x => x.IsActive && labels.Contains(x.Id)).ToList();
 
             var savedIssue = SaveIssue(project, issue, labelObjects);
@@ -331,7 +331,7 @@
             {
                 throw new ProjectClosedException(project);
             }
-            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var issue = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
             if (!issue.IsArchived && issue.PickedUpBy != CurrentUser)
             {
                 issue.Pickup(CurrentUser);
@@ -353,7 +353,7 @@
             {
                 throw new ProjectClosedException(project);
             }
-            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var issue = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
             if (!issue.IsArchived && user != CurrentUser && user != issue.PickedUpBy)
             {
                 issue.HandOver(user, CurrentUser);
@@ -376,7 +376,7 @@
             {
                 throw new ProjectClosedException(project);
             }
-            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var issue = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
             if (issue.IsArchived) return;
             var comment = new Comment
             {
@@ -419,7 +419,7 @@
             {
                 throw new ProjectClosedException(project);
             }
-            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var issue = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
             var previousLabel = issue.Labels;
 
             if (issue.IsArchived) return;
@@ -467,7 +467,7 @@
             {
                 throw new ProjectClosedException(project);
             }
-            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var issue = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
             if (issue.IsArchived) return;
             var label = project.Labels.First(l => l.Id == param);
             var previousChangeStates = issue.ChangeStates.OrderBy(i => i.CreatedAt).ToList();
@@ -502,7 +502,7 @@
             {
                 throw new ProjectClosedException(project);
             }
-            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var issue = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
 
             switch (status)
             {
@@ -543,7 +543,7 @@
         {
             RedirectToReferrer();
             var project = session.Slug<Project>(projectSlug);
-            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var issue = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
         
             if (issue.State != IssueState.Archived && issue.State != IssueState.Closed)
             {             
@@ -561,7 +561,7 @@
         {
             RedirectToReferrer();
             var project = session.Slug<Project>(projectSlug);
-            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var issue = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
      
             if (issue.State != IssueState.Archived && issue.State != IssueState.Hold)
             {
@@ -579,7 +579,7 @@
         {
             RedirectToReferrer();
             var project = session.Slug<Project>(projectSlug);
-            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var issue = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
   
             if (issue.State != IssueState.Archived && issue.State != IssueState.Done)
             {
@@ -601,7 +601,7 @@
             {
                 throw new ProjectClosedException(project);
             }
-            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var issue = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
 
             if (issue.State != IssueState.Archived || issue.State != IssueState.Open)
             {
@@ -629,7 +629,7 @@
             RedirectToReferrer();
             if (!CurrentUser.IsAdmin) return;
             var project = session.Slug<Project>(projectSlug);
-            var issue = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
+            var issue = session.Query<Issue>().Single(i => i.Id == issueId && i.Project == project);
   
             issue.Archive(CurrentUser);
             using (var tx = session.BeginTransaction())
@@ -665,7 +665,7 @@
         }
 
         [return: JSONReturnBinder]
-        public Dictionary<int, int> GetPrioOrder(string projectSlug)
+        public Dictionary<long, int> GetPrioOrder(string projectSlug)
         {
             var issues = session.Query<Issue>()
                 .Where(x => x.Project.Slug == projectSlug && x.Pickups.Count == 0)
@@ -675,9 +675,9 @@
                 .Where(x => x.ChangeStates.Last().IssueState == IssueState.Urgent)
                 .OrderByDescending(x => x.Prioritized)
                 .ThenBy(x => x.PrioOrder)
-                .ThenByDescending(x => x.Number);
+                .ThenByDescending(x => x.Id);
 
-            return issues.Select((x, i) => new { x.Number, i }).ToDictionary(x => x.Number, x => x.i);
+            return issues.Select((x, i) => new { x.Id, i }).ToDictionary(x => x.Id, x => x.i);
         }
 
         [MustHaveProject]
@@ -704,7 +704,7 @@
             }
             else
             {
-                items = items.Where(i => issues.Split(',').Contains(i.Number.ToString())).ToList();
+                items = items.Where(i => issues.Split(',').Contains(i.Id.ToString())).ToList();
             }
 
             var json = JsonConvert.SerializeObject(items, new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore, DateParseHandling = DateParseHandling.None });
@@ -740,7 +740,7 @@
             }
             else
             {
-                items = items.Where(i => issues.Split(',').Contains(i.Number.ToString())).ToList();
+                items = items.Where(i => issues.Split(',').Contains(i.Id.ToString())).ToList();
             }
 
             var csv = CsvHelper.IssuesCsv(project, items);
@@ -766,9 +766,9 @@
             var issues = session.Query<Issue>().Where(i => i.Project.Id == projectId);
             if (query != null)
             {
-                issues = issues.Where(i => i.Number.ToString().Contains(query) || i.Name.Contains(query));
+                issues = issues.Where(i => i.Id.ToString().Contains(query) || i.Name.Contains(query));
             }
-            suggestions.AddRange(issues.ToList().Where(i => !i.IsArchived && i.HasBeenOpenSince(DateTime.Today.AddDays(-7))).Select(x => new Suggestion($"#{x.Number} - {x.Name}", x.Id.ToString(), x.State.ToString())));
+            suggestions.AddRange(issues.ToList().Where(i => !i.IsArchived && i.HasBeenOpenSince(DateTime.Today.AddDays(-7))).Select(x => new Suggestion($"#{x.Id} - {x.Name}", x.Id.ToString(), x.State.ToString())));
             return new { query = query, suggestions = suggestions };
         }
 
@@ -783,14 +783,14 @@
 
             if (!string.IsNullOrEmpty(query))
             {
-                issues = issues.Where(x => x.Number.ToString().StartsWith(query) || x.Name.ToLower().Contains(query) || x.Comments.Any(c => c.Id.ToString().StartsWith(query))).Take(10).ToList();
+                issues = issues.Where(x => x.Id.ToString().StartsWith(query) || x.Name.ToLower().Contains(query) || x.Comments.Any(c => c.Id.ToString().StartsWith(query))).Take(10).ToList();
             }
 
             foreach (var issue in issues)
             {
-                suggestions.Add(new Suggestion($"#{issue.Number} - {issue.Name}", issue.Number.ToString(), "issuelink"));
+                suggestions.Add(new Suggestion($"#{issue.Id} - {issue.Name}", issue.Id.ToString(), "issuelink"));
                 var comments = issue.Comments;
-                suggestions.AddRange(comments.Select(c => new Suggestion($"#{issue.Number}#{c.Id} - {c.Name} ({c.CreatedAt})", $"{issue.Number}#{c.Id}", "commentlink")));
+                suggestions.AddRange(comments.Select(c => new Suggestion($"#{issue.Id}#{c.Id} - {c.Name} ({c.CreatedAt})", $"{issue.Id}#{c.Id}", "commentlink")));
             }
             return suggestions;
         }
@@ -881,13 +881,13 @@
             var sourceProject = session.SlugOrDefault<Project>(sourceProjectSlug);
             var targetProject = session.SlugOrDefault<Project>(targetProjectSlug);
 
-            var issues = session.Query<Issue>().Where(x => issueNumbers.Split(',').Select(int.Parse).Contains(x.Number) && x.Project == sourceProject).OrderBy(x => x.Number).ToList();
+            var issues = session.Query<Issue>().Where(x => issueNumbers.Split(',').Select(long.Parse).Contains(x.Id) && x.Project == sourceProject).OrderBy(x => x.Id).ToList();
 
             var invoicedIssues = issues.Where(x => x.Invoices.Any(i => i.IsActive && !i.IsArchived)).ToList();
 
             if (invoicedIssues.Any())
             {
-                Error($"Gefactureerde taken mogen niet verplaatst worden.\r\nTaken: {string.Join(", ", invoicedIssues.Select(x => x.Number))}", true);
+                Error($"Gefactureerde taken mogen niet verplaatst worden.\r\nTaken: {string.Join(", ", invoicedIssues.Select(x => x.Id))}", true);
                 return;
             }
 

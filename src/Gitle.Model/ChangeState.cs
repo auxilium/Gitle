@@ -89,7 +89,7 @@
                     }
                 }
                 return string.Format("{3} {2} is {0}{1}", state,
-                                     User != null ? string.Format(" {1} {0}", User.FullName, Language.By) : "", Issue.Number, Language.Issue);
+                                     User != null ? string.Format(" {1} {0}", User.FullName, Language.By) : "", Issue.Id, Language.Issue);
             }
         }
     }
