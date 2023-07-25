@@ -744,4 +744,7 @@
   <data name="Show_All_Tickets" xml:space="preserve">
     <value>Show all issues</value>
   </data>
+  <data name="Issues_Move_Label" xml:space="preserve">
+    <value>Move issues to a different project</value>
+  </data>
 </root>

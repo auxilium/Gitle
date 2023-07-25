@@ -863,7 +863,7 @@
             }
         }
 
-        [Danielle]
+        [Admin]
         public void ChangeProject(string sourceProjectSlug, string issueNumbers, string targetProjectSlug, bool renumber)
         {
             if (targetProjectSlug == null)
@@ -951,7 +951,7 @@
                     issue.Comments.Add(
                         new Comment
                         {
-                            Text = $"Dit ticket is verplaatst van {sourceProject.Name} en had daar nummer {issue.Number}.",
+                            Text = $"Dit ticket is verplaatst van {sourceProject.Name}.",
                             CreatedAt = DateTime.Now,
                             Issue = issue,
                             User = CurrentUser,

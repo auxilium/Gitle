@@ -1303,6 +1303,15 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verplaats taken naar een ander project.
+        /// </summary>
+        public static string Issues_Move_Label {
+            get {
+                return ResourceManager.GetString("Issues_Move_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opnieuw nummeren.
         /// </summary>
         public static string Issues_Renumber {

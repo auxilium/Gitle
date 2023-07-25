@@ -227,26 +227,23 @@
   <div class="row">
     <div class="small-2 columns">${t.Issues_Selected}:</div>
     <div class="small-10 columns">
-      <a href="/project/${project.Slug}/changestate?state=4" data-group-action class="button tiny no-margin alert"><i class="fa fa-ban"></i> ${t.Close}</a>
-      <a href="/project/${project.Slug}/changestate?state=1" data-group-action class="button tiny no-margin"><i class="fa fa-info-circle"></i> ${t.Open}</a>
-      <a href="/project/${project.Slug}/changestate?state=3" data-group-action class="button tiny no-margin on-hold"><i class="fa fa-hand-paper-o"></i> ${t.OnHold}</a>
-	      <a href="/project/${project.Slug}/changestate?state=6" data-group-action class="button tiny no-margin"><i class="fa fa-exclamation-circle red"></i> ${t.Urgent}</a>
+      <a href="/project/${project.Slug}/changestate?state=4" data-group-action class="button tiny alert"><i class="fa fa-ban"></i> ${t.Close}</a>
+      <a href="/project/${project.Slug}/changestate?state=1" data-group-action class="button tiny"><i class="fa fa-info-circle"></i> ${t.Open}</a>
+      <a href="/project/${project.Slug}/changestate?state=3" data-group-action class="button tiny on-hold"><i class="fa fa-hand-paper-o"></i> ${t.OnHold}</a>
+	      <a href="/project/${project.Slug}/changestate?state=6" data-group-action class="button tiny"><i class="fa fa-exclamation-circle red"></i> ${t.Urgent}</a>
       <% if CurrentUser.IsAdmin: %>
-      <a href="/project/${project.Slug}/changestate?state=2" data-group-action class="button tiny no-margin success"><i class="fa fa-thumbs-o-up"></i> ${t.Completed}</a>
-      <a href="/project/${project.Slug}/changestate?state=5" data-group-action class="button tiny no-margin alert"><i class="fa fa-trash"></i> ${t.Archive}</a>
+      <a href="/project/${project.Slug}/changestate?state=2" data-group-action class="button tiny success"><i class="fa fa-thumbs-o-up"></i> ${t.Completed}</a>
+      <a href="/project/${project.Slug}/changestate?state=5" data-group-action class="button tiny alert"><i class="fa fa-trash"></i> ${t.Archive}</a>
       <% end %>
     </div>
   </div>
-  <% if CurrentUser.IsDanielle: %>
+  <% if CurrentUser.IsAdmin: %>
   <div class="row">
-    <div class="small-2 columns">Verplaats taken naar een ander project:</div>
+    <div class="small-2 columns">${t.Issues_Move_Label}:</div>
     <div class="small-6 columns">
       <input type="text" class="project-chooser-issue" id="move-issues-targetProject" name="targetProject" value="${project.Name}" placeholder="Project" required="" />
       <input type="hidden" name="issue.Project.Id" value="${project.Id}" class="issue_Project_Id" />
       <input type="hidden" value="${project.Slug}" class="issue_Project_Slug" />
-    </div>
-    <div class="small-2 columns">
-      <input type="checkbox" id="move-issues-renumber" name="renumber" /><label for="move-issues-renumber">${t.Issues_Renumber}</label>
     </div>
     <div class="small-2 columns">
       <button id="move-issues-button" data-group-action="" class="tiny">${t.Issues_Move}</button>
@@ -336,7 +333,7 @@
       issue.css('background-color', '#fce87c');
     }
 
-    <% if CurrentUser.IsDanielle : %>
+    <% if CurrentUser.IsAdmin : %>
       $('#move-issues-button').click(function (e) {
         e.preventDefault();
         var targetProject = $('.issue_Project_Slug').val();
