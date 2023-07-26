@@ -897,6 +897,12 @@
   <data name="Show_All_Tickets" xml:space="preserve">
     <value>Toon alle tickets</value>
   </data>
+  <data name="ClickHereToView_Comment" xml:space="preserve">
+    <value>Klik hier om de reactie te bekijken</value>
+  </data>
+  <data name="ClickHereToView_Description" xml:space="preserve">
+    <value>Klik hier om de omschrijving te bekijken</value>
+  </data>
   <data name="Issues_Move_Label" xml:space="preserve">
     <value>Verplaats taken naar een ander project</value>
   </data>

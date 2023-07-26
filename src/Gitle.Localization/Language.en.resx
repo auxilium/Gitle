@@ -744,6 +744,12 @@
   <data name="Show_All_Tickets" xml:space="preserve">
     <value>Show all issues</value>
   </data>
+  <data name="ClickHereToView_Comment" xml:space="preserve">
+    <value>Click here to view the comment</value>
+  </data>
+  <data name="ClickHereToView_Description" xml:space="preserve">
+    <value>Click here to view the description</value>
+  </data>
   <data name="Issues_Move_Label" xml:space="preserve">
     <value>Move issues to a different project</value>
   </data>

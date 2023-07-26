@@ -376,6 +376,24 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Klik hier om de reactie te bekijken.
+        /// </summary>
+        public static string ClickHereToView_Comment {
+            get {
+                return ResourceManager.GetString("ClickHereToView_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klik hier om de omschrijving te bekijken.
+        /// </summary>
+        public static string ClickHereToView_Description {
+            get {
+                return ResourceManager.GetString("ClickHereToView_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sluiten.
         /// </summary>
         public static string Close {

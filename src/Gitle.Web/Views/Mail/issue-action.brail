@@ -12,20 +12,20 @@
           <table>
             <tr>
               <td width="20%" style="vertical-align: top; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 13px;">
-                <p style="margin-bottom: 0; margin: 0; padding: 0;"><strong>Project:</strong> ${item.Issue.Project.Name}</p>
+                <p style="margin-bottom: 0; margin: 0; padding: 0;"><strong>${t.GetString("Project")}:</strong> ${item.Issue.Project.Name}</p>
                 <% if item.Issue.CreatedAt != null: %>
-                <p style="margin-bottom: 0; margin: 0; padding: 0;"><strong>Aangemaakt op:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.Issue.CreatedAt)}">${Helpers.DateTimeHelper.Relative(item.Issue.CreatedAt)}</span></p>
+                <p style="margin-bottom: 0; margin: 0; padding: 0;"><strong>${t.GetString("CreatedOn")}:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.Issue.CreatedAt)}">${Helpers.DateTimeHelper.Relative(item.Issue.CreatedAt)}</span></p>
                 <% end %>
                 <% if item.Issue.UpdatedAt != null: %>
-                <p style="margin-bottom: 0; margin: 0; padding: 0;"><strong>Laatst gewijzigd:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.Issue.UpdatedAt)}">${Helpers.DateTimeHelper.Relative(item.Issue.UpdatedAt)}</span></p>
+                <p style="margin-bottom: 0; margin: 0; padding: 0;"><strong>${t.GetString("LastChanged")}:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.Issue.UpdatedAt)}">${Helpers.DateTimeHelper.Relative(item.Issue.UpdatedAt)}</span></p>
                 <% end %>
                 <% if item.Issue.ClosedAt != null: %>
-                <p style="margin-bottom: 0; margin: 0; padding: 0;"><strong>Gesloten op:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.Issue.ClosedAt)}">${Helpers.DateTimeHelper.Relative(item.Issue.ClosedAt)}</span></p>
+                <p style="margin-bottom: 0; margin: 0; padding: 0;"><strong>${t.GetString("ClosedOn")}:</strong> <span title="${Helpers.DateTimeHelper.Readable(item.Issue.ClosedAt)}">${Helpers.DateTimeHelper.Relative(item.Issue.ClosedAt)}</span></p>
                 <% end %>
-                <p style="margin-bottom: 0; margin: 0; padding: 0;"><strong>Geschatte tijd:</strong> ${item.Issue.EstimateString}</p>
-                <p style="margin-bottom: 0; margin: 0; padding: 0;"><strong>Status:</strong> ${item.Issue.StateString}</p>
+                <p style="margin-bottom: 0; margin: 0; padding: 0;"><strong>${t.GetString("Estimated_Time")}:</strong> ${item.Issue.EstimateString}</p>
+                <p style="margin-bottom: 0; margin: 0; padding: 0;"><strong>${t.GetString("State")}:</strong> ${item.Issue.StateString}</p>
                 <p style="margin-bottom: 0; margin: 0; padding: 0;">
-                  <strong>Labels:</strong>
+                  <strong>${t.GetString("Labels")}:</strong>
                 </p>
                     <% for label in item.Issue.Project.Labels: %>
                     <%   if (user.IsAdmin or label.VisibleForCustomer): %>
@@ -46,7 +46,7 @@
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 30px; border: 1px solid #d9d9d9;">
                   <tr>
                     <td bgcolor="#f2f2f2" width="70%" style="padding: 12px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;">
-                      <div>${item.Issue.BodyHtml}</div>
+                      <div><a href="http://gitle.digitaltrustsolutions.nl/project/${item.Issue.Project.Slug}/issue/${item.Issue.Id}/view">${t.GetString("ClickHereToView_Description")}</a></div>
                     </td>
                     <td bgcolor="#f2f2f2" width="30%" style="padding: 12px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; font-size: 12px; text-align: right; vertical-align: top;">
                       ${Helpers.DateTimeHelper.Readable(item.Issue.CreatedAt)}
@@ -54,7 +54,7 @@
                   </tr>
                 </table>
                 <br />
-                <h2 style="font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;">Tijdlijn</h2>
+                <h2 style="font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;">${t.GetString("Timeline")}</h2>
                 <% for comment in item.Issue.Actions: %>
                 <% if not comment.GetType() == typeof(Comment) or (comment.GetType() == typeof(Comment) and (not comment.IsInternal or (comment.IsInternal and (user.IsAdmin or user.CanBookHours)))) : %>
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid <% if comment == item: %>red<% else: %>#d9d9d9<% end %>;">
@@ -70,7 +70,11 @@
                   </tr>
                   <tr>
                     <td colspan="2" bgcolor="#f2f2f2" width="100%" style="padding-left: 12px; padding-bottom: 12px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;">
+                      <% if comment.GetType() == typeof(Comment): %>
+                      <div><a href="http://gitle.digitaltrustsolutions.nl/project/${item.Issue.Project.Slug}/issue/${item.Issue.Id}/view#${comment.Id}">${t.GetString("ClickHereToView_Comment")}</a></div>
+                      <% else: %>
                       <div>${comment.HtmlText}</div>
+                      <% end %>
                     </td>
                   </tr>
                 </table><br />

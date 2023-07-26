@@ -1,4 +1,7 @@
-﻿namespace Gitle.Service
+﻿using System.Globalization;
+using Gitle.Localization;
+
+namespace Gitle.Service
 {
     using System;
     using System.Collections;
@@ -82,7 +85,7 @@
                         IsBodyHtml = true
                     };
 
-                    message.Body = GetBody("issue-action", new Hashtable { { "item", action }, { "user", user } });
+                    message.Body = GetBody("issue-action", new Hashtable { { "item", action }, { "user", user }, { "t" , Language.ResourceManager } });
 
                     SendMessage(message);
                 }
