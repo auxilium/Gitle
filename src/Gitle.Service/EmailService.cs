@@ -33,7 +33,7 @@
 
         private readonly ISession _session;
 
-        public EmailService(string hostname, string sourceAddress, bool testMode, ILogger logger, ISessionFactory sessionFactory)
+        public EmailService(string sourceAddress, bool testMode, ILogger logger, ISessionFactory sessionFactory, string hostname = null)
         {
             _defaultSmtpSender = new DefaultSmtpSender(hostname);
 
