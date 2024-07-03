@@ -182,7 +182,7 @@
     <p>Hier vind je de gegevens van alle contactpersonen vanuit de klant.</p>
   </li>
   <li data-id="developers" data-text="Klaar">
-    <p>Hier vind je de gegevens van alle contactpersonen vanuit Auxilium.</p>
+    <p>Hier vind je de gegevens van alle contactpersonen vanuit ${provider}.</p>
   </li>
 </ol>
 
