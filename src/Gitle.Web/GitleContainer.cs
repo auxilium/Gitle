@@ -2,6 +2,7 @@
 {
     #region Usings
 
+    using System.Configuration;
     using Castle.Core.Resource;
     using Castle.Facilities.Logging;
     using Castle.MicroKernel.Registration;
@@ -69,6 +70,7 @@
         {
             public void Install(IWindsorContainer container, IConfigurationStore store)
             {
+                if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["githubClientId"]))
                 container.Register(Classes.FromAssemblyNamed("Gitle.Clients.GitHub")
                                        .Where(type => type.Name.EndsWith("Client"))
                                        .WithService.DefaultInterfaces()
