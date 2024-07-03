@@ -79,6 +79,8 @@
                                            registration.DependsOn(Dependency.OnAppSettingsValue("token", "token")).
                                                DependsOn(Dependency.OnAppSettingsValue("useragent", "useragent")).
                                                DependsOn(Dependency.OnAppSettingsValue("githubApi", "githubApi"))));
+                
+                if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["freckleToken"]))
                 container.Register(Classes.FromAssemblyNamed("Gitle.Clients.Freckle")
                                        .Where(type => type.Name.EndsWith("Client"))
                                        .WithService.DefaultInterfaces()
