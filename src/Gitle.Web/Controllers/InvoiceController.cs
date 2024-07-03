@@ -12,6 +12,7 @@ using System.Web;
 
 namespace Gitle.Web.Controllers
 {
+    using System.Configuration;
     using System.Text;
     using Model.Helpers;
 
@@ -183,7 +184,8 @@ namespace Gitle.Web.Controllers
             var project = session.SlugOrDefault<Project>(projectSlug);
             var invoice = session.Query<Invoice>().FirstOrDefault(i => i.Id == invoiceId && i.Project == project);
 
-            var pdf = pdfExportService.ConvertHtmlToPdf("invoice", new Dictionary<string, object>{
+            string invoiceTemplate = ConfigurationManager.AppSettings["invoice_template"];
+            var pdf = pdfExportService.ConvertHtmlToPdf(invoiceTemplate, new Dictionary<string, object>{
                 {"invoice", invoice},
 
             });
