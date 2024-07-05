@@ -18,7 +18,7 @@
     <add key="freckleApi" value="" />
     <add key="fileUpload" value=""/>
     <add key="webPath" value="http://"/>
-    <add key="uploadController_ImageExtensions" value=".jpg, .png, .gif" />
+    <add key="uploadController_ImageExtensions" value=".jpg,.jpeg,.png,.gif" />
     <add key="uploadController_DocumentExtensions" value=".doc,.docx,.xls,.xlsx,.xlsm,.pdf,.json,.txt,.xml,.xsd,.msg,.apk,.zip,.pptx,.ppt" />
     <add key="issue_action_notification_mail_address" value="servicedesk@example.nl" />
     <add key="provider" value="Auxilium" />

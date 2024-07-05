@@ -270,10 +270,50 @@ $.fn.upload = function () {
     };
     $(this).ajaxUploadDrop(uploadOptions);
     uploadButton.ajaxUploadPrompt(uploadOptions);
+
+    $(this).on("paste", async (e) => {
+      if (!e.originalEvent.clipboardData.files.length) {
+        return e.originalEvent.clipboardData.getData('text');
+      }
+      Array.from(e.originalEvent.clipboardData.files).forEach(async (file) => {
+        if (file.type.startsWith('image/')) {
+
+          var data = new FormData();
+          data.append('uploads', file, file.name);
+
+          $.ajaxUpload({
+            accept: "",
+            url: "/upload/file",
+            data: data,
+            files: fileListFrom(file),
+            multiple: true,
+            offset: { top: 0, left: 0 },
+            onprogress: function (e) {
+            },
+            beforeSend: function (e, a) {
+            },
+            success: function (data) {
+              data = $.parseJSON(data);
+              for (var upload in data.Uploads) {
+                textarea.insert(data.Uploads[upload]);
+              }
+              for (var error in data.Errors) {
+                console.log('Error: ' + error + ' - ' + data.Errors[error]);
+                textarea.error(error + ': ' + data.Errors[error]);
+              }
+              progressbar.hide();
+            },
+            error: function () {
+              console.log("error")
+            }
+          });
+        }
+      });
+    });
   });
 };
 
-$.fn.uploadList = function() {
+$.fn.uploadList = function () {
   return this.each(function () {
     var list = $(this);
     var templateContainer = $($(this).data('template-container'));
@@ -336,6 +376,13 @@ $.fn.uploadList = function() {
     uploadButton.ajaxUploadPrompt(uploadOptions);
   });
 };
+
+/** @params {File[]} files - Array of files to add to the FileList */
+function fileListFrom(file) {
+  const b = new DataTransfer();
+  b.items.add(file)
+  return b.files
+}
 
 function FoundationHelper() { }
 FoundationHelper.prototype = {

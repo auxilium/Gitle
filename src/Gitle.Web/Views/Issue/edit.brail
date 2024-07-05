@@ -6,7 +6,7 @@
     <% else: %>
     <h1>${t.Issue_New}</h1>
     <% end %>
-    <form action="/project/${project.Slug}/issue/${item.Number}/save" method="POST" autocomplete="off" data-abide>
+    <form action="/project/${project.Slug}/issue/${item.Number}/save" method="POST" autocomplete="off" data-abide enctype="multipart/form-data">
       ${Form.HiddenField("item.Number")}
       ${Form.HiddenField("item.State")}
       <input type="hidden" name="item.Milestone.Number" value="${project.MilestoneId}" />

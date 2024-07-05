@@ -776,7 +776,7 @@ GitleIssues.prototype = {
       var lessThanQuarter = value < 0.25;
       if (lessThanQuarter) {
         value = 0.25;
-      }      
+      }
       $(this).val(value);
       if (lessThanQuarter) {
         $(this).error("minimum is een kwartier");
