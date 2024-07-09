@@ -7,8 +7,8 @@ Er is een taak heropend voor het project <strong>${project.Name}</strong>:<br/>
 <% end %>
 !{item.Issue.Name}<br/>
 <br/>
-Klik <a href="http://gitle.auxilium.nl/project/${project.Slug}/issue/${item.Issue.Number}/view">hier</a> om de taak te bekijken.<br/>
+Klik <a href="${webPath}/project/${project.Slug}/issue/${item.Issue.Number}/view">hier</a> om de taak te bekijken.<br/>
 <br/>
 Met vriendelijke groet,<br/>
-Het Auxilium Team
+Het ${provider} Team
 

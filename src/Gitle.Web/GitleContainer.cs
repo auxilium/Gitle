@@ -2,6 +2,7 @@
 {
     #region Usings
 
+    using System.Configuration;
     using Castle.Core.Resource;
     using Castle.Facilities.Logging;
     using Castle.MicroKernel.Registration;
@@ -61,7 +62,10 @@
         {
             public void Install(IWindsorContainer container, IConfigurationStore store)
             {
-                container.Register(Component.For<IJamesRegistrationService>().ImplementedBy(typeof(JamesRegistrationService)).LifestylePerWebRequest());
+                if (ConfigurationManager.ConnectionStrings["James"] != null)
+                    container.Register(Component.For<IJamesRegistrationService>().ImplementedBy(typeof(JamesRegistrationService)).LifestylePerWebRequest());
+                else
+                    container.Register(Component.For<IJamesRegistrationService>().ImplementedBy(typeof(NoJamesRegistrationService)).LifestylePerWebRequest());
             }
         }
 
@@ -69,21 +73,24 @@
         {
             public void Install(IWindsorContainer container, IConfigurationStore store)
             {
-                container.Register(Classes.FromAssemblyNamed("Gitle.Clients.GitHub")
-                                       .Where(type => type.Name.EndsWith("Client"))
-                                       .WithService.DefaultInterfaces()
-                                       .LifestylePerWebRequest().Configure(
-                                           registration =>
-                                           registration.DependsOn(Dependency.OnAppSettingsValue("token", "token")).
-                                               DependsOn(Dependency.OnAppSettingsValue("useragent", "useragent")).
-                                               DependsOn(Dependency.OnAppSettingsValue("githubApi", "githubApi"))));
-                container.Register(Classes.FromAssemblyNamed("Gitle.Clients.Freckle")
-                                       .Where(type => type.Name.EndsWith("Client"))
-                                       .WithService.DefaultInterfaces()
-                                       .LifestylePerWebRequest().Configure(
-                                           registration =>
-                                           registration.DependsOn(Dependency.OnAppSettingsValue("freckleApi", "freckleApi")).
-                                               DependsOn(Dependency.OnAppSettingsValue("token", "freckleToken"))));
+                if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["githubClientId"]))
+                    container.Register(Classes.FromAssemblyNamed("Gitle.Clients.GitHub")
+                                           .Where(type => type.Name.EndsWith("Client"))
+                                           .WithService.DefaultInterfaces()
+                                           .LifestylePerWebRequest().Configure(
+                                               registration =>
+                                               registration.DependsOn(Dependency.OnAppSettingsValue("token", "token")).
+                                                   DependsOn(Dependency.OnAppSettingsValue("useragent", "useragent")).
+                                                   DependsOn(Dependency.OnAppSettingsValue("githubApi", "githubApi"))));
+                
+                if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["freckleToken"]))
+                    container.Register(Classes.FromAssemblyNamed("Gitle.Clients.Freckle")
+                                           .Where(type => type.Name.EndsWith("Client"))
+                                           .WithService.DefaultInterfaces()
+                                           .LifestylePerWebRequest().Configure(
+                                               registration =>
+                                               registration.DependsOn(Dependency.OnAppSettingsValue("freckleApi", "freckleApi")).
+                                                   DependsOn(Dependency.OnAppSettingsValue("token", "freckleToken"))));
             }
         }
     }

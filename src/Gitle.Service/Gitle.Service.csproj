@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmailService.cs" />
+    <Compile Include="NoJamesRegistrationService.cs" />
     <Compile Include="PdfExportService.cs" />
     <Compile Include="JamesRegistrationService.cs" />
     <Compile Include="ProjectNumberService.cs" />

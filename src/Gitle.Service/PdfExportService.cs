@@ -23,27 +23,30 @@ namespace Gitle.Service
             var html = templateParserService.Parse(template, propertyBag);
             // negeer zowel de standaard input als de standaard output.
             // dit gaan we redirecten naar streams die we kunnen aanspreken.
-            var arguments = " - - --header-font-name Georgia --header-font-size 10 --footer-font-name Georgia --footer-font-size 9 -B 15mm -T 15mm -L 15mm -R 15mm --header-spacing 5 --footer-spacing 10 ";
-            if (propertyBag.ContainsKey("headerLeft"))
-            {
-                arguments += "--header-left " + propertyBag["headerLeft"] + "\" ";
-            }
-            if (propertyBag.ContainsKey("headerRight"))
-            {
-                arguments += "--header-right \"" + propertyBag["headerRight"] + "\" ";
-            }
-            if (propertyBag.ContainsKey("footerLeft"))
-            {
-                arguments += "--footer-left \"" + propertyBag["footerLeft"] + "\" ";
-            }
-            if (propertyBag.ContainsKey("footerCenter"))
-            {
-                arguments += "--footer-center \"" + propertyBag["footerCenter"] + "\" ";
-            }
-            if (propertyBag.ContainsKey("footerRight"))
-            {
-                arguments += "--footer-right \"" + propertyBag["footerRight"] + "\" ";
-            }
+            //var arguments = "--header-font-name Georgia --header-font-size 10 --footer-font-name Georgia --footer-font-size 9 -B 15mm -T 15mm -L 15mm -R 15mm --header-spacing 5 --footer-spacing 10 ";
+            //if (propertyBag.ContainsKey("headerLeft"))
+            //{
+            //    arguments += "--header-left " + propertyBag["headerLeft"] + "\" ";
+            //}
+            //if (propertyBag.ContainsKey("headerRight"))
+            //{
+            //    arguments += "--header-right \"" + propertyBag["headerRight"] + "\" ";
+            //}
+            //if (propertyBag.ContainsKey("footerLeft"))
+            //{
+            //    arguments += "--footer-left \"" + propertyBag["footerLeft"] + "\" ";
+            //}
+            //if (propertyBag.ContainsKey("footerCenter"))
+            //{
+            //    arguments += "--footer-center \"" + propertyBag["footerCenter"] + "\" ";
+            //}
+            //if (propertyBag.ContainsKey("footerRight"))
+            //{
+            //    arguments += "--footer-right \"" + propertyBag["footerRight"] + "\" ";
+            //}
+
+            var arguments = "--zoom 0.8 - -";
+
             return ConvertHtmlToPdf(html, arguments);
         }
 

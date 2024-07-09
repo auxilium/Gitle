@@ -30,21 +30,21 @@
     <div class="row">
       ${ChildOutput}
     </div>
-  
+
     <div class="footer">
       <div class="row">
-        <div class="large-8 columns">
+        <div class="large-8 small-8 columns">
           <h1><a href="/"><img src="/Content/images/logo.png" /> ${t.AppName}</a></h1>
           <p>This is a project by Auxilium B.V.</p>
         </div>
-        <div class="large-4 columns text-right">
-          <h1>Auxilium</h1>
-          <p>015 - 26 123 16</p>
+        <div class="large-4 small-4 columns text-right">
+          <h1>${provider}</h1>
+          <p>${provider_phone}</p>
         </div>
       </div>
     </div>
 
-    <script src="${Fingerprint.Tag('/Content/javascript/vendor/foundation.min.js')}"> </script>
+    <script src="${Fingerprint.Tag('/Content/javascript/vendor/foundation.min.js')}"></script>
     <script>
       $(document).foundation();
     </script>

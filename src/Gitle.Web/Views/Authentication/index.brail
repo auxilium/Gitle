@@ -48,7 +48,9 @@
     </form>
     <div class="row">
       <div class="large-12 columns">
+        <% if githubClientId: %>
         <a class="button secondary" href="https://github.com/login/oauth/authorize?scope=${githubScope}&client_id=${githubClientId}&redirect_uri=${githubOAuthCallback}&state=${state}"><i class="fa fa-github-alt"></i> ${t.SignIn_GitHub}</a>
+        <% end %>
       </div>
     </div>
   </div>

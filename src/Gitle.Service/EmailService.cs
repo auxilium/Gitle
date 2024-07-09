@@ -10,6 +10,7 @@
     using Castle.Core.Logging;
     using Castle.Core.Smtp;
     using Castle.MonoRail.Framework;
+    using Castle.MonoRail.Framework.Providers;
     using Castle.MonoRail.Views.Brail;
     using Gitle.Model.Enum;
     using Model;
@@ -23,6 +24,9 @@
         private readonly bool _testMode;
         private readonly string _sourceAddress;
         private readonly DefaultSmtpSender _defaultSmtpSender;
+
+        private readonly string _webPath = ConfigurationManager.AppSettings["webPath"];
+        private readonly string _provider = ConfigurationManager.AppSettings["provider"];
 
         private readonly string _issue_action_notification_mail_address;
 
@@ -80,7 +84,7 @@
                         IsBodyHtml = true
                     };
 
-                    message.Body = GetBody("issue-action", new Hashtable { { "item", action }, { "user", user } });
+                    message.Body = GetBody("issue-action", new Hashtable { { "webPath", _webPath }, { "item", action }, { "user", user } });
 
                     SendMessage(message);
                 }
@@ -97,7 +101,7 @@
                     IsBodyHtml = true
                 };
 
-                message.Body = GetBody("issue-action", new Hashtable { { "item", handOver }, { "user", handOver.User } });
+                message.Body = GetBody("issue-action", new Hashtable { { "webPath", _webPath }, { "item", handOver }, { "user", handOver.User } });
 
                 SendMessage(message);
             }
@@ -111,7 +115,7 @@
                 IsBodyHtml = true
             };
 
-            message.Body = GetBody("password", new Hashtable { { "user", user } });
+            message.Body = GetBody("password", new Hashtable { { "webPath", _webPath }, { "provider", _provider }, { "user", user } });
 
             SendMessage(message);
         }
