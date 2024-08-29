@@ -18,25 +18,19 @@
         {
         }
         public void Index()
-        {
-            var initialProjects = session.Query<Project>().Where(x => x.IsActive && !x.Closed && x.Type == ProjectType.Initial && x.Issues.Count > 0).OrderBy(x => x.Name).ToList();
+        {            
+            var initialProjects = session.Query<Project>().Where(x => x.IsActive && x.Type == ProjectType.Initial && x.Issues.Any()).OrderBy(x => x.Name).ToList();
+            var initialOpenProjects = initialProjects.Where(p => !p.Closed);
+            var initialProjectsClosed = initialProjects.Where(p => p.Closed);
 
-            List<Project> serviceProjects;
+            List<Project> serviceProjects = session.Query<Project>()
+             .Where(x => x.IsActive && !x.Closed && x.Type == ProjectType.Service && x.Issues.Any())
+             .Where(x => CurrentUser.IsAdmin || x.Users.Any(u => u.User == CurrentUser))
+             .OrderBy(x => x.Name)
+             .ToList();
 
-            if (CurrentUser.IsAdmin)
-            { 
-                 serviceProjects = session.Query<Project>().Where(x => x.IsActive && !x.Closed && x.Type == ProjectType.Service && x.Issues.Count > 0).OrderBy(x => x.Name).ToList();
-            }
-            else
-            {
-                 serviceProjects = session.Query<Project>()
-                     .Where(x => x.IsActive && !x.Closed && x.Type == ProjectType.Service && x.Issues.Count > 0)
-                     .Where(x => x.Users.Any(u => u.User == CurrentUser))
-                     .OrderBy(x => x.Name)
-                     .ToList();
-            }
-            
-            PropertyBag.Add("initialProjects", initialProjects);
+            PropertyBag.Add("initialProjects", initialOpenProjects);
+            PropertyBag.Add("initialProjectsClosed", initialProjectsClosed);
             PropertyBag.Add("serviceProjects", serviceProjects);
             PropertyBag.Add("serviceProjectsMaxOpenIssues", serviceProjects.Any() ? serviceProjects.Max(project => project.OpenIssues.Count) : 0);
         }

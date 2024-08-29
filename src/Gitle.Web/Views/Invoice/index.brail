@@ -1,115 +1,224 @@
 ﻿<h1>Overzicht bijlagen</h1>
 <form action="/invoice/export" method="POST" autocomplete="off">
-  <div class="row">
-    <div class="large-12 columns">
-      <input type="submit" class="button" value="Export" />
-    </div>
-  </div>
+	<div class="row">
+		<div class="large-12 columns">
+			<input type="submit" class="button" value="Export" />
+		</div>
+	</div>
 </form>
 
 <h1>Nieuwe bijlage maken</h1>
 <form action="/invoice/create" method="POST" autocomplete="off">
-  <div class="row booking-row-new">
-    <div class="large-12 columns">
-      <input type="hidden" name="projectId" class="booking_Project_Id" />
-      <input type="text" class="project-chooser" placeholder="Project" />
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-3 columns">
-      <input type="text" name="startDate" id="startDate" class="date" placeholder="Startdatum" value="${startOfMonth.ToString("dd-MM-yyyy")}" />
-    </div>
-    <div class="large-3 columns end">
-      <input type="text" name="endDate" id="endDate" class="date" placeholder="Einddatum" value="${endOfMonth.ToString("dd-MM-yyyy")}" />
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-12 columns">
-      ${Form.CheckboxField("oldBookings", {"class": "inline", "checked":"checked"})} Neem oudere boekingen mee die nog niet op een definitieve factuur staan
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-12 columns">
-      <input type="submit" class="button" value="Aanmaken" />
-    </div>
-  </div>
+	<div class="row booking-row-new">
+		<div class="large-12 columns">
+			<input type="hidden" name="projectId" class="booking_Project_Id" />
+			<input type="text" class="project-chooser" placeholder="Project" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-3 columns">
+			<input type="text" name="startDate" id="startDate" class="date" placeholder="Startdatum" value="${startOfMonth.ToString("dd-MM-yyyy")}" />
+		</div>
+		<div class="large-3 columns end">
+			<input type="text" name="endDate" id="endDate" class="date" placeholder="Einddatum" value="${endOfMonth.ToString("dd-MM-yyyy")}" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-12 columns">
+			${Form.CheckboxField("oldBookings", {"class": "inline", "checked":"checked"})} Neem oudere boekingen mee die nog niet op een definitieve factuur staan
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-12 columns">
+			<input type="submit" class="button" value="Aanmaken" />
+		</div>
+	</div>
 </form>
+
+<hr />
+
+<% if CurrentUser.IsAdmin or CurrentUser.IsDanielle: %>
+<div class="panel">
+	<div class="row">
+		<div class="large-0 small-12 columns">
+			${Form.Select("customer", allCustomers, {"text": "Name", "value": "Id", "class": "no-margin", "firstoption": "Kies een klant..."})}
+		</div>
+		<div class="large-0 small-12 columns">
+			<select id="application" name="application" class="hide-disabled no-margin">
+				<option value="0">Kies een applicatie...</option>
+				<% for item in allApplications: %>
+				<% if IsDefined("application") and item == application: %>
+				<option value="${item.Id}" data-customer="${?item.Customer.Id}" selected="">${item.Name}</option>
+				<% else: %>
+				<option value="${item.Id}" data-customer="${?item.Customer.Id}">${item.Name}</option>
+				<% end %>
+				<% end %>
+			</select>
+		</div>
+		<div class="large-0 small-12 columns">
+			${Form.Select("type", allTypes, {"text": "Value", "value": "Key", "class": "no-margin", "firstoption": "Kies een projecttype..."})}
+		</div>
+	</div>
+</div>
+<% end %>
 
 <h1>Bijlagen</h1>
 <div class="row">
-  <div class="large-8 columns">
-    <p>
-      <span class="label round secondary">Concept</span>
-      <span class="label round">Definitief</span>
-      <span class="label round alert">Gearchiveerd</span>
-    </p>
-  </div>
-  <div class="large-4 columns">
-    <input type="text" id="invoiceSearch" placeholder="Zoeken op factuurnummer"/>
-  </div>
+	<div class="large-8 columns">
+		<p>
+			<span class="label round secondary">Concept</span>
+			<span class="label round">Definitief</span>
+			<span class="label round alert">Gearchiveerd</span>
+		</p>
+	</div>
+	<div class="large-4 columns">
+		<input type="text" id="invoiceSearch" placeholder="Zoeken op factuurnummer"/>
+	</div>
 </div>
 <div class="invoices">
-  <% for invoice in invoices: %>
-  <div class="invoice" data-invoice-number="${invoice.Number}">
-    <div class="row">
-      <div class="large-1 columns">
-        <div class="row">
-          <span class="label round number ${invoice.StateString}" title="${invoice.StateString}">${invoice.Number}</span>
-        </div>
-      </div>
-      <div class="large-8 columns">
-        <div class="row titlerow">
-          <div class="large-9 columns">
-            <a class="title" href="#">${invoice.Title}</a>
-          </div>
-          <div class="large-3 columns detailrow text-right">
-            ${invoice.CreatedAt.ToString("dd-MM-yyyy HH:mm")}
-          </div>
-        </div>
-        <div class="row detailrow">
-          <div class="large-4 columns">
-            <strong>${invoice.Project.Name}</strong>
-          </div>
-          <div class="large-5 columns">
-            Totaal: ${invoice.Total.ToString("C")} (${invoice.TotalExclVat.ToString("C")} excl. BTW)
-          </div>
-          <div class="large-2 columns text-right">
-            <i class="fa fa-list-ol"></i> ${invoice.IssueCount} issues
-          </div>
-        </div>
-      </div>
-      <div class="large-3 columns text-right">
-        <ul class="button-group">
-          <li><a class="button tiny no-margin" href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/download"><i class="fa fa-file-pdf-o"></i></a></li>
-          <% if invoice.IsConcept: %>
-          <li><a class="button tiny no-margin success" href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/edit">Bewerken</a></li>
-          <% end %>
-          <button href="#" data-dropdown="more${invoice.Id}" aria-controls="more${invoice.Id}" aria-expanded="false" class="button tiny dropdown secondary">Meer..</button>
-          <ul id="more${invoice.Id}" data-dropdown-content="" class="f-dropdown text-left" aria-hidden="true" tabindex="-1">
-            <% if invoice.IsConcept: %>
-            <li><a href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/definitive">Definitief maken</a></li>
-            <% end %>
-            <% if not invoice.IsArchived: %>
-            <li><a href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/archive">Archiveren</a></li>
-            <% end %>
-            <li><a href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/archiveissues">Taken archiveren</a></li>
-            <li><a href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/Delete">Verwijderen</a></li>
-          </ul>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <% end %>
+	<div id="overlay">
+		<div class="cv-spinner">
+			<span class="spinner"></span>
+		</div>
+	</div>
+		<% for invoice in invoices: %>
+		<div class="invoice" data-invoice-number="${invoice.Number}">
+			<div class="row">
+				<div class="large-1 columns">
+					<div class="row">
+						<span class="label round number ${invoice.StateString}" title="${invoice.StateString}">${invoice.Number}</span>
+					</div>
+				</div>
+				<div class="large-8 columns">
+					<div class="row titlerow">
+						<div class="large-9 columns">
+							<a class="title" href="#">${invoice.Title}</a>
+						</div>
+						<div class="large-3 columns detailrow text-right">
+							${invoice.CreatedAt.ToString("dd-MM-yyyy HH:mm")}
+						</div>
+					</div>
+					<div class="row detailrow">
+						<div class="large-4 columns">
+							<strong>${invoice.Project.Name}</strong>
+						</div>
+						<div class="large-5 columns">
+							Totaal: ${invoice.Total.ToString("C")} (${invoice.TotalExclVat.ToString("C")} excl. BTW)
+						</div>
+						<div class="large-2 columns text-right">
+							<i class="fa fa-list-ol"></i> ${invoice.IssueCount} issues
+						</div>
+					</div>
+				</div>
+				<div class="large-3 columns text-right">
+					<ul class="button-group">
+						<li>
+							<a class="button tiny no-margin" href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/download">
+								<i class="fa fa-file-pdf-o"></i>
+							</a>
+						</li>
+						<% if invoice.IsConcept: %>
+						<li>
+							<a class="button tiny no-margin success" href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/edit">Bewerken</a>
+						</li>
+						<% end %>
+						<button href="#" data-dropdown="more${invoice.Id}" aria-controls="more${invoice.Id}" aria-expanded="false" class="button tiny dropdown secondary">Meer..</button>
+						<ul id="more${invoice.Id}" data-dropdown-content="" class="f-dropdown text-left" aria-hidden="true" tabindex="-1">
+							<% if invoice.IsConcept: %>
+							<li>
+								<a href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/definitive">Definitief maken</a>
+							</li>
+							<% end %>
+							<% if not invoice.IsArchived: %>
+							<li>
+								<a href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/archive">Archiveren</a>
+							</li>
+							<% end %>
+							<li>
+								<a href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/archiveissues">Taken archiveren</a>
+							</li>
+							<li>
+								<a href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/Delete">Verwijderen</a>
+							</li>
+						</ul>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<% end %>	
 </div>
 
 <script>
-  $(function() {
-    $('#invoiceSearch').keyup(function() {
-      var query = $(this).val();
-      $(".invoices .invoice").show();
-      if (query.length >= 2) {
-        $(".invoices .invoice:not([data-invoice-number*='" + query + "'])").hide();
-      }
-    });
-  });
+
+	function showOverlay() {
+	$(".invoices").css("z-index", "100");
+	$(".invoices").css("background", "rgba(0,0,0,0.6)");
+	$("#overlay").fadeIn(300);
+	}
+
+	function hideOverlay() {
+	$("#overlay").fadeOut(300);
+	$(".invoices").css("z-index", "0");
+	$(".invoices").css("background", "rgba(0,0,0,0.0)");
+	}
+
+	function getInvoiceData() {
+	$.ajax({
+	url: '/invoice/list',
+	type: 'POSt',
+	data: {
+	customer: $('#customer').val(),
+	application: $('#application').val(),
+	type: $('#type').val()
+	},
+	success: function(d){
+	var results = d;
+
+	var invoiceItem = '';
+	for(var invoice of d.data){
+	var createdAt = new Date(invoice.CreatedAt);
+	var day = String(createdAt.getDate()).padStart(2, '0');
+	var month = String(createdAt.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+	var year = createdAt.getFullYear();
+	var hours = String(createdAt.getHours()).padStart(2, '0');
+	var minutes = String(createdAt.getMinutes()).padStart(2, '0');
+
+	var formattedDateCreatedAt = day + '-' + month + '-' + year + ' ' + hours + ':' + minutes;
+	var total = parseFloat(invoice.Total).toLocaleString('nl-NL', { style: 'currency', currency: 'EUR' });
+
+	var editButton = invoice.IsConcept ? '<li><a class="button tiny no-margin success" href="/project/' + invoice.Slug + '/invoice/' + invoice.Id + '/edit">Bewerken</a></li>' : "";
+	var definitiveButton = invoice.IsConcept ? '<li><a href="/project/' + invoice.Slug + '/invoice/' + invoice.Id + '}/definitive">Definitief maken</a></li>' : "";
+	var archiveButton = !invoice.IsArchived ? '<li><a href="/project/' + invoice.Slug + '/invoice/' + invoice.Id + '/archive">Archiveren</a></li>' : "";
+
+	invoiceItem += '<div class="invoice" data-invoice-number="' + invoice.Number + '"><div class="row"><div class="large-1 columns"><div class="row"><span class="label round number ' + invoice.StateString + '" title="' + invoice.StateString + '">' + invoice.Number + '</span></div></div><div class="large-8 columns"><div class="row titlerow"><div class="large-9 columns"><a class="title" href="#">' + invoice.Title + '</a></div><div class="large-3 columns detailrow text-right">' + formattedDateCreatedAt + '</div></div><div class="row detailrow"><div class="large-4 columns"><strong>' + invoice.ProjectName + '</strong></div><div class="large-5 columns">Totaal: ' + total + ' excl. BTW</div><div class="large-2 columns text-right"><i class="fa fa-list-ol"></i>' + invoice.IssueCount + ' issues</div></div></div><div class="large-3 columns text-right"><ul class="button-group"><li><a class="button tiny no-margin" href="/project/' + invoice.Slug + '/invoice/' + invoice.Id + '/download"><i class="fa fa-file-pdf-o"></i></a></li>' + editButton + '<button href="#" data-dropdown="more' + invoice.Id + '" aria-controls="more' + invoice.Id + '" aria-expanded="false" class="button tiny dropdown secondary">Meer..</button><ul id="more' + invoice.Id + '" data-dropdown-content="" class="f-dropdown text-left" aria-hidden="true" tabindex="-1">' + definitiveButton + '' + archiveButton + '<li><a href="/project/' + invoice.Slug + '/invoice/ ' + invoice.Id + '/archiveissues">Taken archiveren</a></li><li><a href="/project/' + invoice.Slug + '/invoice/' + invoice.Id + '/Delete">Verwijderen</a></li></ul></ul></div></div></div>';$(".invoices").html(invoiceItem);
+	}
+	}
+	});
+	}
+
+	$(function() {
+	$('#invoiceSearch').keyup(function() {
+	var query = $(this).val();
+	$(".invoices .invoice").show();
+	if (query.length >= 2) {
+	$(".invoices .invoice:not([data-invoice-number*='" + query + "'])").hide();
+	}
+	});
+	});
+
+	$('#customer, #application, #type').change(function () {
+	showOverlay();
+	if ($('#customer').val() != '0') {
+	$('#application [data-customer][data-customer!="' + $('#customer').val() + '"]').attr('disabled', true);
+	$('#application [data-customer][data-customer="' + $('#customer').val() + '"]').removeAttr('disabled');
+	var visibleOptions = $('#application option[data-customer]:not([disabled])');
+	if (visibleOptions.length == 1) {
+	$('#application').val(visibleOptions.attr('value'));
+	}
+	getInvoiceData();
+	} else {
+	location.reload();
+	}
+	hideOverlay();
+	});
 </script>

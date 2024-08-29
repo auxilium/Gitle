@@ -115,7 +115,7 @@ namespace Gitle.Web.Controllers
                 projects = projects.Skip(start).Take(length);
             }
 
-            var data = projects.Select(x => new ProjectListViewModel(x));
+            var data = projects.Select(x => new ProjectListViewModel(x));          
 
             return new { draw, start, length, recordsTotal, recordsFiltered, data };
         }
