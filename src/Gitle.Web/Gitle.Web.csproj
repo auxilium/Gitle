@@ -22,8 +22,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44370</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -288,7 +287,6 @@
       <DependentUpon>app.css</DependentUpon>
     </Content>
     <Content Include="Content\javascript\vendor\custom.modernizr.js" />
-    <Content Include="Content\javascript\vendor\jquery.js" />
     <Content Include="Content\stylesheets\chosen.css" />
     <Content Include="Content\stylesheets\vendor\fontawesome\font-awesome-ie7.min.css" />
     <Content Include="Content\stylesheets\vendor\fontawesome\font-awesome.css" />
@@ -613,11 +611,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51459</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51461/</IISUrl>
+          <IISUrl>https://localhost:44370/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
