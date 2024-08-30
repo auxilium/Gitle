@@ -56,7 +56,10 @@
 			</select>
 		</div>
 		<div class="large-0 small-12 columns">
-			${Form.Select("type", allTypes, {"text": "Value", "value": "Key", "class": "no-margin", "firstoption": "Kies een projecttype..."})}
+			${Form.Select("type", allTypes, {"text": "Value", "value": "Key", "class": "no-margin", "firstoption": "Kies een projecttype..."})}			
+		</div>
+		<div class="large-0 small-12 columns">
+			<button class="button tiny no-margin alert delete reset-filter">Reset filter</button>
 		</div>
 	</div>
 </div>
@@ -150,6 +153,10 @@
 
 <script>
 
+	$('button.reset-filter').click(function () {
+	location.reload();
+	});
+
 	function showOverlay() {
 	$(".invoices").css("z-index", "100");
 	$(".invoices").css("background", "rgba(0,0,0,0.6)");
@@ -172,10 +179,24 @@
 	type: $('#type').val()
 	},
 	success: function(d){
-	var results = d;
-
 	var invoiceItem = '';
-	for(var invoice of d.data){
+
+	if (!jQuery.isEmptyObject(d)) {
+	if ($('#customer').val() === "0") {
+	var customerOptions = [];
+	var customerValue = "";
+	customerOptions.push($("#customer")[0].options);
+
+	for (var i=0; i < customerOptions[0].length; i++) {
+     if (customerOptions[0][i].innerHTML === d.data[0].Customer) {
+	    customerValue = customerOptions[0][i].value;
+	   }
+   }
+	$('#customer').val(customerValue);
+	}
+	
+	var results = d;
+	for (var invoice of d.data){
 	var createdAt = new Date(invoice.CreatedAt);
 	var day = String(createdAt.getDate()).padStart(2, '0');
 	var month = String(createdAt.getMonth() + 1).padStart(2, '0'); // Months are zero-based
@@ -191,6 +212,10 @@
 	var archiveButton = !invoice.IsArchived ? '<li><a href="/project/' + invoice.Slug + '/invoice/' + invoice.Id + '/archive">Archiveren</a></li>' : "";
 
 	invoiceItem += '<div class="invoice" data-invoice-number="' + invoice.Number + '"><div class="row"><div class="large-1 columns"><div class="row"><span class="label round number ' + invoice.StateString + '" title="' + invoice.StateString + '">' + invoice.Number + '</span></div></div><div class="large-8 columns"><div class="row titlerow"><div class="large-9 columns"><a class="title" href="#">' + invoice.Title + '</a></div><div class="large-3 columns detailrow text-right">' + formattedDateCreatedAt + '</div></div><div class="row detailrow"><div class="large-4 columns"><strong>' + invoice.ProjectName + '</strong></div><div class="large-5 columns">Totaal: ' + total + ' excl. BTW</div><div class="large-2 columns text-right"><i class="fa fa-list-ol"></i>' + invoice.IssueCount + ' issues</div></div></div><div class="large-3 columns text-right"><ul class="button-group"><li><a class="button tiny no-margin" href="/project/' + invoice.Slug + '/invoice/' + invoice.Id + '/download"><i class="fa fa-file-pdf-o"></i></a></li>' + editButton + '<button href="#" data-dropdown="more' + invoice.Id + '" aria-controls="more' + invoice.Id + '" aria-expanded="false" class="button tiny dropdown secondary">Meer..</button><ul id="more' + invoice.Id + '" data-dropdown-content="" class="f-dropdown text-left" aria-hidden="true" tabindex="-1">' + definitiveButton + '' + archiveButton + '<li><a href="/project/' + invoice.Slug + '/invoice/ ' + invoice.Id + '/archiveissues">Taken archiveren</a></li><li><a href="/project/' + invoice.Slug + '/invoice/' + invoice.Id + '/Delete">Verwijderen</a></li></ul></ul></div></div></div>';$(".invoices").html(invoiceItem);
+		}
+		}
+		else {
+		invoiceItem = '<div></div>';$(".invoices").html(invoiceItem);
 	}
 	}
 	});
@@ -206,7 +231,7 @@
 	});
 	});
 
-	$('#customer, #application, #type').change(function () {
+	$('#customer').change(function () {
 	showOverlay();
 	if ($('#customer').val() != '0') {
 	$('#application [data-customer][data-customer!="' + $('#customer').val() + '"]').attr('disabled', true);
@@ -218,7 +243,22 @@
 	getInvoiceData();
 	} else {
 	location.reload();
+	$('#application').val(0)
 	}
 	hideOverlay();
 	});
-</script>
+
+	$('#application, #type').change(function () {
+	showOverlay();
+	if ($('#customer').val() !== "0") {
+	$('#customer').val(0);
+	}
+	if ($('#application').val() != '0' || $('#type').val() != '0') {
+	getInvoiceData();
+	} else {
+	location.reload();
+	$('#application').val(0);
+	}
+	hideOverlay();
+	});
+	</script>

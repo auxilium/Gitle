@@ -65,9 +65,13 @@ namespace Gitle.Web.Controllers
         invoices = invoices.Where(x => x.Project.Type == type);
       }
 
-      var data = invoices.OrderByDescending(i => i.Number).Select(x => new InvoiceListViewModel(x));
-
-      return new { data };
+      if (invoices.Count() > 0)
+      {
+        var data = invoices.OrderByDescending(i => i.Number).Select(x => new InvoiceListViewModel(x));
+        return new { data };
+      }
+      else
+        return null;
     }
 
     [Danielle]
