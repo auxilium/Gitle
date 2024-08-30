@@ -216,49 +216,50 @@
 		}
 		else {
 		invoiceItem = '<div></div>';$(".invoices").html(invoiceItem);
-	}
-	}
-	});
-	}
+		}
+		}
+		});
+		}
 
-	$(function() {
-	$('#invoiceSearch').keyup(function() {
-	var query = $(this).val();
-	$(".invoices .invoice").show();
-	if (query.length >= 2) {
-	$(".invoices .invoice:not([data-invoice-number*='" + query + "'])").hide();
-	}
-	});
-	});
+		$(function() {
+		$('#invoiceSearch').keyup(function() {
+		var query = $(this).val();
+		$(".invoices .invoice").show();
+		if (query.length >= 2) {
+		$(".invoices .invoice:not([data-invoice-number*='" + query + "'])").hide();
+		}
+		});
+		});
 
-	$('#customer').change(function () {
-	showOverlay();
-	if ($('#customer').val() != '0') {
-	$('#application [data-customer][data-customer!="' + $('#customer').val() + '"]').attr('disabled', true);
-	$('#application [data-customer][data-customer="' + $('#customer').val() + '"]').removeAttr('disabled');
-	var visibleOptions = $('#application option[data-customer]:not([disabled])');
-	if (visibleOptions.length == 1) {
-	$('#application').val(visibleOptions.attr('value'));
-	}
-	getInvoiceData();
-	} else {
-	location.reload();
-	$('#application').val(0)
-	}
-	hideOverlay();
-	});
+		$('#customer').change(function () {
+		$('#application').val(0);
+		showOverlay();
+		if ($('#customer').val() != '0') {
+		$('#application [data-customer][data-customer!="' + $('#customer').val() + '"]').attr('disabled', true);
+		$('#application [data-customer][data-customer="' + $('#customer').val() + '"]').removeAttr('disabled');
+		var visibleOptions = $('#application option[data-customer]:not([disabled])');
+		if (visibleOptions.length == 1) {
+		$('#application').val(visibleOptions.attr('value'));
+		}
+		getInvoiceData();
+		} else {
+		location.reload();
+		$('#application').val(0)
+		}
+		hideOverlay();
+		});
 
-	$('#application, #type').change(function () {
-	showOverlay();
-	if ($('#customer').val() !== "0") {
-	$('#customer').val(0);
-	}
-	if ($('#application').val() != '0' || $('#type').val() != '0') {
-	getInvoiceData();
-	} else {
-	location.reload();
-	$('#application').val(0);
-	}
-	hideOverlay();
-	});
+		$('#application, #type').change(function () {
+		showOverlay();
+		if ($('#customer').val() !== "0") {
+		$('#customer').val(0);
+		}
+		if ($('#application').val() != '0' || $('#type').val() != '0') {
+		getInvoiceData();
+		} else {
+		location.reload();
+		$('#application').val(0);
+		}
+		hideOverlay();
+		});
 	</script>
