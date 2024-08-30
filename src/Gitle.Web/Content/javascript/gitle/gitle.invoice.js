@@ -24,23 +24,23 @@
   };
 
   var calculateTotals = function () {
-    var subtotalPrice = 0.0;
+    var linesPrice = 0.0;
     $('.invoiceline').each(function () {
       var linePrice = parseFloat($(this).find('.invoiceline-price').val().replace(',', '.')) * (1 - parseInt($(this).find('.invoiceline-null').val()));
-      subtotalPrice += linePrice;
+        linesPrice += linePrice;
     });
-    var correctionTotalPrice = 0.0;
+    var correctionLinesPrice = 0.0;
     $('.correctionline').each(function () {
       var correctionValue = $(this).find('.correctionline-price').val();
       if (correctionValue)
-        correctionTotalPrice += parseFloat(correctionValue.replace(',', '.'));
+          correctionLinesPrice += parseFloat(correctionValue.replace(',', '.'));
     });
-    subtotalPrice += correctionTotalPrice;
+    subtotalPrice = linesPrice + correctionLinesPrice;
     $('#invoice_Subtotal').val(subtotalPrice.toFixed(2).toString().replace(".", ","));
     var vat = parseInt($('.vatline .vatline-vat').val());
-    var vatPrice = (subtotalPrice + correctionTotalPrice) * vat * 0.21;
+    var vatPrice = subtotalPrice * vat * 0.21;
     $('.vatline-price').val(vatPrice.toFixed(2).toString().toString().replace(".", ","));
-    var totalPrice = subtotalPrice + correctionTotalPrice + vatPrice;
+    var totalPrice = subtotalPrice + vatPrice;
     $('#invoice_Total').val(totalPrice.toFixed(2).toString().replace(".", ","));
   };
 
@@ -116,7 +116,7 @@
     if ($(this).hasClass('vat')) {
       $(this).removeClass('vat');
       line.find('.vatline-vat').val(1);
-      line.find('.vatline-price').removeClass('null');
+      //line.find('.vatline-price').removeClass('null');
     } else {
       $(this).addClass('vat');
       line.find('.vatline-vat').val(0);
