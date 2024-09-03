@@ -110,7 +110,7 @@
       <td class="right">${line.Hours.ToString("#0.00")}</td>
       <td>${line.Description}</td>
       <td class="right">${invoice.HourPrice.ToString("#0.00")}</td>
-      <td class="right">${line.Price.ToString("#0.00")}</td>
+      <td class="right">${line.Price.ToString("#,##0.00")}</td>
     </tr>
     <% end %>
     <tr>
@@ -120,8 +120,8 @@
     <tr>
       <td class="right"></td>
       <td>${line.Description}</td>
-      <td class="right">${line.Price.ToString("#0.00")}</td>
-      <td class="right">${line.Price.ToString("#0.00")}</td>
+      <td class="right">${line.Price.ToString("#,##0.00")}</td>
+      <td class="right">${line.Price.ToString("#,##0.00")}</td>
     </tr>
     <% end %>
   </tbody>
@@ -132,7 +132,7 @@
     <tr>
       <td class="right">${invoice.TotalBillableHours.ToString("#0.00")}</td>
       <td colspan="2" class="right totalname">Totaal &euro;</td>
-      <td class="right total">${invoice.TotalExclVat.ToString("#0.00")}</td>
+      <td class="right total">${invoice.TotalExclVat.ToString("#,##0.00")}</td>
     </tr>
   </tfoot>
 </table>
