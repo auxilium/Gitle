@@ -269,7 +269,7 @@
                 <a href="#" class="prefix vatline-toggle"><i class="fa fa-euro"></i></a>
               </div>
               <div class="large-9 columns">
-                <input class="comma" type="text" class="vatline-price" disabled />
+                <input class="comma vatline-price" type="text" disabled />
               </div>
             </div>
           </div>
