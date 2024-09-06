@@ -154,12 +154,28 @@
 
   $('.correctionline').hide();
   $('.correctionline').first().show();
+  $('.edit-invoice').each(function () {    
+    var price = parseFloat($(this).find('.correctionline-price').val());
+
+    if (price > 0) {
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  });
+
   $('.correctionline').find('.correctionline-price').change(function () {
     if ($(this).find('.correctionline-price').val() != "") {
       $(this).parents('.correctionline').next('.correctionline').show();
     }
   });
 
+  $('.correctionline').find('.correctionline-price').keydown(function (e) {
+    if (e.key === "Tab" || e.keyCode === 9 || e.which === 13) {
+        e.preventDefault();
+        $(this).parents('.correctionline').next('.correctionline').show();
+     }
+  });
 
   $('[data-booking]').each(function () {
     var bookingRow = $(this);

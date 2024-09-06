@@ -1,4 +1,8 @@
-﻿<h1>Nieuwe bijlage maken</h1>
+﻿<%if editInvoice: %> 
+<h1>Bijlage bewerken</h1>
+	<% else :%>
+	<h1>Nieuwe bijlage maken</h1>
+	<% end %>
 <form id="createinvoice" action="/project/${project.Slug}/invoice/${invoice.Id}/save" method="POST" autocomplete="off" data-abide>
   <div class="row">
     <div class="large-12 columns">
@@ -224,23 +228,23 @@
       <div class="totals">
         <% correctionCount = 0 %>
         <% for correction in invoice.Corrections: %>
-        <div class="row correctionline">
-          <div class="large-10 columns">
-            <input type="text" name="corrections[${correctionCount}].Description" id="corrections_${correctionCount}_Description" placeholder="Korting, extra kosten e.d." class="text-right" value="${correction.Description}" />
-          </div>
-          <div class="large-2 columns">
-            <div class="row collapse">
-              <div class="large-3 columns">
-                <span class="prefix"><i class="fa fa-euro"></i></span>
-              </div>
-              <div class="large-9 columns">
-                <input type="text" name="corrections[${correctionCount}].Price" id="corrections_${correctionCount}_Price" value="${correction.Price}" class="correctionline-price comma" />
-              </div>
-            </div>
-          </div>
-        </div>
+				<div class="row correctionline<%if editInvoice: %> edit-invoice<% else :%> "" <% end %>">
+					<div class="large-10 columns">
+						<input type="text" name="corrections[${correctionCount}].Description" id="corrections_${correctionCount}_Description" placeholder="Korting, extra kosten e.d." class="text-right" value="${correction.Description}" />
+					</div>
+					<div class="large-2 columns">
+						<div class="row collapse">
+							<div class="large-3 columns">
+								<span class="prefix"><i class="fa fa-euro"></i></span>
+							</div>
+							<div class="large-9 columns">
+								<input type="text" name="corrections[${correctionCount}].Price" id="corrections_${correctionCount}_Price" value="${correction.Price}" class="correctionline-price comma" />							
+							</div>
+						</div>
+					</div>
+				</div>
         <% correctionCount = correctionCount + 1 %>
-        <% end %>
+        <% end %>						
       </div>
       <div class="totals">
         <div class="row">

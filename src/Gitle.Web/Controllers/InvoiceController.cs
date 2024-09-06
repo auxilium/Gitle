@@ -13,7 +13,7 @@ using Gitle.ViewModel;
 
 namespace Gitle.Web.Controllers
 {
-  using System.Configuration;
+  using System.Configuration;  
   using System.Text;
   using Castle.MonoRail.Framework;
   using Model.Helpers;
@@ -94,6 +94,7 @@ namespace Gitle.Web.Controllers
 
       PropertyBag.Add("invoice", invoice);
       PropertyBag.Add("project", project);
+      PropertyBag.Add("editInvoice", false);
     }
 
     [Danielle]
@@ -114,6 +115,11 @@ namespace Gitle.Web.Controllers
       var project = session.SlugOrDefault<Project>(projectSlug);
       var invoice = session.Query<Invoice>().FirstOrDefault(i => i.Id == invoiceId && i.Project == project);
 
+      for (var i = invoice.Corrections.Count(); i < 10; i++)
+      {
+        invoice.Corrections.Add(new Correction());
+      }
+      PropertyBag.Add("editInvoice", true);
       PropertyBag.Add("invoice", invoice);
       PropertyBag.Add("project", project);
 
