@@ -567,7 +567,7 @@ $(function () {
   $('.edit-invoice').each(function () {    
     var price = parseFloat($(this).find('.correctionline-price').val());
 
-    if (price > 0) {
+    if (price != 0) {
       $(this).show();
     } else {
       $(this).hide();

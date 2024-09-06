@@ -11,8 +11,8 @@
 <form action="/invoice/create" method="POST" autocomplete="off">
 	<div class="row booking-row-new">
 		<div class="large-12 columns">
-			<input type="hidden" name="projectId" class="booking_Project_Id" />
-			<input type="text" class="project-chooser" placeholder="Project" />
+			<input type="hidden" name="projectId" class="booking_Project_Id" id="projectId"/>
+			<input type="text" class="project-chooser" placeholder="Kies project" id="project-chooser"/>
 		</div>
 	</div>
 	<div class="row">
@@ -30,7 +30,7 @@
 	</div>
 	<div class="row">
 		<div class="large-12 columns">
-			<input type="submit" class="button" value="Aanmaken" />
+			<input type="submit" class="button" id="create_invoice_button" value="Aanmaken"/>
 		</div>
 	</div>
 </form>
@@ -151,8 +151,48 @@
 		<% end %>	
 </div>
 
-<script>
+<script>	
+	$(document).ready(function() {
+    $('#project-chooser').keyup(function() {
+        var inputValue = $(this).val();
+        if (inputValue === '') {
+           $('#create_invoice_button').prop('disabled', true);
+					 $('.booking_Project_Id').val("");
+					 $('#project-chooser').css({'border': '3px solid red'});
+        } else {
+				 if ($('.booking_Project_Id').val()) {
+           $('#create_invoice_button').prop('disabled', false);
+					  $('#project-chooser').css({'border': '1px solid #ccc'});
+        }
+				}
+    });
+	});
+	
+	$(document).ready(function() {
+    $('#create_invoice_button').click(function() {
+        if (!$('.booking_Project_Id').val()) {
+           $('#create_invoice_button').prop('disabled', true);
+					  $('#project-chooser').css({'border': '3px solid red'});
+        }
+    })
+	});
 
+	$(document).ready(function() {
+    $('.project-chooser').click(function() {
+        if ($('.booking_Project_Id').val()) {
+           $('#create_invoice_button').prop('disabled', false);
+					 $('#project-chooser').css({'border': '1px solid #ccc'});
+        }
+    })
+		 $(this).click(function() {
+        if ($('.booking_Project_Id').val()) {
+           $('#create_invoice_button').prop('disabled', false);
+					 $('#project-chooser').css({'border': '1px solid #ccc'});
+        }			
+    })
+	});
+
+	
 	$('button.reset-filter').click(function () {
 	location.reload();
 	});
