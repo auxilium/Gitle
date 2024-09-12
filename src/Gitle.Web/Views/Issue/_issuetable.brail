@@ -129,9 +129,11 @@
             <div class="row detailsrow">
               <div class="large-7 columns">
 	              ${t.Invoice_Numbers}:
-								<% for invoice in issue.Invoices: %>
-                <span class="label round <% if not invoice.IsDefinitive: %>secondary<% end %>" title="${invoice.Title}">${invoice.Number}</span>
-                <% end %>
+								<% for invoice in issue.Invoices: %>	
+									<%if invoice.IsActive: %>
+                <span class="label round <% if not invoice.IsDefinitive: %>secondary<% end %>" title="${invoice.Title}">${invoice.Number}</span>										
+							 <% end %>
+								 <% end %>
               </div>
               <div class="large-1 columns">
                 <strong>${t.Billed}: </strong>
