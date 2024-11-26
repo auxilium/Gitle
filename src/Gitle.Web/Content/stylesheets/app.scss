@@ -155,6 +155,10 @@ body.scroll .footer {
   color: #f04124;
 }
 
+span.red {
+  color: #f04124 !important;
+}
+
 .grey {
   color: #666;
 }
@@ -633,6 +637,15 @@ table {
 .content {
   margin: 0 auto;
   width: 960px;
+}
+
+.content {
+  &#issues {
+    .content {
+      width: 100%;
+      margin: 0 !important;
+    }
+  }
 }
 
 .lt-ie9 {

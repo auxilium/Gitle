@@ -27,7 +27,7 @@ namespace Gitle.Model
 
         public virtual IList<InvoiceLine> InvoiceLines { get; set; }
 
-        public virtual IList<Invoice> Invoices => InvoiceLines.Select(x => x.Invoice).Distinct().ToList();
+        public virtual IList<Invoice> Invoices => InvoiceLines?.Select(x => x.Invoice).Distinct().ToList();
 
         public virtual bool IsDefinitive { get { return InvoiceLines.Any(x => x.Invoice.IsDefinitive); } }
 

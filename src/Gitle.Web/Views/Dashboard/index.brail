@@ -1,32 +1,38 @@
 ﻿<h1>Dashboard</h1>
 
 <ul class="tabs" data-tab data-options="deep_linking:true">
-	<% if CurrentUser.IsAdmin: %>
-	<li class="tab-title active"><a href="#initial">Initiele projecten</a></li>
-    <% end %>
-  <li class="tab-title"><a href="#service">Service projecten</a></li>
+  <% if CurrentUser.IsAdmin: %>
+  <li class="tab-title active"><a href="#progress-initial">Voortgang projecten</a></li>
+  <% end %>
+  <li class="tab-title"><a href="#progress-service">Voortgang serviceprojecten</a></li>
+  <li class="tab-title"><a href="#service">Issue overzicht</a></li>
+  <li class="tab-title">
+    <a href="#issues">Voortgang per project</a>
+  </li>
 </ul>
 
 
 <div class="tabs-content">
-  <div class="content active" id="initial">
-		<input type="checkbox" id="toggle-overview" /> Toon gesloten projecten
-		<table class="progress-table">
+  <div class="content active" id="progress-initial">
+    <input type="checkbox" id="toggle-overview" /> Toon gesloten projecten
+    <table class="progress-table">
       <thead>
-				<tr>
-					<td id="blank" style="border-right: solid white">&nbsp;</td>
-					<th colspan="3" scope="rowgroup" style="text-align: center; border-right: solid; border-color: white;">Uren<th/>
-					<th colspan="2" scope="rowgroup" style="text-align: left; border-right: solid; border-color: white;">Verschil<th>
-				</tr>
+        <tr>
+          <td id="blank" style="border-right: solid white">&nbsp;</td>
+          <th colspan="3" scope="rowgroup" style="text-align: center; border-right: solid; border-color: white;">Uren
+          <th />
+          <th colspan="2" scope="rowgroup" style="text-align: left; border-right: solid; border-color: white;">Verschil
+          <th>
+        </tr>
         <tr>
           <th style="border-right: solid white">Project</th>
           <th scope="col">Begroot</th>
           <th scope="col">Gerealiseerd</th>
           <th style="border-right: solid white" scope="col">Gefactureerd (beta)</th>
-					<th scope="col">Gerealiseerde en begrootte uren</th>
-					<th scope="col">Gefactureerde en begrootte uren (beta)</th>
-					<th style="border-right: solid white" scope="col">Gefactureerde en gerealiseerde uren (beta)</th>
-					<th>Vooruitgang balk</th>
+          <th scope="col">Gerealiseerde en begrootte uren</th>
+          <th scope="col">Gefactureerde en begrootte uren (beta)</th>
+          <th style="border-right: solid white" scope="col">Gefactureerde en gerealiseerde uren (beta)</th>
+          <th>Vooruitgang balk</th>
         </tr>
       </thead>
       <tbody>
@@ -35,21 +41,21 @@
           <td><a href="/project/${project.Slug}/issues">${project.Name}</a></td>
           <td>${project.BudgetHours}</td>
           <td class="<% if project.TotalHours > project.BudgetHours : %> red <% end %>">${project.TotalHours.ToString("F2")}</td>
-					<td>${project.TotalDefinitiveHours().ToString("F2")}</td>
-					<td class="<% if project.RemainingHours < 0 : %> red <% end %>">${project.RemainingHours.ToString("F2")}</td>
-					<td class="<% if project.BudgetHours < project.TotalHours : %> red <% end %>">${project.BilledHoursBudgetHours().ToString("F2")}</td>
-					<td class="<% if project.TotalDefinitiveHours() < project.TotalHours : %> red <% end %>">${project.BilledHoursTotalHours().ToString("F2")}</td>
+          <td>${project.TotalDefinitiveHours().ToString("F2")}</td>
+          <td class="<% if project.RemainingHours < 0 : %> red <% end %>">${project.RemainingHours.ToString("F2")}</td>
+          <td class="<% if project.BudgetHours < project.TotalHours : %> red <% end %>">${project.BilledHoursBudgetHours().ToString("F2")}</td>
+          <td class="<% if project.TotalDefinitiveHours() < project.TotalHours : %> red <% end %>">${project.BilledHoursTotalHours().ToString("F2")}</td>
           <td style="width: 25%;">
-						<span><small>Aantal begrootte uren</small></span>
-            <div class="progress progress-border progress-status" title="${project.Progress().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">						
+            <span><small>Aantal begrootte uren</small></span>
+            <div class="progress progress-border progress-status" title="${project.Progress().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
               <% if not project.HasEstimate and project.TotalHours > 0 : %>
               <span class="meter noestimate" style="width: 100%"></span>
               <% elif project.PercentageOverBudget() > 25 : %>
-              <span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
+              <span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
               <% elif project.PercentageOverBudget() > 0 : %>
-              <span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
+              <span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
               <% else: %>
-              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
               <% end %>
               <% if project.TotalEstimateAllTickets() > 0 : %>
               <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
@@ -62,174 +68,396 @@
               <span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
               <% end %>
             </div>
-						
-						<span>
-							<small>Aantal gerealiseerde uren</small>
-						</span>
-						<div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
-							<% if project.TotalHours > 0 : %>
-							<span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
-							<% end %>
-									
-									
-							<% if project.TotalEstimateAllTickets() > 0 : %>
-							<span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
-							<% else : %>
-							<span class="left-value">${project.TotalHours.ToString("F2")} ${t.Hour} gerealiseerd</span>
-							<% end %>
-							<% if project.TotalEstimateAllOpenTickets() > 0 : %>
-							<span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
-							<% else : %>
-							<span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
-							<% end %>
-						</div>
-						
-						<span>
-							<small>Aantal gefactureerde uren (beta)</small>
-						</span>
-						<div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
-							<% if project.TotalDefinitiveHours() > 0 : %>
-							<span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
-							<% end %>
-								
-								
-							<% if project.TotalEstimateAllTickets() > 0 : %>
-							<span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
-							<% else : %>
-							<span class="left-value">${project.TotalHours.ToString("F2")} ${t.Hour} gefactureerd</span>
-							<% end %>
-							<% if project.TotalEstimateAllOpenTickets() > 0 : %>
-							<span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
-							<% else : %>
-							<span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
-							<% end %>
-						</div>
-					</td>														
-				</tr>
+
+            <span>
+              <small>Aantal gerealiseerde uren</small>
+            </span>
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+              <% if project.TotalHours > 0 : %>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% end %>
+
+
+              <% if project.TotalEstimateAllTickets() > 0 : %>
+              <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
+              <% else : %>
+              <span class="left-value">${project.TotalHours.ToString("F2")} ${t.Hour} gerealiseerd</span>
+              <% end %>
+              <% if project.TotalEstimateAllOpenTickets() > 0 : %>
+              <span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
+              <% else : %>
+              <span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
+              <% end %>
+            </div>
+
+            <span>
+              <small>Aantal gefactureerde uren (beta)</small>
+            </span>
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+              <% if project.TotalDefinitiveHours() > 0 : %>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% end %>
+
+
+              <% if project.TotalEstimateAllTickets() > 0 : %>
+              <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
+              <% else : %>
+              <span class="left-value">${project.TotalHours.ToString("F2")} ${t.Hour} gefactureerd</span>
+              <% end %>
+              <% if project.TotalEstimateAllOpenTickets() > 0 : %>
+              <span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
+              <% else : %>
+              <span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
+              <% end %>
+            </div>
+          </td>
+        </tr>
         <% end %>
       </tbody>
     </table>
 
-		<table class="progress-table hide">
-			<thead>
-				<tr>
-					<td id="blank" style="border-right: solid white">&nbsp;</td>
-					<th colspan="3" scope="rowgroup" style="text-align: center; border-right: solid; border-color: white;">
-						Uren<th/>
-						<th colspan="2" scope="rowgroup" style="text-align: left; border-right: solid; border-color: white;">
-							Verschil<th>
-				</tr>
-				<tr>
-					<th style="border-right: solid white">Project</th>
-					<th scope="col">Begroot</th>
-					<th scope="col">Gerealiseerd</th>
-					<th style="border-right: solid white" scope="col">Gefactureerd (beta)</th>
-					<th scope="col">Gerealiseerde en begrootte uren</th>
-					<th scope="col">Gefactureerde en begrootte uren (beta)</th>
-					<th style="border-right: solid white" scope="col">Gefactureerde en gerealiseerde uren (beta)</th>
-					<th>Vooruitgang balk</th>
-				</tr>
-			</thead>
-			
-			
-			<tbody>
-				<% for project in initialProjectsClosed: %>
-				<tr>
-					<td>
-						<a href="/project/${project.Slug}/issues">${project.Name}</a>
-					</td>
-					<td>${project.BudgetHours}</td>
-					<td class="<% if project.TotalHours > project.BudgetHours : %> red
+    <table class="progress-table hide">
+      <thead>
+        <tr>
+          <td id="blank" style="border-right: solid white">&nbsp;</td>
+          <th colspan="3" scope="rowgroup" style="text-align: center; border-right: solid; border-color: white;">
+            Uren
+          <th />
+          <th colspan="2" scope="rowgroup" style="text-align: left; border-right: solid; border-color: white;">
+            Verschil
+          <th>
+        </tr>
+        <tr>
+          <th style="border-right: solid white">Project</th>
+          <th scope="col">Begroot</th>
+          <th scope="col">Gerealiseerd</th>
+          <th style="border-right: solid white" scope="col">Gefactureerd (beta)</th>
+          <th scope="col">Gerealiseerde en begrootte uren</th>
+          <th scope="col">Gefactureerde en begrootte uren (beta)</th>
+          <th style="border-right: solid white" scope="col">Gefactureerde en gerealiseerde uren (beta)</th>
+          <th>Vooruitgang balk</th>
+        </tr>
+      </thead>
+
+
+      <tbody>
+        <% for project in initialProjectsClosed: %>
+        <tr>
+          <td>
+            <a href="/project/${project.Slug}/issues">${project.Name}</a>
+          </td>
+          <td>${project.BudgetHours}</td>
+          <td class="<% if project.TotalHours > project.BudgetHours : %> red
 						<% end %>">${project.TotalHours.ToString("F2")}</td>
-					<td>${project.TotalDefinitiveHours().ToString("F2")}</td>
-					<td class="<% if project.RemainingHours< 0 : %> red <% end %>">${project.RemainingHours.ToString("F2")}</td>
-					<td class="<% if project.BudgetHours < project.TotalHours : %> red <% end %>">${project.BilledHoursBudgetHours().ToString("F2")}</td>
-					<td class="<% if project.TotalDefinitiveHours() < project.TotalHours : %> red <% end %>">${project.BilledHoursTotalHours().ToString("F2")}</td>
-					<td style="width: 25%;">
-						<span>
-							<small>Aantal begrootte uren</small>
-						</span>
-						<div class="progress progress-border progress-status" title="${project.Progress().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
-							<% if not project.HasEstimate and project.TotalHours > 0 : %>
-							<span class="meter noestimate" style="width: 100%"></span>
-							<% elif project.PercentageOverBudget() > 25 : %>
-							<span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
-							<% elif project.PercentageOverBudget() > 0 : %>
-							<span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
-							<% else: %>
-							<span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
-							<% end %>
-							<% if project.TotalEstimateAllTickets() > 0 : %>
-							<span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
-							<% else : %>
-							<span class="left-value">${project.BudgetHours} ${t.Hour} budget</span>
-							<% end %>
-							<% if project.TotalEstimateAllOpenTickets() > 0 : %>
-							<span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
-							<% else : %>
-							<span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
-							<% end %>
-						</div>
+          <td>${project.TotalDefinitiveHours().ToString("F2")}</td>
+          <td class="<% if project.RemainingHours< 0 : %> red <% end %>">${project.RemainingHours.ToString("F2")}</td>
+          <td class="<% if project.BudgetHours < project.TotalHours : %> red <% end %>">${project.BilledHoursBudgetHours().ToString("F2")}</td>
+          <td class="<% if project.TotalDefinitiveHours() < project.TotalHours : %> red <% end %>">${project.BilledHoursTotalHours().ToString("F2")}</td>
+          <td style="width: 25%;">
+            <span>
+              <small>Aantal begrootte uren</small>
+            </span>
+            <div class="progress progress-border progress-status" title="${project.Progress().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+              <% if not project.HasEstimate and project.TotalHours > 0 : %>
+              <span class="meter noestimate" style="width: 100%"></span>
+              <% elif project.PercentageOverBudget() > 25 : %>
+              <span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% elif project.PercentageOverBudget() > 0 : %>
+              <span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% else: %>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% end %>
+              <% if project.TotalEstimateAllTickets() > 0 : %>
+              <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
+              <% else : %>
+              <span class="left-value">${project.BudgetHours} ${t.Hour} budget</span>
+              <% end %>
+              <% if project.TotalEstimateAllOpenTickets() > 0 : %>
+              <span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
+              <% else : %>
+              <span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
+              <% end %>
+            </div>
 
-						<span>
-							<small>Aantal gerealiseerde uren</small>
-						</span>
-						<div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
-							<% if project.TotalHours > 0 : %>
-							<span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
-							<% end %>
-
-
-							<% if project.TotalEstimateAllTickets() > 0 : %>
-							<span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
-							<% else : %>
-							<span class="left-value">${project.TotalHours.ToString("F2")} ${t.Hour} gerealiseerd</span>
-							<% end %>
-							<% if project.TotalEstimateAllOpenTickets() > 0 : %>
-							<span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
-							<% else : %>
-							<span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
-							<% end %>
-						</div>
-
-						<span>
-							<small>Aantal gefactureerde uren (beta)</small>
-						</span>
-						<div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
-							<% if project.TotalDefinitiveHours() > 0 : %>
-							<span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
-							<% end %>
+            <span>
+              <small>Aantal gerealiseerde uren</small>
+            </span>
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+              <% if project.TotalHours > 0 : %>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% end %>
 
 
-							<% if project.TotalEstimateAllTickets() > 0 : %>
-							<span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
-							<% else : %>
-							<span class="left-value">${project.TotalHours.ToString("F2")} ${t.Hour} gefactureerd</span>
-							<% end %>
-							<% if project.TotalEstimateAllOpenTickets() > 0 : %>
-							<span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
-							<% else : %>
-							<span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
-							<% end %>
-						</div>
-					</td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
-		
+              <% if project.TotalEstimateAllTickets() > 0 : %>
+              <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
+              <% else : %>
+              <span class="left-value">${project.TotalHours.ToString("F2")} ${t.Hour} gerealiseerd</span>
+              <% end %>
+              <% if project.TotalEstimateAllOpenTickets() > 0 : %>
+              <span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
+              <% else : %>
+              <span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
+              <% end %>
+            </div>
+
+            <span>
+              <small>Aantal gefactureerde uren (beta)</small>
+            </span>
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+              <% if project.TotalDefinitiveHours() > 0 : %>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% end %>
+
+
+              <% if project.TotalEstimateAllTickets() > 0 : %>
+              <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
+              <% else : %>
+              <span class="left-value">${project.TotalHours.ToString("F2")} ${t.Hour} gefactureerd</span>
+              <% end %>
+              <% if project.TotalEstimateAllOpenTickets() > 0 : %>
+              <span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
+              <% else : %>
+              <span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
   </div>
-	
-	
+
+  <div class="content active" id="progress-service">
+    <input type="checkbox" id="toggle-overview" /> Toon gesloten projecten
+    <table class="progress-table">
+      <thead>
+        <tr>
+          <td id="blank" style="border-right: solid white">&nbsp;</td>
+          <th colspan="3" scope="rowgroup" style="text-align: center; border-right: solid; border-color: white;">
+            Uren
+          <th />
+          <th colspan="2" scope="rowgroup" style="text-align: left; border-right: solid; border-color: white;">
+            Verschil
+          <th>
+        </tr>
+        <tr>
+          <th style="border-right: solid white">Project</th>
+          <th scope="col">Begroot</th>
+          <th scope="col">Gerealiseerd</th>
+          <th style="border-right: solid white" scope="col">Gefactureerd (beta)</th>
+          <th scope="col">Gerealiseerde en begrootte uren</th>
+          <th scope="col">Gefactureerde en begrootte uren (beta)</th>
+          <th style="border-right: solid white" scope="col">Gefactureerde en gerealiseerde uren (beta)</th>
+          <th>Vooruitgang balk</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for project in serviceProjects: %>
+        <tr>
+          <td>
+            <a href="/project/${project.Slug}/issues">${project.Name}</a>
+          </td>
+          <td>${project.BudgetHours}</td>
+          <td class="<% if project.TotalHours > project.BudgetHours : %> red<% end %>">${project.TotalHours.ToString("F2")}</td>
+          <td>${project.TotalDefinitiveHours().ToString("F2")}</td>
+          <td class="<% if project.RemainingHours < 0 : %> red<% end %>">${project.RemainingHours.ToString("F2")}</td>
+          <td class="<% if project.BudgetHours < project.TotalHours : %> red<% end %>">${project.BilledHoursBudgetHours().ToString("F2")}</td>
+          <td class="<% if project.TotalDefinitiveHours() < project.TotalHours : %> red<% end %>">${project.BilledHoursTotalHours().ToString("F2")}</td>
+          <td style="width: 25%;">
+            <span>
+              <small>Aantal begrootte uren</small>
+            </span>
+            <div class="progress progress-border progress-status" title="${project.Progress().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+              <% if not project.HasEstimate and project.TotalHours > 0 : %>
+              <span class="meter noestimate" style="width: 100%"></span>
+              <% elif project.PercentageOverBudget() > 25 : %>
+              <span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% elif project.PercentageOverBudget() > 0 : %>
+              <span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% else: %>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% end %>
+              <% if project.TotalEstimateAllTickets() > 0 : %>
+              <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
+              <% else : %>
+              <span class="left-value">${project.BudgetHours} ${t.Hour} budget</span>
+              <% end %>
+              <% if project.TotalEstimateAllOpenTickets() > 0 : %>
+              <span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
+              <% else : %>
+              <span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
+              <% end %>
+            </div>
+
+            <span>
+              <small>Aantal gerealiseerde uren</small>
+            </span>
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+              <% if project.TotalHours > 0 : %>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% end %>
+
+
+              <% if project.TotalEstimateAllTickets() > 0 : %>
+              <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
+              <% else : %>
+              <span class="left-value">${project.TotalHours.ToString("F2")} ${t.Hour} gerealiseerd</span>
+              <% end %>
+              <% if project.TotalEstimateAllOpenTickets() > 0 : %>
+              <span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
+              <% else : %>
+              <span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
+              <% end %>
+            </div>
+
+            <span>
+              <small>Aantal gefactureerde uren (beta)</small>
+            </span>
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+              <% if project.TotalDefinitiveHours() > 0 : %>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% end %>
+
+
+              <% if project.TotalEstimateAllTickets() > 0 : %>
+              <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
+              <% else : %>
+              <span class="left-value">${project.TotalHours.ToString("F2")} ${t.Hour} gefactureerd</span>
+              <% end %>
+              <% if project.TotalEstimateAllOpenTickets() > 0 : %>
+              <span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
+              <% else : %>
+              <span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <table class="progress-table hide">
+      <thead>
+        <tr>
+          <td id="blank" style="border-right: solid white">&nbsp;</td>
+          <th colspan="3" scope="rowgroup" style="text-align: center; border-right: solid; border-color: white;">
+            Uren
+          <th />
+          <th colspan="2" scope="rowgroup" style="text-align: left; border-right: solid; border-color: white;">
+            Verschil
+          <th>
+        </tr>
+        <tr>
+          <th style="border-right: solid white">Project</th>
+          <th scope="col">Begroot</th>
+          <th scope="col">Gerealiseerd</th>
+          <th style="border-right: solid white" scope="col">Gefactureerd (beta)</th>
+          <th scope="col">Gerealiseerde en begrootte uren</th>
+          <th scope="col">Gefactureerde en begrootte uren (beta)</th>
+          <th style="border-right: solid white" scope="col">Gefactureerde en gerealiseerde uren (beta)</th>
+          <th>Vooruitgang balk</th>
+        </tr>
+      </thead>
+
+
+      <tbody>
+        <% for project in serviceProjectsClosed: %>
+        <tr>
+          <td>
+            <a href="/project/${project.Slug}/issues">${project.Name}</a>
+          </td>
+          <td>${project.BudgetHours}</td>
+          <td class="<% if project.TotalHours > project.BudgetHours : %> red<% end %>">${project.TotalHours.ToString("F2")}</td>
+          <td>${project.TotalDefinitiveHours().ToString("F2")}</td>
+          <td class="<% if project.RemainingHours < 0 : %> red<% end %>">${project.RemainingHours.ToString("F2")}</td>
+          <td class="<% if project.BudgetHours < project.TotalHours : %> red<% end %>">${project.BilledHoursBudgetHours().ToString("F2")}</td>
+          <td class="<% if project.TotalDefinitiveHours() < project.TotalHours : %> red<% end %>">${project.BilledHoursTotalHours().ToString("F2")}</td>
+          <td style="width: 25%;">
+            <span>
+              <small>Aantal begrootte uren</small>
+            </span>
+            <div class="progress progress-border progress-status" title="${project.Progress().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+              <% if not project.HasEstimate and project.TotalHours > 0 : %>
+              <span class="meter noestimate" style="width: 100%"></span>
+              <% elif project.PercentageOverBudget() > 25 : %>
+              <span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% elif project.PercentageOverBudget() > 0 : %>
+              <span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% else: %>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% end %>
+              <% if project.TotalEstimateAllTickets() > 0 : %>
+              <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
+              <% else : %>
+              <span class="left-value">${project.BudgetHours} ${t.Hour} budget</span>
+              <% end %>
+              <% if project.TotalEstimateAllOpenTickets() > 0 : %>
+              <span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
+              <% else : %>
+              <span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
+              <% end %>
+            </div>
+
+            <span>
+              <small>Aantal gerealiseerde uren</small>
+            </span>
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+              <% if project.TotalHours > 0 : %>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% end %>
+
+
+              <% if project.TotalEstimateAllTickets() > 0 : %>
+              <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
+              <% else : %>
+              <span class="left-value">${project.TotalHours.ToString("F2")} ${t.Hour} gerealiseerd</span>
+              <% end %>
+              <% if project.TotalEstimateAllOpenTickets() > 0 : %>
+              <span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
+              <% else : %>
+              <span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
+              <% end %>
+            </div>
+
+            <span>
+              <small>Aantal gefactureerde uren (beta)</small>
+            </span>
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+              <% if project.TotalDefinitiveHours() > 0 : %>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <% end %>
+
+
+              <% if project.TotalEstimateAllTickets() > 0 : %>
+              <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
+              <% else : %>
+              <span class="left-value">${project.TotalHours.ToString("F2")} ${t.Hour} gefactureerd</span>
+              <% end %>
+              <% if project.TotalEstimateAllOpenTickets() > 0 : %>
+              <span class="right-value">${project.TotalEstimateAllOpenTickets()} ${t.Hour} te doen</span>
+              <% else : %>
+              <span class="right-value">${project.RemainingHours} ${t.Hour} over</span>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+
+
   <div class="content" id="service">
     <input type="checkbox" id="toggle-overview-service" /> Toon alle tickets
-    <br/>
+    <br />
     <input type="checkbox" id="toggle-empties" checked /> Verberg projecten zonder tickets
     <% if CurrentUser.IsAdmin: %>
     <div class="large-0 small-6 columns right">
       <a href="/dashboard/exportopenticketsbyproject" class="button tiny">Export openstaande issues</a>
     </div>
-      <% end %>
+    <% end %>
 
     <table class="tickets-table striped hide-empties">
       <thead>
@@ -244,7 +472,7 @@
           <td><a href="/project/${project.Slug}/issues" <% if project.UrgentIssues.Count > 0 : %> style="color:#FF0000;" <% end %>>${project.Name}</a></td>
           <td>
             <div class="progress progress-tickets">
-              <% if project.OpenIssues.Count > 0: %><span class="meter open" style="width: ${project.OpenIssuesPercentageOf(serviceProjectsMaxOpenIssues).ToString().Replace(",", "." )}%">${project.OpenIssues.Count} open</span><% end %>
+              <% if project.OpenIssues.Count > 0: %><span class="meter open" style="width: ${project.OpenIssuesPercentageOf(serviceProjectsMaxOpenIssues).ToString().Replace(" ,", "." )}%">${project.OpenIssues.Count} open</span><% end %>
             </div>
           </td>
         </tr>
@@ -264,11 +492,11 @@
           <td><a href="/project/${project.Slug}/issues">${project.Name}</a></td>
           <td>
             <div class="progress progress-tickets">
-              <% if project.OpenIssues.Count > 0: %><span class="meter open" style="width: ${project.OpenIssuesPercentage.ToString().Replace(",", "." )}%">${project.OpenIssues.Count} open</span><% end %>
-              <% if project.DoneIssues.Count > 0: %><span class="meter done" style="width: ${project.DoneIssuesPercentage.ToString().Replace(",", "." )}%">${project.DoneIssues.Count} done</span><% end %>
-              <% if project.HoldIssues.Count > 0: %><span class="meter hold" style="width: ${project.HoldIssuesPercentage.ToString().Replace(",", "." )}%">${project.HoldIssues.Count} hold</span><% end %>
-              <% if project.ClosedIssues.Count > 0: %><span class="meter closed" style="width: ${project.ClosedIssuesPercentage.ToString().Replace(",", "." )}%">${project.ClosedIssues.Count} closed</span><% end %>
-	              <% if project.UrgentIssues.Count > 0: %><span class="meter urgent" style="width: ${project.UrgentIssuesPercentage.ToString().Replace(",", "." )}%">${project.UrgentIssues.Count} urgent</span><% end %>
+              <% if project.OpenIssues.Count > 0: %><span class="meter open" style="width: ${project.OpenIssuesPercentage.ToString().Replace(" ,", "." )}%">${project.OpenIssues.Count} open</span><% end %>
+              <% if project.DoneIssues.Count > 0: %><span class="meter done" style="width: ${project.DoneIssuesPercentage.ToString().Replace(" ,", "." )}%">${project.DoneIssues.Count} done</span><% end %>
+              <% if project.HoldIssues.Count > 0: %><span class="meter hold" style="width: ${project.HoldIssuesPercentage.ToString().Replace(" ,", "." )}%">${project.HoldIssues.Count} hold</span><% end %>
+              <% if project.ClosedIssues.Count > 0: %><span class="meter closed" style="width: ${project.ClosedIssuesPercentage.ToString().Replace(" ,", "." )}%">${project.ClosedIssues.Count} closed</span><% end %>
+              <% if project.UrgentIssues.Count > 0: %><span class="meter urgent" style="width: ${project.UrgentIssuesPercentage.ToString().Replace(" ,", "." )}%">${project.UrgentIssues.Count} urgent</span><% end %>
             </div>
           </td>
 
@@ -277,19 +505,291 @@
       </tbody>
     </table>
   </div>
+
+
+
+
+  <div class="content" id="issues">
+    <div class="content">
+
+      <% if CurrentUser.IsAdmin or CurrentUser.IsDanielle: %>
+      <div class="panel">
+        <div class="row">
+          <div class="large-0 small-12 columns">
+            ${Form.Select("type", allTypes, {"text": "Value", "value": "Key", "class": "no-margin", "firstoption": "Kies een projecttype..."})}
+          </div>
+
+          <div class="large-0 small-12 columns initialProjects hide">
+            ${Form.Select("initialProject", initialProjectsOptions, {"text": "Value", "value": "Key", "class": "initialProjectsOptions no-margin", "firstoption": "Kies een project..."})}
+          </div>
+
+          <div class="large-0 small-12 columns internalProjects hide">
+            ${Form.Select("internalProject", internalProjectsOptions, {"text": "Value", "value": "Key", "class": "internalProjectsOptions no-margin", "firstoption": "Kies een project..."})}
+          </div>
+
+          <div class="large-0 small-12 columns administrationProjects hide">
+            ${Form.Select("administrationProject", administrationProjectsOptions, {"text": "Value", "value": "Key", "class": "administrationProjectsOptions no-margin", "firstoption": "Kies een project..."})}
+          </div>
+
+          <div class="large-0 small-12 columns serviceOpenProjects hide">
+            ${Form.Select("serviceProject", serviceOpenProjectsOptions, {"text": "Value", "value": "Key", "class": "serviceOpenProjectsOptions no-margin", "firstoption": "Kies een project..."})}
+          </div>
+          <div class="large-0 small-12 columns">
+            <button class="button tiny no-margin alert delete reset-filter">Reset filter</button>
+          </div>
+          <% if CurrentUser.IsAdmin: %>
+          <div class="large-0 small-6 columns right">
+            <a href="/dashboard/exportopenticketsbyproject" class="button tiny">Export openstaande issues</a>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+
+
+
+      <table id="project-table" class="small-blocks"></table>
+    </div>
+
+
+    <table class="tickets-table striped hide-empties hide">
+      <thead>
+        <tr>
+          <th>Issues</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script>
+  $(function () {
+    $('#toggle-empties').change(function () {
+      $('table.tickets-table').toggleClass('hide-empties', $(this).is(':checked'));
+    });
+    $('#toggle-overview-service').change(function () {
+      $('table.tickets-table').toggleClass('hide');
+    });
+    $('#toggle-overview').change(function () {
+      $('table.progress-table').toggleClass('hide');
+    });
+  });
 
-	$(function () {
-	$('#toggle-empties').change(function () {
-	$('table.tickets-table').toggleClass('hide-empties', $(this).is(':checked'));
-	});
-	$('#toggle-overview-service').change(function () {
-	$('table.tickets-table').toggleClass('hide');
-	});
-	$('#toggle-overview').change(function () {
-	$('table.progress-table').toggleClass('hide');
-	});
-	});
+</script>
+
+<script>
+  $(function () {
+    var isDanielle = '${CurrentUser.IsDanielle}' === 'True';
+    var isAdmin = '${CurrentUser.IsAdmin}' === 'True';
+
+    var table = $('#project-table').DataTable({
+      pageLength: 50,
+      serverSide: true,
+      autoWidth: false,
+      ajax: {
+        url: '/dashboard/list',
+        type: 'POST',
+        data: function (d) {
+          d.search = d.search.value;
+          for (var column in d.columns) {
+
+            if (d.columns.hasOwnProperty(column)) {
+              delete d.columns[column].search;
+            }
+          }
+          d.type = $('#type').val();
+          d.projectName = choosenProject();
+          d.orderColumn = d.columns[d.order[0].column].name;
+          d.orderDir = d.order[0].dir;
+        }
+      },
+      initComplete: function (settings, json) {
+        $(document).foundation('reflow');
+      },
+      columns: [
+        {
+          data: 'Number', title: '#', name: 'Number', render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              return '<span class="red">' + data + '</span>';
+            } else {
+              return data;
+            }
+          }
+        },
+        {
+          data: 'Name', title: 'Issue naam', name: 'Name', render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              return '<span class="red">' + data + '</span>';
+            } else {
+              return '<div style="width: 250px;">' + data + '</div>';
+            }
+          }
+        },
+        {
+          data: 'EstimateString', title: 'Schatting', name: 'EstimateString', orderable: false, visible: isAdmin, render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              var result = renderEstimate(full, true);
+              return '<div class="row detailsrow" style="width: 210px;">' + result + '</div>';
+            } else {
+              var result = renderEstimate(full, false);
+              return '<div class="row detailsrow" style="width: 210px;">' + result + '</div>';
+            }
+          }
+        },
+        {
+          data: 'BillableBookingHours', title: 'Geboekt', name: 'BillableBookingHours', orderable: false, visible: isAdmin, render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              var resultUrgent = renderProgressEstimate(full, true);
+              return '<div class="progress progress-border progress-status" style="width: 300px;">' + resultUrgent + '<span class="right-value red">' + full.BillableBookingHoursString + '</span></div><div class="large-7 columns">(<span>' + full.UnbillableBookingHoursString + ' unbillable</span>)</div>';
+            } else {
+              var result = renderProgressEstimate(full, false);
+              return '<div class="progress progress-border progress-status" style="width: 300px;">' + result + '<span class="right-value">' + full.BillableBookingHoursString + '</span></div><div class="large-7 columns">(<span>' + full.UnbillableBookingHoursString + ' unbillable</span>)</div>';
+            }
+          }
+        },
+        {
+          data: 'TotalBillableHoursInvoicedString', title: 'Gefactureerd', name: 'TotalBillableHoursInvoicedString', orderable: false, visible: isAdmin, render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              var result = renderBilled(data, full, true);
+              return '<div class="row detailsrow" style="width: 210px;">' + result + '</div>';
+            } else {
+              var result = renderBilled(data, full, false);
+              return '<div class="row detailsrow" style="width: 210px;">' + result + '</div>';
+            }
+          }
+        },
+        {
+          data: 'Application', title: 'Application', name: 'Application.Name', orderable: false, visible: isAdmin, render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              return '<span class="red">' + data + '</span>';
+            } else {
+              return data;
+            }
+          }
+        },
+        {
+          data: 'Customer', title: 'Customer', name: 'Customer', orderable: false, visible: isAdmin, render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              return '<span class="red">' + data + '</span>';
+            } else {
+              return data;
+            }
+          }
+        },
+      ],
+
+    });
+
+    function renderBilled(data, full, urgent) {
+      if (urgent) {
+        var html = '<div class="large-6 columns">' + data + '</div><div class="large-6 columns text-left" style="float: left; color: red;">(' + full.TotalUnbillableHoursInvoicedString + ') unbillable</div>';
+      } else {
+        var html = '<div class="large-6 columns">' + data + '</div><div class="large-6 columns text-left" style="float: left;">(' + full.TotalUnbillableHoursInvoicedString + ') unbillable</div>';
+      }
+      return html;
+    }
+
+    function renderEstimate(full, urgent) {
+      var html = "";
+      if (full.Devvers > 0 && full.Hours > 0 && full.EstimatePublic) {
+        html = '<div class="large-6 columns">';
+        if (!full.EstimatePublic) {
+          var notEstimatePublic = '<i class="fa fa-exclamation-triangle" title="schatting nog niet publiek"></i>';
+          html += notEstimatePublic;
+        }
+        if (urgent) {
+          html += full.TotalHours + '</div><div class="large-7 columns text-left" style="float: left; color: red;">' + full.Cost + '</div>';
+        } else {
+          html += full.TotalHours + '</div><div class="large-7 columns text-left" style="float: left;">' + full.Cost + '</div>';
+        }
+      }
+      return html;
+    }
+
+    function renderProgressEstimate(full, urgent) {
+      if (full.BillableBookingHours > full.TotalHours && full.TotalHours != 0) {
+        return '<span class="meter overbudget" style="width: 100% "></span>';
+      }
+      else if (full.TotalHours == 0) {
+        return '<span class="meter noestimate" style="width: 100%"></span>';
+      }
+      else {
+        var progress = full.Progress.toString().replace(", ", ".");
+        if (urgent) {
+          return '<span class="meter inbudget red" style="width:' + progress.toString() + 'px"></span>';
+        } else {
+          return '<span class="meter inbudget" style="width:' + progress.toString() + 'px"></span>';
+        }
+      }
+    }
+
+
+    $('#closedProjects, #urgentIssues, #type, #initialProject, #serviceProject, #internalProject, #administrationProject').change(function () {
+      if ($('#type').val() == 0) {
+        $('#initialProject, #serviceProject, #internalProject, #administrationProject').val(0);
+        $('.serviceOpenProjects, .administrationProjects, .internalProjects, .initialProjects').addClass('hide');
+      }
+      table.ajax.reload();
+    });
+
+
+
+    $('#customer').change(function () {
+      $('#application').val('0');
+      if ($(this).val() != '0') {
+        $('#application [data-customer][data-customer!="' + $(this).val() + '"]').attr('disabled', true);
+        $('#application [data-customer][data-customer="' + $(this).val() + '"]').removeAttr('disabled');
+        var visibleOptions = $('#application option[data-customer]:not([disabled])');
+        if (visibleOptions.length == 1) {
+          $('#application').val(visibleOptions.attr('value'));
+        }
+      } else {
+        $('#application option').removeAttr('disabled');
+      }
+    });
+
+    $('#type').change(function () {
+      if ($('#type').val() == 1) {
+        if ($('.serviceOpenProjects').hasClass('hide') || $('.internalProjects').hasClass('hide') || $('.administrationProjects').hasClass('hide')) {
+          $('.serviceOpenProjects, .administrationProjects, .internalProjects').addClass('hide');
+        }
+        $('.initialProjects').removeClass('hide');
+      }
+      if ($('#type').val() == 2) {
+        if ($('.initialProjects').hasClass('hide') || $('.administrationProjects').hasClass('hide') || $('.internalProjects').hasClass('hide')) {
+          $('.initialProjects, .administrationProjects, .internalProjects').addClass('hide');
+        }
+        $('.serviceOpenProjects').removeClass('hide');
+      }
+      if ($('#type').val() == 3) {
+        if ($('.initialProjects').hasClass('hide') || $('.administrationProjects').hasClass('hide') || $('.serviceOpenProjects').hasClass('hide')) {
+          $('.initialProjects, .administrationProjects, .serviceOpenProjects').addClass('hide');
+        }
+        $('.internalProjects').removeClass('hide');
+      }
+      if ($('#type').val() == 4) {
+        if ($('.initialProjects').hasClass('hide') || $('.internalProjects').hasClass('hide') || $('.serviceOpenProjects').hasClass('hide')) {
+          $('.initialProjects, .internalProjects, .serviceOpenProjects').addClass('hide');
+        }
+        $('.administrationProjects').removeClass('hide');
+      }
+    });
+
+    function choosenProject() {
+      const projects = ['#initialProject', '#serviceProject', '#internalProject', '#administrationProject'];
+      for (const project of projects) {
+        const value = $(project).val();
+        if (value != 0) return value;
+      }
+      return $('#initialProject').val();
+    };
+
+    $('button.reset-filter').click(function () {
+      $('.serviceOpenProjects, .administrationProjects, .internalProjects, .initialProjects').addClass('hide');
+      $('#initialProject, #serviceProject, #internalProject, #administrationProject, #type').val(0);
+      table.ajax.reload();
+    });
+  });
 </script>

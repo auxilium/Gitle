@@ -58,6 +58,9 @@
 		    <input type="checkbox" id="urgentIssues" /> ${t.Urgent_Issues}
 			</div>
     <% end %>
+			
+			
+			
     <table id="project-table" class="small-blocks"></table>
   </div>
 </div>
@@ -104,7 +107,7 @@
 	$(row).addClass('closed');
 	}
 	},
-	initComplete: function (settins, json) {
+	initComplete: function (settings, json) {
 	$(document).foundation('reflow');
 	},
 	columns: [
