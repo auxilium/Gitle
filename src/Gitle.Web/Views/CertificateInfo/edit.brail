@@ -56,7 +56,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" style="margin-bottom: 10px;">
         <div class="large-3 columns">Verleng optie</div>
         <div class="large-9 columns">
           ${Form.Select("item.ExtendOption", options, {"value": "Key", "text": "Value", "firstoption": "Kies optie verlengen", "pattern":"select", "required":"required"})}
@@ -88,7 +88,7 @@
       </div>
 
 
-      <div class="row">
+      <div class="row" style="margin-bottom: 10px;">
         <div class="large-3 columns">Type</div>
         <div class="large-9 columns">
           ${Form.Select("item.CertificateType", types, {"value": "Key", "text": "Value", "firstoption": "Kies certificaat type", "pattern":"select", "required":"required"})}
