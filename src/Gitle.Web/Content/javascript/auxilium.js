@@ -1,4 +1,13 @@
 /*
+ * Round x to y decimal places
+ */
+const round = function (x, y) {
+  const multiplier = Math.pow(10, y);
+  return Math.round((x * multiplier).toFixed(1)) / multiplier;
+};
+
+
+/*
  * Give suggestions for links to issues or comments when typing a # in a textarea.
  */
 $.fn.textAreaSuggestion = function () {
@@ -128,7 +137,7 @@ $.fn.dotify = function() {
 };
 
 $.fn.currency = function() {
-  return parseFloat(this).toFixed(2).commafy();
+  return round(parseFloat(this), 2).commafy();
 };
 
 /*

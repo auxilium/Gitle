@@ -429,7 +429,7 @@ $(function () {
     var hours = parseFloat(invoiceLine.find('.invoiceline-hours-input').val().replace(',', '.'));
     var nill = parseInt(invoiceLine.find('.invoiceline-null').val());
     var price = hours * hourPrice * (1 - nill);
-    invoiceLine.find('.invoiceline-price').val(price.toFixed(2).toString().replace(".", ","));
+    invoiceLine.find('.invoiceline-price').val(round(price, 2).toString().replace(".", ","));
     calculateTotals();
   };
 
@@ -446,12 +446,12 @@ $(function () {
           correctionLinesPrice += parseFloat(correctionValue.replace(',', '.'));
     });
     subtotalPrice = linesPrice + correctionLinesPrice;
-    $('#invoice_Subtotal').val(subtotalPrice.toFixed(2).toString().replace(".", ","));
+    $('#invoice_Subtotal').val(round(subtotalPrice, 2).toString().replace(".", ","));
     var vat = parseInt($('.vatline .vatline-vat').val());
     var vatPrice = subtotalPrice * vat * 0.21;
-    $('.vatline-price').val(vatPrice.toFixed(2).toString().toString().replace(".", ","));
+    $('.vatline-price').val(round(vatPrice, 2).toString().replace(".", ","));
     var totalPrice = subtotalPrice + vatPrice;
-    $('#invoice_Total').val(totalPrice.toFixed(2).toString().replace(".", ","));
+    $('#invoice_Total').val(round(totalPrice, 2).toString().replace(".", ","));
   };
 
   $('.invoiceline-issue').each(function () {
