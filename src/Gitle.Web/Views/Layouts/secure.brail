@@ -33,10 +33,10 @@
   <script src="${Fingerprint.Tag('/Content/javascript/vendor/marked.js')}"> </script>
   <script src="${Fingerprint.Tag('/Content/javascript/vendor/jquery.metadata.js')}"> </script>
   <script src="${Fingerprint.Tag('/Content/javascript/vendor/jquery.ajaxupload.js')}"> </script>
-  <script src="${Fingerprint.Tag('/Content/javascript/vendor/jquery.tablesorter.min.js')}"> </script>
+  <script src="${Fingerprint.Tag('/Content/javascript/vendor/jquery.tablesorter.js')}"> </script>
   <script src="${Fingerprint.Tag('/Content/javascript/vendor/jquery.colorpicker.js')}"> </script>
   <script src="${Fingerprint.Tag('/Content/javascript/vendor/jquery.cookie.js')}"> </script>
-  <script src="${Fingerprint.Tag('/Content/javascript/vendor/chosen.jquery.min.js')}"> </script>
+  <script src="${Fingerprint.Tag('/Content/javascript/vendor/chosen_v1/chosen.jquery.min.js')}"> </script>
   <script src="${Fingerprint.Tag('/Content/javascript/vendor/Sortable.min.js')}"> </script>
   <script src="${Fingerprint.Tag('/Content/javascript/vendor/foundation.datepicker.js')}"> </script>
   <script src="${Fingerprint.Tag('/Content/javascript/vendor/date.js')}"> </script>
@@ -59,16 +59,16 @@
     </ul>
     <section class="top-bar-section">
       <ul class="left">
-	      <li class="divider"></li>
-	      <% if not CurrentUser.IsAdmin: %>
-	      <li><a href="/dashboard/index#service">Dashboard</a></li>
-		      <% end %>
-	      <li class="divider"></li>
-	      <% if CurrentUser.IsAdmin: %>
-		      <li class="divider"></li>
-		      <li><a href="/dashboard/index">Dashboard</a></li>
-		      <li class="divider"></li>
-		      <li><a href="/planning/index">Planning</a></li>
+        <li class="divider"></li>
+        <% if not CurrentUser.IsAdmin: %>
+        <li><a href="/dashboard/index#service">Dashboard</a></li>
+        <% end %>
+        <li class="divider"></li>
+        <% if CurrentUser.IsAdmin: %>
+        <li class="divider"></li>
+        <li><a href="/dashboard/index">Dashboard</a></li>
+        <li class="divider"></li>
+        <li><a href="/planning/index">Planning</a></li>
         <% end %>
         <% if CurrentUser.CanBookHours: %>
         <li class="divider"></li>
@@ -86,6 +86,7 @@
             <li><a href="/server">Servers</a></li>
             <li><a href="/installation">Installaties</a></li>
             <li><a href="/hosting">Hosting Partijen</a></li>
+            <li><a href="/certificateinfo">Certificaten</a></li>
           </ul>
         </li>
         <% end %>
@@ -111,7 +112,7 @@
         <li class="has-form"><input type="text" id="search" placeholder="Zoeken..."></li>
         <% end %>
         <!--<li class="divider"></li>
-  <li class="has-form"><a id="initiate-joyride" class="button success" href="#"><i class="fa fa-question"></i></a></li>-->
+        <li class="has-form"><a id="initiate-joyride" class="button success" href="#"><i class="fa fa-question"></i></a></li>-->
         <li class="divider"></li>
         <% if CurrentUser.IsAdmin: %>
         <li class="has-dropdown">
@@ -155,9 +156,15 @@
     </div>
   </div>
 
-  <script src="/Content/javascript/vendor/foundation.min.js"> </script>
-  <script src="/Content/javascript/vendor/foundation/foundation.abide.js"> </script>
-  <script src="/Content/javascript/vendor/foundation/foundation.joyride.js"> </script>
+  <script type="text/javascript">
+    $(".chosen-select").chosen({
+      allow_single_deselect: true,
+      width: '100%',
+    });
+  </script>
+  <script src="/Content/javascript/vendor/foundation.min.js"></script>
+  <script src="/Content/javascript/vendor/foundation/foundation.abide.js"></script>
+  <script src="/Content/javascript/vendor/foundation/foundation.joyride.js"></script>
   <script>
     $(document).foundation({
       abide: {
@@ -175,8 +182,7 @@
                 message = data.message;
               }
             });
-            if (!success)
-            {
+            if (!success) {
               $(parent).find("small.error").html(message);
             }
             return success;
@@ -279,20 +285,29 @@
     //  return Foundation.libs.abide.validate($(this).find('input, textarea, select').not("[data-abide-ignore]").get(), e, false);
     //});
   </script>
+  <script type="text/javascript">
+    $('#installationDate').fdatepicker({
+      format: 'dd/mm/yyyy',
+    });
+
+    $('#expiryDate').fdatepicker({
+      format: 'dd/mm/yyyy',
+    });
+  </script>
   <% if IsDefined("RELEASE") and RELEASE: %>
-  <script src="${Fingerprint.Tag('/Content/javascript/auxilium.min.js')}"> </script>
-  <script src="${Fingerprint.Tag('/Content/javascript/gitle.min.js')}"> </script>
-  <script src="${Fingerprint.Tag('/Content/javascript/app.min.js')}"> </script>
+  <script src="${Fingerprint.Tag('/Content/javascript/auxilium.min.js')}"></script>
+  <script src="${Fingerprint.Tag('/Content/javascript/gitle.min.js')}"></script>
+  <script src="${Fingerprint.Tag('/Content/javascript/app.min.js')}"></script>
   <% else: %>
-  <script src="${Fingerprint.Tag('/Content/javascript/auxilium/auxilium.functions.js')}"> </script>
-  <script src="${Fingerprint.Tag('/Content/javascript/auxilium/auxilium.foundationhelper.js')}"> </script>
-  <script src="${Fingerprint.Tag('/Content/javascript/auxilium/auxilium.nestedtable.js')}"> </script>
-  <script src="${Fingerprint.Tag('/Content/javascript/auxilium/auxilium.upload.js')}"> </script>
-  <script src="${Fingerprint.Tag('/Content/javascript/gitle/gitle.functions.js')}"> </script>
-  <script src="${Fingerprint.Tag('/Content/javascript/gitle/gitle.invoice.js')}"> </script>
-  <script src="${Fingerprint.Tag('/Content/javascript/gitle/gitle.booking.js')}"> </script>
-  <script src="${Fingerprint.Tag('/Content/javascript/gitle/gitle.issues.js')}"> </script>
-  <script src="${Fingerprint.Tag('/Content/javascript/app.js')}"> </script>
+  <script src="${Fingerprint.Tag('/Content/javascript/auxilium/auxilium.functions.js')}"></script>
+  <script src="${Fingerprint.Tag('/Content/javascript/auxilium/auxilium.foundationhelper.js')}"></script>
+  <script src="${Fingerprint.Tag('/Content/javascript/auxilium/auxilium.nestedtable.js')}"></script>
+  <script src="${Fingerprint.Tag('/Content/javascript/auxilium/auxilium.upload.js')}"></script>
+  <script src="${Fingerprint.Tag('/Content/javascript/gitle/gitle.functions.js')}"></script>
+  <script src="${Fingerprint.Tag('/Content/javascript/gitle/gitle.invoice.js')}"></script>
+  <script src="${Fingerprint.Tag('/Content/javascript/gitle/gitle.booking.js')}"></script>
+  <script src="${Fingerprint.Tag('/Content/javascript/gitle/gitle.issues.js')}"></script>
+  <script src="${Fingerprint.Tag('/Content/javascript/app.js')}"></script>
   <% end %>
 </body>
 </html>

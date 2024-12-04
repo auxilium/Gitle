@@ -181,6 +181,7 @@ span.red {
 
 .on-hold {
   background-color: orange;
+
   &:hover, &:focus {
     background-color: darkorange;
   }
@@ -212,6 +213,7 @@ table.tickets-table {
       background: #e7e7e7;
     }
   }
+
   &.hide-empties {
     tr.empty-project {
       display: none;
@@ -514,6 +516,7 @@ a.quickview-delay {
   from {
     box-shadow: 0 0 15px 0 #000;
   }
+
   to {
     box-shadow: none;
   }
@@ -840,7 +843,7 @@ table {
   a {
     margin-bottom: 0px !important;
   }
-  
+
   button {
     margin-bottom: 10px !important;
   }
@@ -880,7 +883,7 @@ table {
 }
 
 
-.tablesorter .header {
+.tablesorter .certificatesInfoTable .header {
   cursor: pointer;
   padding-right: 26px;
   position: relative;
@@ -1113,6 +1116,7 @@ table {
 #group-actions {
   margin-left: 5px;
   margin-top: 10px;
+
   select {
     height: 2.0625rem;
     font-size: 0.775rem;
@@ -1280,6 +1284,7 @@ input[type=checkbox].inline {
         width: 100%;
       }
     }
+
     &.small-6 {
       width: 50% !important;
       margin-bottom: 0.5em;
@@ -1462,7 +1467,7 @@ input[type=checkbox].inline {
 
   .error input {
     background-color: red;
-    color:white;
+    color: white;
 
     &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: white;
@@ -1616,17 +1621,21 @@ select.hide-disabled {
 
   li {
     padding: 0 10px;
+
     &.query {
       font-size: 0.8em;
       font-style: italic;
     }
+
     &.issuelink {
       font-weight: bold;
     }
+
     &.commentlink {
       padding-left: 30px;
       font-size: 0.8em;
     }
+
     &:hover {
       background-color: #f2f2f2;
     }
@@ -1651,7 +1660,7 @@ a.prefix {
 }
 
 .not-valid {
-  margin-bottom: 0px!important;
+  margin-bottom: 0px !important;
 }
 
 .validate {
@@ -1665,15 +1674,15 @@ a.prefix {
   background: #f04124;
   color: #fff;
 
-  &.hidden { 
+  &.hidden {
     display: none;
   }
 }
 
 .forwardtask {
-a {
-  width: 100%;
-  }  
+  a {
+    width: 100%;
+  }
 }
 
 .accordion {
@@ -1688,7 +1697,8 @@ a {
   }
 
   .accordion-navigation {
-    margin-bottom: 10px!important;
+    margin-bottom: 10px !important;
+
     > .content {
       padding: 0;
     }
@@ -1756,4 +1766,26 @@ table#project-table {
   font-size: 1rem;
   background-color: #008CBA;
   color: black;
+}
+
+.certificate-info-row {
+  .expiryDate {
+    width: 200px;
+  }
+
+  .installDate {
+    width: 200px;
+  }
+
+  .application {
+    width: 150px;
+  }
+
+  .name {
+    width: 150px;
+  }
+
+  .url {
+    width: 150px;
+  }
 }

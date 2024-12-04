@@ -1,0 +1,120 @@
+<% if CurrentUser.IsAdmin: %>
+<div class="row large-collapse">
+  <div class="large-12 columns">
+    <% if item.Id > 0: %>
+    <h1>Certificaat "${?item.Name}" bewerken</h1>
+    <% else: %>
+    <h1>Nieuw certificaat</h1>
+    <% end %>
+    <form action="/certificateinfo/<% if item.Slug: %>${item.Slug}<% else: %>0<% end %>/save" method="POST" autocomplete="off" data-abide>
+      ${Form.HiddenField("item.Id", {"data-certificateInfoId": "value"})}
+      ${Form.HiddenField("item.Slug")}
+      <div class="row" style="margin-bottom: 10px;">
+        <div class="large-3 columns">Installatie</div>
+        <div class="large-9 columns">
+          <% if item.Slug: %>
+          <input type="text" value="${item.Application.Name}" disabled />
+          <% else: %>
+          ${Form.Select("applicationId", applications, {"class": "chosen-select", "value" : "Id" , "text" : "CompleteName" , "firstoption" : "Kies een applicatie" , "pattern" :"select", "required" :"required"})}
+          <small class="error">Kies een applicatie</small>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-3 columns">Naam</div>
+        <div class="large-9 columns">
+          <input type="text" name="item.Name" value="${?item.Name}" required />
+          <small class="error">Vul een geldige naam in</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-3 columns">URL</div>
+        <div class="large-9 columns">
+          <input type="text" name="item.Url" value="${?item.Url}" required />
+          <small class="error">Vul een geldige Url in</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-3 columns">Installatie datum</div>
+        <div class="large-9 columns">
+          <input type="text" name="item.InstallationDate" id="installationDate" value="${?item.InstallationDate.ToString(" dd-MM-yyyy")}">
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-3 columns">Vervaldatum</div>
+        <div class="large-9 columns">
+          <input type="text" name="item.ExpiryDate" id="expiryDate" value="${?item.ExpiryDate.ToString(" dd-MM-yyyy")}">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-3 columns">Verlengings frequentie</div>
+        <div class="large-9 columns">
+          <input type="text" name="item.ExtendFrequency" value="${?item.ExtendFrequency}" required />
+          <small class="error">Vul een geldige frequentie in</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-3 columns">Verleng optie</div>
+        <div class="large-9 columns">
+          ${Form.Select("item.ExtendOption", options, {"value": "Key", "text": "Value", "firstoption": "Kies optie verlengen", "pattern":"select", "required":"required"})}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-3 columns">Aan te vragen door</div>
+        <div class="large-9 columns">
+          <input type="text" name="item.ToRequestBy" value="${?item.ToRequestBy}" required />
+          <small class="error">Vul een geldige naam in</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-3 columns">Aan te vragen bij</div>
+        <div class="large-9 columns">
+          <input type="text" name="item.ToApplyAt" value="${?item.ToApplyAt}" required />
+          <small class="error">Vul een geldige naam in</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-3 columns">Verstrekkende partij</div>
+        <div class="large-9 columns">
+          <input type="text" name="item.ProvidedBy" value="${?item.ProvidedBy}" required />
+          <small class="error">Vul een geldige naam in</small>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="large-3 columns">Type</div>
+        <div class="large-9 columns">
+          ${Form.Select("item.CertificateType", types, {"value": "Key", "text": "Value", "firstoption": "Kies certificaat type", "pattern":"select", "required":"required"})}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-3 columns">Encryptie schema</div>
+        <div class="large-9 columns">
+          <input type="text" name="item.EncryptionScheme" value="${?item.EncryptionScheme}" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-3 columns">Beschrijving</div>
+        <div class="large-9 columns">
+          <textarea type="text" name="item.Description" value="">${?item.Description}</textarea>
+        </div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns"><input type="submit" class="button" value="Opslaan" /></div>
+  </div>
+  </form>
+</div>
+</div>
+<% else :%>
+Actie niet toegestaan.
+<% end %>

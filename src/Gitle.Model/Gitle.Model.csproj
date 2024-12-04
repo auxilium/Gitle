@@ -86,6 +86,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CertificateInfo.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="Booking.cs" />
@@ -94,6 +95,8 @@
     <Compile Include="Comment.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="DummyIssue.cs" />
+    <Compile Include="Enum\CertificateExtendOption.cs" />
+    <Compile Include="Enum\CertificateType.cs" />
     <Compile Include="Enum\InstallationType.cs" />
     <Compile Include="Enum\InvoiceState.cs" />
     <Compile Include="Customer.cs" />
@@ -109,6 +112,7 @@
     <Compile Include="Interfaces\Service\ISettingService.cs" />
     <Compile Include="James\Employee.cs" />
     <Compile Include="James\ExportWeeksGitleVsJames.cs" />
+    <Compile Include="Mapping\CertificateInfoMap.cs" />
     <Compile Include="Mapping\ContactMap.cs" />
     <Compile Include="Mapping\InstallationMap.cs" />
     <Compile Include="Mapping\HandOverMap.cs" />

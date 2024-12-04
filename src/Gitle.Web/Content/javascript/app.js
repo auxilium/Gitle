@@ -1,4 +1,4 @@
-﻿$(function() {
+﻿$(function () {
   $(document.body).addClass("js-enabled");
   $(window).resize(function () {
     if ($(window).height() < $(document).height()) {
@@ -59,7 +59,7 @@
     $(document).foundation('joyride', 'start');
   });
 
-  
+
   // Focus on .focus elements
   $('form .focus[value=""]').focus();
 });

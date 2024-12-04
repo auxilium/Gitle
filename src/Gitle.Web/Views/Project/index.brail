@@ -209,6 +209,5 @@
 	$('#application option').removeAttr('disabled');
 	}
 	});
-
 	});
 </script>
