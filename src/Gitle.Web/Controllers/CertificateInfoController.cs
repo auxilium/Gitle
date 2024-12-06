@@ -21,29 +21,44 @@ namespace Gitle.Web.Controllers
     {
       var items = session.Query<CertificateInfo>().Where(x => x.IsActive).ToList();
 
+      var certificatesToExpire = items.Where(c => c.ExtendOption == CertificateExtendOption.Handmatig && (CheckExpiresThisMonth(c.ExpiryDate) || c.ExpiryDate < DateTime.Today));
+
       foreach (var item in items)
       {
         item.ExpiryDate = item.ExpiryDate;
         item.InstallationDate = item.InstallationDate;
       }
       PropertyBag.Add("items", items);
+
+      foreach (var item in certificatesToExpire)
+      {
+        item.ExpiryDate = item.ExpiryDate;
+        item.InstallationDate = item.InstallationDate;
+        item.Priority = CheckExpiresThisMonth(item.ExpiryDate) && item.ExtendOption == CertificateExtendOption.Handmatig || item.ExpiryDate < DateTime.Today;
+      }
+      PropertyBag.Add("certificatesToExpire", certificatesToExpire);
     }
 
     [Admin]
-    public void Edit(string certificateInfoSlug)
+    public void Edit(long id)
     {
-      var certificate = session.SlugOrDefault<CertificateInfo>(certificateInfoSlug);
+      var certificate = session.Query<CertificateInfo>().Where(c => c.Id == id).FirstOrDefault();
+
       var certificateTypes = EnumHelper.ToDictionary(typeof(CertificateType));
-      var types = certificateTypes.Where(t => new[] { CertificateType.Publiek, CertificateType.Privaat }.Contains((CertificateType)t.Key)).ToList();
+      var certificateTypesList = certificateTypes.Where(t => new[] { CertificateType.Publiek, CertificateType.Privaat }.Contains((CertificateType)t.Key)).ToList();
 
       var extendOptions = EnumHelper.ToDictionary(typeof(CertificateExtendOption));
       var options = extendOptions.Where(t => new[] { CertificateExtendOption.Handmatig, CertificateExtendOption.Automatisch }.Contains((CertificateExtendOption)t.Key)).ToList();
+
+      var installationTypes = EnumHelper.ToDictionary(typeof(InstallationType));
+      var installationTypesList = installationTypes.Where(t => new[] { InstallationType.Live, InstallationType.Acceptance, InstallationType.Demo }.Contains((InstallationType)t.Key)).ToList();
 
       PropertyBag.Add("applications", session.Query<Application>().Where(x => x.IsActive).OrderBy(x => x.Name));
       PropertyBag.Add("applicationId", certificate?.Application?.Id);
       PropertyBag.Add("servers", session.Query<Server>().Where(x => x.IsActive).OrderBy(x => x.Name));
       PropertyBag.Add("serverId", certificate?.Installation?.Server?.Id);
-      PropertyBag.Add("types", types);
+      PropertyBag.Add("certificationTypes", certificateTypesList);
+      PropertyBag.Add("installationTypes", installationTypesList);
       PropertyBag.Add("options", options);
 
       if (certificate == null)
@@ -75,9 +90,9 @@ namespace Gitle.Web.Controllers
     }
 
     [Admin]
-    public void Save(string certificateInfoSlug, long applicationId)
+    public void Save(long id, long applicationId)
     {
-      var item = session.SlugOrDefault<CertificateInfo>(certificateInfoSlug);
+      var item = session.Query<CertificateInfo>().Where(c => c.Id == id).FirstOrDefault(); 
       var application = session.Get<Application>(applicationId);
 
       if (item != null)
@@ -90,16 +105,9 @@ namespace Gitle.Web.Controllers
       else
       {
         item = BindObject<CertificateInfo>("item");
-
-        var itemAlreadyExists = session.Query<CertificateInfo>().Any(x => x.IsActive && x.Application.Id == applicationId);
-        if (itemAlreadyExists)
-        {
-          Flash.Add("error", "De installatie voor certificaat welke u wilde opslaan bestaat al.");
-          RedirectToUrl("/certificateinfo");
-          return;
-        }
-
+    
         item.Application = application;
+        item.InstallationType = item.InstallationType;
         item.CertificateType = item.CertificateType;
         item.Description = item.Description;
         item.EncryptionScheme = item.EncryptionScheme;
@@ -111,7 +119,7 @@ namespace Gitle.Web.Controllers
         item.ToApplyAt = item.ToApplyAt;
         item.ToRequestBy = item.ToRequestBy;
         item.ProvidedBy = item.ProvidedBy;
-        item.Slug = $"{application.Name}-{item.CertificateType.ToString()}".Slugify();
+        item.Slug = $"{application.Name}-{item.Id}".Slugify();
         item.Priority = CheckExpiresThisMonth(item.ExpiryDate) && item.ExtendOption == CertificateExtendOption.Handmatig;
       }
 
@@ -125,9 +133,9 @@ namespace Gitle.Web.Controllers
     }
 
     [Admin]
-    public void Delete(string certificateinfoSlug)
+    public void Delete(long id)
     {
-      var certificate = session.SlugOrDefault<CertificateInfo>(certificateinfoSlug);
+      var certificate = session.Query<CertificateInfo>().Where(c => c.Id == id).FirstOrDefault();
       certificate.Deactivate();
       using (var tx = session.BeginTransaction())
       {

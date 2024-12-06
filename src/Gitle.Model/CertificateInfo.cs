@@ -37,5 +37,6 @@ namespace Gitle.Model
     public virtual Installation Installation { get; } // omgeving
     public virtual string Slug { get; set; }
     public virtual bool Priority { get; set; }
+    public virtual InstallationType InstallationType { get; set; }
   }
 }

@@ -6,7 +6,7 @@
     <% else: %>
     <h1>Nieuw certificaat</h1>
     <% end %>
-    <form action="/certificateinfo/<% if item.Slug: %>${item.Slug}<% else: %>0<% end %>/save" method="POST" autocomplete="off" data-abide>
+    <form action="/certificateinfo/<% if item.Id: %>${item.Id}<% end %>/save" method="POST" autocomplete="off" data-abide>
       ${Form.HiddenField("item.Id", {"data-certificateInfoId": "value"})}
       ${Form.HiddenField("item.Slug")}
       <div class="row" style="margin-bottom: 10px;">
@@ -20,6 +20,14 @@
           <% end %>
         </div>
       </div>
+
+      <div class="row" style="margin-bottom: 5px;">
+        <div class="large-3 columns">Installatie omgeving</div>
+        <div class="large-9 columns">
+          ${Form.Select("item.InstallationType", installationTypes, {"value": "Key", "text": "Value", "firstoption": "Kies omgevings type", "pattern":"select", "required":"required"})}
+        </div>
+      </div>
+
       <div class="row">
         <div class="large-3 columns">Naam</div>
         <div class="large-9 columns">
@@ -89,9 +97,9 @@
 
 
       <div class="row" style="margin-bottom: 10px;">
-        <div class="large-3 columns">Type</div>
+        <div class="large-3 columns">Certificaat type</div>
         <div class="large-9 columns">
-          ${Form.Select("item.CertificateType", types, {"value": "Key", "text": "Value", "firstoption": "Kies certificaat type", "pattern":"select", "required":"required"})}
+          ${Form.Select("item.CertificateType", certificationTypes, {"value": "Key", "text": "Value", "firstoption": "Kies certificaat type", "pattern":"select", "required":"required"})}
         </div>
       </div>
 
@@ -108,7 +116,7 @@
           <textarea type="text" name="item.Description" value="">${?item.Description}</textarea>
         </div>
       </div>
-  </div>
+</div>
   <div class="row">
     <div class="large-12 columns"><input type="submit" class="button" value="Opslaan" /></div>
   </div>

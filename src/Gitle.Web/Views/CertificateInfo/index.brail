@@ -1,53 +1,105 @@
 <% if CurrentUser.IsAdmin: %>
-<div class="row">
-  <div class="large-12 columns">
-    <h1>Certificaten</h1>
-    <a class="button" href="/certificateinfo/0/edit">Nieuw</a>
-    <table class="tablesorter small-blocks sortable">
-      <thead>
-        <tr>
-          <th>Applicatie</th>
-          <th>Naam</th>
-          <th>URL</th>
-          <th>Installatie datum</th>
-          <th class="sorter">Verval datum</th>
-          <th>Verlengings frequentie</th>
-          <th>Verlengings optie</th>
-          <th>Aan te vragen door</th>
-          <th>Aan te vragen bij</th>
-          <th>Verstrekkende partij</th>
-          <th>Type</th>
-          <th>Klant</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for item in items: %>
-        <tr class="certificate-info-row">
-          <td class="application"><a href="/Application/${?item.Application.Slug}/view" <% if item.Priority: %> style="color: red;" <% end %>>${?item.Application.Name}</a></td>
-          <td class="name" <% if item.Priority: %> style="color: red;" <% end %> >${?item.Name}</td>
-          <td class="url" <% if item.Priority: %> style="color: red;" <% end %>>${?item.Url}</td>
-          <td class="installDate" <% if item.Priority: %> style="color: red;" <% end %>>${?item.InstallationDate.ToString("dd/MM/yyyy")}</td>
-          <td class="expiryDate" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ExpiryDate.ToString("dd/MM/yyyy")}</td>
-          <td class="extendFrequency" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ExtendFrequency}</td>
-          <td class="extendOption" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ExtendOption}</td>
-          <td class="toRequestBy" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ToRequestBy}</td>
-          <td class="toApplyAt" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ToApplyAt}</td>
-          <td class="organization" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ProvidedBy}</td>
-          <td <% if item.Priority: %> style="color: red;" <% end %>>${?item.CertificateType}</td>
-          <td class="customer"><a href="/Customer/${?item.Application.Customer.Slug}/view" <% if item.Priority: %> style="color: red;" <% end %>>${?item.Application.Customer.Name}</a></td>
-          <td>
-            <ul class="button-group">
-              <li><a class="button tiny success no-margin" href="/certificateinfo/${?item.Slug}/edit">Bewerk</a></li>
-              <li><a class="button tiny alert no-margin" href="/certificateinfo/${?item.Slug}/delete" data-confirm="Weet je het zeker?">Verwijder</a></li>
-            </ul>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+<div>
+  <h1>Certificaten die verlopen</h1>
+  <table class="tablesorter small-blocks sortable">
+    <thead>
+      <tr>
+        <th>Applicatie</th>
+        <th>Omgeving</th>
+        <th>Naam</th>
+        <th>URL</th>
+        <th>Installatie datum</th>
+        <th class="sorter">Verval datum</th>
+        <th>Verlengings frequentie</th>
+        <th>Verlengings optie</th>
+        <th>Aan te vragen door</th>
+        <th>Aan te vragen bij</th>
+        <th>Verstrekkende partij</th>
+        <th>Type</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for item in certificatesToExpire: %>
+      <tr class="certificate-info-row">
+        <td class="application"><a href="/Application/${?item.Application.Slug}/view" <% if item.Priority: %> style="color: red;" <% end %>>${?item.Application.Name}</a></td>
+        <td class="installationType" <% if item.Priority: %> style="color: red;" <% end %> >${?item.InstallationType}</td>
+        <td class="name" <% if item.Priority: %> style="color: red;" <% end %> >${?item.Name}</td>
+        <td class="url" <% if item.Priority: %> style="color: red;" <% end %>><a href="http://${?item.Url}" title="${?item.Url}" target="_blank" rel="noopener noreferrer">${?item.Url}</a></td>
+        <td class="installDate" <% if item.Priority: %> style="color: red;" <% end %>>${?item.InstallationDate.ToString("dd/MM/yyyy")}</td>
+        <td class="expiryDate" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ExpiryDate.ToString("dd/MM/yyyy")}</td>
+        <td class="extendFrequency" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ExtendFrequency}</td>
+        <td class="extendOption" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ExtendOption}</td>
+        <td class="toRequestBy" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ToRequestBy}</td>
+        <td class="toApplyAt" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ToApplyAt}</td>
+        <td class="organization" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ProvidedBy}</td>
+        <td <% if item.Priority: %> style="color: red;" <% end %>>${?item.CertificateType}</td>
+        <td>
+          <ul class="button-group">
+            <li><a class="button tiny success no-margin" href="/certificateinfo/${?item.Id}/edit">Bewerk</a></li>
+            <li><a class="button tiny alert no-margin" href="/certificateinfo/${?item.Id}/delete" data-confirm="Weet je het zeker?">Verwijder</a></li>
+          </ul>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div>
+  <h1>Certificaten</h1>
+  <a class="button" href="/certificateinfo/0/edit">Nieuw</a>
+  <table class="tablesorter small-blocks sortable">
+    <thead>
+      <tr>
+        <th>Applicatie</th>
+        <th>Omgeving</th>
+        <th>Naam</th>
+        <th>URL</th>
+        <th>Installatie datum</th>
+        <th class="sorter">Verval datum</th>
+        <th>Verlengings frequentie</th>
+        <th>Verlengings optie</th>
+        <th>Aan te vragen door</th>
+        <th>Aan te vragen bij</th>
+        <th>Verstrekkende partij</th>
+        <th>Type</th>
+        <th>Klant</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for item in items: %>
+      <tr class="certificate-info-row">
+        <td class="application"><a href="/Application/${?item.Application.Slug}/view" <% if item.Priority: %> style="color: red;" <% end %>>${?item.Application.Name}</a></td>
+        <td class="installationType" <% if item.Priority: %> style="color: red;" <% end %> >${?item.InstallationType}</td>
+        <td class="name" <% if item.Priority: %> style="color: red;" <% end %> >${?item.Name}</td>
+        <td class="url" <% if item.Priority: %> style="color: red;" <% end %>><a href="http://${?item.Url}" title="${?item.Url}" target="_blank" rel="noopener noreferrer">${?item.Url}</a></td>
+        <td class="installDate" <% if item.Priority: %> style="color: red;" <% end %>>${?item.InstallationDate.ToString("dd/MM/yyyy")}</td>
+        <td class="expiryDate" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ExpiryDate.ToString("dd/MM/yyyy")}</td>
+        <td class="extendFrequency" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ExtendFrequency}</td>
+        <td class="extendOption" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ExtendOption}</td>
+        <td class="toRequestBy" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ToRequestBy}</td>
+        <td class="toApplyAt" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ToApplyAt}</td>
+        <td class="organization" <% if item.Priority: %> style="color: red;" <% end %>>${?item.ProvidedBy}</td>
+        <td <% if item.Priority: %> style="color: red;" <% end %>>${?item.CertificateType}</td>
+        <td class="customer"><a href="/Customer/${?item.Application.Customer.Slug}/view" <% if item.Priority: %> style="color: red;" <% end %>>${?item.Application.Customer.Name}</a></td>
+        <td>
+          <ul class="button-group">
+            <li><a class="button tiny success no-margin" href="/certificateinfo/${?item.Id}/edit">Bewerk</a></li>
+            <li><a class="button tiny alert no-margin" href="/certificateinfo/${?item.Id}/delete" data-confirm="Weet je het zeker?">Verwijder</a></li>
+          </ul>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 <% else :%>
 Actie niet toegestaan.
 <% end %>
+
+<script>
+  $(function () {
+    $('body > .row').css('width', "90%");
+  });
+</script>

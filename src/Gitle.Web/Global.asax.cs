@@ -234,14 +234,14 @@
                                       .DefaultForAction().Is("index"));
 
       RoutingModuleEx.Engine.Add(new PatternRoute("/certificateinfo")
-                                    .DefaultForController().Is<CertificateInfoController>()
-                                    .DefaultForAction().Is("index"));
+                                      .DefaultForController().Is<CertificateInfoController>()
+                                      .DefaultForAction().Is("index"));
       RoutingModuleEx.Engine.Add(new PatternRoute("/certificateinfo/<action>")
                                       .DefaultForController().Is<CertificateInfoController>()
                                       .DefaultForAction().Is("index"));
-      RoutingModuleEx.Engine.Add(new PatternRoute("/certificateinfo/<certificateInfoSlug>/<action>")
+      RoutingModuleEx.Engine.Add(new PatternRoute("/certificateinfo/<id>/<action>")
                                       .DefaultForController().Is<CertificateInfoController>()
-                                      .DefaultForAction().Is("index"));
+                                      .DefaultForAction().Is("index"));  
 
 
       RoutingModuleEx.Engine.Add(new PatternRoute("/hosting")

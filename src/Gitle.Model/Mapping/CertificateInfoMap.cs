@@ -21,6 +21,7 @@ namespace Gitle.Model.Mapping
       Map(x => x.EncryptionScheme);
       Map(x => x.Slug);
       Map(x => x.Priority);
+      Map(x => x.InstallationType);
       References(x => x.Application).Column("Application_id").LazyLoad(Laziness.False);
       References(x => x.Installation).Column("Installation_id").LazyLoad(Laziness.False);
     }
