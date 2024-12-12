@@ -47,15 +47,15 @@
           <td class="<% if project.TotalDefinitiveHours() < project.TotalHours : %> red <% end %>">${project.BilledHoursTotalHours().ToString("F2")}</td>
           <td style="width: 25%;">
             <span><small>Aantal begrootte uren</small></span>
-            <div class="progress progress-border progress-status" title="${project.Progress().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+            <div class="progress progress-border progress-status" title="${project.Progress().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
               <% if not project.HasEstimate and project.TotalHours > 0 : %>
               <span class="meter noestimate" style="width: 100%"></span>
               <% elif project.PercentageOverBudget() > 25 : %>
-              <span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% elif project.PercentageOverBudget() > 0 : %>
-              <span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% else: %>
-              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% end %>
               <% if project.TotalEstimateAllTickets() > 0 : %>
               <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
@@ -72,9 +72,9 @@
             <span>
               <small>Aantal gerealiseerde uren</small>
             </span>
-            <div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
               <% if project.TotalHours > 0 : %>
-              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% end %>
 
 
@@ -93,9 +93,9 @@
             <span>
               <small>Aantal gefactureerde uren (beta)</small>
             </span>
-            <div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
               <% if project.TotalDefinitiveHours() > 0 : %>
-              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% end %>
 
 
@@ -157,15 +157,15 @@
             <span>
               <small>Aantal begrootte uren</small>
             </span>
-            <div class="progress progress-border progress-status" title="${project.Progress().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+            <div class="progress progress-border progress-status" title="${project.Progress().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
               <% if not project.HasEstimate and project.TotalHours > 0 : %>
               <span class="meter noestimate" style="width: 100%"></span>
               <% elif project.PercentageOverBudget() > 25 : %>
-              <span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% elif project.PercentageOverBudget() > 0 : %>
-              <span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% else: %>
-              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% end %>
               <% if project.TotalEstimateAllTickets() > 0 : %>
               <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
@@ -182,9 +182,9 @@
             <span>
               <small>Aantal gerealiseerde uren</small>
             </span>
-            <div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
               <% if project.TotalHours > 0 : %>
-              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% end %>
 
 
@@ -203,9 +203,9 @@
             <span>
               <small>Aantal gefactureerde uren (beta)</small>
             </span>
-            <div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
               <% if project.TotalDefinitiveHours() > 0 : %>
-              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% end %>
 
 
@@ -268,15 +268,15 @@
             <span>
               <small>Aantal begrootte uren</small>
             </span>
-            <div class="progress progress-border progress-status" title="${project.Progress().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+            <div class="progress progress-border progress-status" title="${project.Progress().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
               <% if not project.HasEstimate and project.TotalHours > 0 : %>
               <span class="meter noestimate" style="width: 100%"></span>
               <% elif project.PercentageOverBudget() > 25 : %>
-              <span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% elif project.PercentageOverBudget() > 0 : %>
-              <span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% else: %>
-              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% end %>
               <% if project.TotalEstimateAllTickets() > 0 : %>
               <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
@@ -293,9 +293,9 @@
             <span>
               <small>Aantal gerealiseerde uren</small>
             </span>
-            <div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
               <% if project.TotalHours > 0 : %>
-              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% end %>
 
 
@@ -314,9 +314,9 @@
             <span>
               <small>Aantal gefactureerde uren (beta)</small>
             </span>
-            <div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
               <% if project.TotalDefinitiveHours() > 0 : %>
-              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% end %>
 
 
@@ -377,15 +377,15 @@
             <span>
               <small>Aantal begrootte uren</small>
             </span>
-            <div class="progress progress-border progress-status" title="${project.Progress().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+            <div class="progress progress-border progress-status" title="${project.Progress().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
               <% if not project.HasEstimate and project.TotalHours > 0 : %>
               <span class="meter noestimate" style="width: 100%"></span>
               <% elif project.PercentageOverBudget() > 25 : %>
-              <span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter overbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% elif project.PercentageOverBudget() > 0 : %>
-              <span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter overbudget-warn" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% else: %>
-              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% end %>
               <% if project.TotalEstimateAllTickets() > 0 : %>
               <span class="left-value">${project.TotalEstimateAllTickets()} ${t.Hour} geschat</span>
@@ -402,9 +402,9 @@
             <span>
               <small>Aantal gerealiseerde uren</small>
             </span>
-            <div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalHours().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
               <% if project.TotalHours > 0 : %>
-              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% end %>
 
 
@@ -423,9 +423,9 @@
             <span>
               <small>Aantal gefactureerde uren (beta)</small>
             </span>
-            <div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString(" F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
+            <div class="progress progress-border progress-status" title="${project.ProgressTotalDefinitiveHours().ToString("F0")}% afgerond, verwacht ${project.PercentageOverBudget().ToString("F0")}% overshoot">
               <% if project.TotalDefinitiveHours() > 0 : %>
-              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(" ,", "." )}% "></span>
+              <span class="meter inbudget" style="width: ${project.Progress().ToString().Replace(",", "." )}% "></span>
               <% end %>
 
 
