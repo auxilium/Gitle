@@ -59,13 +59,11 @@
                                                          "JOIN [Week] w on w.Id = wd.[Week] " +
                                                          "WHERE r.RegistratieType IN (0,1,11) " +
                                                          "AND w.Medewerker = " + jamesEmployeeId +
-                                                         "AND wd.Datum = " + $"'{day.Date:yyyy-MM-dd HH:mm:ss.fff}'" +
-                                                         "AND w.Jaar = " + day.Year + "),0) " +
+                                                         "AND wd.Datum = " + $"'{day.Date:yyyy-MM-dd HH:mm:ss.fff}'),0) " +
                                                          "FROM Werkdag wd " +
                                                          "JOIN [Week] w on w.Id = wd.[Week] " +
                                                          "JOIN [Medewerker] m on m.Id = w.Medewerker " +
                                                          "WHERE w.Medewerker = " + jamesEmployeeId +
-                                                         "AND w.Jaar = " + day.Year +
                                                          "AND wd.Datum = " + $"'{day.Date:yyyy-MM-dd HH:mm:ss.fff}'" +
                                                          "GROUP BY wd.Datum, w.Jaar, w.Medewerker"))
             {

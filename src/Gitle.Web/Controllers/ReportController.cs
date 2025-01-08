@@ -1,4 +1,6 @@
-﻿namespace Gitle.Web.Controllers
+﻿using System.Globalization;
+
+namespace Gitle.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -130,9 +132,21 @@
             var employees = session.Query<User>().Where(x => x.IsActive && x.JamesEmployeeId > 0).ToList();
             var exportWeeks = new List<ExportWeeksGitleVsJames>();
 
+            var cultureInfo = new CultureInfo("nl-NL");
+            var calendar = cultureInfo.Calendar;
+
+            var startOfYear = new DateTime(year, 1, 1).StartOfWeek();
+            var endOfYear = new DateTime(year, 12, 31).EndOfWeek();
+
+            if (calendar.GetWeekOfYear(startOfYear.AddDays(3), CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday) > 1)
+                startOfYear = startOfYear.AddDays(7);
+
+            if (calendar.GetWeekOfYear(endOfYear.StartOfWeek().AddDays(3), CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday) == 1)
+                endOfYear = endOfYear.AddDays(-7);
+
             foreach (var employee in employees)
             {
-                var bookings = session.Query<Booking>().Where(x => x.IsActive && x.Date.Year == year && x.User.Id == employee.Id).ToList();
+                var bookings = session.Query<Booking>().Where(x => x.IsActive && x.Date >= startOfYear && x.Date <= endOfYear && x.User.Id == employee.Id).ToList();
                 var exportWeek = new ExportWeeksGitleVsJames {JamesEmployeeId = employee.JamesEmployeeId, NameOfEmployee = employee.FullName };
 
                 for (int i = 0; i < 53; i++)
