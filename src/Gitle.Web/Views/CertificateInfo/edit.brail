@@ -6,27 +6,20 @@
     <% else: %>
     <h1>Nieuw certificaat</h1>
     <% end %>
-    <form action="/certificateinfo/<% if item.Id: %>${item.Id}<% end %>/save" method="POST" autocomplete="off" data-abide>
+    <form action="/certificateinfo/<% if item.Id: %>${item.Id}<% else: %>0<% end %>/save" method="POST" autocomplete="off" data-abide>
       ${Form.HiddenField("item.Id", {"data-certificateInfoId": "value"})}
       ${Form.HiddenField("item.Slug")}
       <div class="row" style="margin-bottom: 10px;">
         <div class="large-3 columns">Installatie</div>
         <div class="large-9 columns">
-          <% if item.Slug: %>
-          <input type="text" value="${item.Application.Name}" disabled />
+          <% if item.Id: %>
+          <input type="text" value="${item.Slug}" disabled />
           <% else: %>
-          ${Form.Select("applicationId", applications, {"class": "chosen-select", "value" : "Id" , "text" : "CompleteName" , "firstoption" : "Kies een applicatie" , "pattern" :"select", "required" :"required"})}
+          ${Form.Select("installationSlug", installlations, {"class": "chosen-select", "value": "Id" , "text": "CompleteName" , "firstoption": "Kies een applicatie" , "pattern": "select", "required": "required"})}
           <small class="error">Kies een applicatie</small>
           <% end %>
         </div>
-      </div>
-
-      <div class="row" style="margin-bottom: 5px;">
-        <div class="large-3 columns">Installatie omgeving</div>
-        <div class="large-9 columns">
-          ${Form.Select("item.InstallationType", installationTypes, {"value": "Key", "text": "Value", "firstoption": "Kies omgevings type", "pattern":"select", "required":"required"})}
-        </div>
-      </div>
+      </div>  
 
       <div class="row">
         <div class="large-3 columns">Naam</div>
@@ -46,13 +39,13 @@
       <div class="row">
         <div class="large-3 columns">Installatie datum</div>
         <div class="large-9 columns">
-          <input type="text" name="item.InstallationDate" id="installationDate" value="${?item.InstallationDate.ToString(" dd-MM-yyyy")}">
+          <input type="text" name="item.InstallationDate" id="installationDate" value="${?item.InstallationDate.ToString("dd-MM-yyyy")}">
         </div>
       </div>
       <div class="row">
         <div class="large-3 columns">Vervaldatum</div>
         <div class="large-9 columns">
-          <input type="text" name="item.ExpiryDate" id="expiryDate" value="${?item.ExpiryDate.ToString(" dd-MM-yyyy")}">
+          <input type="text" name="item.ExpiryDate" id="expiryDate" value="${?item.ExpiryDate.ToString("dd-MM-yyyy")}">
         </div>
       </div>
 

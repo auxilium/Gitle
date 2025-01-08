@@ -34,9 +34,8 @@ namespace Gitle.Model
     public virtual DateTime InstallationDate { get; set; }
     public virtual DateTime ExpiryDate { get; set; } // Verloopt op:
     public virtual Application Application { get; set; } // Gitle
-    public virtual Installation Installation { get; } // omgeving
+    public virtual Installation Installation { get; set; } // omgeving
     public virtual string Slug { get; set; }
     public virtual bool Priority { get; set; }
-    public virtual InstallationType InstallationType { get; set; }
   }
 }

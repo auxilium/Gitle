@@ -30,7 +30,7 @@ namespace Gitle.Web.Controllers
         {
             var installation = session.SlugOrDefault<Installation>(installationSlug);
             var installationTypes = EnumHelper.ToDictionary(typeof(InstallationType));
-            var types = installationTypes.Where(t => new[] { InstallationType.Live, InstallationType.Acceptance, InstallationType.Demo }.Contains((InstallationType)t.Key)).ToList();
+            var types = installationTypes.Where(t => new[] { InstallationType.Live, InstallationType.Live_DB, InstallationType.Acceptance, InstallationType.Acceptence_DB, InstallationType.Demo, InstallationType.Demo_DB, InstallationType.Demo_Old }.Contains((InstallationType)t.Key)).ToList();
 
             PropertyBag.Add("applications", session.Query<Application>().Where(x => x.IsActive).OrderBy(x => x.Name));
             PropertyBag.Add("applicationId", installation?.Application?.Id);

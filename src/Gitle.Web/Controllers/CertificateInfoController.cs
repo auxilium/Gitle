@@ -48,17 +48,16 @@ namespace Gitle.Web.Controllers
       var certificateTypesList = certificateTypes.Where(t => new[] { CertificateType.Publiek, CertificateType.Privaat }.Contains((CertificateType)t.Key)).ToList();
 
       var extendOptions = EnumHelper.ToDictionary(typeof(CertificateExtendOption));
-      var options = extendOptions.Where(t => new[] { CertificateExtendOption.Handmatig, CertificateExtendOption.Automatisch }.Contains((CertificateExtendOption)t.Key)).ToList();
+      var options = extendOptions.Where(t => new[] { CertificateExtendOption.Handmatig, CertificateExtendOption.Automatisch }.Contains((CertificateExtendOption)t.Key)).ToList();      
 
-      var installationTypes = EnumHelper.ToDictionary(typeof(InstallationType));
-      var installationTypesList = installationTypes.Where(t => new[] { InstallationType.Live, InstallationType.Acceptance, InstallationType.Demo }.Contains((InstallationType)t.Key)).ToList();
+      var installlations = session.Query<Installation>().Where(x => x.IsActive).OrderBy(x => x.Slug).Select(x => x.Slug).ToList();
+      var installationsUrl = session.Query<Installation>().Where(x => x.IsActive).OrderBy(x => x.Slug).Select(x => x.Url).ToList();
 
-      PropertyBag.Add("applications", session.Query<Application>().Where(x => x.IsActive).OrderBy(x => x.Name));
-      PropertyBag.Add("applicationId", certificate?.Application?.Id);
+      PropertyBag.Add("installlations", installlations);
+      PropertyBag.Add("certificateId", certificate?.Id);
       PropertyBag.Add("servers", session.Query<Server>().Where(x => x.IsActive).OrderBy(x => x.Name));
       PropertyBag.Add("serverId", certificate?.Installation?.Server?.Id);
       PropertyBag.Add("certificationTypes", certificateTypesList);
-      PropertyBag.Add("installationTypes", installationTypesList);
       PropertyBag.Add("options", options);
 
       if (certificate == null)
@@ -90,15 +89,17 @@ namespace Gitle.Web.Controllers
     }
 
     [Admin]
-    public void Save(long id, long applicationId)
+    public void Save(string installationSlug, long id)
     {
       var item = session.Query<CertificateInfo>().Where(c => c.Id == id).FirstOrDefault(); 
-      var application = session.Get<Application>(applicationId);
+      var installation = session.SlugOrDefault<Installation>(installationSlug);
 
       if (item != null)
       {
         BindObjectInstance(item, "item");
 
+        item.Installation = installation;
+        item.Application = installation.Application;
         item.Url = item.Url.Replace("https://", "").Replace("http://", "");
         item.Priority = CheckExpiresThisMonth(item.ExpiryDate) && item.ExtendOption == CertificateExtendOption.Handmatig;
       }
@@ -106,8 +107,8 @@ namespace Gitle.Web.Controllers
       {
         item = BindObject<CertificateInfo>("item");
     
-        item.Application = application;
-        item.InstallationType = item.InstallationType;
+        item.Installation = installation;
+        item.Application = installation.Application;
         item.CertificateType = item.CertificateType;
         item.Description = item.Description;
         item.EncryptionScheme = item.EncryptionScheme;
@@ -119,7 +120,7 @@ namespace Gitle.Web.Controllers
         item.ToApplyAt = item.ToApplyAt;
         item.ToRequestBy = item.ToRequestBy;
         item.ProvidedBy = item.ProvidedBy;
-        item.Slug = $"{application.Name}-{item.Id}".Slugify();
+        item.Slug = $"{item.Installation.Application.Name}-{item.Installation.InstallationType.ToString()}".Slugify();
         item.Priority = CheckExpiresThisMonth(item.ExpiryDate) && item.ExtendOption == CertificateExtendOption.Handmatig;
       }
 
