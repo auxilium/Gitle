@@ -229,8 +229,8 @@
   </div>
 
   <div class="content active" id="progress-service">
-    <input type="checkbox" id="toggle-overview" /> Toon gesloten projecten
-    <table class="progress-table">
+    <input type="checkbox" id="toggle-overview-service" /> Toon gesloten projecten
+    <table class="progress-table-service">
       <thead>
         <tr>
           <td id="blank" style="border-right: solid white">&nbsp;</td>
@@ -337,7 +337,7 @@
       </tbody>
     </table>
 
-    <table class="progress-table hide">
+    <table class="progress-table-service hide">
       <thead>
         <tr>
           <td id="blank" style="border-right: solid white">&nbsp;</td>
@@ -575,6 +575,9 @@
     $('#toggle-overview').change(function () {
       $('table.progress-table').toggleClass('hide');
     });
+    $('#toggle-overview-service').change(function () {
+      $('table.progress-table-service').toggleClass('hide');
+    });    
   });
 
 </script>

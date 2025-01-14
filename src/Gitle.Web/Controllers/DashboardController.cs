@@ -28,7 +28,7 @@
       var initialProjectsClosed = initialProjects.Where(p => p.Closed);
 
       List<Project> serviceProjects = session.Query<Project>()
-       .Where(x => x.IsActive && !x.Closed && x.Type == ProjectType.Service && x.Issues.Any())
+       .Where(x => x.IsActive && x.Type == ProjectType.Service && x.Issues.Any())
        .Where(x => CurrentUser.IsAdmin || x.Users.Any(u => u.User == CurrentUser))
       .OrderBy(x => x.Name)
       .ToList();
