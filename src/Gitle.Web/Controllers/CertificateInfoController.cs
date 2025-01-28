@@ -98,8 +98,6 @@ namespace Gitle.Web.Controllers
       {
         BindObjectInstance(item, "item");
 
-        item.Installation = installation;
-        item.Application = installation.Application;
         item.Url = item.Url.Replace("https://", "").Replace("http://", "");
         item.Priority = CheckExpiresThisMonth(item.ExpiryDate) && item.ExtendOption == CertificateExtendOption.Handmatig;
       }

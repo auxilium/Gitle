@@ -590,6 +590,7 @@
     <None Include="Views\Issue\_timeline.brail" />
     <None Include="Views\Mail\comment.brail" />
     <None Include="Views\Mail\issue-action.brail" />
+    <Content Include="Views\Mail\certificate-info.brail" />
     <None Include="Views\Mail\password.brail" />
     <None Include="Views\Mail\issue.brail" />
     <None Include="Views\OAuth\codeexpired.brail" />

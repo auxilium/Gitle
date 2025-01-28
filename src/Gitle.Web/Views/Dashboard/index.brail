@@ -450,7 +450,7 @@
 
 
   <div class="content" id="service">
-    <input type="checkbox" id="toggle-overview-service" /> Toon alle tickets
+    <input type="checkbox" id="toggle-overview-service-issues" /> Toon alle tickets
     <br />
     <input type="checkbox" id="toggle-empties" checked /> Verberg projecten zonder tickets
     <% if CurrentUser.IsAdmin: %>
@@ -569,9 +569,11 @@
     $('#toggle-empties').change(function () {
       $('table.tickets-table').toggleClass('hide-empties', $(this).is(':checked'));
     });
-    $('#toggle-overview-service').change(function () {
+
+    $('#toggle-overview-service-issues').change(function () {
       $('table.tickets-table').toggleClass('hide');
     });
+
     $('#toggle-overview').change(function () {
       $('table.progress-table').toggleClass('hide');
     });

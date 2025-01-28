@@ -6,6 +6,7 @@
   using System.Linq;
   using System.Net;
   using System.Reflection;
+  using System.Threading.Tasks;
   using System.Web;
   using Castle.MicroKernel.Registration;
   using Castle.MonoRail.Framework;
@@ -19,6 +20,7 @@
   using Controllers;
   using FluentNHibernate.Cfg;
   using FluentNHibernate.Cfg.Db;
+  using Gitle.Service;
   using Model;
   using Model.Interfaces.Service;
   using NHibernate;
@@ -279,6 +281,22 @@
       RoutingModuleEx.Engine.Add<ReportController>();
       RoutingModuleEx.Engine.Add<DashboardController>();
       RoutingModuleEx.Engine.Add<CertificateInfoController>();
+
+      RunCertificatesExpireCheck();
+    }
+
+    protected void RunCertificatesExpireCheck()
+    {
+      var sessionFactory = Container.Resolve<ISessionFactory>();
+      var session = sessionFactory.OpenSession();
+      WebSessionContext.Bind(session);
+
+      var emailService = Container.Resolve<IEmailService>();
+
+      DailyScheduler scheduler = new DailyScheduler(sessionFactory, emailService);
+      scheduler.StartScheduler();
+      Console.WriteLine("Scheduler started. Press Enter to exit.");
+      Task.Run(() => Console.ReadLine());
     }
 
     protected void Application_End(object sender, EventArgs e)
