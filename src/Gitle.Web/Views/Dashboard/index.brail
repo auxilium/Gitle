@@ -445,9 +445,7 @@
         <% end %>
       </tbody>
     </table>
-
   </div>
-
 
   <div class="content" id="service">
     <input type="checkbox" id="toggle-overview-service-issues" /> Toon alle tickets

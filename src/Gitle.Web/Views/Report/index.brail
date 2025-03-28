@@ -10,14 +10,14 @@
       <form id="query-form" method="GET">
         <div class="row collapse">
           <div class="large-1 medium-2 small-4 columns">
-            <input type="text" id="startDate" data-filter-prefix="start" class="reportdate no-margin" placeholder="Vanaf" value="${result.StartDate.ToString("yyyy-MM-dd")}" />
+            <input type="text" id="startDate" data-filter-prefix="start" class="reportdate no-margin" placeholder="Vanaf" value="${result.StartDate.ToString(" yyyy-MM-dd")}" />
           </div>
           <div class="large-1 medium-2 small-4 columns">
-            <input type="text" id="endDate" data-filter-prefix="end" class="reportdate no-margin" placeholder="Tot" value="${result.EndDate.ToString("yyyy-MM-dd")}" />
+            <input type="text" id="endDate" data-filter-prefix="end" class="reportdate no-margin" placeholder="Tot" value="${result.EndDate.ToString(" yyyy-MM-dd")}" />
           </div>
           <% for date in presetDates: %>
           <div class="large-1 medium-2 small-4 columns">
-            <a href="#" class="button secondary prefix" data-insert-startdate="${date.startDate.ToString("yyyy-MM-dd")}" data-insert-startdate-to="#startDate" data-insert-enddate="${date.endDate.ToString("yyyy-MM-dd")}" data-insert-enddate-to="#endDate" data-filter="start:${date.startDate.ToString("yyyy-MM-dd")} end:${date.endDate.ToString("yyyy-MM-dd")}" data-filter-opposite="start,end,period">${date.title}</a>
+            <a href="#" class="button secondary prefix" data-insert-startdate="${date.startDate.ToString(" yyyy-MM-dd")}" data-insert-startdate-to="#startDate" data-insert-enddate="${date.endDate.ToString(" yyyy-MM-dd")}" data-insert-enddate-to="#endDate" data-filter="start:${date.startDate.ToString(" yyyy-MM-dd")} end:${date.endDate.ToString("yyyy-MM-dd")}" data-filter-opposite="start,end,period">${date.title}</a>
           </div>
           <% end %>
           <div class="large-1 medium-2 small-4 columns">
@@ -39,7 +39,7 @@
               <% for reportPreset in reportPresets: %>
               <li>
                 <a class="report-preset" data-filter="${reportPreset.ReportString}" data-filter-clear href="#">${reportPreset.Name}</a>
-                <a href="/reportpreset/${reportPreset.Id}/delete" class="remove-link" >
+                <a href="/reportpreset/${reportPreset.Id}/delete" class="remove-link">
                   <i class="fa fa-close red"></i>
                 </a>
               </li>
@@ -73,12 +73,31 @@
               <% end %>
             </ul>
           </div>
-          <div class="large-0 small-6 columns">
-            <button href="#" data-dropdown="customers" aria-controls="customers" aria-expanded="false" class="button tiny dropdown no-margin <% if result.Customers.Count > 0: %>warning<% end %>">Klanten:</button>
-            <ul id="customers" data-dropdown-content="" class="f-dropdown wide filter-select" aria-hidden="true" tabindex="-1">
+          <div class="large-0 small-6 columns customer-list">
+            <button href="#" data-dropdown="customers" aria-controls="customers" aria-expanded="false" class="button tiny dropdown no-margin customers-list<% if result.Customers.Count > 0: %>warning<% end %>">Klanten:</button>
+            <ul id="customers" data-dropdown-content="" class="f-dropdown wide filter-select reports-customers-list" aria-hidden="true" tabindex="-1">
+              <li style="margin-left: 6px; margin-top: 5px;">
+                <label class="small" data-value="Type">
+                  <input type="checkbox" id="toggle-list-customers" /> Toon gesloten klanten
+                </label>                
+              </li>            
+              <% for customer in allClosedCustomers: %>
+              <% isSelected = result.Customers.Contains(customer) %>
+              <li class="items-cust-closed">
+                <a href="#" data-filter="customer:${customer.Slug}">
+                  <% if isSelected: %><i class="fa fa-check"></i><% end %>
+                  ${customer.Name}
+                </a>
+                <% if isSelected: %>
+                <a href="#" class="remove-filter" data-filter="customer:${customer.Slug}">
+                  <i class="fa fa-close red"></i>
+                </a>
+                <% end %>
+              </li>
+              <% end %>
               <% for customer in allCustomers: %>
               <% isSelected = result.Customers.Contains(customer) %>
-              <li>
+              <li class="items-cust-active">
                 <a href="#" data-filter="customer:${customer.Slug}">
                   <% if isSelected: %><i class="fa fa-check"></i><% end %>
                   ${customer.Name}
@@ -94,7 +113,7 @@
           </div>
           <div class="large-0 small-6 columns">
             <button href="#" data-dropdown="applications" aria-controls="applications" aria-expanded="false" class="button tiny dropdown no-margin <% if result.Applications.Count > 0: %>warning<% end %>">Applicaties:</button>
-            <ul id="applications" data-dropdown-content="" class="f-dropdown wide filter-select" aria-hidden="true" tabindex="-1">
+            <ul id="applications" data-dropdown-content="" class="f-dropdown wide filter-select reports-applications-list" aria-hidden="true" tabindex="-1">
               <% for application in allApplications: %>
               <% isSelected = result.Applications.Contains(application) %>
               <li>
@@ -112,11 +131,30 @@
             </ul>
           </div>
           <div class="large-0 small-6 columns">
-            <button href="#" data-dropdown="projects" aria-controls="projects" aria-expanded="false" class="button tiny dropdown no-margin <% if result.Projects.Count > 0: %>warning<% end %>">Projecten:</button>
-            <ul id="projects" data-dropdown-content="" class="f-dropdown wide filter-select" aria-hidden="true" tabindex="-1">
+            <button href="#" data-dropdown="projects" aria-controls="projects" aria-expanded="false" class="button tiny dropdown no-margin projects-list<% if result.Projects.Count > 0: %>warning<% end %>">Projecten:</button>
+            <ul id="projects" data-dropdown-content="" class="f-dropdown wide filter-select reports-projects-list" aria-hidden="true" tabindex="-1">
+              <li style="margin-left: 6px; margin-top: 5px;">
+                <label class="small" data-value="Type">
+                  <input type="checkbox" id="toggle-list-projects" /> Toon alle projecten (open + gesloten)
+                </label>
+              </li>
               <% for project in allProjects: %>
               <% isSelected = result.Projects.Contains(project) %>
-              <li>
+              <li class="items-projects-active">
+                <a href="#" data-filter="project:${project.Slug}">
+                  <% if isSelected: %><i class="fa fa-check"></i><% end %>
+                  ${project.Name}
+                </a>
+                <% if isSelected: %>
+                <a href="#" class="remove-filter" data-filter="project:${project.Slug}">
+                  <i class="fa fa-close red"></i>
+                </a>
+                <% end %>
+              </li>
+              <% end %>
+              <% for project in allClosedAndOpenProjects: %>
+              <% isSelected = result.Projects.Contains(project) %>
+              <li class="items-projects-open-and-closed">
                 <a href="#" data-filter="project:${project.Slug}">
                   <% if isSelected: %><i class="fa fa-check"></i><% end %>
                   ${project.Name}
@@ -204,45 +242,45 @@
               <% end %>
             </ul>
           </div>
-            <% isSelected = result.Dump or result.Billable != null %>
-            <div class="large-0 small-6 columns">
-              <button href="#" data-dropdown="extra" aria-controls="extra" aria-expanded="false" class="button tiny dropdown no-margin <% if isSelected: %>warning<% end %>">Extra:</button>
-              <ul id="extra" data-dropdown-content="" class="f-dropdown wide" aria-hidden="true" tabindex="-1">
-                <li>
-                  <a href="#" data-filter="billable:yes" data-filter-opposite="billable:no">
-                    <% if result.Billable: %><i class="fa fa-check"></i><% end %>
-                    Billable
-                  </a>
-                  <% if result.Billable: %>
-                  <a href="#" class="remove-filter" data-filter="billable:yes">
-                    <i class="fa fa-close red"></i>
-                  </a>
-                  <% end %>
-                </li>
-                <li>
-                  <a href="#" data-filter="billable:no" data-filter-opposite="billable:yes">
-                    <% if result.Billable == false: %><i class="fa fa-check"></i><% end %>
-                    Unbillable
-                  </a>
-                  <% if result.Billable == false: %>
-                  <a href="#" class="remove-filter" data-filter="billable:no">
-                    <i class="fa fa-close red"></i>
-                  </a>
-                  <% end %>
-                </li>
-                <li>
-                  <a href="#" data-filter="issue:null">
-                    <% if result.Dump: %><i class="fa fa-check"></i><% end %>
-                    DUMP
-                  </a>
-                  <% if result.Dump: %>
-                  <a href="#" class="remove-filter" data-filter="issue:null">
-                    <i class="fa fa-close red"></i>
-                  </a>
-                  <% end %>
-                </li>
-              </ul>
-            </div>
+          <% isSelected = result.Dump or result.Billable != null %>
+          <div class="large-0 small-6 columns">
+            <button href="#" data-dropdown="extra" aria-controls="extra" aria-expanded="false" class="button tiny dropdown no-margin <% if isSelected: %>warning<% end %>">Extra:</button>
+            <ul id="extra" data-dropdown-content="" class="f-dropdown wide" aria-hidden="true" tabindex="-1">
+              <li>
+                <a href="#" data-filter="billable:yes" data-filter-opposite="billable:no">
+                  <% if result.Billable: %><i class="fa fa-check"></i><% end %>
+                  Billable
+                </a>
+                <% if result.Billable: %>
+                <a href="#" class="remove-filter" data-filter="billable:yes">
+                  <i class="fa fa-close red"></i>
+                </a>
+                <% end %>
+              </li>
+              <li>
+                <a href="#" data-filter="billable:no" data-filter-opposite="billable:yes">
+                  <% if result.Billable == false: %><i class="fa fa-check"></i><% end %>
+                  Unbillable
+                </a>
+                <% if result.Billable == false: %>
+                <a href="#" class="remove-filter" data-filter="billable:no">
+                  <i class="fa fa-close red"></i>
+                </a>
+                <% end %>
+              </li>
+              <li>
+                <a href="#" data-filter="issue:null">
+                  <% if result.Dump: %><i class="fa fa-check"></i><% end %>
+                  DUMP
+                </a>
+                <% if result.Dump: %>
+                <a href="#" class="remove-filter" data-filter="issue:null">
+                  <i class="fa fa-close red"></i>
+                </a>
+                <% end %>
+              </li>
+            </ul>
+          </div>
         </div>
       </form>
     </div>
@@ -379,13 +417,66 @@
 </div>
 
 <script>
-  $(function () {
+  $(document).ready(function () {
     $('#query-form .submit').click(function (e) {
       e.preventDefault();
       $('#query-form').submit();
     });
     $(document).on('open.fndtn.reveal', '#newReportPreset', function () {
       $('#newReportPreset #item_ReportString').val($('#query').val());
+    });
+
+    $(function () {
+      $('li.items-cust-closed').css("display", "none");
+    })
+
+
+    $(function () {
+      $('li.items-projects-closed').css("display", "none");
+    })
+
+    $('button.customers-list').click(function () {
+      setTimeout(function () {
+        if ($('button.customers-list').hasClass('open')) {
+          $('li.items-cust-closed').css("display", "none");
+        }
+      }, 0)
+    });
+
+    $('button.projects-list').click(function () {
+      setTimeout(function () {
+        if ($('button.projects-list').hasClass('open')) {
+          $('li.items-projects-open-and-closed').css("display", "none");
+        }
+      }, 0)
+    })
+
+    $('#toggle-list-customers').change(function (e) {
+      if (e.target.checked) {
+        $('li.items-cust-closed').css("display", "list-item");
+        $('li.items-cust-active').css("display", "none");
+      } else {
+        $('li.items-cust-closed').css("display", "none");
+        $('li.items-cust-active').css("display", "list-item");
+      }
+    });
+
+    $('#toggle-list-projects').change(function (e) {
+      if (e.target.checked) {
+        $('li.items-projects-open-and-closed').css("display", "list-item");
+        $('li.items-projects-active').css("display", "none");
+      } else {
+        $('li.items-projects-open-and-closed').css("display", "none");
+        $('li.items-projects-active').css("display", "list-item");
+      }
+    });
+
+    $('#customers li label').click(function (e) {
+      e.stopPropagation();
+    });
+
+    $('#projects li label').click(function (e) {
+      e.stopPropagation();
     });
   });
 </script>

@@ -1789,3 +1789,10 @@ table#project-table {
     width: 150px;
   }
 }
+
+ul.reports-projects-list,
+ul.reports-customers-list,
+ul.reports-applications-list {
+  max-height: 50vh;
+  overflow: scroll;
+}

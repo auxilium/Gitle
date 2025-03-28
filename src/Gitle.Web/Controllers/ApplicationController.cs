@@ -22,7 +22,7 @@
         [Admin]
         public void Index(string customerSlug)
         {
-            var applications = session.Query<Application>().Where(x => x.IsActive);
+            var applications = session.Query<Application>().Where(x => x.IsActive || !x.IsActive);
             if (!string.IsNullOrEmpty(customerSlug))
             {
                 var customer = session.SlugOrDefault<Customer>(customerSlug);
