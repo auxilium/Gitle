@@ -123,9 +123,8 @@
       var rows = "";
       foreach (var booking in bookings)
       {
-        string issueNumber;
-        if (booking.Issue != null) issueNumber = booking.Issue.Number.ToString();
-        else issueNumber = "DUMP";
+        string issueNumber = booking.Issue != null ? booking.Issue.Number.ToString() : "DUMP";
+        string issueName = booking.Issue != null ? booking.Issue.Name : "N/A";
 
         rows += string.Format(rowTemplate, fieldseparator, lineEnd,
                               booking.Minutes,
@@ -134,7 +133,7 @@
                               booking.Project.Number,
                               booking.Project.Name,
                               issueNumber,
-                              booking.Issue.Name,
+                              issueName,
                               booking.Unbillable ? "Nee" : "Ja",
                               booking.Comment
             );
