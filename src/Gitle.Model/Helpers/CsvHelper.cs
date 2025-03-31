@@ -123,7 +123,7 @@
       var rows = "";
       foreach (var booking in bookings)
       {
-        string issueNumber = booking.Issue != null ? booking.Issue.Number.ToString() : "DUMP";
+        string issueNumber = booking.Issue != null ? booking.Issue.Number.ToString() : "N/A";
         string issueName = booking.Issue != null ? booking.Issue.Name : "N/A";
 
         rows += string.Format(rowTemplate, fieldseparator, lineEnd,
