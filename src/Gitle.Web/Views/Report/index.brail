@@ -10,14 +10,14 @@
       <form id="query-form" method="GET">
         <div class="row collapse">
           <div class="large-1 medium-2 small-4 columns">
-            <input type="text" id="startDate" data-filter-prefix="start" class="reportdate no-margin" placeholder="Vanaf" value="${result.StartDate.ToString(" yyyy-MM-dd")}" />
+            <input type="text" id="startDate" data-filter-prefix="start" class="reportdate no-margin" placeholder="Vanaf" value="${result.StartDate.ToString("yyyy-MM-dd")}" />
           </div>
           <div class="large-1 medium-2 small-4 columns">
-            <input type="text" id="endDate" data-filter-prefix="end" class="reportdate no-margin" placeholder="Tot" value="${result.EndDate.ToString(" yyyy-MM-dd")}" />
+            <input type="text" id="endDate" data-filter-prefix="end" class="reportdate no-margin" placeholder="Tot" value="${result.EndDate.ToString("yyyy-MM-dd")}" />
           </div>
           <% for date in presetDates: %>
           <div class="large-1 medium-2 small-4 columns">
-            <a href="#" class="button secondary prefix" data-insert-startdate="${date.startDate.ToString(" yyyy-MM-dd")}" data-insert-startdate-to="#startDate" data-insert-enddate="${date.endDate.ToString(" yyyy-MM-dd")}" data-insert-enddate-to="#endDate" data-filter="start:${date.startDate.ToString(" yyyy-MM-dd")} end:${date.endDate.ToString("yyyy-MM-dd")}" data-filter-opposite="start,end,period">${date.title}</a>
+            <a href="#" class="button secondary prefix" data-insert-startdate="${date.startDate.ToString("yyyy-MM-dd")}" data-insert-startdate-to="#startDate" data-insert-enddate="${date.endDate.ToString("yyyy-MM-dd")}" data-insert-enddate-to="#endDate" data-filter="start:${date.startDate.ToString("yyyy-MM-dd")} end:${date.endDate.ToString("yyyy-MM-dd")}" data-filter-opposite="start,end,period">${date.title}</a>
           </div>
           <% end %>
           <div class="large-1 medium-2 small-4 columns">
@@ -428,12 +428,12 @@
 
     $(function () {
       $('li.items-cust-closed').css("display", "none");
-    })
+    });
 
 
     $(function () {
       $('li.items-projects-closed').css("display", "none");
-    })
+    });
 
     $('button.customers-list').click(function () {
       setTimeout(function () {
@@ -449,7 +449,7 @@
           $('li.items-projects-open-and-closed').css("display", "none");
         }
       }, 0)
-    })
+    });
 
     $('#toggle-list-customers').change(function (e) {
       if (e.target.checked) {
