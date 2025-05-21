@@ -91,7 +91,8 @@
   <% if invoice.Project.Number > 0: %>
   Projectnummer: ${?invoice.Project.Number}<br />
   <% end %>
-  Project: ${invoice.Project.Name}<br/>
+  Project: ${invoice.Project.Name}<br />
+  Factuurtitel: ${invoice.Title}<br />
   Uurprijs: &euro; ${invoice.HourPrice.ToString("#0.00")}
 </p>
 
