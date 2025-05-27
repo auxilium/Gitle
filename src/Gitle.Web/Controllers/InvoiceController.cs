@@ -119,7 +119,7 @@ namespace Gitle.Web.Controllers
       {
         invoice.Corrections.Add(new Correction());
       }
-      PropertyBag.Add("editInvoice", true);
+      PropertyBag.Add("editInvoice", false);
       PropertyBag.Add("invoice", invoice);
       PropertyBag.Add("project", project);
 

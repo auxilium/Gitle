@@ -32,7 +32,7 @@ namespace Gitle.Service
 
     private void ScheduleAction(Action action)
     {
-      DateTime now = DateTime.Now;
+      DateTime now = DateTime.UtcNow;
       //DateTime targetTime = DateTime.Today.AddHours(6); // 6:00 AM today
       DateTime targetTime = new DateTime(now.Year, now.Month, now.Day, 10, 47, 0);
 
