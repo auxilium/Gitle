@@ -152,12 +152,10 @@
     });
   });
 
-  $('.correctionline').hide();
-  $('.correctionline').first().show();
-  $('.edit-invoice').each(function () {    
-    var price = parseFloat($(this).find('.correctionline-price').val());
-
-    if (price != 0) {
+  $('.correctionline').each(function(index) {
+    var priceText = $(this).find('.correctionline-price').val() || $(this).find('.correctionline-price').text();
+    var price = parseFloat(priceText.replace(',', '.'));
+    if ((!isNaN(price) && price !== 0) || index === 0) {
       $(this).show();
     } else {
       $(this).hide();

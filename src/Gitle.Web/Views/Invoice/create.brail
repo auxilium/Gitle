@@ -228,7 +228,7 @@
       <div class="totals">
         <% correctionCount = 0 %>
         <% for correction in invoice.Corrections: %>
-				<div class="row correctionline<%if editInvoice: %> edit-invoice<% else :%> "" <% end %>">
+        <div class="row correctionline<%if editInvoice: %> edit-invoice<% else :%>" <% end %>">
 					<div class="large-10 columns">
 						<input type="text" name="corrections[${correctionCount}].Description" id="corrections_${correctionCount}_Description" placeholder="Korting, extra kosten e.d." class="text-right" value="${correction.Description}" />
 					</div>
@@ -238,13 +238,13 @@
 								<span class="prefix"><i class="fa fa-euro"></i></span>
 							</div>
 							<div class="large-9 columns">
-								<input type="text" name="corrections[${correctionCount}].Price" id="corrections_${correctionCount}_Price" value="${correction.Price}" class="correctionline-price comma" />							
+								<input type="text" name="corrections[${correctionCount}].Price" id="corrections_${correctionCount}_Price" value="${correction.Price}" class="correctionline-price comma" />
 							</div>
 						</div>
 					</div>
 				</div>
         <% correctionCount = correctionCount + 1 %>
-        <% end %>						
+        <% end %>
       </div>
       <div class="totals">
         <div class="row">
