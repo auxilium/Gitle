@@ -15,7 +15,7 @@
 
         public static T SlugOrDefault<T>(this ISession session, string slug) where T : ISlugger
         {
-            return session.Query<T>().SingleOrDefault(x => x.Slug == slug && (x.IsActive || !x.IsActive));
+            return session.Query<T>().SingleOrDefault(x => x.Slug == slug);
         }
 
     }
