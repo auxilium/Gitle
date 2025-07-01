@@ -3,7 +3,7 @@
 <br />
 Het onderstaande certificaat zal deze maand verlopen:
 <br />
-<p>${certificate.Installation.Slug} - ${certificate.Name} - ${certificate.Url} - ${certificate.ExtendOption}</p>
+<p>${?certificate.Installation.Slug} - ${?certificate.Name} - ${?certificate.Url} - ${?certificate.ExtendOption}</p>
 <a href="${webPath}/certificateinfo" style="color: #008cba; text-decoration: none;">Verleng het certificaat om applicatie live te houden.</a>
 <br />
 <br />

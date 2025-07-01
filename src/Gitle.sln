@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36202.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gitle.Web", "Gitle.Web\Gitle.Web.csproj", "{C425C16B-133A-4CF3-8E4F-18961501E49F}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gitle.Service", "Gitle.Service\Gitle.Service.csproj", "{83DEC67C-B367-4EB5-873F-AC4BDA8E3281}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gitle.ViewModel", "Gitle.ViewModel\Gitle.ViewModel.csproj", "{8FB7E4A1-2D5B-4EF7-B44E-B643E5912D9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gitle.CertificatesExpireEmailNotificationService", "CertificatesExpireEmailNotificationService\Gitle.CertificatesExpireEmailNotificationService.csproj", "{032E06A8-2A7B-46A8-86BF-23CB5384FB94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,18 @@ Global
 		{8FB7E4A1-2D5B-4EF7-B44E-B643E5912D9F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8FB7E4A1-2D5B-4EF7-B44E-B643E5912D9F}.Release|x86.ActiveCfg = Release|Any CPU
 		{8FB7E4A1-2D5B-4EF7-B44E-B643E5912D9F}.Release|x86.Build.0 = Release|Any CPU
+		{032E06A8-2A7B-46A8-86BF-23CB5384FB94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{032E06A8-2A7B-46A8-86BF-23CB5384FB94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{032E06A8-2A7B-46A8-86BF-23CB5384FB94}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{032E06A8-2A7B-46A8-86BF-23CB5384FB94}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{032E06A8-2A7B-46A8-86BF-23CB5384FB94}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{032E06A8-2A7B-46A8-86BF-23CB5384FB94}.Debug|x86.Build.0 = Debug|Any CPU
+		{032E06A8-2A7B-46A8-86BF-23CB5384FB94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{032E06A8-2A7B-46A8-86BF-23CB5384FB94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{032E06A8-2A7B-46A8-86BF-23CB5384FB94}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{032E06A8-2A7B-46A8-86BF-23CB5384FB94}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{032E06A8-2A7B-46A8-86BF-23CB5384FB94}.Release|x86.ActiveCfg = Release|Any CPU
+		{032E06A8-2A7B-46A8-86BF-23CB5384FB94}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

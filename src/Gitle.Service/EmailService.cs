@@ -31,7 +31,7 @@
     private readonly string _issue_action_notification_mail_address;
 
     private static readonly FileAssemblyViewSourceLoader ViewSourceLoader =
-        new FileAssemblyViewSourceLoader(Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views"), "Mail"));
+          new FileAssemblyViewSourceLoader(Path.Combine(ConfigurationManager.AppSettings["viewpath"], "Mail"));
 
     private static readonly StandaloneBooViewEngine StandaloneBooViewEngine = new StandaloneBooViewEngine(ViewSourceLoader, null);
 
@@ -127,7 +127,6 @@
         Subject = string.Format("Gitle: Certificaat verloopt"),
         IsBodyHtml = true
       };
-
 
       message.Body = GetBody("certificate-info", new Hashtable { { "webPath", _webPath }, { "provider", _provider }, { "certificate", certificateInfo } });
 

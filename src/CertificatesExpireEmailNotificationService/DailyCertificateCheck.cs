@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gitle.Service
+namespace CertificatesExpireEmailNotificationService
 {
+  using Castle.Core.Logging;
   using Gitle.Model;
   using Gitle.Model.Interfaces.Service;
   using NHibernate;
@@ -13,45 +14,31 @@ namespace Gitle.Service
   using System.Threading;
   using System.Threading.Tasks;
 
-  public class DailyScheduler
-  {
-    private Timer _timer;
+  public class DailyCertificateCheck
+  {    
     private ISession _session;
+    private readonly ILogger _logger;
     private IEmailService _emailService;
 
-    public DailyScheduler(ISessionFactory sessionFactory, IEmailService emailService)
+    public DailyCertificateCheck(ISessionFactory sessionFactory, IEmailService emailService, ILogger logger)
     {
       _session = sessionFactory.GetCurrentSession();
       _emailService = emailService;
+      _logger = logger;
     }
 
-    public void StartScheduler()
+    public void Run()
     {
-      ScheduleAction(RunDailyTask);
-    }
+      _logger.Debug("DailyCertificateCheck started");
 
-    private void ScheduleAction(Action action)
-    {
-      DateTime now = DateTime.UtcNow;
-      //DateTime targetTime = DateTime.Today.AddHours(6); // 6:00 AM today
-      DateTime targetTime = new DateTime(now.Year, now.Month, now.Day, 10, 47, 0);
+      RunDailyTask();
 
-      if (now > targetTime)
-      {
-        targetTime = targetTime.AddDays(1); // Schedule for 6:00 AM the next day
-      }
-
-      TimeSpan initialDelay = targetTime - now;
-      _timer = new Timer(_ =>
-      {
-        action.Invoke();
-        ScheduleAction(action); // Reschedule for the next day
-      }, null, initialDelay, Timeout.InfiniteTimeSpan);
+      _logger.Debug("DailyCertificateCheck done");
     }
 
     private void RunDailyTask()
     {
-      Console.WriteLine($"Task executed at: {DateTime.Now}");
+      _logger.Debug($"Task executed at: {DateTime.UtcNow}");
 
       var items = _session.Query<CertificateInfo>().Where(x => x.IsActive).ToList();
 

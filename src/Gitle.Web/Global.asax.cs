@@ -282,21 +282,6 @@
       RoutingModuleEx.Engine.Add<DashboardController>();
       RoutingModuleEx.Engine.Add<CertificateInfoController>();
 
-      RunCertificatesExpireCheck();
-    }
-
-    protected void RunCertificatesExpireCheck()
-    {
-      var sessionFactory = Container.Resolve<ISessionFactory>();
-      var session = sessionFactory.OpenSession();
-      WebSessionContext.Bind(session);
-
-      var emailService = Container.Resolve<IEmailService>();
-
-      DailyScheduler scheduler = new DailyScheduler(sessionFactory, emailService);
-      scheduler.StartScheduler();
-      Console.WriteLine("Scheduler started. Press Enter to exit.");
-      Task.Run(() => Console.ReadLine());
     }
 
     protected void Application_End(object sender, EventArgs e)

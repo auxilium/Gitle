@@ -116,7 +116,7 @@
 				<div class="large-3 columns text-right">
 					<ul class="button-group">
 						<li>
-							<a class="button tiny no-margin" href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/download">
+							<a class="button tiny no-margin" target="_blank" href="/project/${invoice.Project.Slug}/invoice/${invoice.Id}/download">
 								<i class="fa fa-file-pdf-o"></i>
 							</a>
 						</li>

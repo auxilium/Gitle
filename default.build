@@ -32,6 +32,19 @@
     </CreateItem>
     <MakeDir Directories="$(OutputDir)"/>
     <Copy SourceFiles="@(Artifacts)" DestinationFolder="$(OutputDir)"/>
+    
+    <!-- Create separate package for CertificatesExpireEmailNotificationService -->
+    <CallTarget Targets="PackageCertificatesService"/>
+  </Target>
+  
+  <Target Name="PackageCertificatesService">
+    <!-- Create zip file directly from build output -->
+    <ItemGroup>
+      <CertificatesServiceFiles Include="src\CertificatesExpireEmailNotificationService\bin\$(Configuration)\**\*.*"/>
+    </ItemGroup>
+    <Zip Files="@(CertificatesServiceFiles)" 
+         WorkingDirectory="src\CertificatesExpireEmailNotificationService\bin\$(Configuration)"
+         ZipFileName="$(OutputDir)\Gitle.CertificatesExpireEmailNotificationService.zip"/>
   </Target>
     
 </Project>
