@@ -293,12 +293,22 @@
         }
 
         private Issue SaveIssue(Project project, Issue issue, IEnumerable<Label> labels)
-        {
+        {            
+            string hoursRaw = Request.Params["item.Hours"];
+            double parsedHours = 0;
+            if (!string.IsNullOrWhiteSpace(hoursRaw))
+            {         
+                var normalized = hoursRaw.Replace(',', '.');
+                double.TryParse(normalized, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out parsedHours);
+            }
             if (issue != null)
             {
                 var name = Request.Params["item.Name"] == null ? issue.Name : Request.Params["item.Name"];
                 BindObjectInstance(issue, "item");
                 issue.Name = name.Replace("\"", "'");
+        
+                if (!string.IsNullOrWhiteSpace(hoursRaw))
+                    issue.Hours = parsedHours;
                 issue.Change(CurrentUser);
             }
             else
@@ -306,6 +316,9 @@
                 issue = BindObject<Issue>("item");
                 issue.Number = project.NewIssueNumber;
                 issue.Project = project;
+        
+                if (!string.IsNullOrWhiteSpace(hoursRaw))
+                    issue.Hours = parsedHours;
                 issue.Open(CurrentUser);
             }
 
