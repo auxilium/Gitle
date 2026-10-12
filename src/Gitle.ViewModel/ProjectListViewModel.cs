@@ -18,6 +18,7 @@
             Type = project.TypeString;
             Closed = project.Closed;
             Urgent = project.Issues.Any(i => i.ChangeStates.Last().IssueState == IssueState.Urgent);
+            Subsidized = project.Subsidized;
         }
 
         public long Id { get; set; }
@@ -29,5 +30,6 @@
         public string Type { get; set; }
         public bool Closed { get; set; }
         public bool Urgent { get; set; }
+        public bool Subsidized { get; set; }
     }
 }

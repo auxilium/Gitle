@@ -98,6 +98,7 @@
 	d.type = $('#type').val();
 	d.closed = $('#closedProjects').is(':checked');
 	d.urgent = $('#urgentIssues').is(':checked');
+	d.subsidized = $('#subsidizedProjects').is(':checked');
 	d.orderColumn = d.columns[d.order[0].column].name;
 	d.orderDir = d.order[0].dir;
 	}
@@ -161,11 +162,20 @@
 	return data;
 	}
 	} },
+  {
+    data: 'Subsidized', title: 'WBSO', name: 'Subsidized', visible: isAdmin || isDanielle, render: function (data, type, full, meta) {
+      if (full.Subsidized) {
+        return '<i class="fa fa-check green"></i>';
+      } else {
+        return '<i class="fa fa-times light-grey"></i>';
+      }
+    }
+  },
 	{
 	data: 'Slug',
 	name: 'Actions',
 	orderable: false,
-	width: '388px',
+	width: '300px',
 	render: function (data, type, full, meta) {
 
 	var html =

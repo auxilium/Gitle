@@ -39,6 +39,9 @@
 
     public virtual bool Unbillable { get; set; }
 
+    /// <summary>Eligible for WBSO</summary>
+    public virtual bool Subsidized { get; set; }
+
     public virtual bool Closed { get; set; }
 
     public virtual ProjectType Type { get; set; }

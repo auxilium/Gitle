@@ -19,6 +19,7 @@
             Map(x => x.TicketRequiredForBooking);
             Map(x => x.BudgetMinutes);
             Map(x => x.Unbillable);
+            Map(x => x.Subsidized);
             Map(x => x.Closed);
             Map(x => x.IsMuted);
             HasMany(x => x.Users).Cascade.All();
