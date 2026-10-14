@@ -1044,8 +1044,32 @@ table {
       font-weight: bold;
     }
 
-    i {
+    i:not(.fa-stack i) {
       font-size: 1.6em;
+    }
+
+    .fa-stack {
+      font-size: 1.6em;
+      width: 1.6em;
+      height: 1.6em;
+      vertical-align: top;
+      line-height: inherit;
+
+      &.fa-fw {
+        width: 1.28571429em;
+      }
+
+      .fa-stack-1x {
+        font-size: 0.5em;
+
+        &.fa-check {
+          line-height: 1.9em;
+        }
+      }
+
+      .fa-stack-2x {
+        font-size: 1em;
+      }
     }
 
     i.pickedup {

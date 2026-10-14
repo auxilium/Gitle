@@ -10,68 +10,71 @@
                 <span class="number">#${issue.Number}</span>
                 <input type="checkbox" name="issue" value="${issue.Number}" class="no-margin" />
               </div>
-              <div class="small-6 columns large-text-center medium-text-right">
+              <div class="small-6 columns large-text-center medium-text-right small-text-right">
 
-								<% if issue.IsOpen or issue.SetUrgent: %>
+                <% if issue.IsOpen or issue.SetUrgent: %>
                 <% if issue.IsAdministrative : %>
-                <i class="fa fa-bookmark yellow" title="administratief"></i>
+                <i class="fa fa-fw fa-bookmark yellow" title="administratief"></i>
                 <% else :%>
-                <i class="fa fa-info-circle blue" aria-hidden="true" title="open"></i>
+                <i class="fa fa-fw fa-info-circle blue" aria-hidden="true" title="open"></i>
                 <% end %>
-	                <!--<i class="fa fa-exclamation-circle green" title="open"></i>-->
+                <!--<i class="fa fa-exclamation-circle green" title="open"></i>-->
                 <% elif issue.IsArchived: %>
-                <i class="fa fa-trash red" title="gearchiveerd: ${Helpers.DateTimeHelper.Readable(issue.ArchivedAt)}"></i>
+                <i class="fa fa-fw fa-trash red" title="gearchiveerd: ${Helpers.DateTimeHelper.Readable(issue.ArchivedAt)}"></i>
                 <% elif issue.IsDone: %>
-                <i class="fa fa-thumbs-o-up green" title="uitgevoerd"></i>
+                <i class="fa fa-fw fa-thumbs-o-up green" title="uitgevoerd"></i>
                 <% elif issue.IsOnHold: %>
-                <i class="fa fa-hand-paper-o orange" title="on hold"></i>
+                <i class="fa fa-fw fa-hand-paper-o orange" title="on hold"></i>
                 <% else: %>
-                <i class="fa fa-ban red" title="gesloten: ${Helpers.DateTimeHelper.Readable(issue.ClosedAt)}"></i>
+                <i class="fa fa-fw fa-ban red" title="gesloten: ${Helpers.DateTimeHelper.Readable(issue.ClosedAt)}"></i>
                 <% end %>
                 <!--< if not issue.Prioritized and issue.IsOpen and issue.Pickups.Count == 0: ><i class="fa fa-paw red noprio" title="Niet geprioriteerd"></i>< end >-->
                 <% if issue.PickedUpBy != null and issue.IsOpen: %>
-                <i class="fa fa-user orange pickedup" title="In behandeling"></i>
+                <i class="fa fa-fw fa-user orange pickedup" title="In behandeling"></i>
+                <% end %>
+                <% if issue.SetUrgent : %>
+                <i class="fa fa-fw fa-exclamation red" title="spoed"></i>
+                <% end %>
+                <% if (CurrentUser.IsAdmin or CurrentUser.IsDanielle) and issue.Subsidized: %>
+                <span class="fa-stack fa-fw" title="WBSO">
+                  <i class="fa fa-certificate orange fa-stack-2x"></i>
+                  <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                </span>
                 <% end %>
               </div>
-	            <div class="small-6 columns large-text-center medium-text-right">
-								<% if issue.SetUrgent : %>
-								<i class="fa fa-exclamation red" title="spoed"></i>
-								<% end %>
-	            </div>
             </div>
           </div>
-	       
           <div class="large-8 columns">
             <div class="row namerow">
               <div class="large-11 columns">
                 <a href="/project/${project.Slug}/issue/${issue.Number}/view" data-quickview="/project/${project.Slug}/issue/${issue.Number}/quickview">!{issue.Name}</a>
                 <% for label in labels: %>
                 <%  if issue.CheckLabel(label.Name): %>
-	                <%  if redLabel: %>
-		                <span class="label no-margin"
+                <%  if redLabel: %>
+                <span class="label no-margin"
 		                <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color};color: #000000;">${label.Name}</span>
-			                <% else: %>
-				                <span class="label no-margin"
+                <% else: %>
+                <span class="label no-margin"
 				                <% if label.VisibleForCustomer: %> radius<% end %>" title="${label.Name}" style="background-color: #${label.Color};">${label.Name}</span>
-					                <% end %>
+                <% end %>
                 <% end %>
                 <% end %>
               </div>
               <div class="large-1 columns text-right comments">
                 <% if issue.Comments.Count > 0: %>
-                  <% if CurrentUser.IsAdmin or CurrentUser.CanBookHours :%>
-                    <i class="fa fa-comments-o"></i>
-                    ${issue.Comments.Count}
-                  <% else :%>
-                    <% count = 0 %>
-                    <% for comment in issue.Comments :%>
-                      <% if not comment.IsInternal :%>
-                      <% count++ %>
-                      <% end %>
-                    <% end %>
-                    <i class="fa fa-comments-o"></i>
-                    ${count}
-                  <% end %>
+                <% if CurrentUser.IsAdmin or CurrentUser.CanBookHours :%>
+                <i class="fa fa-comments-o"></i>
+                ${issue.Comments.Count}
+                <% else :%>
+                <% count = 0 %>
+                <% for comment in issue.Comments :%>
+                <% if not comment.IsInternal :%>
+                <% count++ %>
+                <% end %>
+                <% end %>
+                <i class="fa fa-comments-o"></i>
+                ${count}
+                <% end %>
                 <% end %>
               </div>
             </div>
@@ -108,16 +111,16 @@
               </div>
               <div class="large-2 columns text-right">
                 <a href="/report/index?query=project:${project.Slug} issue:${issue.Number} period:always" data-bookingschart="/project/${project.Slug}/issue/${issue.Number}/bookingschart">
-                <div class="progress progress-border progress-status">
-                  <% if issue.BillableBookingHours() > issue.TotalHours and issue.TotalHours != 0: %>
-                  <span class="meter overbudget" style="width: 100% "></span>
-                  <% elif issue.TotalHours == 0: %>
-                  <span class="meter noestimate" style="width: 100%"></span>
-                  <% else: %>
-                  <span class="meter inbudget" style="width: ${issue.Progress().ToString().Replace(",", "." )}% "></span>
-                  <% end %>
-                  <span class="right-value">${issue.BillableBookingHoursString()}</span>
-                </div>
+                  <div class="progress progress-border progress-status">
+                    <% if issue.BillableBookingHours() > issue.TotalHours and issue.TotalHours != 0: %>
+                    <span class="meter overbudget" style="width: 100% "></span>
+                    <% elif issue.TotalHours == 0: %>
+                    <span class="meter noestimate" style="width: 100%"></span>
+                    <% else: %>
+                    <span class="meter inbudget" style="width: ${issue.Progress().ToString().Replace(" ,", "." )}% "></span>
+                    <% end %>
+                    <span class="right-value">${issue.BillableBookingHoursString()}</span>
+                  </div>
                 </a>
               </div>
               <div class="large-2 columns text-right">
@@ -128,12 +131,12 @@
             <% if issue.Invoices.Count > 0: %>
             <div class="row detailsrow">
               <div class="large-7 columns">
-	              ${t.Invoice_Numbers}:
-								<% for invoice in issue.Invoices: %>	
-									<%if invoice.IsActive: %>
-                <span class="label round <% if not invoice.IsDefinitive: %>secondary<% end %>" title="${invoice.Title}">${invoice.Number}</span>										
-							 <% end %>
-								 <% end %>
+                ${t.Invoice_Numbers}:
+                <% for invoice in issue.Invoices: %>
+                <%if invoice.IsActive: %>
+                <span class="label round <% if not invoice.IsDefinitive: %>secondary<% end %>" title="${invoice.Title}">${invoice.Number}</span>
+                <% end %>
+                <% end %>
               </div>
               <div class="large-1 columns">
                 <strong>${t.Billed}: </strong>

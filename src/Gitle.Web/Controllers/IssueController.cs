@@ -162,7 +162,7 @@
                 throw new ProjectClosedException(project);
             }
             PropertyBag.Add("project", project);
-            PropertyBag.Add("item", new Issue() { Project = project });
+            PropertyBag.Add("item", new Issue() { Project = project, Subsidized = project.Subsidized });
             PropertyBag.Add("labels", CurrentUser.IsAdmin ? project.Labels : project.Labels.Where(l => l.ApplicableByCustomer));
             RenderView("edit");
         }

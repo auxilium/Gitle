@@ -44,7 +44,8 @@
                                 {"Name", "Naam"},
                                 {"TotalHours", "Inspanning"},
                                 {"Comments.Count", "Aantal reacties"},
-                                {"IsAdministrative", "Administratief"}
+                                {"IsAdministrative", "Administratief"},
+                                {"Subsidized", "WBSO"}
                             };
 
 

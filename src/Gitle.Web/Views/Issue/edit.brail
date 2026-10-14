@@ -67,8 +67,23 @@
             </div>
           </div>
         </div>
+
+        <% if CurrentUser.IsDanielle: %>
+        <div class="large-3 columns end">
+          <div class="row collapse">
+            <div class="small-3 large-2 columns">
+              <span class="prefix">
+                ${Form.CheckboxField("item.Subsidized")}
+              </span>
+            </div>
+            <div class="small-9 large-10 columns">
+              <label for="item_Subsidized" class="postfix text-left">WBSO</label>
+            </div>
+          </div>
+        </div>
+        <% end %>
       </div>
-	      <% end %>
+      <% end %>
       <div class="row">
         <div class="large-3 columns">${t.Labels}</div>
         <div class="large-9 columns">

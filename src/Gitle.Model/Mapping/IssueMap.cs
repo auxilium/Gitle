@@ -16,6 +16,7 @@
             Map(x => x.EstimatePublic);
             Map(x => x.Administrative);
             Map(x => x.Urgent);
+            Map(x => x.Subsidized);
             References(x => x.Project).Column("Project_id").LazyLoad(Laziness.False);
             HasMany(x => x.Comments).Cascade.AllDeleteOrphan();
             HasMany(x => x.ChangeStates).Cascade.AllDeleteOrphan();
