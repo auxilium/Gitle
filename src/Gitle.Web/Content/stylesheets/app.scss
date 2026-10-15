@@ -283,6 +283,23 @@ table.tickets-table {
   }
 
   &.progress-status {
+    // Actual percentages may exceed 100%; keep the visual fill inside its track.
+    overflow: hidden;
+
+    .meter {
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .left-value, .right-value {
+      max-width: 50%;
+      box-sizing: border-box;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
     .overbudget-warn {
       background-color: #f1b84f;
     }

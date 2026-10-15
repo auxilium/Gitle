@@ -579,6 +579,9 @@
     <None Include="Views\Booking\overview.brail" />
     <None Include="Views\Database\migrateinvoices.brail" />
     <None Include="Views\Dashboard\index.brail" />
+    <Content Include="Views\Dashboard\_progress.brail" />
+    <Content Include="Views\Dashboard\_overview.brail" />
+    <Content Include="Views\Dashboard\_issues.brail" />
     <None Include="Views\Issue\index.brail" />
     <None Include="Views\Issue\exportimport.brail" />
     <Content Include="Views\Issue\bookingschart.brail" />

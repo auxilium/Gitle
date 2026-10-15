@@ -1,0 +1,54 @@
+    <input type="checkbox" id="toggle-overview-service-issues" /> Toon alle tickets
+    <br />
+    <input type="checkbox" id="toggle-empties" checked /> Verberg projecten zonder tickets
+    <% if CurrentUser.IsAdmin: %>
+    <div class="large-0 small-6 columns right">
+      <a href="/dashboard/exportopenticketsbyproject" class="button tiny">Export openstaande issues</a>
+    </div>
+    <% end %>
+
+    <table class="tickets-table striped hide-empties">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th style="width: 80%;">Tickets</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for project in serviceProjects: %>
+        <tr class="<% if project.OpenIssueCount == 0 : %>empty-project<% end %>">
+          <td><a href="/project/${project.Slug}/issues" <% if project.UrgentIssueCount > 0 : %> style="color:#FF0000;" <% end %>>${project.Name}</a></td>
+          <td>
+            <div class="progress progress-tickets">
+              <% if project.OpenIssueCount > 0: %><span class="meter open" style="width: ${project.OpenIssuesPercentageOf(serviceProjectsMaxOpenIssues).ToString().Replace(",", "." )}%">${project.OpenIssueCount} open</span><% end %>
+            </div>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <table class="tickets-table striped hide-empties hide">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th style="width: 80%;">Tickets</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for project in serviceProjects: %>
+        <tr class="<% if project.TotalIssueCount == 0 : %>empty-project<% end %>">
+          <td><a href="/project/${project.Slug}/issues">${project.Name}</a></td>
+          <td>
+            <div class="progress progress-tickets">
+              <% if project.OpenIssueCount > 0: %><span class="meter open" style="width: ${project.OpenIssuesPercentage.ToString().Replace(",", "." )}%">${project.OpenIssueCount} open</span><% end %>
+              <% if project.DoneIssueCount > 0: %><span class="meter done" style="width: ${project.DoneIssuesPercentage.ToString().Replace(",", "." )}%">${project.DoneIssueCount} done</span><% end %>
+              <% if project.HoldIssueCount > 0: %><span class="meter hold" style="width: ${project.HoldIssuesPercentage.ToString().Replace(",", "." )}%">${project.HoldIssueCount} hold</span><% end %>
+              <% if project.ClosedIssueCount > 0: %><span class="meter closed" style="width: ${project.ClosedIssuesPercentage.ToString().Replace(",", "." )}%">${project.ClosedIssueCount} closed</span><% end %>
+              <% if project.UrgentIssueCount > 0: %><span class="meter urgent" style="width: ${project.UrgentIssuesPercentage.ToString().Replace(",", "." )}%">${project.UrgentIssueCount} urgent</span><% end %>
+            </div>
+          </td>
+
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
