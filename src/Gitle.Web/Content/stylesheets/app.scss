@@ -99,6 +99,10 @@ span {
       display: inline;
     }
   }
+
+  h1 &.fa-stack {
+    font-size: initial;
+  }
 }
 
 .footer {

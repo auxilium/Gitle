@@ -1,7 +1,21 @@
 ﻿<div class="row">
   <div class="large-12 columns">
-    <a href="<% if IsDefined("referer"): %>${referer}<% else: %>/project/${project.Slug}/issues<% end %>">${t.BackToIndex}</a>
-    <h1>#<strong>${item.Number}</strong> - !{item.Name}</h1>
+    <a href="<% if IsDefined(" referer"): %>${referer}<% else: %>/project/${project.Slug}/issues<% end %>">${t.BackToIndex}</a>
+    <div class="row">
+      <div class="large-12 columns">
+        <h1>
+          #<strong>${item.Number}</strong> - !{item.Name}
+          <% if CurrentUser.IsAdmin or CurrentUser.IsDanielle: %>
+          <span class="fa-stack fa-fw" title="WBSO">
+            <i class="fa fa-certificate orange fa-stack-2x"></i>
+            <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+          </span>
+          <% end %>
+        </h1>
+        
+      </div>
+    </div>
+
     <% if CurrentUser.IsAdmin and not project.Closed: %><h3><a href="edit">${t.Edit}</a></h3><% end %>
     <div class="row">
       <div class="large-3 columns small-text">
@@ -27,15 +41,18 @@
         <% end %>
         <p class="state no-margin"><strong>${t.State}:</strong> ${item.StateString}</p>
         <% end %>
-	        <p class="labels no-margin">
+        <p class="labels no-margin">
           <strong>${t.Labels}:</strong>
         </p>
-	        <ul class="no-style">
+        <ul class="no-style">
           <% for label in project.Labels: %>
           <%   if (CurrentUser.IsAdmin or label.VisibleForCustomer): %>
           <%     if item.CheckLabel(label.Name): %>
-          <li><span class="label no-margin radius" title="${label.Name}" style="background-color: #${label.Color};">${label.Name}
-		          <a href="/project/${project.Slug}/issue/${item.Number}/DeleteLabel/${label.Id}"><i style="color: black;" class="fa fa-trash" aria-hidden="true"></i></a></span>
+          <li>
+            <span class="label no-margin radius" title="${label.Name}" style="background-color: #${label.Color};">
+              ${label.Name}
+              <a href="/project/${project.Slug}/issue/${item.Number}/DeleteLabel/${label.Id}"><i style="color: black;" class="fa fa-trash" aria-hidden="true"></i></a>
+            </span>
           </li>
           <%     end %>
           <%   end %>
@@ -72,9 +89,9 @@
         </p>
         <ul id="forwardTask" data-dropdown-content class="f-dropdown">
           <% for user in users: %>
-            <% if CurrentUser.IsAdmin and user != CurrentUser and user != item.PickedUpBy :%>
+          <% if CurrentUser.IsAdmin and user != CurrentUser and user != item.PickedUpBy :%>
           <li><a href="/project/${project.Slug}/issue/${item.Number}/handover?userId=${user.Id}">${user.FullName}</a></li>
-            <% end %>
+          <% end %>
           <% end %>
         </ul>
         <hr />
@@ -120,10 +137,10 @@
               </p>
               <!--<div class="large-12 columns">{Form.CheckboxField("close")} Sluit de taak</div>-->
               <!--<ul id="addstatus" data-dropdown-content class="f-dropdown">
-          <li><a href="/project/{project.Slug}/issue/{item.Number}">Standaard</a></li>
-          <li><a href="/project/{project.Slug}/issue/{item.Number}">Uitgevoerd</a></li>
-          <li><a href="/project/{project.Slug}/issue/{item.Number}">On hold</a></li>
-        </ul>-->
+                <li><a href="/project/{project.Slug}/issue/{item.Number}">Standaard</a></li>
+                <li><a href="/project/{project.Slug}/issue/{item.Number}">Uitgevoerd</a></li>
+                <li><a href="/project/{project.Slug}/issue/{item.Nu]mber}">On hold</a></li>
+              </ul>-->
             </div>
           </div>
           <% end %>
