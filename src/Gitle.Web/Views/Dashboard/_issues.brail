@@ -1,0 +1,265 @@
+    <div class="content">
+
+      <% if CurrentUser.IsAdmin or CurrentUser.IsDanielle: %>
+      <div class="panel">
+        <div class="row">
+          <div class="large-0 small-12 columns">
+            ${Form.Select("type", allTypes, {"text": "Value", "value": "Key", "class": "no-margin", "firstoption": "Kies een projecttype..."})}
+          </div>
+
+          <div class="large-0 small-12 columns initialProjects hide">
+            ${Form.Select("initialProject", initialProjectsOptions, {"text": "Value", "value": "Key", "class": "initialProjectsOptions no-margin", "firstoption": "Kies een project..."})}
+          </div>
+
+          <div class="large-0 small-12 columns internalProjects hide">
+            ${Form.Select("internalProject", internalProjectsOptions, {"text": "Value", "value": "Key", "class": "internalProjectsOptions no-margin", "firstoption": "Kies een project..."})}
+          </div>
+
+          <div class="large-0 small-12 columns administrationProjects hide">
+            ${Form.Select("administrationProject", administrationProjectsOptions, {"text": "Value", "value": "Key", "class": "administrationProjectsOptions no-margin", "firstoption": "Kies een project..."})}
+          </div>
+
+          <div class="large-0 small-12 columns serviceOpenProjects hide">
+            ${Form.Select("serviceProject", serviceOpenProjectsOptions, {"text": "Value", "value": "Key", "class": "serviceOpenProjectsOptions no-margin", "firstoption": "Kies een project..."})}
+          </div>
+          <div class="large-0 small-12 columns">
+            <button class="button tiny no-margin alert delete reset-filter">Reset filter</button>
+          </div>
+          <% if CurrentUser.IsAdmin: %>
+          <div class="large-0 small-6 columns right">
+            <a href="/dashboard/exportopenticketsbyproject" class="button tiny">Export openstaande issues</a>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+
+
+
+      <table id="project-table" class="small-blocks"></table>
+    </div>
+
+
+    <table class="tickets-table striped hide-empties hide">
+      <thead>
+        <tr>
+          <th>Issues</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+<script>
+  $(function () {
+    var isDanielle = '${CurrentUser.IsDanielle}' === 'True';
+    var isAdmin = '${CurrentUser.IsAdmin}' === 'True';
+
+    var table = $('#project-table').DataTable({
+      pageLength: 50,
+      serverSide: true,
+      autoWidth: false,
+      ajax: {
+        url: '/dashboard/list',
+        type: 'POST',
+        data: function (d) {
+          d.search = d.search.value;
+          for (var column in d.columns) {
+
+            if (d.columns.hasOwnProperty(column)) {
+              delete d.columns[column].search;
+            }
+          }
+          d.type = $('#type').val();
+          d.projectName = choosenProject();
+          d.orderColumn = d.columns[d.order[0].column].name;
+          d.orderDir = d.order[0].dir;
+        }
+      },
+      initComplete: function (settings, json) {
+        $(document).foundation('reflow');
+      },
+      columns: [
+        {
+          data: 'Number', title: '#', name: 'Number', render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              return '<span class="red">' + data + '</span>';
+            } else {
+              return data;
+            }
+          }
+        },
+        {
+          data: 'Name', title: 'Issue naam', name: 'Name', render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              return '<span class="red">' + data + '</span>';
+            } else {
+              return '<div style="width: 250px;">' + data + '</div>';
+            }
+          }
+        },
+        {
+          data: 'EstimateString', title: 'Schatting', name: 'EstimateString', orderable: false, visible: isAdmin, render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              var result = renderEstimate(full, true);
+              return '<div class="row detailsrow" style="width: 210px;">' + result + '</div>';
+            } else {
+              var result = renderEstimate(full, false);
+              return '<div class="row detailsrow" style="width: 210px;">' + result + '</div>';
+            }
+          }
+        },
+        {
+          data: 'BillableBookingHours', title: 'Geboekt', name: 'BillableBookingHours', orderable: false, visible: isAdmin, render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              var resultUrgent = renderProgressEstimate(full, true);
+              return '<div class="progress progress-border progress-status" style="width: 300px;">' + resultUrgent + '<span class="right-value red">' + full.BillableBookingHoursString + '</span></div><div class="large-7 columns">(<span>' + full.UnbillableBookingHoursString + ' unbillable</span>)</div>';
+            } else {
+              var result = renderProgressEstimate(full, false);
+              return '<div class="progress progress-border progress-status" style="width: 300px;">' + result + '<span class="right-value">' + full.BillableBookingHoursString + '</span></div><div class="large-7 columns">(<span>' + full.UnbillableBookingHoursString + ' unbillable</span>)</div>';
+            }
+          }
+        },
+        {
+          data: 'TotalBillableHoursInvoicedString', title: 'Gefactureerd', name: 'TotalBillableHoursInvoicedString', orderable: false, visible: isAdmin, render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              var result = renderBilled(data, full, true);
+              return '<div class="row detailsrow" style="width: 210px;">' + result + '</div>';
+            } else {
+              var result = renderBilled(data, full, false);
+              return '<div class="row detailsrow" style="width: 210px;">' + result + '</div>';
+            }
+          }
+        },
+        {
+          data: 'Application', title: 'Application', name: 'Application.Name', orderable: false, visible: isAdmin, render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              return '<span class="red">' + data + '</span>';
+            } else {
+              return data;
+            }
+          }
+        },
+        {
+          data: 'Customer', title: 'Customer', name: 'Customer', orderable: false, visible: isAdmin, render: function (data, type, full, meta) {
+            if (full.Urgent) {
+              return '<span class="red">' + data + '</span>';
+            } else {
+              return data;
+            }
+          }
+        },
+      ],
+
+    });
+
+    function renderBilled(data, full, urgent) {
+      if (urgent) {
+        var html = '<div class="large-6 columns">' + data + '</div><div class="large-6 columns text-left" style="float: left; color: red;">(' + full.TotalUnbillableHoursInvoicedString + ') unbillable</div>';
+      } else {
+        var html = '<div class="large-6 columns">' + data + '</div><div class="large-6 columns text-left" style="float: left;">(' + full.TotalUnbillableHoursInvoicedString + ') unbillable</div>';
+      }
+      return html;
+    }
+
+    function renderEstimate(full, urgent) {
+      var html = "";
+      if (full.Devvers > 0 && full.Hours > 0 && full.EstimatePublic) {
+        html = '<div class="large-6 columns">';
+        if (!full.EstimatePublic) {
+          var notEstimatePublic = '<i class="fa fa-exclamation-triangle" title="schatting nog niet publiek"></i>';
+          html += notEstimatePublic;
+        }
+        if (urgent) {
+          html += full.TotalHours + '</div><div class="large-7 columns text-left" style="float: left; color: red;">' + full.Cost + '</div>';
+        } else {
+          html += full.TotalHours + '</div><div class="large-7 columns text-left" style="float: left;">' + full.Cost + '</div>';
+        }
+      }
+      return html;
+    }
+
+    function renderProgressEstimate(full, urgent) {
+      if (full.BillableBookingHours > full.TotalHours && full.TotalHours != 0) {
+        return '<span class="meter overbudget" style="width: 100% "></span>';
+      }
+      else if (full.TotalHours == 0) {
+        return '<span class="meter noestimate" style="width: 100%"></span>';
+      }
+      else {
+        var progress = full.Progress.toString().replace(", ", ".");
+        if (urgent) {
+          return '<span class="meter inbudget red" style="width:' + progress.toString() + 'px"></span>';
+        } else {
+          return '<span class="meter inbudget" style="width:' + progress.toString() + 'px"></span>';
+        }
+      }
+    }
+
+
+    $('#closedProjects, #urgentIssues, #type, #initialProject, #serviceProject, #internalProject, #administrationProject').change(function () {
+      if ($('#type').val() == 0) {
+        $('#initialProject, #serviceProject, #internalProject, #administrationProject').val(0);
+        $('.serviceOpenProjects, .administrationProjects, .internalProjects, .initialProjects').addClass('hide');
+      }
+      table.ajax.reload();
+    });
+
+
+
+    $('#customer').change(function () {
+      $('#application').val('0');
+      if ($(this).val() != '0') {
+        $('#application [data-customer][data-customer!="' + $(this).val() + '"]').attr('disabled', true);
+        $('#application [data-customer][data-customer="' + $(this).val() + '"]').removeAttr('disabled');
+        var visibleOptions = $('#application option[data-customer]:not([disabled])');
+        if (visibleOptions.length == 1) {
+          $('#application').val(visibleOptions.attr('value'));
+        }
+      } else {
+        $('#application option').removeAttr('disabled');
+      }
+    });
+
+    $('#type').change(function () {
+      if ($('#type').val() == 1) {
+        if ($('.serviceOpenProjects').hasClass('hide') || $('.internalProjects').hasClass('hide') || $('.administrationProjects').hasClass('hide')) {
+          $('.serviceOpenProjects, .administrationProjects, .internalProjects').addClass('hide');
+        }
+        $('.initialProjects').removeClass('hide');
+      }
+      if ($('#type').val() == 2) {
+        if ($('.initialProjects').hasClass('hide') || $('.administrationProjects').hasClass('hide') || $('.internalProjects').hasClass('hide')) {
+          $('.initialProjects, .administrationProjects, .internalProjects').addClass('hide');
+        }
+        $('.serviceOpenProjects').removeClass('hide');
+      }
+      if ($('#type').val() == 3) {
+        if ($('.initialProjects').hasClass('hide') || $('.administrationProjects').hasClass('hide') || $('.serviceOpenProjects').hasClass('hide')) {
+          $('.initialProjects, .administrationProjects, .serviceOpenProjects').addClass('hide');
+        }
+        $('.internalProjects').removeClass('hide');
+      }
+      if ($('#type').val() == 4) {
+        if ($('.initialProjects').hasClass('hide') || $('.internalProjects').hasClass('hide') || $('.serviceOpenProjects').hasClass('hide')) {
+          $('.initialProjects, .internalProjects, .serviceOpenProjects').addClass('hide');
+        }
+        $('.administrationProjects').removeClass('hide');
+      }
+    });
+
+    function choosenProject() {
+      const projects = ['#initialProject', '#serviceProject', '#internalProject', '#administrationProject'];
+      for (const project of projects) {
+        const value = $(project).val();
+        if (value != 0) return value;
+      }
+      return $('#initialProject').val();
+    };
+
+    $('button.reset-filter').click(function () {
+      $('.serviceOpenProjects, .administrationProjects, .internalProjects, .initialProjects').addClass('hide');
+      $('#initialProject, #serviceProject, #internalProject, #administrationProject, #type').val(0);
+      table.ajax.reload();
+    });
+  });
+</script>

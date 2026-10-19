@@ -1,0 +1,90 @@
+<style>
+  .progress.dashboard-ticket-progress {
+    overflow: hidden;
+  }
+  .progress.dashboard-ticket-progress .meter {
+    padding: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .progress.dashboard-ticket-progress .ticket-labels {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0 0.5em;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0.8em;
+    color: #222;
+  }
+  .progress.dashboard-ticket-progress .ticket-labels > span {
+    flex-shrink: 0;
+    padding: 0 0.2em;
+  }
+</style>
+    <input type="checkbox" id="toggle-overview-service-issues" /> Toon alle tickets
+    <br />
+    <input type="checkbox" id="toggle-empties" checked /> Verberg projecten zonder tickets
+    <% if CurrentUser.IsAdmin: %>
+    <div class="large-0 small-6 columns right">
+      <a href="/dashboard/exportopenticketsbyproject" class="button tiny">Export openstaande issues</a>
+    </div>
+    <% end %>
+
+    <table class="tickets-table striped hide-empties">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th style="width: 80%;">Tickets</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for project in serviceProjects: %>
+        <tr class="<% if project.OpenIssueCount == 0 : %>empty-project<% end %>">
+          <td><a href="/project/${project.Slug}/issues" <% if project.UrgentIssueCount > 0 : %> style="color:#FF0000;" <% end %>>${project.Name}</a></td>
+          <td>
+            <div class="progress progress-tickets dashboard-ticket-progress">
+              <% if project.OpenIssueCount > 0: %><span class="meter open" style="width: ${project.OpenIssuesPercentageOf(serviceProjectsMaxOpenIssues).ToString().Replace(",", "." )}%" aria-hidden="true"></span><% end %>
+              <span class="ticket-labels" title="${project.OpenIssueCount} open">
+                <% if project.OpenIssueCount > 0: %><span>${project.OpenIssueCount} open</span><% end %>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <table class="tickets-table striped hide-empties hide">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th style="width: 80%;">Tickets</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for project in serviceProjects: %>
+        <tr class="<% if project.TotalIssueCount == 0 : %>empty-project<% end %>">
+          <td><a href="/project/${project.Slug}/issues">${project.Name}</a></td>
+          <td>
+            <div class="progress progress-tickets dashboard-ticket-progress">
+              <% if project.OpenIssueCount > 0: %><span class="meter open" style="width: ${project.OpenIssuesPercentage.ToString().Replace(",", "." )}%" aria-hidden="true"></span><% end %>
+              <% if project.DoneIssueCount > 0: %><span class="meter done" style="width: ${project.DoneIssuesPercentage.ToString().Replace(",", "." )}%" aria-hidden="true"></span><% end %>
+              <% if project.HoldIssueCount > 0: %><span class="meter hold" style="width: ${project.HoldIssuesPercentage.ToString().Replace(",", "." )}%" aria-hidden="true"></span><% end %>
+              <% if project.ClosedIssueCount > 0: %><span class="meter closed" style="width: ${project.ClosedIssuesPercentage.ToString().Replace(",", "." )}%" aria-hidden="true"></span><% end %>
+              <% if project.UrgentIssueCount > 0: %><span class="meter urgent" style="width: ${project.UrgentIssuesPercentage.ToString().Replace(",", "." )}%" aria-hidden="true"></span><% end %>
+              <span class="ticket-labels">
+                <% if project.OpenIssueCount > 0: %><span title="${project.OpenIssueCount} open">${project.OpenIssueCount} open</span><% end %>
+                <% if project.DoneIssueCount > 0: %><span title="${project.DoneIssueCount} done">${project.DoneIssueCount} done</span><% end %>
+                <% if project.HoldIssueCount > 0: %><span title="${project.HoldIssueCount} hold">${project.HoldIssueCount} hold</span><% end %>
+                <% if project.ClosedIssueCount > 0: %><span title="${project.ClosedIssueCount} closed">${project.ClosedIssueCount} closed</span><% end %>
+                <% if project.UrgentIssueCount > 0: %><span title="${project.UrgentIssueCount} urgent">${project.UrgentIssueCount} urgent</span><% end %>
+              </span>
+            </div>
+          </td>
+
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
