@@ -1749,6 +1749,10 @@ table#project-table {
   .closed {
     background: repeating-linear-gradient(143deg, #ffffff 14px, #d2d4d6 19px);
   }
+
+  span.fa-stack {
+    font-size: 0.8em;
+  }
 }
 
 #overlay {
