@@ -35,7 +35,7 @@
                 <% if issue.SetUrgent : %>
                 <i class="fa fa-fw fa-exclamation red" title="spoed"></i>
                 <% end %>
-                <% if (CurrentUser.IsAdmin or CurrentUser.IsDanielle) and issue.Subsidized: %>
+                <% if CurrentUser.IsDanielle and issue.Subsidized: %>
                 <span class="fa-stack fa-fw" title="WBSO">
                   <i class="fa fa-certificate orange fa-stack-2x"></i>
                   <i class="fa fa-check fa-stack-1x fa-inverse"></i>

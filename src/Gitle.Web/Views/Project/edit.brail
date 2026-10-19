@@ -55,7 +55,7 @@
         <div class="large-3 columns">Unbillable</div>
         <div class="large-9 columns">${Form.CheckboxField("item.Unbillable")}</div>
       </div>
-      <% if CurrentUser.IsAdmin or CurrentUser.IsDanielle: %>
+      <% if CurrentUser.IsDanielle: %>
       <div class="row">
         <div class="large-3 columns">WBSO</div>
         <div class="large-9 columns">${Form.CheckboxField("item.Subsidized")}</div>

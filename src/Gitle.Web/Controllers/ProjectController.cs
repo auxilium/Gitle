@@ -220,12 +220,14 @@ namespace Gitle.Web.Controllers
             var item = session.SlugOrDefault<Project>(projectSlug);
             if (item != null)
             {
-                BindObjectInstance(item, "item");
+                BindObjectInstance(item, ParamStore.Form, "item", "Subsidized", null);
             }
             else
             {
-                item = BindObject<Project>("item");
+                item = BindObject<Project>(ParamStore.Form, "item", "Subsidized", null);
             }
+
+            if (CurrentUser.IsDanielle) item.Subsidized = bool.Parse(Form["item.Subsidized"]);
 
             if (applicationId > 0)
             {

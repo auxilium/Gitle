@@ -5,7 +5,7 @@
       <div class="large-12 columns">
         <h1>
           #<strong>${item.Number}</strong> - !{item.Name}
-          <% if CurrentUser.IsAdmin or CurrentUser.IsDanielle: %>
+          <% if CurrentUser.IsDanielle: %>
           <span class="fa-stack fa-fw" title="WBSO">
             <i class="fa fa-certificate orange fa-stack-2x"></i>
             <i class="fa fa-check fa-stack-1x fa-inverse"></i>

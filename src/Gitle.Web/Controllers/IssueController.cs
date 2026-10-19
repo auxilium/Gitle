@@ -304,7 +304,7 @@
             if (issue != null)
             {
                 var name = Request.Params["item.Name"] == null ? issue.Name : Request.Params["item.Name"];
-                BindObjectInstance(issue, "item");
+                BindObjectInstance(issue, ParamStore.Form, "item", "Subsidized", null);
                 issue.Name = name.Replace("\"", "'");
         
                 if (!string.IsNullOrWhiteSpace(hoursRaw))
@@ -313,7 +313,7 @@
             }
             else
             {
-                issue = BindObject<Issue>("item");
+                issue = BindObject<Issue>(ParamStore.Form, "item", "Subsidized", null);
                 issue.Number = project.NewIssueNumber;
                 issue.Project = project;
         
@@ -321,6 +321,8 @@
                     issue.Hours = parsedHours;
                 issue.Open(CurrentUser);
             }
+
+            if (CurrentUser.IsDanielle) issue.Subsidized = bool.Parse(Form["item.Subsidized"]);
 
             issue.Labels = labels.Select(label => session.Query<Label>().FirstOrDefault(l => l.Id == label.Id)).ToList();
 

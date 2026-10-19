@@ -229,11 +229,15 @@ namespace Gitle.Web.Controllers
             {
                 ThrowExceptionIfBookingModificationNotAllowed(booking);
 
-                BindObjectInstance(booking, "booking");
+                BindObjectInstance(booking, ParamStore.Form, "booking", "Subsidized", null);
 
                 ThrowExceptionIfBookingModificationNotAllowed(booking);
             }
 
+            if (CurrentUser.IsDanielle && Form["item.Subsidized"] != null)
+            {
+                booking.Subsidized = bool.Parse(Form["item.Subsidized"]);
+            }
 
             if (issueId == 0)
             {
