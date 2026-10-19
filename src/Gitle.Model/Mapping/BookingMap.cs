@@ -11,6 +11,7 @@
              Map(x => x.Comment);
              Map(x => x.Minutes);
              Map(x => x.Unbillable);
+             Map(x => x.Subsidized);
 
              References(x => x.Project).Column("Project_id");
              References(x => x.User).Column("User_id");

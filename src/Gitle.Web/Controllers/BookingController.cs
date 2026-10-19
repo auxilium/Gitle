@@ -178,7 +178,7 @@ namespace Gitle.Web.Controllers
             var booking = BindObject<Booking>("booking");
 
             ThrowExceptionIfBookingModificationNotAllowed(booking);
-
+            
             if (adminId > 0)
             {
                 if (CurrentUser.IsDanielle)
@@ -205,6 +205,11 @@ namespace Gitle.Web.Controllers
                 RedirectToAction("index", new { date = booking.Date.ToShortDateString() });
                 return;
                 //booking.Issue = null;
+            }
+
+            if (!CurrentUser.IsDanielle)
+            {
+                booking.Subsidized = booking.Issue.Subsidized;
             }
 
             using (var transaction = session.BeginTransaction())

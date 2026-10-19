@@ -242,7 +242,7 @@
               <% end %>
             </ul>
           </div>
-          <% isSelected = result.Dump or result.Billable != null %>
+          <% isSelected = result.Dump or result.Billable != null or result.Subsidized != null %>
           <div class="large-0 small-6 columns">
             <button href="#" data-dropdown="extra" aria-controls="extra" aria-expanded="false" class="button tiny dropdown no-margin <% if isSelected: %>warning<% end %>">Extra:</button>
             <ul id="extra" data-dropdown-content="" class="f-dropdown wide" aria-hidden="true" tabindex="-1">
@@ -279,6 +279,30 @@
                 </a>
                 <% end %>
               </li>
+              <% if CurrentUser.IsDanielle: %>
+              <li>
+                <a href="#" data-filter="subsidized:yes" data-filter-opposite="subsidized:no">
+                  <% if result.Subsidized: %><i class="fa fa-check"></i><% end %>
+                  WBSO
+                </a>
+                <% if result.Subsidized: %>
+                <a href="#" class="remove-filter" data-filter="subsidized:yes">
+                  <i class="fa fa-close red"></i>
+                </a>
+                <% end %>
+              </li>
+              <li>
+                <a href="#" data-filter="subsidized:no" data-filter-opposite="subsidized:yes">
+                  <% if result.Subsidized == false: %><i class="fa fa-check"></i><% end %>
+                  geen WBSO
+                </a>
+                <% if result.Subsidized == false: %>
+                <a href="#" class="remove-filter" data-filter="subsidized:no">
+                  <i class="fa fa-close red"></i>
+                </a>
+                <% end %>
+              </li>
+              <% end %>
             </ul>
           </div>
         </div>
@@ -333,6 +357,12 @@
                 <i class="fa fa-euro green" title="billable"></i>
                 <% else: %>
                 <i class="fa fa-euro red" title="unbillable"></i>
+                <% end %>
+                <% if CurrentUser.IsDanielle and booking.Subsidized: %>
+                <span class="fa-stack fa-fw" title="WBSO">
+                  <i class="fa fa-certificate orange fa-stack-2x"></i>
+                  <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                </span>
                 <% end %>
               </div>
             </div>

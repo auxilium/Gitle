@@ -519,7 +519,7 @@
             }
 
             if (issue.IsArchived) return;
-            var booking = new Booking { User = CurrentUser, Date = date, Minutes = minutes, Issue = issue, Project = project, Comment = comment, Unbillable = project.Unbillable };
+            var booking = new Booking { User = CurrentUser, Date = date, Minutes = minutes, Issue = issue, Project = project, Comment = comment, Unbillable = project.Unbillable, Subsidized = issue.Subsidized };
 
             using (var tx = session.BeginTransaction())
             {
@@ -764,7 +764,7 @@
             {
                 issues = issues.Where(i => i.Number.ToString().Contains(query) || i.Name.Contains(query));
             }
-            suggestions.AddRange(issues.ToList().Where(i => !i.IsArchived && i.HasBeenOpenSince(DateTime.Today.AddDays(-7))).Select(x => new Suggestion($"#{x.Number} - {x.Name}", x.Id.ToString(), x.State.ToString())));
+            suggestions.AddRange(issues.ToList().Where(i => !i.IsArchived && i.HasBeenOpenSince(DateTime.Today.AddDays(-7))).Select(x => new Suggestion($"#{x.Number} - {x.Name}", x.Id.ToString(), x.State.ToString(), x.Subsidized ? "subsidized" : "")));
             return new { query = query, suggestions = suggestions };
         }
 

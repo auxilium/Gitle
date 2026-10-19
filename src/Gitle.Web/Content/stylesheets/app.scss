@@ -1517,6 +1517,12 @@ input[type=checkbox].inline {
 }
 
 .booking-row {
+  span.fa-stack {
+    font-size: 0.8em;
+    position: absolute;
+    left: 2.5em;
+  }
+
   :hover {
     background-color: #E6E6E6;
 
@@ -1569,7 +1575,7 @@ input[type=checkbox].inline {
   background-color: #E8B087;
   padding-left: 0.5rem;
 
-  .booking-row-null-toggle {
+  .booking-row-null-toggle, .booking-row-subsidized-null-toggle {
     line-height: 1.25em;
     height: 1.25em;
     margin-top: 0.2em;

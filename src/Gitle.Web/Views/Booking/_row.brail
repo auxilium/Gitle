@@ -5,6 +5,9 @@
       <input type="hidden" name="booking.Minutes" id="booking_Minutes" value="${booking.Time}" />
       <input type="text" class="booking-minutes-edit booking-edit-field booking-parser" data-minutes-field="#booking_Minutes" value="${booking.Time}">
     </div>
+    <div class="large-1 columns no-padding end">
+      <input type="text" name="booking.Date" class="date booking-edit-field" placeholder="Eerder" value="${booking.Date.ToString(" dd-MM-yyyy")}">
+    </div>
     <div class="large-3 columns no-padding">
       <input type="hidden" name="projectId" class="booking_Project_Id" value="${booking.Project.Id}" />
       <input type="text" data-suggestion="${?suggestion.data}" class="booking-project-edit booking-edit-field project-chooser" value="${booking.Project.Name}">
@@ -15,21 +18,24 @@
     </div>
     <div class="large-4 columns no-padding">
       <div class="row collapse">
-        <div class="small-11 columns">
-          <input type="text" class="booking-comment-edit booking-edit-field booking_Comment" name="booking.Comment" value="!{booking.Comment}" autocomplete="on">
-        </div>
         <div class="small-1 columns">
           <input type="hidden" name="booking.Unbillable" class="booking_Unbillable" value="${booking.Unbillable}" />
           <a href="#" class="postfix booking-row-null-toggle <% if booking.Unbillable: %>null<% end %>"><i class="fa fa-euro"></i></a>
         </div>
+        <% if CurrentUser.IsDanielle: %>
+        <div class="small-1 columns">
+          <input type="hidden" name="booking.Subsidized" class="booking_Subsidized" />
+          <a href="#" class="postfix booking-row-subsidized-null-toggle <% if not booking.Subsidized: %>null<% end %>" title="WBSO"><i class="fa fa-check"></i></a>
+        </div>
+        <% end %>
+        <div class="small-10 columns end">
+          <input type="text" class="booking-comment-edit booking-edit-field booking_Comment" name="booking.Comment" value="!{booking.Comment}" autocomplete="on">
+        </div>
       </div>
     </div>
-    <div class="large-1 columns no-padding end">
-      <input type="text" name="booking.Date" class="date booking-edit-field" placeholder="Eerder" value="${booking.Date.ToString(" dd-MM-yyyy")}">
-    </div>
     <div class="large-2 columns no-padding text-right">
-      <button type="submit" class="button success radius supertiny no-margin booking-edit-save">opslaan <i class="fa fa-check"></i></button>
-      <a href="#" class="button secondary radius supertiny no-margin booking-edit-cancel">annuleren <i class="fa fa-times"></i></a>
+      <button type="submit" class="button success radius supertiny no-margin booking-edit-save">save <i class="fa fa-check"></i></button>
+      <a href="#" class="button secondary radius supertiny no-margin booking-edit-cancel">cancel <i class="fa fa-times"></i></a>
     </div>
 
   </form>

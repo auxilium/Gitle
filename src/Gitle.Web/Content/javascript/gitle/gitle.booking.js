@@ -1,6 +1,6 @@
 ﻿$(function () {
   var activeRow = undefined;
-  $('.booking-edit').on('click', function (e) {
+  var bookingEditFunc = function (e) {
     e.preventDefault();
     var row = $(this).parents('.booking-row');
     if (activeRow != undefined) {
@@ -21,7 +21,9 @@
         bookingRowInit(row);
       }
     });
-  });
+  }
+  $('.booking-edit').on('click', bookingEditFunc);
+  $('.booking-row-content').on('dblclick', bookingEditFunc);
 
   $('.booking-row').on('click', function (e) {
     if ($(e.target).is('input[type="checkbox"], a')) return;
@@ -59,6 +61,17 @@
   var setBillable = function (row) {
     row.find('.booking-row-null-toggle').removeClass('null');
     row.find('.booking_Unbillable').val(0);
+  }
+
+  var setUnsubsidized = function (row) {
+    row.find('.booking-row-subsidized-null-toggle').addClass('null');
+    row.find('.booking_Subsidized').val(0);
+
+  }
+
+  var setSubsidized = function (row) {
+    row.find('.booking-row-subsidized-null-toggle').removeClass('null');
+    row.find('.booking_Subsidized').val(1);
   }
 
   var bookingRowInit = function (row) {
@@ -110,6 +123,11 @@
         if (suggestion.extraValue === 'Closed') row.find('.issue-chooser').css('color','red');
         if (suggestion.extraValue === 'Hold') row.find('.issue-chooser').css('color','orange');
         row.find('.booking_Comment').prop("required", false);
+        if (suggestion.extraValue2 == "subsidized") {
+          setSubsidized(row);
+        } else {
+          setUnsubsidized(row);
+        }
         $(document).foundation('abide', 'reflow');
       },
       formatResult: function(suggestion, currentValue) {
@@ -137,6 +155,15 @@
         setBillable(row);
       } else {
         setUnbillable(row);
+      }
+    });
+
+    row.find('.booking-row-subsidized-null-toggle').click(function (e) {
+      e.preventDefault();
+      if ($(this).hasClass('null')) {
+        setSubsidized(row);
+      } else {
+        setUnsubsidized(row);
       }
     });
 

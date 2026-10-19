@@ -24,6 +24,7 @@ namespace Gitle.Model
         public virtual double Minutes { get; set; }
         public virtual string Comment { get; set; }
         public virtual bool Unbillable { get; set; }
+        public virtual bool Subsidized { get; set; }
 
         public virtual IList<InvoiceLine> InvoiceLines { get; set; }
 

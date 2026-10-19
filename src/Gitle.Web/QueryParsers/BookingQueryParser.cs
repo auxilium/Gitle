@@ -23,6 +23,7 @@
         public IList<Issue> Issues { get; set; } = new List<Issue>();
         public bool Dump { get; set; }
         public bool? Billable { get; set; } = null;
+        public bool? Subsidized { get; set; } = null;
 
         public List<BookingGroup> GroupedBookings { get; set; }
 
@@ -135,6 +136,12 @@
                         if (value == "no")
                             Billable = false;
                         break;
+                    case "subsidized":
+                        if (value == "yes")
+                            Subsidized = true;
+                        if (value == "no")
+                            Subsidized = false;
+                        break;
                 }
             }
 
@@ -170,6 +177,11 @@
             if (Billable != null)
             {
                 bookings = bookings.Where(x => x.Unbillable == !Billable);
+            }
+
+            if (Subsidized != null)
+            {
+                bookings = bookings.Where(x => x.Subsidized == Subsidized || (x.Subsidized == null && (bool)!Subsidized));
             }
 
             if (userStrings.Count > 0)

@@ -49,10 +49,17 @@
                 <input type="text" class="no-margin booking_Comment" name="booking.Comment" placeholder="Opmerking" pattern="max500" autocomplete="on" />
                 <small class="error">Opmerking! (max 500 tekens)</small>
               </div>
-              <div class="large-2 columns">
+              <div class="<% if CurrentUser.IsDanielle: %>large-1<% else: %>large-2<% end %> columns">
                 <input type="hidden" name="booking.Unbillable" class="booking_Unbillable" />
                 <a href="#" class="postfix booking-row-null-toggle" title="Billable/Unbillable"><i class="fa fa-euro"></i></a>
+
               </div>
+              <% if CurrentUser.IsDanielle: %>
+              <div class="large-1 columns">
+                <input type="hidden" name="booking.Subsidized" class="booking_Subsidized" />
+                <a href="#" class="postfix booking-row-subsidized-null-toggle null" title="WBSO"><i class="fa fa-check"></i></a>
+              </div>
+              <% end %>
             </div>
           </div>
           <div class="large-1 columns">
@@ -170,7 +177,7 @@
 </form>
 
 <div id="newIssue" class="reveal-modal" data-reveal>
-  
+
 </div>
 
 <script src="/Content/javascript/vendor/foundation.min.js"></script>
@@ -187,8 +194,8 @@
     $(this).find('[data-invalid]').focus();
     $('#booking_Date').fdatepicker('hide');
   })
-  .on('valid', function () {
-    console.log('valid!');
+    .on('valid', function () {
+      console.log('valid!');
     });
 
   $('.booking_Minutes').on('change', function () {
@@ -199,7 +206,7 @@
     var self = $(this);
     if (self.val() === 'undefined' || self.val() === "" || self.val() === 0) return;
     var bookingMinutes = self.parents('.booking-row-new').find('.booking_Minutes');
-    
+
     $.ajax({
       method: 'GET',
       data: {
