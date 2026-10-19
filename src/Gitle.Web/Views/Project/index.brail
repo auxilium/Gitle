@@ -175,7 +175,7 @@
 	data: 'Slug',
 	name: 'Actions',
 	orderable: false,
-	width: '300px',
+	width: '388px',
 	render: function (data, type, full, meta) {
 
 	var html =
