@@ -234,9 +234,10 @@ namespace Gitle.Web.Controllers
                 ThrowExceptionIfBookingModificationNotAllowed(booking);
             }
 
-            if (CurrentUser.IsDanielle && Form["item.Subsidized"] != null)
+            var subsidizedFormValue = Form["booking.Subsidized"];
+            if (CurrentUser.IsDanielle && subsidizedFormValue != null)
             {
-                booking.Subsidized = bool.Parse(Form["item.Subsidized"]);
+                booking.Subsidized = int.TryParse(subsidizedFormValue, out var subsidizedIntValue) ? subsidizedIntValue == 1 : bool.Parse(subsidizedFormValue);
             }
 
             if (issueId == 0)

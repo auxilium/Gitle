@@ -322,7 +322,7 @@
                 issue.Open(CurrentUser);
             }
 
-            if (CurrentUser.IsDanielle) issue.Subsidized = bool.Parse(Form["item.Subsidized"]);
+            if (CurrentUser.IsDanielle) issue.Subsidized = Form["item.Subsidized"].Split(',').Any(bool.Parse);
 
             issue.Labels = labels.Select(label => session.Query<Label>().FirstOrDefault(l => l.Id == label.Id)).ToList();
 

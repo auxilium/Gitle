@@ -227,7 +227,7 @@ namespace Gitle.Web.Controllers
                 item = BindObject<Project>(ParamStore.Form, "item", "Subsidized", null);
             }
 
-            if (CurrentUser.IsDanielle) item.Subsidized = bool.Parse(Form["item.Subsidized"]);
+            if (CurrentUser.IsDanielle) item.Subsidized = Form["item.Subsidized"].Split(',').Any(bool.Parse);
 
             if (applicationId > 0)
             {
