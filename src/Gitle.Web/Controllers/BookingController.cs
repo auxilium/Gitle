@@ -235,7 +235,7 @@ namespace Gitle.Web.Controllers
             }
 
             var subsidizedFormValue = Form["booking.Subsidized"];
-            if (CurrentUser.IsDanielle && subsidizedFormValue != null)
+            if (CurrentUser.IsDanielle && !string.IsNullOrWhiteSpace(subsidizedFormValue))
             {
                 booking.Subsidized = int.TryParse(subsidizedFormValue, out var subsidizedIntValue) ? subsidizedIntValue == 1 : bool.Parse(subsidizedFormValue);
             }
