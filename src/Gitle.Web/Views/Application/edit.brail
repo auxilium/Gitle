@@ -25,6 +25,13 @@
       </div>
 
       <div class="row">
+        <div class="large-3 columns">Repository</div>
+        <div class="large-9 columns">
+          <input type="text" name="item.RepositoryUrl" id="item_RepositoryUrl" value="${?item.RepositoryUrl}" />
+        </div>
+      </div>
+
+      <div class="row">
         <div class="large-3 columns">Comments</div>
         <div class="large-9 columns">
           <textarea type="text" id="item_Comments" name="item.Comments">${?item.Comments}</textarea>
