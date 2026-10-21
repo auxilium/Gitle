@@ -1855,3 +1855,25 @@ ul.reports-applications-list {
   max-height: 50vh;
   overflow: scroll;
 }
+
+.chosen-container.chosen-container-single#customerId_chosen {
+  margin-bottom: 1rem;
+
+  .chosen-single {
+    background: none;
+    border-radius: 0;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    border-color: #ccc;
+    padding: 0.5rem;
+    height: 2.3125rem;
+
+    span {
+      line-height: 1.3rem;
+      font-size: 0.875rem;
+    }
+
+    div {
+      top: 0.4rem;
+    }
+  }
+}
