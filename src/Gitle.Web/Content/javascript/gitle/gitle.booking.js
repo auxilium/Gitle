@@ -39,11 +39,17 @@
   });
 
   var addEditListeners = function (row) {
-    row.find('.booking-edit-cancel').on('click', function (e) {
+    var bookingEditCancelFunc = function (e) {
       e.preventDefault();
       row.find('.booking-row-edit').remove();
       row.find('.booking-row-content').show();
       activeRow = undefined;
+    };
+    row.find('.booking-edit-cancel').on('click', bookingEditCancelFunc);
+    row.parents('body').on('keyup', function (e) {
+      if (e.key === 'Escape') {
+        bookingEditCancelFunc(e);
+      }
     });
   };
 

@@ -175,11 +175,17 @@ $(function () {
   });
 
   var addEditListeners = function (row) {
-    row.find('.booking-edit-cancel').on('click', function (e) {
+    var bookingEditCancelFunc = function (e) {
       e.preventDefault();
       row.find('.booking-row-edit').remove();
       row.find('.booking-row-content').show();
       activeRow = undefined;
+    };
+    row.find('.booking-edit-cancel').on('click', bookingEditCancelFunc);
+    row.parents('body').on('keyup', function (e) {
+      if (e.key === 'Escape') {
+        bookingEditCancelFunc(e);
+      }
     });
   };
 
@@ -255,9 +261,9 @@ $(function () {
         row.find('.booking_Issue_Id').val(suggestion.data);
         row.find('.booking_Issue_Id').trigger('change');
         row.find('.issue-chooser').val(suggestion.value);
-        if (suggestion.extraValue === 'Done') row.find('.issue-chooser').css('color', 'green');
-        if (suggestion.extraValue === 'Closed') row.find('.issue-chooser').css('color', 'red');
-        if (suggestion.extraValue === 'Hold') row.find('.issue-chooser').css('color', 'orange');
+        if (suggestion.extraValue === 'Done') row.find('.issue-chooser').css('color','green');
+        if (suggestion.extraValue === 'Closed') row.find('.issue-chooser').css('color','red');
+        if (suggestion.extraValue === 'Hold') row.find('.issue-chooser').css('color','orange');
         row.find('.booking_Comment').prop("required", false);
         if (suggestion.extraValue2 == "subsidized") {
           setSubsidized(row);
@@ -266,7 +272,7 @@ $(function () {
         }
         $(document).foundation('abide', 'reflow');
       },
-      formatResult: function (suggestion, currentValue) {
+      formatResult: function(suggestion, currentValue) {
         var result = $.Autocomplete.formatResult(suggestion, currentValue);
         if (suggestion.extraValue === 'Done') {
           result = '<div class="green">' + result + ' (uitgevoerd)</div>';
@@ -279,7 +285,7 @@ $(function () {
         }
         return result;
       }
-    }).blur(function () {
+    }).blur(function() {
       if ($(this).val() == '') {
         row.find('.booking_Issue_Id').val('');
       }
@@ -303,7 +309,7 @@ $(function () {
       }
     });
 
-    row.find('.new-issue').click(function () {
+    row.find('.new-issue').click(function() {
       var projectSlug = row.find('.booking_Project_Slug').val();
       if (projectSlug == "") {
         return false;
@@ -311,16 +317,16 @@ $(function () {
       $('#newIssue').foundation('reveal', 'open', {
         url: '/project/' + projectSlug + '/issue/new?cancelLayout=true',
         success: function (data) {
-          setTimeout(function () {
+          setTimeout(function() {
             var gitleIssues = new GitleIssues();
             gitleIssues.initTimeParser();
-            $('#newIssue').find('form').submit(function (e) {
+            $('#newIssue').find('form').submit(function(e) {
               e.preventDefault();
               $.ajax({
                 url: '/project/' + projectSlug + '/issue/0/ajaxsave',
                 method: 'POST',
                 data: $(this).serialize(),
-                success: function (data) {
+                success: function(data) {
                   row.find('.booking_Issue_Id').val(data.Id).parent().removeClass('error');
                   row.find('.issue-chooser').val('#' + data.Number + ' - ' + data.Name);
                   row.find('.booking_Comment').prop("required", false).focus();
@@ -329,13 +335,13 @@ $(function () {
                 }
               });
             });
-            $('#newIssue').find('#back-button').on('click', function (e) {
+            $('#newIssue').find('#back-button').on('click', function(e) {
               e.preventDefault();
               $('#newIssue').foundation('reveal', 'close');
             });
           }, 100);
         }
-      }).on('opened.fndtn.reveal', function () {
+      }).on('opened.fndtn.reveal', function() {
         $(this).find('[name="item.Name"]').focus();
       });
     });
@@ -433,6 +439,8 @@ $('.dropdown').each(function () {
   });
 });
 
+
+
 $(function () {
   var computeHoursForIssue = function (issueNumber) {
     var issueLine = $('.invoiceline[data-issue=' + issueNumber + ']');
@@ -462,13 +470,13 @@ $(function () {
     var linesPrice = 0.0;
     $('.invoiceline').each(function () {
       var linePrice = parseFloat($(this).find('.invoiceline-price').val().replace(',', '.')) * (1 - parseInt($(this).find('.invoiceline-null').val()));
-      linesPrice += linePrice;
+        linesPrice += linePrice;
     });
     var correctionLinesPrice = 0.0;
     $('.correctionline').each(function () {
       var correctionValue = $(this).find('.correctionline-price').val();
       if (correctionValue)
-        correctionLinesPrice += parseFloat(correctionValue.replace(',', '.'));
+          correctionLinesPrice += parseFloat(correctionValue.replace(',', '.'));
     });
     subtotalPrice = linesPrice + correctionLinesPrice;
     $('#invoice_Subtotal').val(round(subtotalPrice, 2).toString().replace(".", ","));
@@ -587,7 +595,7 @@ $(function () {
     });
   });
 
-  $('.correctionline').each(function (index) {
+  $('.correctionline').each(function(index) {
     var priceText = $(this).find('.correctionline-price').val() || $(this).find('.correctionline-price').text();
     var price = parseFloat(priceText.replace(',', '.'));
     if ((!isNaN(price) && price !== 0) || index === 0) {
@@ -605,9 +613,9 @@ $(function () {
 
   $('.correctionline').find('.correctionline-price').keydown(function (e) {
     if (e.key === "Tab" || e.keyCode === 9 || e.which === 13) {
-      e.preventDefault();
-      $(this).parents('.correctionline').next('.correctionline').show();
-    }
+        e.preventDefault();
+        $(this).parents('.correctionline').next('.correctionline').show();
+     }
   });
 
   $('[data-booking]').each(function () {
@@ -633,11 +641,10 @@ $(function () {
     });
   });
 });
-
 function GitleIssues() { }
 
 GitleIssues.prototype = {
-  init: function () {
+  init: function() {
     this.initFilters();
     this.initThreeStateChecker();
     this.initGroupActions();
@@ -680,7 +687,7 @@ GitleIssues.prototype = {
 
   },
 
-  initThreeStateChecker: function () {
+  initThreeStateChecker: function() {
     $('.three-state-checker').each(function () {
       var checker = $(this);
       checker.append('<i class="fa fa-square-o none"></i><i class="fa fa-check-square-o all"></i><i class="fa fa-minus-square-o some"></i>');
@@ -713,7 +720,7 @@ GitleIssues.prototype = {
     });
   },
 
-  initGroupActions: function () {
+  initGroupActions: function() {
     $('#group-actions').hide();
     $('.issues input[type=checkbox][name=issue]').change(function () {
       var checkedBoxes = $('.issues input[type=checkbox][name=issue]:checked');
@@ -744,7 +751,7 @@ GitleIssues.prototype = {
     });
   },
 
-  initQuickView: function () {
+  initQuickView: function() {
     var quickviewDelay = 800;
     $('[data-quickview]').hover(function () {
       var link = $(this);
@@ -806,7 +813,7 @@ GitleIssues.prototype = {
     });
   },
 
-  initTimeParser: function () {
+  initTimeParser: function() {
     $('.time-parser').blur(function () {
       var value = $(this).val();
       if (value === "" || value === "0") return;
@@ -824,7 +831,7 @@ GitleIssues.prototype = {
     });
   },
 
-  bookingRowInit: function () {
+  bookingRowInit: function() {
     var row = $('.project-chooser-issue').parent();
 
     row.find('.project-chooser-issue').data('suggestion', undefined);
@@ -834,7 +841,7 @@ GitleIssues.prototype = {
       autoSelectFirst: true,
       noCache: true,
       minChars: 0,
-      onSelect: function (suggestion) {
+      onSelect: function(suggestion) {
         var projectChooser = row.find('.project-chooser-issue');
         if (projectChooser.data('suggestion') != undefined && projectChooser.data('suggestion') == suggestion.data) return false;
         projectChooser.data('suggestion', suggestion.data).val(suggestion.value);
@@ -842,7 +849,7 @@ GitleIssues.prototype = {
         row.find('.issue_Project_Slug').val(suggestion.extraValue3);
       }
     }).on('focus',
-      function () {
+      function() {
         $(this).autocomplete().onValueChange();
       });;
   }
