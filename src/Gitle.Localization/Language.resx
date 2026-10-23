@@ -849,4 +849,10 @@
   <data name="Required" xml:space="preserve">
     <value>Verplicht</value>
   </data>
+  <data name="Subsidized_False" xml:space="preserve">
+    <value>Geen WBSO</value>
+  </data>
+  <data name="Subsidized" xml:space="preserve">
+    <value>WBSO</value>
+  </data>
 </root>

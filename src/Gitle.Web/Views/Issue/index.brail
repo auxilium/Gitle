@@ -245,10 +245,14 @@
       <a href="/project/${project.Slug}/changestate?state=4" data-group-action class="button tiny no-margin alert"><i class="fa fa-ban"></i> ${t.Close}</a>
       <a href="/project/${project.Slug}/changestate?state=1" data-group-action class="button tiny no-margin"><i class="fa fa-info-circle"></i> ${t.Open}</a>
       <a href="/project/${project.Slug}/changestate?state=3" data-group-action class="button tiny no-margin on-hold"><i class="fa fa-hand-paper-o"></i> ${t.OnHold}</a>
-	      <a href="/project/${project.Slug}/changestate?state=6" data-group-action class="button tiny no-margin"><i class="fa fa-exclamation-circle red"></i> ${t.Urgent}</a>
+      <a href="/project/${project.Slug}/changestate?state=6" data-group-action class="button tiny no-margin"><i class="fa fa-exclamation-circle red"></i> ${t.Urgent}</a>
       <% if CurrentUser.IsAdmin: %>
       <a href="/project/${project.Slug}/changestate?state=2" data-group-action class="button tiny no-margin success"><i class="fa fa-thumbs-o-up"></i> ${t.Completed}</a>
       <a href="/project/${project.Slug}/changestate?state=5" data-group-action class="button tiny no-margin alert"><i class="fa fa-trash"></i> ${t.Archive}</a>
+      <% end %>
+      <% if CurrentUser.IsDanielle: %>
+      <a href="/project/${project.Slug}/changesubsidized?subsidized=true" data-group-action class="button tiny no-margin on-hold"><i class="fa fa-check"></i> ${t.Subsidized}</a>
+      <a href="/project/${project.Slug}/changesubsidized?subsidized=false" data-group-action class="button tiny no-margin secondary"><i class="fa fa-times"></i> ${t.Subsidized_False}</a>
       <% end %>
     </div>
   </div>

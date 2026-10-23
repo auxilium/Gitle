@@ -2023,6 +2023,24 @@ namespace Gitle.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WBSO.
+        /// </summary>
+        public static string Subsidized {
+            get {
+                return ResourceManager.GetString("Subsidized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen WBSO.
+        /// </summary>
+        public static string Subsidized_False {
+            get {
+                return ResourceManager.GetString("Subsidized_False", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zondag.
         /// </summary>
         public static string Sunday {

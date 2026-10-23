@@ -347,6 +347,31 @@ namespace Gitle.Web.Controllers
             RedirectToReferrer();
         }
 
+        [Danielle]
+        public void ChangeSubsidized(string projectSlug, string issues, bool subsidized)
+        {
+            var project = session.SlugOrDefault<Project>(projectSlug);
+            if (project.Closed)
+            {
+                throw new ProjectClosedException(project);
+            }
+            var issueIds = issues.Split(',');
+
+            using (var transaction = session.BeginTransaction())
+            {
+                foreach (var issueId in issueIds.Select(int.Parse))
+                {
+                    var issue = session.Query<Issue>().FirstOrDefault(i => i.Number == issueId && i.Project == project);
+                    issue.Subsidized = subsidized;
+                    session.SaveOrUpdate(issue);
+                }
+
+                transaction.Commit();
+            }
+
+            RedirectToReferrer();
+        }
+
         [Admin]
         public void Comments(string projectSlug, string comment)
         {
