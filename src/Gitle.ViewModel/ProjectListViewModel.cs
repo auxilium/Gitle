@@ -17,7 +17,7 @@
             Customer = project.Application?.Customer?.Name;
             Type = project.TypeString;
             Closed = project.Closed;
-            Urgent = project.Issues.Any(i => i.ChangeStates.Last().IssueState == IssueState.Urgent);
+            Urgent = project.Issues.Any(i => i.ChangeStates.LastOrDefault()?.IssueState == IssueState.Urgent);
             Subsidized = project.Subsidized;
         }
 
