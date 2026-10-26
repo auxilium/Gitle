@@ -41,6 +41,8 @@
 
     /// <summary>Eligible for WBSO</summary>
     public virtual bool Subsidized { get; set; }
+    public virtual SubsidyProject? SubsidyProject { get; set; }
+    public virtual SubsidyProjectSection? SubsidyProjectSection { get; set; }
 
     public virtual bool Closed { get; set; }
 

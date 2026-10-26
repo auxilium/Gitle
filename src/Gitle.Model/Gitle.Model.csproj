@@ -96,6 +96,8 @@
     <Compile Include="Document.cs" />
     <Compile Include="DummyIssue.cs" />
     <Compile Include="Enum\CertificateExtendOption.cs" />
+    <Compile Include="Enum\SubsidyProjectSection.cs" />
+    <Compile Include="Enum\SubsidyProject.cs" />
     <Compile Include="Enum\CertificateType.cs" />
     <Compile Include="Enum\InstallationType.cs" />
     <Compile Include="Enum\InvoiceState.cs" />

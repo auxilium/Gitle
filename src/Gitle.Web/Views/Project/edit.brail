@@ -60,6 +60,14 @@
         <div class="large-3 columns">WBSO</div>
         <div class="large-9 columns">${Form.CheckboxField("item.Subsidized")}</div>
       </div>
+      <div class="row">
+        <div class="large-3 columns">WBSO project</div>
+        <div class="large-9 columns">${Form.Select("item.SubsidyProject", subsidyProjects, {"value": "Key", "text": "Value", "firstoption": "Kies WBSO project"})}</div>
+      </div>
+      <div class="row">
+        <div class="large-3 columns">WBSO hoofdonderdeel</div>
+        <div class="large-9 columns">${Form.Select("item.SubsidyProjectSection", subsidyProjectSections, {"value": "Key", "text": "Value", "firstoption": "Kies WBSO hoofdonderdeel"})}</div>
+      </div>
       <% end %>
       <% if CurrentUser.IsDanielle: %>
       <div class="row">

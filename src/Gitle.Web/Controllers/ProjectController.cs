@@ -175,6 +175,8 @@ namespace Gitle.Web.Controllers
             }
             PropertyBag.Add("newNumbers", _projectNumberService.GetNextProjectNumbers());
             PropertyBag.Add("types", EnumHelper.ToList(typeof(ProjectType)));
+            PropertyBag.Add("subsidyProjects", EnumHelper.ToDictionary(typeof(SubsidyProject)));
+            PropertyBag.Add("subsidyProjectSections", EnumHelper.ToDictionary(typeof(SubsidyProjectSection)));
             PropertyBag.Add("item", new Project());
             PropertyBag.Add("selectedUsers", new List<User>());
             PropertyBag.Add("developers", session.Query<User>().Where(x => x.IsActive && x.IsAdmin).OrderBy(x => x.Name).ToList());
@@ -189,6 +191,8 @@ namespace Gitle.Web.Controllers
             PropertyBag.Add("applications", session.Query<Application>().Where(x => x.IsActive).OrderBy(x => x.Name));
             PropertyBag.Add("applicationId", session.Query<Application>().Where(x => x.Projects.Contains(project)));
             PropertyBag.Add("types", EnumHelper.ToList(typeof(ProjectType)));
+            PropertyBag.Add("subsidyProjects", EnumHelper.ToDictionary(typeof(SubsidyProject)));
+            PropertyBag.Add("subsidyProjectSections", EnumHelper.ToDictionary(typeof(SubsidyProjectSection)));
             PropertyBag.Add("item", project);
             PropertyBag.Add("customerId", project.Application?.Customer?.Id);
             PropertyBag.Add("newNumbers", _projectNumberService.GetNextProjectNumbers());
