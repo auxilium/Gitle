@@ -107,14 +107,17 @@
     public static string BookingsCsv(IList<Booking> bookings)
     {
       const string rowTemplate =
-     "\"{2}\"{0}\"{3}\"{0}\"{4}\"{0}\"{5}\"{0}\"{6}\"{0}\"{7}\"{0}\"{8}\"{0}\"{9}\"{0}\"{10}\"{0}{1}";
+     "\"{2}\"{0}\"{3}\"{0}\"{4}\"{0}\"{5}\"{0}\"{6}\"{0}\"{7}\"{0}\"{8}\"{0}\"{9}\"{0}\"{10}\"{0}\"{11}\"{0}\"{12}\"{0}\"{13}\"{0}{1}";
 
       var header = string.Format(rowTemplate, fieldseparator, lineEnd,
                                           "Minuten",
                                           "Datum",
                                           "Gebruiker",
+                                          "Booking-ID",
+                                          "Project-ID",
                                           "Projectnummer",
                                           "Project",
+                                          "Issue-ID",
                                           "Taak",
                                           "Omschrijving",
                                           "Billable",
@@ -130,8 +133,11 @@
                               booking.Minutes,
                               booking.Date.ToShortDateString(),
                               booking.User.FullName,
+                              booking.Id,
+                              booking.Project.Id,
                               booking.Project.Number,
                               booking.Project.Name,
+                              booking.Issue != null ? booking.Issue.Id.ToString() : "N/A",
                               issueNumber,
                               issueName,
                               booking.Unbillable ? "Nee" : "Ja",
