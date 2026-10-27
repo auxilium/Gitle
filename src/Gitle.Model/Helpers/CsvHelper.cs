@@ -15,11 +15,12 @@
     public static string IssuesCsv(Project project, IList<Issue> issues)
     {
       const string rowTemplate =
-          "\"{2}\"{0}\"{3}\"{0}\"{4}\"{0}\"{5}\"{0}\"{6}\"{0}\"{7}\"{0}\"{8}\"{0}\"{9}\"{0}\"{10}\"{0}\"{11}\"{0}\"{12}\"{0}\"{13}\"{0}\"{14}\"{0}\"{15}\"{0}{1}";
+          "\"{2}\"{0}\"{3}\"{0}\"{4}\"{0}\"{5}\"{0}\"{6}\"{0}\"{7}\"{0}\"{8}\"{0}\"{9}\"{0}\"{10}\"{0}\"{11}\"{0}\"{12}\"{0}\"{13}\"{0}\"{14}\"{0}\"{15}\"{0}\"{16}\"{0}{1}";
 
       var header = string.Format(rowTemplate, fieldseparator, lineEnd,
                                     "Taaknummer",
                                     "Naam",
+                                    "WBSO",
                                     "Geopend op",
                                     "Geopend door",
                                     "Gesloten op",
@@ -39,6 +40,7 @@
         rows += string.Format(rowTemplate, fieldseparator, lineEnd,
                               issue.Number,
                               issue.Name,
+                              issue.Subsidized,
                               issue.CreatedAt?.ToString("yyyy-MM-dd"),
                               issue.CreatedBy?.FullName,
                               !issue.IsOpen ? issue.ClosedAt?.ToString("yyyy-MM-dd") : "",
@@ -60,13 +62,14 @@
     public static string OpenIssuesCsv(IList<Issue> issues)
     {
       const string rowTemplate =
-          "\"{2}\"{0}\"{3}\"{0}\"{4}\"{0}\"{5}\"{0}\"{6}\"{0}\"{7}\"{0}\"{8}\"{0}\"{9}\"{0}\"{10}\"{0}\"{11}\"{0}\"{12}\"{0}\"{13}\"{0}\"{14}\"{0}\"{15}\"{0}{1}";
+          "\"{2}\"{0}\"{3}\"{0}\"{4}\"{0}\"{5}\"{0}\"{6}\"{0}\"{7}\"{0}\"{8}\"{0}\"{9}\"{0}\"{10}\"{0}\"{11}\"{0}\"{12}\"{0}\"{13}\"{0}\"{14}\"{0}\"{15}\"{0}\"{16}\"{0}{1}";
 
       var header = string.Format(rowTemplate, fieldseparator, lineEnd,
                                     "ProjectType",
                                     "Project",
                                     "Taaknummer",
                                     "Naam",
+                                    "WBSO",
                                     "Geopend op",
                                     "Geopend door",
                                     "Totale schatting in uren",
@@ -86,6 +89,7 @@
                               issue.Project.Name,
                               issue.Number,
                               issue.Name,
+                              issue.Subsidized,
                               issue.CreatedAt?.ToString("yyyy-MM-dd"),
                               issue.CreatedBy?.FullName,
                               issue.TotalHours,
@@ -107,19 +111,24 @@
     public static string BookingsCsv(IList<Booking> bookings)
     {
       const string rowTemplate =
-     "\"{2}\"{0}\"{3}\"{0}\"{4}\"{0}\"{5}\"{0}\"{6}\"{0}\"{7}\"{0}\"{8}\"{0}\"{9}\"{0}\"{10}\"{0}\"{11}\"{0}\"{12}\"{0}\"{13}\"{0}{1}";
+     "\"{2}\"{0}\"{3}\"{0}\"{4}\"{0}\"{5}\"{0}\"{6}\"{0}\"{7}\"{0}\"{8}\"{0}\"{9}\"{0}\"{10}\"{0}\"{11}\"{0}\"{12}\"{0}\"{13}\"{0}\"{14}\"{0}\"{15}\"{0}\"{16}\"{0}\"{17}\"{0}\"{18}\"{0}{1}";
 
       var header = string.Format(rowTemplate, fieldseparator, lineEnd,
                                           "Minuten",
                                           "Datum",
                                           "Gebruiker",
                                           "Booking-ID",
+                                          "WBSO",
                                           "Project-ID",
                                           "Projectnummer",
                                           "Project",
+                                          "WBSO Project",
+                                          "WBSO project",
+                                          "WBSO hoofdonderdeel",
                                           "Issue-ID",
                                           "Taak",
                                           "Omschrijving",
+                                          "WBSO issue",
                                           "Billable",
                                           "Opmerking");
 
@@ -134,12 +143,17 @@
                               booking.Date.ToShortDateString(),
                               booking.User.FullName,
                               booking.Id,
+                              booking.Subsidized,
                               booking.Project.Id,
                               booking.Project.Number,
                               booking.Project.Name,
+                              booking.Project.Subsidized,
+                              booking.Project.SubsidyProject?.GetDescription(),
+                              booking.Project.SubsidyProjectSection?.GetDescription(),
                               booking.Issue != null ? booking.Issue.Id.ToString() : "N/A",
                               issueNumber,
                               issueName,
+                              booking.Issue?.Subsidized ?? false,
                               booking.Unbillable ? "Nee" : "Ja",
                               booking.Comment
             );
@@ -231,13 +245,16 @@
     public static string ProjectCsv(IList<Project> projects)
     {
       const string rowTemplate =
-          "\"{2}\"{0}\"{3}\"{0}\"{4}\"{0}\"{5}\"{0}\"{6}\"{0}\"{7}\"{0}\"{8}\"{0}\"{9}\"{0}\"{10}\"{0}\"{11}\"{0}\"{12}\"{0}\"{13}\"{0}\"{14}\"{0}\"{15}\"{0}\"{16}\"{0}{1}";
+          "\"{2}\"{0}\"{3}\"{0}\"{4}\"{0}\"{5}\"{0}\"{6}\"{0}\"{7}\"{0}\"{8}\"{0}\"{9}\"{0}\"{10}\"{0}\"{11}\"{0}\"{12}\"{0}\"{13}\"{0}\"{14}\"{0}\"{15}\"{0}\"{16}\"{0}\"{17}\"{0}\"{18}\"{0}\"{19}\"{0}{1}";
 
       var header = string.Format(rowTemplate, fieldseparator, lineEnd,
                                     "Klant",
                                     "Applicatie",
                                     "Projectnummer",
                                     "Project",
+                                    "WBSO",
+                                    "WBSO project",
+                                    "WBSO hoofdonderdeel",
                                     "Project Id",
                                     "Type",
                                     "Klantcontacten",
@@ -270,6 +287,9 @@
                               project.Application?.Name,
                               project.Number,
                               project.Name,
+                              project.Subsidized,
+                              project.SubsidyProject?.GetDescription(),
+                              project.SubsidyProjectSection?.GetDescription(),
                               project.Id,
                               project.TypeString,
                               customerString,
