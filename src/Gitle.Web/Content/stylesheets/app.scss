@@ -1537,7 +1537,11 @@ input[type=checkbox].inline {
   span.fa-stack {
     font-size: 0.8em;
     position: absolute;
-    left: 2.5em;
+    left: 0;
+
+    &:not(:first-child) {
+      left: 2.5em;
+    }
   }
 
   :hover {

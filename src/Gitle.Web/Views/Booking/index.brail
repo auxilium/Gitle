@@ -117,18 +117,26 @@
             </div>
             <div class="large-1 columns">
               <div class=" row booking-issue">
-                <div class="small-8 columns">
+                <div class="small-6 columns">
                   <% if booking.Issue: %>
                   <a href="/project/${booking.Issue.Project.Slug}/issue/${booking.Issue.Number}/view" data-quickview="/project/${booking.Issue.Project.Slug}/issue/${booking.Issue.Number}/quickview">#${booking.Issue.Number}</a>
                   <% end %>
                 </div>
-                <div class="small-4 columns">
+                <div class="small-3 columns end">
                   <% if not booking.Unbillable: %>
                   <i class="fa fa-euro green" title="billable"></i>
                   <% else: %>
                   <i class="fa fa-euro red" title="unbillable"></i>
                   <% end %>
                 </div>
+                <% if CurrentUser.IsDanielle and booking.Subsidized: %>
+                <div class="small-3 columns">
+                  <span class="fa-stack fa-fw" title="WBSO">
+                    <i class="fa fa-certificate orange fa-stack-2x"></i>
+                    <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                  </span>
+                </div>
+                <% end %>
               </div>
             </div>
             <div class="large-5 columns end">
