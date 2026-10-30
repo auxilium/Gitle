@@ -97,7 +97,6 @@
             PropertyBag.Add("project", project);
 
             var item = session.Query<Issue>().Single(i => i.Number == issueId && i.Project == project);
-            var statusString = string.Concat(Language.ResourceManager.GetString(item.State.ToString()).Select((currentChar, index) => index == 0 ? char.ToUpper(currentChar) : currentChar));
             var statusInt = item.State;
 
             var issueStates = EnumHelper.ToDictionary(typeof(IssueState));
