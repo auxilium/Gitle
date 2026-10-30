@@ -331,10 +331,10 @@
       <% for booking in groupedBooking.Bookings: %>
       <div class="booking-row" data-id="${booking.Id}">
         <div class="row booking-row-content">
-          <div class="large-1 small-6 columns">
+          <div class="large-1 small-6 columns booking-minutes">
             <span class="booking-minutes">${booking.Time}</span>
           </div>
-          <div class="large-1 small-6 small-text-right columns">
+          <div class="large-1 small-6 small-text-right columns booking-date">
             <div class="booking-date">${booking.Date.ToString("dd-MM-yy")}</div>
           </div>
           <div class="large-2 columns">
@@ -367,7 +367,7 @@
               </div>
             </div>
           </div>
-          <div class="large-4 small-9 columns end">
+          <div class="large-4 small-9 columns end booking-comment">
             <% if booking.Comment == null or booking.Comment == "": %>
             <% if booking.Issue: %>
             <span class="booking-comment" title="#${booking.Issue.Number} - !{booking.Issue.Name}">#${booking.Issue.Number} - !{booking.Issue.ShortName()}</span>

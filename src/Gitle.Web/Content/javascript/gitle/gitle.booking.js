@@ -2,6 +2,8 @@
   var activeRow = undefined;
   var bookingEditFunc = function (e) {
     e.preventDefault();
+    var targetClassNames = e.target.className.split(' ').filter(x => x.startsWith('booking-'));
+    var targetClassName = targetClassNames.length > 0 ? targetClassNames[0] : undefined;
     var row = $(this).parents('.booking-row');
     if (activeRow != undefined) {
       activeRow.find('.booking-row-edit').remove();
@@ -19,6 +21,10 @@
         row.prepend(data);
         addEditListeners(row);
         bookingRowInit(row);
+        if (targetClassName !== undefined) {
+          var targetField = row.find('.' + targetClassName + '-edit');
+          if (targetField.length > 0) targetField[0].select();
+        }
       }
     });
   }

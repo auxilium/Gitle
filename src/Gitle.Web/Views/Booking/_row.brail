@@ -6,7 +6,7 @@
       <input type="text" class="booking-minutes-edit booking-edit-field booking-parser" data-minutes-field="#booking_Minutes" value="${booking.Time}">
     </div>
     <div class="large-1 columns no-padding end">
-      <input type="text" name="booking.Date" class="date booking-edit-field" placeholder="Eerder" value="${booking.Date.ToString(" dd-MM-yyyy")}">
+      <input type="text" name="booking.Date" class="date booking-edit-field booking-date-edit" placeholder="Eerder" value="${booking.Date.ToString(" dd-MM-yyyy")}">
     </div>
     <div class="large-3 columns no-padding">
       <input type="hidden" name="projectId" class="booking_Project_Id" value="${booking.Project.Id}" />
