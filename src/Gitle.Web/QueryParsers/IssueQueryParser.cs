@@ -231,7 +231,7 @@
                     .ThenBy(x => x.Pickups.Count == 0)
                     .ThenBy(x => x.PrioOrder == 0)
                     .ThenBy(x => x.PrioOrder)
-                    .ThenByDescending(x => x.ChangeStates.Max(cs => cs.CreatedAt))
+                    .ThenByDescending(x => x.ChangeStates.Count > 0 ? x.ChangeStates.Max(cs => cs.CreatedAt) : DateTime.Now)
                     .ToList();
             }
 

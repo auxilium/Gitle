@@ -668,9 +668,9 @@
             var issues = session.Query<Issue>()
                 .Where(x => x.Project.Slug == projectSlug && x.Pickups.Count == 0)
                 .ToList()
-                .Where(x => x.ChangeStates.Last().IssueState == IssueState.Open)
+                .Where(x => x.ChangeStates.LastOrDefault()?.IssueState == IssueState.Open)
                 .OrderByDescending(x => x.Prioritized)
-                .Where(x => x.ChangeStates.Last().IssueState == IssueState.Urgent)
+                .Where(x => x.ChangeStates.LastOrDefault()?.IssueState == IssueState.Urgent)
                 .OrderByDescending(x => x.Prioritized)
                 .ThenBy(x => x.PrioOrder)
                 .ThenByDescending(x => x.Number);
